@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Vectorization
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine you are building an AI model and you need to multiply every number in an array of 10 million items by 2. You write a standard Python `for` loop. You start the script, go get a coffee, come back, and it's still running. Python is an interpreted language, and doing math in a standard loop is incredibly slow. You need a way to push that math down to the C level where it runs at lightspeed. This is exactly why vectorization matters.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you are a teacher grading 100 math tests.
 
@@ -34,7 +34,7 @@ Vectorization is like having a magical scanner. You put the entire stack of 100 
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Vectorization is the process of rewriting a loop so that instead of processing a single element at a time, it processes an entire array of elements simultaneously.
 
@@ -44,7 +44,7 @@ Bro, if you are doing math on lists with a `for` loop, you are doing it wrong.
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | The Slow Way (Python Loop) | The Fast Way (Vectorized) |
 |---|---|---|
@@ -55,7 +55,7 @@ Bro, if you are doing math on lists with a `for` loop, you are doing it wrong.
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's say we have two lists of 1 million numbers, and we want to multiply them together.
 
@@ -84,7 +84,7 @@ Bro, the vectorized version is instantly readable (`arr_a * arr_b`) and is over 
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In data engineering and AI, you frequently need to normalize data (subtracting the mean and dividing by the standard deviation).
 
@@ -110,7 +110,7 @@ The `normalize_fast` function will execute in milliseconds. If you ran `normaliz
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   elements={[
@@ -154,7 +154,7 @@ Under the hood, NumPy arrays store data in contiguous blocks of C memory (unlike
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Operation on 1M items | Python List | NumPy Vectorized | Speedup |
 |---|---|---|---|
@@ -165,7 +165,7 @@ Under the hood, NumPy arrays store data in contiguous blocks of C memory (unlike
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer | Explanation & Tricks |
 |---|---|---|
@@ -175,7 +175,7 @@ Under the hood, NumPy arrays store data in contiguous blocks of C memory (unlike
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Scenario:** Vectorizing conditional logic (`if/else`).
 You can't use standard Python `if/else` on a NumPy array because it will try to evaluate the whole array as a single boolean (raising a `ValueError`).
@@ -190,7 +190,7 @@ If your array only has 10 elements, the overhead of converting it to a NumPy arr
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Financial Modeling:** Calculating rolling averages and compound interest across years of stock market data.
 - **Machine Learning:** Every neural network framework (PyTorch, TensorFlow) relies heavily on vectorized tensor operations to train models on GPUs.
@@ -198,7 +198,7 @@ If your array only has 10 elements, the overhead of converting it to a NumPy arr
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -208,21 +208,21 @@ If your array only has 10 elements, the overhead of converting it to a NumPy arr
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, NumPy arrays use contiguous memory. If you try to vectorize an operation on a 10-Gigabyte dataset on a machine with only 8GB of RAM, your program will crash instantly because it can't find a single continuous block of memory that large. For data that exceeds RAM, you must chunk the data, or use tools like Dask.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Appending to NumPy Arrays:** People try to use `np.append(arr, new_val)` inside a loop. This is horribly slow because it creates a brand new copy of the entire array every time.
 - **Using `math` instead of `np`:** Doing `[math.sqrt(x) for x in np_array]`. You just defeated the purpose of the NumPy array by dragging it back into a Python loop. Use `np.sqrt(np_array)`.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - NumPy Performance
 - Memory Optimization

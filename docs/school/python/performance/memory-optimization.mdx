@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Memory Optimization
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine your app runs perfectly on your developer laptop with 32GB of RAM. You deploy it to a cheap $5/month cloud server. Ten minutes later, the server crashes with an Out Of Memory (OOM) error. You realize your code was loading a 10GB CSV file entirely into memory at once instead of processing it line by line. This is exactly why memory optimization matters. Without it, your application becomes a resource hog that is impossible to scale affordably.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you are a chef making 10,000 pizzas.
 
@@ -34,7 +34,7 @@ Good memory optimization is taking out one pizza, baking it, serving it, and the
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Memory optimization in Python means writing code that uses the least amount of RAM necessary. Python is notorious for being memory-heavy because everything is an object. An empty list in Python uses significantly more memory than a C array.
 
@@ -42,7 +42,7 @@ To optimize memory, you need to understand data structures, generators, `__slots
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Technique | When to Use | Memory Impact |
 |---|---|---|
@@ -53,7 +53,7 @@ To optimize memory, you need to understand data structures, generators, `__slots
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at the difference between returning a list vs using a generator.
 
@@ -85,7 +85,7 @@ Bro, notice the generator takes almost zero memory, regardless of how large `n` 
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In backend engineering, reading massive files (like CSV logs) is a common cause of memory crashes.
 
@@ -113,7 +113,7 @@ The second example will use almost no RAM, even if the log file is 100GB.
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   elements={[
@@ -150,7 +150,7 @@ By default, Python objects use a dictionary (`__dict__`) to store their attribut
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Structure | Default Memory | Optimized Memory | Optimization Strategy |
 |---|---|---|---|
@@ -160,7 +160,7 @@ By default, Python objects use a dictionary (`__dict__`) to store their attribut
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer | Explanation & Tricks |
 |---|---|---|
@@ -170,7 +170,7 @@ By default, Python objects use a dictionary (`__dict__`) to store their attribut
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Scenario:** `__slots__` and Inheritance.
 If Class A uses `__slots__` but Class B inherits from Class A and *doesn't* declare `__slots__`, Class B will still generate a `__dict__` and waste memory.
@@ -181,14 +181,14 @@ If you process a 10GB file using a generator, but you append every result to a g
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Data Engineering:** Streaming rows from a database or a Parquet file through a transformation pipeline without loading the whole dataset into RAM.
 - **Game Development / Simulations:** Creating millions of particle objects. Using `__slots__` ensures the game doesn't crash on machines with low RAM.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -198,21 +198,21 @@ If you process a 10GB file using a generator, but you append every result to a g
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, Out of Memory (OOM) errors are vicious. The OS will just brutally kill your Python process without throwing a catchable exception (`SIGKILL`). If your web workers are silently dying and restarting under heavy load, check your memory usage. You are probably buffering a giant payload instead of streaming it.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Premature Optimization:** Adding `__slots__` to every single class in your app. It makes the code rigid and only matters if you are creating *thousands* of instances of that class.
 - **Not understanding GC:** Thinking that memory is instantly freed when a function ends. Circular references can keep memory tied up until the Garbage Collector runs.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Garbage Collection
 - Generators and Iterators

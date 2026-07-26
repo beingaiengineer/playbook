@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Lazy Loading
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine you build a mobile app that shows a list of 10,000 products. When the user opens the app, it tries to download all 10,000 high-resolution product images at once before showing anything. The app freezes for a full minute, drains the user's data plan, and they uninstall it immediately. This is exactly why lazy loading matters. You should only load what the user is actually looking at, exactly when they need to see it.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you are packing a backpack for a 5-day hiking trip.
 
@@ -34,7 +34,7 @@ Lazy loading is packing the uninflated mattress and raw food, and only blowing u
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Lazy loading is a design pattern where you defer initialization of an object, module, or dataset until the exact moment it's accessed.
 
@@ -42,7 +42,7 @@ In Python, this is commonly implemented using properties (`@property`), generato
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Technique | Example | Best For |
 |---|---|---|
@@ -53,7 +53,7 @@ In Python, this is commonly implemented using properties (`@property`), generato
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at a class that processes an expensive dataset.
 
@@ -97,7 +97,7 @@ Bro, notice how the lazy processor starts instantly. If the user clicks a button
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In Python, importing heavy libraries like `tensorflow` or `pandas` can take several seconds. If you are building a Command Line Interface (CLI), users will hate waiting 3 seconds just to run `myapp --help`.
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   elements={[
@@ -171,7 +171,7 @@ The core mechanism is a simple `if data is None` check hiding behind a property 
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Scenario | Eager Loading | Lazy Loading | Winner |
 |---|---|---|---|
@@ -182,7 +182,7 @@ The core mechanism is a simple `if data is None` check hiding behind a property 
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer | Explanation & Tricks |
 |---|---|---|
@@ -192,7 +192,7 @@ The core mechanism is a simple `if data is None` check hiding behind a property 
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Scenario:** Thread safety.
 If two threads access a lazy property at the exact same millisecond, they might *both* see `_data is None` and *both* trigger the heavy loading process.
@@ -203,14 +203,14 @@ If you have a list of 100 users, and you lazily load their `profile_picture` in 
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Django / SQLAlchemy ORMs:** When you query a `User`, it doesn't automatically load all 5,000 of their `Comments` until you specifically loop over `user.comments`.
 - **Machine Learning:** Delaying the loading of PyTorch/TensorFlow models into GPU memory until the API actually receives an inference request.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -220,21 +220,21 @@ If you have a list of 100 users, and you lazily load their `profile_picture` in 
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, understand the tradeoff. Lazy loading shifts the performance hit from *startup time* to *runtime*. For a script or CLI, this is perfect. But for a web API, you often *want* to eager-load heavy models during startup so that the server only accepts traffic when it is 100% ready to respond instantly.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **The N+1 Query Problem:** Over-relying on lazy loading in databases, which results in hundreds of tiny sequential queries instead of one fast JOIN query.
 - **Hidden imports:** Putting `import` statements deep inside loops. Python caches imports, but looking up the module in `sys.modules` inside a tight loop still adds unnecessary overhead.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Memory Optimization
 - Generators and Iterators

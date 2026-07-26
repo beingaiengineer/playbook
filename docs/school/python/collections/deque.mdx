@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Deque
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 A trading application was processing millions of order events per minute. The engineers initially used a standard Python list as a queue, appending new events and popping from the front (`pop(0)`). As the queue grew, the application slowed to a crawl because removing from the front of a list takes O(n) time. By switching to a `deque` (double-ended queue), they achieved O(1) appends and pops from both ends, instantly resolving the performance bottleneck.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of a standard Python `list` like a stack of plates. Adding a plate to the top (the right side) is easy. But pulling a plate out from the absolute bottom (the left side) is hard—you have to lift every single plate above it.
 
@@ -32,7 +32,7 @@ Think of a **`deque`** like a hollow tube open at both ends, bro. You can easily
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 A `deque` (pronounced "deck") stands for Double-Ended Queue.
 
@@ -40,7 +40,7 @@ It is part of the `collections` module. While standard Python lists are highly o
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Operation | Code | Speed |
 |---|---|---|
@@ -53,7 +53,7 @@ It is part of the `collections` module. While standard Python lists are highly o
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 ```python
 from collections import deque
@@ -93,7 +93,7 @@ Bro, notice we used `.popleft()`. If this was a standard list, we would have use
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Deques are fantastic for keeping track of the "last N events" in a monitoring system. They support a `maxlen` argument. If the deque is full, adding a new item automatically pushes the oldest item out the other end!
 
@@ -118,7 +118,7 @@ for temp in readings:
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 Standard Python lists are implemented as contiguous arrays in memory. If you delete the item at index 0, Python must shift every single following item to the left by one space. If you have 1 million items, that is 1 million shifts.
 
@@ -126,7 +126,7 @@ A `deque` is implemented as a **doubly-linked list** of memory blocks. Each bloc
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Operation | List | Deque |
 |---|---|---|
@@ -138,7 +138,7 @@ A `deque` is implemented as a **doubly-linked list** of memory blocks. Each bloc
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -148,7 +148,7 @@ A `deque` is implemented as a **doubly-linked list** of memory blocks. Each bloc
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens if you try to sort a deque?
 
@@ -169,7 +169,7 @@ Deques do not have a `.sort()` method because they are linked lists, not arrays.
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Task Queues:** Building simple background workers or thread pools.
 - **Sliding Windows:** Storing the last N seconds of audio/video frames, or network packets for analysis.
@@ -178,7 +178,7 @@ Deques do not have a `.sort()` method because they are linked lists, not arrays.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -187,14 +187,14 @@ Deques do not have a `.sort()` method because they are linked lists, not arrays.
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 If you see an API endpoint timing out or hitting high CPU usage, and the code contains a loop doing `my_list.pop(0)` on a large dataset, change it to `deque.popleft()`. This single change often resolves severe performance bottlenecks in legacy Python applications. However, if your queue needs to be shared across multiple server instances, you must move out of Python memory and use Redis or RabbitMQ.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Random Access:** Treating a deque exactly like a list and doing heavy lookups like `d[500]`. It has to traverse the linked list node by node to get there, making it very slow.
 - **Missing Import:** Forgetting to `from collections import deque` and getting a `NameError`.
@@ -202,7 +202,7 @@ If you see an API endpoint timing out or hitting high CPU usage, and the code co
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Lists
 - Collections Module

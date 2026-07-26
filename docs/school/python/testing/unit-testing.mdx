@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Unit Testing
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine you are a senior dev and you write a massive payment processing function. You tested it manually with one test case and it looked fine. But the moment it hits production, the entire checkout system goes down because you forgot to handle negative numbers, and it starts refunding millions. You spend your weekend debugging production logs instead of relaxing. This is exactly why unit testing matters. Without it, you are coding blind and hoping for the best.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of building a smartphone.
 
@@ -34,7 +34,7 @@ Bro, before you assemble the whole phone, you test the camera module by itself. 
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 A unit test focuses on the smallest testable part of an application.
 
@@ -44,7 +44,7 @@ Bro, use unit tests to check math, data transformations, string formatting, and 
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example (Pytest) |
 |---|---|
@@ -54,7 +54,7 @@ Bro, use unit tests to check math, data transformations, string formatting, and 
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's test a simple password validator.
 
@@ -84,7 +84,7 @@ Notice how these tests don't need a database or web server. They just pass strin
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a banking app, you might have a service that calculates compound interest. This math is critical and must be heavily unit tested.
 
@@ -114,7 +114,7 @@ Bro, a bug in this code costs real money. Unit tests ensure that future develope
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   title="The Unit Test Sandbox"
@@ -134,7 +134,7 @@ A unit test forces your code into a strict sandbox. The execution flow only ente
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Metric | Expectation |
 |---|---|
@@ -144,7 +144,7 @@ A unit test forces your code into a strict sandbox. The execution flow only ente
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -155,7 +155,7 @@ A unit test forces your code into a strict sandbox. The execution flow only ente
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, look at this function:
 
@@ -175,7 +175,7 @@ If you run the test on a Tuesday, it returns `False`. If your CI pipeline runs o
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Financial Algorithms:** Heavily unit tested to prevent calculation errors.
 - **Data Parsers:** Unit tested against thousands of edge-case strings to ensure they don't crash.
@@ -183,7 +183,7 @@ If you run the test on a Tuesday, it returns `False`. If your CI pipeline runs o
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -193,21 +193,21 @@ If you run the test on a Tuesday, it returns `False`. If your CI pipeline runs o
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, do not chase 100% Code Coverage blindly. A codebase with 100% coverage can still have critical bugs if the tests only check that the code runs, rather than checking if the business logic is actually correct. Aim for 80% coverage focused on complex business logic, and don't waste time unit testing standard framework code like Django URL routers.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Writing Integration Tests and calling them Unit Tests:** If your test fails when the wifi is disconnected, it is not a unit test.
 - **Brittle tests:** Testing private methods (methods starting with `_`). You should only test the public API of a class. If you test private methods, your tests will break every time you refactor internals.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Pytest
 - Mocking

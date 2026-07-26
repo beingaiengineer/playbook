@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Dictionary Comprehension
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 In a large-scale data processing pipeline, engineers often need to map identifiers to complex objects quickly. Using standard loops can be slow and verbose. They needed a way to transform and filter key-value pairs inline, without creating intermediate state or taking up multiple lines of code, leading to cleaner, more efficient data pipelines.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of Dictionary Comprehension like translating a menu at a restaurant, bro.
 
@@ -32,7 +32,7 @@ Instead of looking at an English menu item, grabbing a blank piece of paper, wri
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Just like List Comprehensions build lists, **Dictionary Comprehensions** build dictionaries (`dict`).
 
@@ -40,7 +40,7 @@ It allows you to iterate over data, optionally filter it, and output a `key: val
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | Structure | Example |
 |---|---|---|
@@ -50,7 +50,7 @@ It allows you to iterate over data, optionally filter it, and output a `key: val
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's map numbers to their square values.
 
@@ -90,7 +90,7 @@ Bro, notice we use curly braces `{}` and the colon `:` to separate the key and t
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In backend engineering, you often receive data from a database that contains sensitive fields (like passwords or internal IDs) that you need to filter out before sending a JSON response to the user.
 
@@ -118,13 +118,13 @@ This is clean, highly readable, and safe.
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 Just like list comprehensions, dictionary comprehensions execute highly optimized C code under the hood via the `DICT_MERGE` and `MAP_ADD` bytecode instructions. This completely avoids the overhead of calling the `__setitem__` method (the `my_dict[key] = value` operation) inside a python-level loop.
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Code Type | Speed | Memory |
 |---|---|---|
@@ -134,7 +134,7 @@ Just like list comprehensions, dictionary comprehensions execute highly optimize
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -144,7 +144,7 @@ Just like list comprehensions, dictionary comprehensions execute highly optimize
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens if you use dict comprehension to swap keys and values, but the original dictionary had duplicate values?
 
@@ -163,7 +163,7 @@ print(flipped)
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Flipping Lookups:** Converting a `{"ID": "Name"}` dict to a `{"Name": "ID"}` dict for reverse lookups.
 - **Data Serialization:** Converting object attributes into a dictionary before returning it as JSON.
@@ -171,7 +171,7 @@ print(flipped)
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -180,21 +180,21 @@ print(flipped)
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 If you are processing hundreds of megabytes of configuration or JSON files, dictionary comprehensions will allocate the entire resulting dictionary in memory. If memory is tight, you might need to process the data iteratively or write it to a database rather than holding the massive dictionary in RAM.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting `.items()`:** Writing `{k: v for k, v in my_dict}`. By default, iterating over `my_dict` only gives you keys. You must use `my_dict.items()` to get the pairs.
 - **Syntax mixups:** Using `[]` instead of `{}` (creates a list instead of a dict) or using a comma `k, v` instead of a colon `k: v` inside the braces (creates a set of tuples).
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - List Comprehension
 - Dictionaries
