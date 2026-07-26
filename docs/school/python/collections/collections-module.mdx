@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Collections Module
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 In early Python versions, developers constantly reinvented the wheel for common tasks like counting items in a list or building efficient queues. They wrote custom classes that were slow and buggy. The core developers realized that almost every large backend needed these specific data structures, so they introduced the `collections` module—a standard library toolkit providing highly optimized, C-level implementations of these essential patterns.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of standard Python lists, dicts, and sets like the basic tools in your garage—a hammer, a screwdriver, and a wrench. They get 90% of the jobs done.
 
@@ -32,7 +32,7 @@ Think of the **`collections` module** as the specialized power-tool section at t
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 The `collections` module in Python provides specialized container datatypes. They are alternatives to Python's general-purpose built-in containers (`dict`, `list`, `set`, and `tuple`).
 
@@ -45,7 +45,7 @@ The three most important tools for a backend engineer are:
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Data Structure | Import Syntax | Best Used For |
 |---|---|---|
@@ -56,7 +56,7 @@ The three most important tools for a backend engineer are:
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at `Counter` to see how much code this module saves us.
 
@@ -104,7 +104,7 @@ Bro, it turned 6 lines of error-prone logic into a single line.
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 If you are reading an enormous log file and need to find the top 3 most common IP addresses hitting your server, doing it manually is tedious. `Counter` has a `.most_common()` method built specifically for this.
 
@@ -127,7 +127,7 @@ print(f"Top traffic sources: {top_ips}")
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 The structures in the `collections` module are mostly written in highly optimized C.
 - `Counter` is a subclass of the standard dictionary, but its methods (`most_common`, addition/subtraction) are optimized.
@@ -136,7 +136,7 @@ The structures in the `collections` module are mostly written in highly optimize
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Structure vs Built-in | Advantage | Time Complexity Gain |
 |---|---|---|
@@ -146,7 +146,7 @@ The structures in the `collections` module are mostly written in highly optimize
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -156,7 +156,7 @@ The structures in the `collections` module are mostly written in highly optimize
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens if you use math operators on two `Counter` objects?
 
@@ -179,7 +179,7 @@ This is incredibly powerful for merging data streams or managing inventory, bro.
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Log Analysis:** Using `Counter` to find the most frequent HTTP status codes.
 - **Task Queues:** Using `deque` as a lightweight queue for background workers before upgrading to Redis/Celery.
@@ -187,7 +187,7 @@ This is incredibly powerful for merging data streams or managing inventory, bro.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -196,21 +196,21 @@ This is incredibly powerful for merging data streams or managing inventory, bro.
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Senior engineers check your PRs for this. If they see you writing a 10-line `for` loop just to count occurrences, or using `my_list.insert(0, item)` inside a loop, they will immediately ask you to rewrite it using `Counter` or `deque`. Mastering the `collections` module shows you know Python's standard library deeply.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Importing the whole module:** Doing `import collections` and then typing `collections.defaultdict`. It's much cleaner to do `from collections import defaultdict`.
 - **Using list for Queues:** Using a standard list for First-In-First-Out (FIFO) queues. `list.pop(0)` is an O(n) operation that will crush your CPU under heavy load. Use `deque`.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Deque
 - Counter

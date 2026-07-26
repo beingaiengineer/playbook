@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # String Formatting
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Legacy codebases often generate dynamic SQL queries or log messages by concatenating strings with the `+` operator. This not only makes the code unreadable but frequently leads to TypeErrors when integers aren't explicitly cast to strings. Engineers transitioned to `.format()` and `%` formatting to separate the string template from the data, improving readability and drastically reducing runtime crashes during string interpolation.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of string formatting like a fill-in-the-blank Mad Libs game, bro.
 
@@ -33,7 +33,7 @@ Instead of trying to manually glue strings together with `+` signs and tape, str
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 String formatting is how we inject dynamic variables (like integers, lists, or other strings) into a base string.
 
@@ -46,7 +46,7 @@ We still need to know `.format()` because you will see it constantly in older co
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Method | Example | Note |
 |---|---|---|
@@ -57,7 +57,7 @@ We still need to know `.format()` because you will see it constantly in older co
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at `.format()`, which is still heavily used for template strings.
 
@@ -91,7 +91,7 @@ Bro, notice how clean that is compared to `message = "Welcome, " + name + "! You
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In backend systems, we often keep our templates separate from our logic. For example, generating automated emails or SQL queries (though use SQL parameters for real DBs to prevent injection!).
 
@@ -123,13 +123,13 @@ send_alert_email("prod-db-01", 98.7654321)
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 When you use `.format()`, Python parses the string, finds the `{}` brackets, and replaces them. Internally, `.format()` automatically calls the `__str__()` method on whatever object you pass it. This is why you don't have to manually cast integers to strings like `str(25)` when formatting.
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Formatting Method | Relative Speed | Note |
 |---|---|---|
@@ -140,7 +140,7 @@ When you use `.format()`, Python parses the string, finds the `{}` brackets, and
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -150,7 +150,7 @@ When you use `.format()`, Python parses the string, finds the `{}` brackets, and
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens if you provide too many or too few arguments to `.format()`?
 
@@ -168,7 +168,7 @@ If you are using named arguments, a missing key will throw a `KeyError`.
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Dynamic SQL/HTML Templates:** Loading an email template from a database and injecting user data using `.format()`.
 - **Log Formatting:** Standard `logging` modules often use lazy `%s` formatting under the hood so they don't waste CPU cycles formatting logs that won't be printed.
@@ -176,7 +176,7 @@ If you are using named arguments, a missing key will throw a `KeyError`.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -185,7 +185,7 @@ If you are using named arguments, a missing key will throw a `KeyError`.
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Never use `.format()` or f-strings to inject user input directly into a database query. This leads directly to **SQL Injection**, one of the most critical security vulnerabilities.
@@ -194,14 +194,14 @@ Never use `.format()` or f-strings to inject user input directly into a database
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting the `f` in f-strings:** Writing `"User is {name}"` instead of `f"User is {name}"`. The variables won't inject!
 - **Overcomplicating `.format()`:** Doing `"{} {}".format(a, b)` instead of just using an f-string `f"{a} {b}"`. Keep it modern.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - F-Strings (The modern standard)
 - String Methods

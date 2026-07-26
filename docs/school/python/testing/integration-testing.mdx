@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Integration Testing
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine you build a login service that works perfectly in isolation. You also build a database that works perfectly. But when you connect them in production, the login service tries to read a column that the database renamed last week. The entire app crashes on startup. You spend your weekend debugging production logs instead of relaxing. This is exactly why integration testing matters. It verifies that perfectly good Lego blocks actually fit together correctly.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine building a car.
 
@@ -35,7 +35,7 @@ Even if the engine and transmission work perfectly by themselves, if the bolts c
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Integration testing focuses on the interactions between different modules, services, or external systems (like databases and APIs).
 
@@ -45,7 +45,7 @@ Bro, use integration tests to check your database queries, API endpoints, and ca
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | Example (FastAPI + Pytest) |
 |---|---|
@@ -56,7 +56,7 @@ Bro, use integration tests to check your database queries, API endpoints, and ca
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's test if an API endpoint actually writes to a database.
 
@@ -86,7 +86,7 @@ We are not mocking the database. We are hitting a real (test) database to prove 
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a microservices architecture, you might need to test a flow that involves a Web API, a Database, and a Redis Cache.
 
@@ -110,7 +110,7 @@ Bro, if someone accidentally removes the cache invalidation logic, this test wil
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   title="Integration Test Boundaries"
@@ -133,7 +133,7 @@ Unlike unit tests which stay confined to RAM, an integration test crosses networ
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Metric | Unit Tests | Integration Tests |
 |---|---|---|
@@ -143,7 +143,7 @@ Unlike unit tests which stay confined to RAM, an integration test crosses networ
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -154,7 +154,7 @@ Unlike unit tests which stay confined to RAM, an integration test crosses networ
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, look at this problem:
 
@@ -167,14 +167,14 @@ If Test A runs before Test B, Test B will fail due to a "Unique Constraint Viola
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Database Migrations:** Companies use integration tests to run `alembic upgrade head`, insert data, and ensure the new schema works with the ORM.
 - **Microservices:** Contract testing ensures that if Service A calls Service B, the JSON payload exactly matches what Service B expects.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -184,14 +184,14 @@ If Test A runs before Test B, Test B will fail due to a "Unique Constraint Viola
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, never use your production or shared staging database for integration tests. A developer will accidentally run a test that truncates a table, or thousands of test records will pollute your metrics. Always spin up a dedicated, ephemeral (temporary) database for the CI/CD pipeline using Docker.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **State Leakage:** Not cleaning up the database between tests, causing random cascading failures.
 - **Over-testing:** Testing every single error condition (like empty strings) in integration tests. That's what unit tests are for. Integration tests should focus on the "Happy Path" and major failures.
@@ -199,7 +199,7 @@ Bro, never use your production or shared staging database for integration tests.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Unit Testing
 - Pytest

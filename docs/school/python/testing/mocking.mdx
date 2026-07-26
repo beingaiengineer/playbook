@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Mocking
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine you are building an app that sends an SMS every time a user signs up using a paid Twilio API. You write an integration test that actually calls the API. You run your test suite 500 times a day, and suddenly you get a $10,000 bill at the end of the month because your tests were sending real text messages. This is exactly why mocking matters. Without it, testing external services becomes slow, flaky, and incredibly expensive.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you are an actor practicing for a movie scene where you have to talk to an alien.
 
@@ -34,7 +34,7 @@ You can't wait for a real alien to show up to practice your lines. Instead, a gu
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Mocking replaces real, slow, or unpredictable external systems with fake objects during tests.
 
@@ -44,7 +44,7 @@ Bro, use mocking when your function calls an external HTTP API, sends an email, 
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -55,7 +55,7 @@ Bro, use mocking when your function calls an external HTTP API, sends an email, 
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's mock a simple external API call.
 
@@ -89,7 +89,7 @@ Bro, notice we patched `weather.requests.get`, NOT `requests.get`. We patch wher
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Imagine a user registration flow that sends a welcome email via AWS SES.
 
@@ -123,7 +123,7 @@ This ensures the test is 100% free and takes 1 millisecond.
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   title="Mock Patching Mechanism"
@@ -146,7 +146,7 @@ When you use `@patch('module.target')`, Python uses reflection to reach into the
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Strategy | Performance | Reliability |
 |---|---|---|
@@ -156,7 +156,7 @@ When you use `@patch('module.target')`, Python uses reflection to reach into the
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -167,7 +167,7 @@ When you use `@patch('module.target')`, Python uses reflection to reach into the
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, how do you test that your code handles a network timeout correctly?
 
@@ -190,14 +190,14 @@ Using `side_effect` is the only way to reliably simulate server crashes or netwo
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Payment Gateways:** You NEVER hit the real Stripe or PayPal API in unit tests. You mock them so you don't accidentally charge real credit cards.
 - **AWS SDK (Boto3):** Instead of manually mocking every AWS service, developers use libraries like `moto` which provide pre-built mocks for S3, DynamoDB, etc.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -207,14 +207,14 @@ Using `side_effect` is the only way to reliably simulate server crashes or netwo
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, if your test suite requires hitting a real 3rd party API, your CI/CD pipeline will eventually fail because of rate limiting. The build will break randomly, blocking deployments. Always mock 3rd party APIs in unit tests. Use a separate, dedicated "E2E Integration Test" suite that runs less frequently to check the real APIs.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Patch location error:** Patching `requests.get` instead of `my_module.requests.get`. The mock won't apply, and you'll hit the real API.
 - **Mocking the system under test:** If you are testing `calculate_tax()`, do not mock `calculate_tax()`.
@@ -222,7 +222,7 @@ Bro, if your test suite requires hitting a real 3rd party API, your CI/CD pipeli
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Unit Testing
 - Pytest

@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Test Best Practices
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine joining a new team and running their test suite for the first time. It takes 45 minutes to finish, randomly fails 30% of the time, and when a test does fail, the error message just says "AssertionError: False != True". You have absolutely no idea what broke or how to fix it. The tests have become a bigger burden than the code itself. This is exactly why test best practices matter. Without them, your test suite turns into technical debt.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you are a quality control inspector at a car factory.
 
@@ -34,7 +34,7 @@ Good testing is putting the completed engine on a test stand and verifying it pr
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Test best practices in Python involve writing tests that are **Fast, Isolated, Repeatable, Self-Validating, and Timely (FIRST)**.
 
@@ -42,7 +42,7 @@ When you write tests, you want them to be a safety net, not an anchor. This mean
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | Bad Practice | Best Practice |
 |---|---|---|
@@ -54,7 +54,7 @@ When you write tests, you want them to be a safety net, not an anchor. This mean
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at a bad test and how to fix it using the Arrange-Act-Assert pattern.
 
@@ -86,7 +86,7 @@ Bro, the good test is self-documenting. Anyone reading it instantly knows what i
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you often need to test code that interacts with databases. A common best practice is using Pytest fixtures to guarantee a clean state.
 
@@ -120,7 +120,7 @@ Notice the descriptive test name and the isolated state. If this test fails, we 
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   elements={[
@@ -158,7 +158,7 @@ This flow (Arrange -> Act -> Assert -> Teardown) is the heartbeat of a solid tes
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Practice | Impact on Test Suite Speed | Why? |
 |---|---|---|
@@ -169,7 +169,7 @@ This flow (Arrange -> Act -> Assert -> Teardown) is the heartbeat of a solid tes
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer | Explanation & Tricks |
 |---|---|---|
@@ -180,7 +180,7 @@ This flow (Arrange -> Act -> Assert -> Teardown) is the heartbeat of a solid tes
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Scenario:** Testing code that uses `datetime.now()`.
 If you hardcode an expected date in your test, it will fail tomorrow.
@@ -196,14 +196,14 @@ def test_divide_by_zero_raises_error():
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Continuous Integration (CI):** Teams use GitHub Actions or GitLab CI to run thousands of tests on every pull request. If the tests take 45 minutes because of bad practices, developers get blocked.
 - **Refactoring:** When you need to upgrade a library from v1 to v2, a well-written test suite lets you confidently make the change and deploy on a Friday.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -214,14 +214,14 @@ def test_divide_by_zero_raises_error():
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, treat your test code with the same respect as your production code. Don't let a mess of commented-out assertions and duplicated mock setups rot in your repository. Refactor your tests. Extract common setups into Pytest fixtures or helper functions. A clean test suite is the only thing standing between you and a 2:00 AM production outage page.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Testing the Mock:** Writing a test where you mock a function to return X, and then assert that the function returned X. You just tested your mocking library, not your code.
 - **Ignoring Flaky Tests:** Retrying a failed test until it passes and ignoring the root cause. This *will* blow up later.
@@ -229,7 +229,7 @@ Bro, treat your test code with the same respect as your production code. Don't l
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Unit Testing
 - Mocking

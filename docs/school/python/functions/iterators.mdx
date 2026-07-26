@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Python Iterators
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Real-World Analogy
+## 2. Real-World Analogy
 
 Think of an Iterator like scrolling through TikTok, bro.
 
@@ -28,7 +28,7 @@ An iterable (like a List) is the whole database of videos. The iterator is your 
 
 ---
 
-# 3. Concept Explanation
+## 3. Concept Explanation
 
 An **Iterable** is an object you can loop over (like a list, string, or dictionary). It implements `__iter__()`, which returns an Iterator.
 
@@ -38,7 +38,7 @@ Bro, whenever you use a `for` loop in Python, it secretly grabs the iterator and
 
 ---
 
-# 4. Syntax Table
+## 4. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -49,7 +49,7 @@ Bro, whenever you use a `for` loop in Python, it secretly grabs the iterator and
 
 ---
 
-# 5. Beginner Example
+## 5. Beginner Example
 
 Let's look at how Python lists use iterators internally.
 
@@ -68,7 +68,7 @@ print(next(fruit_iterator))  # banana
 
 ---
 
-# 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Let's build a custom Iterator. Imagine we need a class that generates unique transaction IDs for a payment system up to a certain limit.
 
@@ -103,7 +103,7 @@ for txn_id in txn_gen:
 
 ---
 
-# 7. Internal Working
+## 7. Internal Working
 
 <LearningFlow
   diagram={{
@@ -130,7 +130,7 @@ When you write `for item in my_list:`, Python does this:
 
 ---
 
-# 8. Performance Table
+## 8. Performance Table
 
 | Operation | Complexity | Description |
 |---|---|---|
@@ -140,7 +140,7 @@ When you write `for item in my_list:`, Python does this:
 
 ---
 
-# 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -151,7 +151,7 @@ When you write `for item in my_list:`, Python does this:
 
 ---
 
-# 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 Bro, look at this classic interview trap:
 
@@ -168,7 +168,7 @@ Because checking `3 in my_iter` consumes the iterator up to the number 3. The it
 
 ---
 
-# 11. Real-World Usage
+## 11. Real-World Usage
 
 Where do companies actually use custom iterators?
 - **Database Cursors:** Fetching 100 rows at a time from a huge Postgres table.
@@ -177,7 +177,7 @@ Where do companies actually use custom iterators?
 
 ---
 
-# 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -186,21 +186,21 @@ Where do companies actually use custom iterators?
 
 ---
 
-# 13. Production Notes
+## 13. Production Notes
 
 > ⚠ Production Note:
 Bro, when implementing custom iterators for network or database calls, ensure you handle network timeouts inside the `__next__` method properly. If `next()` blocks indefinitely, your entire application loop will hang!
 
 ---
 
-# 14. Common Mistakes
+## 14. Common Mistakes
 
 - **Forgetting `__iter__` on an Iterator:** If you don't return `self` in `__iter__`, you can't use your iterator in a `for` loop!
 - **Exhausting an Iterator accidentally:** Passing an iterator to a function that loops over it, and then trying to loop over it again later in your code. It will be empty.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Generators (A much easier way to write iterators using `yield`)
 - Loops (`for` loops and `while` loops)
