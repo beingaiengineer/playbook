@@ -15,7 +15,7 @@ Bro, we were building an ORM for a massive Django project. We needed every singl
 ## 3. Real-World Analogy
 Think of a standard class attribute like an open box of cookies on a table. Anyone can reach in, grab one, or put a rock inside it. No security.
 
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict Mumbai building security guard intercepting and checking the ID of every person trying to enter an apartment, representing controlled attribute access. */}
+![Detailed illustration of Bae as security guard managing controlled attribute access](../assets/advanced-python/descriptors.png)
 A Descriptor is like putting a security guard in front of the box.
 - When you ask for a cookie (`__get__`), the guard checks if you are allowed to have one.
 - When you try to put something in the box (`__set__`), the guard checks if it's actually a cookie and not a rock.
