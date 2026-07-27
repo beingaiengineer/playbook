@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Counter
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 An analytics backend needed to parse massive access logs to find the top 10 IP addresses hitting their servers during a DDoS attack. The original code used a standard dictionary, iterating through the logs and writing `if ip in dict` checks on every line. It was verbose and slow. By leveraging `Counter`, they reduced the logic to a single line and instantly utilized its built-in `most_common()` method, heavily speeding up their incident response.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of using a standard dictionary to count items like manually tallying votes on a whiteboard. You look at a ballot, find the candidate's name, erase the old number, and write the new number.
 
@@ -32,7 +32,7 @@ Think of a **`Counter`** like a professional electronic vote-counting machine, b
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 `Counter` is a specialized subclass of the dictionary, available in the `collections` module.
 
@@ -40,7 +40,7 @@ It is designed to do exactly one thing: count hashable objects. You pass it a li
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Operation | Code | Result |
 |---|---|---|
@@ -51,7 +51,7 @@ It is designed to do exactly one thing: count hashable objects. You pass it a li
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's find the frequency of words in a sentence.
 
@@ -93,7 +93,7 @@ Bro, if you ask a `Counter` for an item that doesn't exist, it doesn't crash wit
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In data analytics or security, you often need to find anomalies or top offenders. Let's find the most common error codes in a log file.
 
@@ -118,7 +118,7 @@ for code, frequency in top_errors:
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 `Counter` inherits directly from Python's built-in `dict`. It overrides the dictionary's missing-key behavior to return `0` instead of throwing an error.
 
@@ -126,7 +126,7 @@ The `.most_common(n)` method is highly optimized. If `n` is small compared to th
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -137,7 +137,7 @@ The `.most_common(n)` method is highly optimized. If `n` is small compared to th
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -147,7 +147,7 @@ The `.most_common(n)` method is highly optimized. If `n` is small compared to th
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens when you subtract two Counters and a value drops to zero or negative?
 
@@ -173,7 +173,7 @@ This is a huge trap in inventory/cart systems!
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **NLP (Natural Language Processing):** Finding the most frequent words in a document (Bag of Words model).
 - **Log Parsing:** Counting IP addresses, user agents, or error codes.
@@ -182,7 +182,7 @@ This is a huge trap in inventory/cart systems!
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -191,21 +191,21 @@ This is a huge trap in inventory/cart systems!
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 While `Counter` is fast, counting a list of 50 million items still requires loading all 50 million items into RAM. If you are processing massive files (like gigabyte-sized server logs), do not read the entire file into a list first. Pass a generator expression to the Counter, or process the file line-by-line and update the Counter incrementally to keep your memory footprint low.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting it returns a list of tuples:** Calling `.most_common(1)` returns `[('item', count)]`, not just the item. Beginners often forget to unpack it using `[0][0]`.
 - **Assuming order:** Prior to Python 3.7, Counters (like dicts) did not guarantee insertion order. Now they do, but if you do math on them (like `c1 + c2`), the order of the resulting Counter can change.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Dictionaries
 - Defaultdict

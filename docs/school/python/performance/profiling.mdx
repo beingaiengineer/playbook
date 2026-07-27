@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Profiling
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine your background worker is processing a million records every night. Suddenly, your boss complains that the job is taking 8 hours instead of 10 minutes. You stare at 5,000 lines of code trying to guess which loop is slow. You rewrite a complex database query, but it turns out the slowdown was caused by a simple string concatenation inside a loop. You wasted three days fixing the wrong thing. This is exactly why profiling matters. It tells you exactly where the fire is.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine your car is getting terrible gas mileage.
 
@@ -34,7 +34,7 @@ Or, you could plug a diagnostic scanner into the car's computer to see exactly w
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Profiling is the process of analyzing your Python code to see exactly how long each function takes to run and how much memory it uses.
 
@@ -44,7 +44,7 @@ Bro, the golden rule of performance engineering is: **Measure first, optimize se
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Tool | Usage | Best For |
 |---|---|---|
@@ -55,7 +55,7 @@ Bro, the golden rule of performance engineering is: **Measure first, optimize se
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's use the built-in `cProfile` module to see why a script is slow.
 
@@ -94,7 +94,7 @@ Bro, you can immediately see `slow_function` was called once and took 1.001 seco
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In the real world, reading raw text output from `cProfile` on a massive web app is impossible. Engineers use tools to visualize the output, or they use `line_profiler` for targeted investigation.
 
@@ -126,7 +126,7 @@ The output will show you exactly what percentage of the total time was spent on 
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   elements={[
@@ -172,7 +172,7 @@ Profilers work by registering a callback function with the Python interpreter (o
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Profiler Type | Overhead | Accuracy | Use Case |
 |---|---|---|---|
@@ -183,7 +183,7 @@ Profilers work by registering a callback function with the Python interpreter (o
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer | Explanation & Tricks |
 |---|---|---|
@@ -193,7 +193,7 @@ Profilers work by registering a callback function with the Python interpreter (o
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Scenario:** Profiling multi-threaded or multi-processed code.
 Standard `cProfile` only profiles the main thread.
@@ -204,14 +204,14 @@ If you have a function that runs 10 million times in a loop and takes 1 microsec
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **CI/CD Performance Regression:** Running a profiling script as part of automated testing. If a new PR makes the critical path 20% slower, the build fails.
 - **Production Outages:** When an API suddenly takes 10 seconds to respond, engineers will use a sampling profiler (like `py-spy`) on the live production server to see what it's stuck on without crashing the app.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -221,21 +221,21 @@ If you have a function that runs 10 million times in a loop and takes 1 microsec
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, do NOT leave deterministic profilers (like `cProfile` or `line_profiler`) enabled in your production web servers. They add significant overhead to every function call. If you need profiling in production, use a **sampling profiler** (like Datadog's continuous profiler or `py-spy`) which only checks the stack trace a hundred times a second, adding barely any overhead.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Optimizing the wrong thing:** Spending 3 days rewriting a function in C++ to make it 10x faster, only to realize that function only accounted for 1% of the total program execution time (Amdahl's Law).
 - **Ignoring I/O:** Profiling CPU time and being confused why a script is slow. If your script spends 90% of its time waiting on a slow database query (`time.sleep` or network waits), CPU profiling won't help much.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Memory Optimization
 - Timeit Module

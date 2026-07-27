@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # String Basics
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 When handling user input for a new web service, developers realized that text data is the lifeblood of communication between systems. However, treating text just as an array of characters ignores its immutability requirements for dictionary keys and secure hashing. Understanding standard Python strings became critical for ensuring memory efficiency when passing millions of request payloads across the application.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of a Python list like a Lego tower. You can easily pull a blue block out of the middle and snap a red block into its place.
 
@@ -32,7 +32,7 @@ Think of a **Python String** like a neon sign made of glass tubing, bro. Once it
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 A string in Python is a sequence of characters enclosed in quotes.
 - **Ordered:** Each character has a specific index, starting at 0.
@@ -43,7 +43,7 @@ Because strings are immutable, operations that appear to change a string (like r
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Operation | Code | Result |
 |---|---|---|
@@ -55,7 +55,7 @@ Because strings are immutable, operations that appear to change a string (like r
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 ```python
 # Creating strings
@@ -97,7 +97,7 @@ Bro, Python treats single quotes `''` and double quotes `""` exactly the same. J
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In backend engineering, we constantly deal with strings from HTTP requests, database URLs, and file paths.
 
@@ -117,7 +117,7 @@ print(f"Connecting to {protocol} as user: {username}")
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 Python strings are implemented as C arrays of characters.
 
@@ -125,7 +125,7 @@ Because they are immutable, Python does a memory optimization called **String In
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -136,7 +136,7 @@ Because they are immutable, Python does a memory optimization called **String In
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -146,7 +146,7 @@ Because they are immutable, Python does a memory optimization called **String In
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens when you slice a string out of bounds?
 
@@ -165,7 +165,7 @@ Python is very forgiving with slices. It just grabs everything it can up to the 
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **JSON Payloads:** All network communication is basically just sending giant strings of JSON back and forth.
 - **Regex:** Searching for email patterns or phone numbers inside large blocks of text.
@@ -173,7 +173,7 @@ Python is very forgiving with slices. It just grabs everything it can up to the 
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -183,14 +183,14 @@ Python is very forgiving with slices. It just grabs everything it can up to the 
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 String building in a loop (`text += new_word`) is one of the most common performance killers in legacy Python code. Because strings are immutable, adding 1 character to a 10MB string requires allocating a *new* 10MB block of RAM and copying all the data over. Always collect your strings in a Python `list` first, and then merge them at the very end using `"".join(my_list)`.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **TypeError on concatenation:** Trying to do `"Age: " + 25`. You cannot concatenate strings and integers. You must cast it: `"Age: " + str(25)` (or use f-strings).
 - **Mutating strings:** Writing functions that expect string parameters to be modified in place. It won't work. You must `return` the new string.
@@ -198,7 +198,7 @@ String building in a loop (`text += new_word`) is one of the most common perform
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - String Methods
 - F-Strings

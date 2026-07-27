@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Python Decorators
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Real-World Analogy
+## 2. Real-World Analogy
 
 Think of a decorator like a bouncer at an exclusive club, bro.
 
@@ -28,7 +28,7 @@ The core VIP room logic never changes, but we "decorated" it with a security che
 
 ---
 
-# 3. Concept Explanation
+## 3. Concept Explanation
 
 A decorator is a function that takes another function and extends its behavior without explicitly modifying it. In Python, functions are first-class citizens, meaning you can pass them around as arguments to other functions and return them.
 
@@ -36,7 +36,7 @@ Bro, this is insanely powerful. If you have 50 API routes that all need to check
 
 ---
 
-# 4. Syntax Table
+## 4. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -46,7 +46,7 @@ Bro, this is insanely powerful. If you have 50 API routes that all need to check
 
 ---
 
-# 5. Beginner Example
+## 5. Beginner Example
 
 Let's look at a simple timer decorator.
 
@@ -71,7 +71,7 @@ Bro, notice how `greet` itself returns lowercase, but when we call it, the decor
 
 ---
 
-# 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Here's a classic engineering use case: a decorator that calculates how long a function takes to execute. This is huge for debugging slow endpoints or database queries.
 
@@ -100,7 +100,7 @@ heavy_computation()
 
 ---
 
-# 7. Internal Working
+## 7. Internal Working
 
 <LearningFlow
   diagram={{
@@ -126,7 +126,7 @@ When you put `@decorator` above a function, Python essentially does this: `func 
 
 ---
 
-# 8. Performance Table
+## 8. Performance Table
 
 | Operation | Complexity / Impact |
 |---|---|
@@ -138,7 +138,7 @@ Bro, the performance impact of the wrapper is generally negligible unless you ar
 
 ---
 
-# 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -149,7 +149,7 @@ Bro, the performance impact of the wrapper is generally negligible unless you ar
 
 ---
 
-# 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 Look at this stacked decorator scenario. It's a classic trap during interviews.
 
@@ -178,7 +178,7 @@ Bro, remember: decorators are applied from the bottom up! First `make_italic` wr
 
 ---
 
-# 11. Real-World Usage
+## 11. Real-World Usage
 
 Where do companies actually use decorators?
 - **Web Frameworks:** Routing in Flask/FastAPI (`@app.get("/")`).
@@ -189,7 +189,7 @@ Where do companies actually use decorators?
 
 ---
 
-# 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -199,21 +199,21 @@ Where do companies actually use decorators?
 
 ---
 
-# 13. Production Notes
+## 13. Production Notes
 
 > ⚠ Production Note:
 Bro, beware of decorators hiding errors. If your decorator has a broad `except Exception: pass` block, it will swallow errors from your core function, making production debugging a total nightmare. Always log exceptions if your decorator handles them, and explicitly raise them if the caller should know.
 
 ---
 
-# 14. Common Mistakes
+## 14. Common Mistakes
 
 - **Forgetting to return the wrapper:** Your decorator must return the nested wrapper function, or the decorated function becomes `None`!
 - **Forgetting to return the original function's result inside the wrapper:** If you call `func()` but don't `return` it, your decorated function will silently return `None`.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Closures (Bro, decorators rely entirely on closures!)
 - Functions as First-Class Objects

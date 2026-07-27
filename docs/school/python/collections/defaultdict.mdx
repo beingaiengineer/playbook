@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Defaultdict
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Engineers building a graph database adapter frequently encountered KeyError exceptions when trying to append edges to nodes that hadn't been explicitly initialized in their dictionary. They scattered `if node not in graph: graph[node] = []` checks everywhere, cluttering the codebase. They adopted `defaultdict(list)`, which elegantly and automatically initialized missing keys with an empty list, drastically simplifying their graph traversal logic.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of a standard Python dictionary like an assigned parking lot. If you try to park in spot #42 and it hasn't been assigned to you, the security guard throws a `KeyError` and kicks you out.
 
@@ -32,7 +32,7 @@ Think of a **`defaultdict`** like a valet service at a fancy hotel, bro. If you 
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 A `defaultdict` is a subclass of the built-in dictionary from the `collections` module.
 
@@ -42,7 +42,7 @@ This makes it the ultimate tool for **grouping** and **aggregating** data.
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Data Type Wanted | Setup Code | Missing Key Output |
 |---|---|---|
@@ -53,7 +53,7 @@ This makes it the ultimate tool for **grouping** and **aggregating** data.
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's say we want to group names by their first letter.
 
@@ -107,7 +107,7 @@ print(grouped)
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In enterprise systems, you often query a database and get a flat list of rows, but your frontend API needs nested JSON grouped by a specific ID.
 
@@ -137,7 +137,7 @@ Bro, this pattern is used in almost every Python backend in the world.
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 `defaultdict` overrides the C-level `__missing__(key)` method of the standard dictionary.
 
@@ -145,7 +145,7 @@ When a dictionary lookup fails, Python normally raises a `KeyError`. But if the 
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Code Type | Speed | Reason |
 |---|---|---|
@@ -155,7 +155,7 @@ When a dictionary lookup fails, Python normally raises a `KeyError`. But if the 
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -165,7 +165,7 @@ When a dictionary lookup fails, Python normally raises a `KeyError`. But if the 
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens if you just *look* at a missing key in a `defaultdict` without assigning anything to it?
 
@@ -186,7 +186,7 @@ print(d)
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Grouping Data:** Grouping logs by IP address, users by department, or products by category.
 - **Graph Algorithms:** Representing adjacency lists in graph algorithms like DFS and BFS (`graph = defaultdict(list)`).
@@ -194,7 +194,7 @@ print(d)
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -203,21 +203,21 @@ print(d)
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Because `defaultdict` creates keys automatically upon access, it can mask bugs. If you misspell a key name (e.g., `user_roles["admim"]`), `defaultdict` will happily create an empty list for "admim" instead of throwing an error. Always use standard dictionaries for fixed schemas, and reserve `defaultdict` specifically for dynamic aggregation and grouping.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Passing a value instead of a function:** Writing `defaultdict([])` instead of `defaultdict(list)`. You must pass a *callable* (a function or class), not an instance.
 - **Accidental Key Creation:** Doing `print(d['missing'])` while debugging, which permanently adds `'missing'` to the dictionary.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Dictionaries
 - Collections Module

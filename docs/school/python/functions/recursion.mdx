@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Recursion
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -16,7 +16,7 @@ sidebar_position: 5
 
 ---
 
-# 2. Real-World Analogy
+## 2. Real-World Analogy
 
 Bro, think of recursion like looking for a specific file in a giant folder of folders on your computer.
 
@@ -29,7 +29,7 @@ Recursion is simply a function calling itself to solve a smaller piece of the sa
 
 ---
 
-# 3. Concept Explanation
+## 3. Concept Explanation
 
 Recursion happens when a function calls itself.
 
@@ -46,7 +46,7 @@ Don't use recursion when:
 
 ---
 
-# 4. Syntax Table
+## 4. Syntax Table
 
 | Concept | Example |
 |---|---|
@@ -55,7 +55,7 @@ Don't use recursion when:
 
 ---
 
-# 5. Beginner Example
+## 5. Beginner Example
 
 The classic example: calculating a factorial. The factorial of 5 (written as 5!) is `5 * 4 * 3 * 2 * 1`.
 
@@ -75,7 +75,7 @@ print(factorial(5))  # Output: 120
 
 ---
 
-# 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 In backend engineering, you often deal with nested data structures like massive JSON responses or organizational charts.
 
@@ -117,7 +117,7 @@ print(f"Total Team Size: {count_employees(org_chart)}")
 
 ---
 
-# 7. Internal Working
+## 7. Internal Working
 
 Every time a function is called, Python creates a "Stack Frame" in memory to hold its local variables.
 
@@ -132,7 +132,7 @@ If you forget the base case, Python keeps creating stack frames until it runs ou
 
 ---
 
-# 8. Performance Table
+## 8. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -141,7 +141,7 @@ If you forget the base case, Python keeps creating stack frames until it runs ou
 
 ---
 
-# 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -152,7 +152,7 @@ If you forget the base case, Python keeps creating stack frames until it runs ou
 
 ---
 
-# 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 Bro, if you get asked to write the Fibonacci sequence recursively in an interview, be careful!
 
@@ -180,7 +180,7 @@ def fast_fib(n):
 
 ---
 
-# 11. Real-World Usage
+## 11. Real-World Usage
 
 - **Web Crawlers:** Visiting a webpage, finding all the links on it, and recursively visiting those links.
 - **File System Tools:** Deleting a directory that contains sub-directories (`rm -rf`).
@@ -188,7 +188,7 @@ def fast_fib(n):
 
 ---
 
-# 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -197,14 +197,14 @@ def fast_fib(n):
 
 ---
 
-# 13. Production Notes
+## 13. Production Notes
 
 > ⚠ **Production Note:**
 > Python has a hardcoded recursion limit (usually 1,000 calls) to protect the C-stack from overflowing and crashing the entire interpreter. If you are processing massive datasets, like a deeply nested JSON payload with thousands of levels, a recursive function will fail in production. In high-performance, robust systems, engineers often rewrite recursive algorithms using a standard `while` loop and a manual Stack data structure to avoid the `RecursionError`.
 
 ---
 
-# 14. Common Mistakes
+## 14. Common Mistakes
 
 - **Missing Base Case:** The function runs forever.
 - **Unreachable Base Case:** `if n == 0:` but you pass in `-1` and subtract `1` every time. It never hits `0`.
@@ -217,7 +217,7 @@ def fast_fib(n):
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Iterators and Generators
 - Data Structures: Trees and Graphs

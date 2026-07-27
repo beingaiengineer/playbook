@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Unicode & Encodings
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 An international e-commerce platform began expanding into global markets, but their legacy Python 2 codebase started crashing with `UnicodeDecodeError` whenever a user submitted a name with accents or non-Latin characters. The engineers had to deeply understand Unicode, encoding formats like UTF-8, and the distinction between bytes and strings to rebuild the text processing layer so it could handle global alphabets flawlessly.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of **Unicode** as an international dictionary that assigns a unique ID number to every single letter, symbol, and emoji in human existence. In this dictionary, "A" is 65, and the "🔥" emoji is 128293.
 
@@ -34,7 +34,7 @@ Python Strings live purely in the dictionary world (Unicode). But to save a stri
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 In Python 3, all strings are **Unicode** by default. This is a massive upgrade from Python 2.
 
@@ -46,7 +46,7 @@ The most common set of rules for this translation is **UTF-8**. It is the standa
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Operation | Code | Returns |
 |---|---|---|
@@ -58,7 +58,7 @@ The most common set of rules for this translation is **UTF-8**. It is the standa
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at how strings and bytes differ.
 
@@ -100,7 +100,7 @@ Bro, that `b` prefix in `b'Hello'` means it is a **byte string**, not a normal t
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 When you fetch a webpage using an HTTP library (like `requests` or `urllib`), the network gives you raw bytes. You must decode them before you can search the text.
 
@@ -124,14 +124,14 @@ if "Domain" in html_text:
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 Python 3 internally handles strings flexibly to save memory.
 If your string only contains standard English letters (ASCII), Python uses 1 byte per character in RAM. If you add an emoji or a Chinese character, Python seamlessly upgrades the internal memory array to use 2 or 4 bytes per character to fit the larger Unicode code points.
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -141,7 +141,7 @@ If your string only contains standard English letters (ASCII), Python uses 1 byt
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -151,7 +151,7 @@ If your string only contains standard English letters (ASCII), Python uses 1 byt
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 What happens when you try to decode garbage bytes? It crashes your app!
 
@@ -170,7 +170,7 @@ Bro, if you are building an API that accepts file uploads, always use `errors="r
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **File Uploads:** Parsing raw byte streams from multipart form data.
 - **Cryptography:** Hashing passwords (like SHA-256) requires bytes, not strings. You must `.encode()` the password before hashing it.
@@ -178,7 +178,7 @@ Bro, if you are building an API that accepts file uploads, always use `errors="r
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -188,7 +188,7 @@ Bro, if you are building an API that accepts file uploads, always use `errors="r
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Always enforce `utf-8` explicitly when interacting with files or databases.
@@ -196,14 +196,14 @@ Always enforce `utf-8` explicitly when interacting with files or databases.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Concatenating bytes and strings:** `b"hello " + "world"` raises a TypeError. You must decode the bytes first or encode the string first.
 - **Hashing strings directly:** `hashlib.sha256("password")` fails. Hashing algorithms do math on raw numbers, so they require bytes: `hashlib.sha256("password".encode('utf-8'))`.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - File Handling
 - API Development

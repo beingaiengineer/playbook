@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # F-Strings
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 In modern backend services, formatting logs and user output correctly is critical. Before, engineers had to write clunky and slow `.format()` statements, leading to messy string concatenation that was hard to debug. F-strings were introduced to solve this exact problem, allowing variables to be injected directly without losing speed.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of older formatting methods like ordering a custom sandwich through a form. You check boxes for lettuce, tomato, and cheese, hand the paper to the chef, and wait for them to read it and assemble your sandwich (`.format()`).
 
@@ -32,7 +32,7 @@ Think of an **f-string** as going directly to a subway counter and just pointing
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Introduced in Python 3.6, **f-strings** (formatted string literals) allow you to embed Python expressions directly inside string constants.
 
@@ -45,7 +45,7 @@ Why are they better?
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Feature | Syntax | Example | Output |
 |---|---|---|---|
@@ -57,7 +57,7 @@ Why are they better?
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's see how much cleaner f-strings are compared to older methods.
 
@@ -94,7 +94,7 @@ Bro, look how clean that is. You don't even need to cast `age` to a string using
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 The most common place you will use f-strings is generating dynamic URLs, SQL queries, or logging messages in backend engineering.
 
@@ -119,13 +119,13 @@ Bro, that `{user_id=}` feature is a massive time saver for debugging. It automat
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 Unlike `.format()` which is a method call that parses a string *after* the string is created, f-strings are evaluated as part of Python's abstract syntax tree (AST) compilation phase. When Python parses `f"x: {x}"`, it internally translates it directly into efficient C code that builds a string right out of memory buffers, skipping the expensive parsing step entirely.
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Formatting Method | Relative Speed | Why? |
 |---|---|---|
@@ -136,7 +136,7 @@ Unlike `.format()` which is a method call that parses a string *after* the strin
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -146,7 +146,7 @@ Unlike `.format()` which is a method call that parses a string *after* the strin
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 How do you use double quotes inside an f-string?
 
@@ -173,7 +173,7 @@ print(f"{{This is literal}} and this is dynamic: {value}")
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Logging:** `logger.info(f"Task {task.id} failed after {retries} retries")`
 - **Dynamic File Paths:** `path = f"/var/log/app/{date.today()}/server.log"`
@@ -181,7 +181,7 @@ print(f"{{This is literal}} and this is dynamic: {value}")
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -191,21 +191,21 @@ print(f"{{This is literal}} and this is dynamic: {value}")
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 While f-strings are amazing for standard logging, the standard Python `logging` module (e.g., `logging.debug("Data: %s", data)`) historically preferred the `%s` syntax for a specific reason: **Lazy Evaluation**. If the logger is set to `INFO`, and you use an f-string in `logging.debug(f"Massive processing: {heavy_function()}")`, Python will execute `heavy_function()` *before* checking the log level, wasting CPU cycles. With standard `%s` logging, it skips execution if the log level is disabled. However, for everyday strings, f-strings are the absolute standard.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting the `f`:** Writing `path = "/user/{id}"`. Python treats this as literal text. The curly braces do nothing without the `f`.
 - **Complex logic in brackets:** `f"Total: {sum([x.value for x in items if x.is_active])}"`. Bro, this is unreadable. Calculate the value on the line above, then just inject the final variable `f"Total: {total}"`.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - String Formatting (Legacy methods)
 - Input / Output

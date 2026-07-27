@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Caching
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine your e-commerce site has a complex recommendation engine. Every time a user loads the homepage, it queries the database and runs a heavy algorithm taking 5 seconds. Users get frustrated and leave. But the recommendations only change once a day! You are re-calculating the exact same thing thousands of times a second for no reason. This is exactly why caching matters. It saves the answer so you don't have to keep doing the math.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you are a librarian.
 
@@ -34,7 +34,7 @@ Five minutes later, someone else asks you the exact same question. Are you going
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Caching is the process of storing the result of an expensive operation in fast memory so that subsequent requests for the exact same operation return the cached result instantly.
 
@@ -42,7 +42,7 @@ In Python, you can cache data in variables, dictionaries, or by using built-in d
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | Syntax | When to Use |
 |---|---|---|
@@ -53,7 +53,7 @@ In Python, you can cache data in variables, dictionaries, or by using built-in d
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at the classic Fibonacci sequence calculation. Without caching, it's brutally slow because it repeats the same calculations thousands of times.
 
@@ -88,7 +88,7 @@ Bro, just adding one line (`@lru_cache`) made the function hundreds of thousands
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In web development, you don't want to hit the database for data that rarely changes, like user permissions or site configuration.
 
@@ -116,7 +116,7 @@ By caching the role, the user's dashboard will load instantly on subsequent page
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   elements={[
@@ -162,7 +162,7 @@ Under the hood, `@lru_cache` wraps your function in a dictionary lookup. The fun
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Caching Strategy | Access Time | Persistence | Good For |
 |---|---|---|---|
@@ -173,7 +173,7 @@ Under the hood, `@lru_cache` wraps your function in a dictionary lookup. The fun
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer | Explanation & Tricks |
 |---|---|---|
@@ -183,7 +183,7 @@ Under the hood, `@lru_cache` wraps your function in a dictionary lookup. The fun
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Scenario:** Caching functions with mutable arguments.
 ```python
@@ -200,14 +200,14 @@ If you use `@lru_cache` on Server A, and a user updates their profile on Server 
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **API Rate Limiting:** Checking if a user has exceeded their API limit using a fast Redis cache instead of querying Postgres on every request.
 - **Machine Learning:** Caching the preprocessing of large datasets so you don't have to clean the CSV files every time you restart your Jupyter Notebook.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -217,21 +217,21 @@ If you use `@lru_cache` on Server A, and a user updates their profile on Server 
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, caching hides bugs. If your underlying database query is fundamentally broken but returns the correct cached result for 24 hours, you won't know the system is broken until the cache expires. Always have a way to manually flush (clear) the cache in production without having to restart the whole application.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Caching the unexpected:** Caching a function that relies on external state (like `datetime.now()`). The cached function will return the exact same timestamp forever.
 - **No TTL (Time To Live):** Storing data in Redis without an expiration time. Over months, your Redis server fills up with gigabytes of dead data.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Big O Notation
 - Redis and Memcached

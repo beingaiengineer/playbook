@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Python Sets
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Real-World Analogy
+## 2. Real-World Analogy
 
 Think of a Python list like a queue of people at a bank—order matters, and the same person can theoretically stand in two different queues. Think of a **Python set** like the guest list at an exclusive VIP club, bro.
 
@@ -26,7 +26,7 @@ At the club, order doesn't matter; the bouncer only cares *if* you are on the li
 
 ---
 
-# 3. Concept Explanation
+## 3. Concept Explanation
 
 A set in Python is an unordered, mutable collection of unique elements.
 - **Unordered:** Items have no guaranteed sequence or index.
@@ -37,7 +37,7 @@ Sets are heavily optimized for mathematical operations like unions, intersection
 
 ---
 
-# 4. Syntax Table
+## 4. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -49,7 +49,7 @@ Sets are heavily optimized for mathematical operations like unions, intersection
 
 ---
 
-# 5. Beginner Example
+## 5. Beginner Example
 
 ```python
 # Creating a set of fruits
@@ -91,7 +91,7 @@ Bro, notice that an empty set is created with `set()`, not `{}`. Using `{}` crea
 
 ---
 
-# 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 In production, sets are often used to deduplicate large streams of data or to find the intersection of two datasets. Imagine we need to find which users logged in on both Monday and Tuesday.
 
@@ -110,7 +110,7 @@ Using a loop with lists to do this would be heavily unoptimized and slow down yo
 
 ---
 
-# 7. Internal Working
+## 7. Internal Working
 
 Sets are implemented internally using a **hash table** (very similar to dictionaries, but with only keys and no values).
 
@@ -120,7 +120,7 @@ Because sets rely on hashes, **all elements inside a set must be immutable (hash
 
 ---
 
-# 8. Performance Table
+## 8. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -131,7 +131,7 @@ Because sets rely on hashes, **all elements inside a set must be immutable (hash
 
 ---
 
-# 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -143,7 +143,7 @@ Because sets rely on hashes, **all elements inside a set must be immutable (hash
 
 ---
 
-# 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 If you need to remove duplicates from a list *while preserving the original order*, converting to a set and back will fail you.
 
@@ -169,7 +169,7 @@ print(s)
 
 ---
 
-# 11. Real-World Usage
+## 11. Real-World Usage
 
 - **Deduplication:** Cleaning up logs, CSV files, or database queries where unique rows are required.
 - **Fast Lookups:** Checking against a blocklist of bad IP addresses or spam words.
@@ -178,7 +178,7 @@ print(s)
 
 ---
 
-# 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -188,14 +188,14 @@ print(s)
 
 ---
 
-# 13. Production Notes
+## 13. Production Notes
 
 > ⚠ Production Note:
 Converting a list of millions of items to a set requires reading the entire list into memory, hashing every item, and allocating a new hash table. While lookups are O(1), the *conversion itself* is O(n) and memory-intensive. Do the conversion once at app startup (e.g., loading a set of blocked IPs), keep the set in memory, and reuse it for incoming requests.
 
 ---
 
-# 14. Common Mistakes
+## 14. Common Mistakes
 
 - **Initializing with `{}`:** Thinking `my_set = {}` makes an empty set. It makes a dict. Use `my_set = set()`.
 - **Assuming order:** Writing unit tests that assert a set converted to a list equals `[1, 2, 3]`. Sets have no order, so the test will be flaky and randomly fail on CI pipelines.
@@ -203,7 +203,7 @@ Converting a list of millions of items to a set requires reading the entire list
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Dictionaries (uses the same hash table concept)
 - Lists

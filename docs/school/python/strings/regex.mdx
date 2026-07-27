@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Regular Expressions (Regex)
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 A security team needed to scan millions of source code files to detect accidentally committed AWS access keys and credit card numbers. Simple string `.find()` methods couldn't handle the variable patterns of these secrets. They deployed regular expressions (regex) to define precise, powerful search patterns, allowing them to instantly identify and scrub sensitive data formats across their entire infrastructure.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of standard string methods (like `.find()`) as looking for a specific criminal based on a photo. You know exactly what they look like: "Find John Doe".
 
@@ -32,7 +32,7 @@ Think of **Regex** as giving a sketch artist a complex description: "Find me any
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Regex (Regular Expressions) is a powerful tool for matching complex text patterns. In Python, it is handled by the built-in `re` module.
 
@@ -40,7 +40,7 @@ You use Regex when standard string methods fail. For example, if you need to fin
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Metacharacter | Meaning | Example | Matches |
 |---|---|---|---|
@@ -53,7 +53,7 @@ You use Regex when standard string methods fail. For example, if you need to fin
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's extract a phone number from a messy string.
 
@@ -91,7 +91,7 @@ Bro, notice the `r` before the pattern string: `r"\d"`. This means "raw string".
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In web development, we constantly use Regex to validate user input before saving it to a database.
 
@@ -123,7 +123,7 @@ print(is_valid_username("al"))       # False (too short)
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 Regex engines work by compiling your pattern into a finite state automaton (a mathematical state machine). When it scans text, it moves through states. If it hits a dead end, it "backtracks" to the last known good state and tries a different path.
 
@@ -131,7 +131,7 @@ Because Python has to compile the string pattern into a C-level state machine, c
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Operation | Performance | Note |
 |---|---|---|
@@ -141,7 +141,7 @@ Because Python has to compile the string pattern into a C-level state machine, c
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -151,7 +151,7 @@ Because Python has to compile the string pattern into a C-level state machine, c
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 The Greedy Trap!
 
@@ -175,7 +175,7 @@ Bro, always remember: regex is greedy by nature. It will eat your entire string 
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Log Parsing:** Extracting IP addresses from Nginx logs (`r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"`).
 - **Data Scraping:** Finding all email addresses or URLs on a raw HTML webpage.
@@ -183,7 +183,7 @@ Bro, always remember: regex is greedy by nature. It will eat your entire string 
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -193,14 +193,14 @@ Bro, always remember: regex is greedy by nature. It will eat your entire string 
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 **Catastrophic Backtracking** can take down your production server. If you write a sloppy regex with lots of nested wildcards like `(a+)+$`, and a user inputs a very long malicious string, the regex engine will get stuck trying millions of combinations to find a match. This is a common form of Denial of Service (ReDoS). Keep patterns simple and test them against edge cases!
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting `import re`:** Regex is built-in, but it's not loaded by default.
 - **Using Regex for simple finds:** If you just need to replace "cat" with "dog", use `text.replace("cat", "dog")`. It is 10x faster than `re.sub()`.
@@ -208,7 +208,7 @@ Bro, always remember: regex is greedy by nature. It will eat your entire string 
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - String Methods
 - Error Handling (Validation)

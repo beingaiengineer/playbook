@@ -6,7 +6,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Load Testing
 
-# 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,13 +18,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-# 2. Engineering Story
+## 2. Engineering Story
 
 Bro, imagine your startup just got featured on national television. You are expecting a massive spike in traffic. Your app has 100% test coverage and works perfectly for your 10 daily users. But when 100,000 people hit your site at once, the database connections max out, the server crashes, and you lose thousands of potential customers. This is exactly why load testing matters. Without it, you never know when your system will break under pressure.
 
 ---
 
-# 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Bro, imagine you own a brand new restaurant.
 
@@ -34,7 +34,7 @@ Unit testing is checking if the chef can cook one perfect burger. Integration te
 
 ---
 
-# 4. Concept Explanation
+## 4. Concept Explanation
 
 Load testing is the process of putting simulated demand on a software system and measuring its response.
 
@@ -44,7 +44,7 @@ Bro, use tools like **Locust** (written in Python) or **k6** to simulate hundred
 
 ---
 
-# 5. Syntax Table
+## 5. Syntax Table
 
 | Tool | Example (Locust) |
 |---|---|
@@ -54,7 +54,7 @@ Bro, use tools like **Locust** (written in Python) or **k6** to simulate hundred
 
 ---
 
-# 6. Beginner Example
+## 6. Beginner Example
 
 Let's write a simple Locust script to test an API.
 
@@ -79,7 +79,7 @@ When you run this, Locust provides a beautiful web UI where you can say "Spawn 5
 
 ---
 
-# 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In the real world, you need to simulate complex user flows, like logging in, getting a token, and then fetching profile data.
 
@@ -110,7 +110,7 @@ Bro, this accurately simulates real users holding state (tokens) and taking acti
 
 ---
 
-# 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   title="Load Testing Architecture"
@@ -134,7 +134,7 @@ A load testing tool uses asynchronous I/O (like Python's `gevent` in Locust) to 
 
 ---
 
-# 9. Performance Table
+## 9. Performance Table
 
 | Metric to Watch | Warning Sign |
 |---|---|
@@ -145,7 +145,7 @@ A load testing tool uses asynchronous I/O (like Python's `gevent` in Locust) to 
 
 ---
 
-# 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -156,7 +156,7 @@ A load testing tool uses asynchronous I/O (like Python's `gevent` in Locust) to 
 
 ---
 
-# 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, look at this scenario:
 
@@ -169,14 +169,14 @@ Is the server really slow?
 
 ---
 
-# 12. Real-World Usage
+## 12. Real-World Usage
 
 - **E-commerce:** Heavily load tested weeks before Black Friday to ensure the cart checkout system won't crash.
 - **Ticketing Platforms:** Spike testing for when concert tickets go on sale and 50,000 people refresh the page simultaneously.
 
 ---
 
-# 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -186,21 +186,21 @@ Is the server really slow?
 
 ---
 
-# 14. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, if you run a load test against an API that sends SMS messages or emails, you will accidentally send 10,000 real emails and get your company's AWS SES account banned for spam. Always ensure third-party integrations are mocked or pointed to sandbox environments in the environment you are load testing.
 
 ---
 
-# 15. Common Mistakes
+## 15. Common Mistakes
 
 - **Caching lies:** Testing an endpoint that is heavily cached by Cloudflare. You think your Python code handles 10k RPS, but your Python code actually received 0 requests. You just load tested Cloudflare. Bypass CDNs when testing backend limits.
 - **Ignoring the Database:** The DB is almost always the bottleneck. If your test just hits an endpoint that returns `{"status": "ok"}` without touching the DB, the test is useless.
 
 ---
 
-# 16. Related Topics
+## 16. Related Topics
 
 - Profiling
 - Caching
