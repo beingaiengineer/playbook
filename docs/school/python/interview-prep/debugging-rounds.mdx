@@ -1,8 +1,10 @@
 ---
 sidebar_position: 3
+sidebar_label: "Debugging Rounds"
 ---
 
 import InterviewCheatSheet from '@site/src/components/InterviewCheatSheet';
+import LearningFlow from '@site/src/components/LearningFlow';
 
 # Debugging Rounds
 
@@ -64,6 +66,22 @@ If checkout latency spikes, check logs, metrics, traces, database time, and exte
 
 Tracebacks show the call stack. The last frame usually shows where the exception happened.
 
+<LearningFlow
+  nodes={[
+    { id: 'err', type: 'warning', data: { label: 'Traceback / Exception' } },
+    { id: 'iso', type: 'process', data: { label: 'Isolate Root Cause' } },
+    { id: 'fix', type: 'process', data: { label: 'Apply Fix' } },
+    { id: 'test', type: 'output', data: { label: 'Verify via Tests' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'err', target: 'iso', type: 'smoothstep', animated: true },
+    { id: 'e2', source: 'iso', target: 'fix', type: 'step' },
+    { id: 'e3', source: 'fix', target: 'test', type: 'step' }
+  ]}
+/>
+
+---
+
 ## 9. Performance Table
 
 | Debug Signal | Use |
@@ -96,7 +114,15 @@ Used in backend incidents, test failures, data jobs, and API production support.
 ## 14. Production Notes
 
 > Production Note:
-> A fix is not complete until you can explain how you will detect the bug if it returns.
+> A fix is not complete until you can explain how you will detect the bug if it returns. Ensure every bug fix is accompanied by a test case (unit or integration) that explicitly tests for the failure condition.
+
+---
+
+## 17. Advanced Top Debugging Patterns
+1. **Binary Search Debugging (Git Bisect)**: When a system suddenly breaks and no one knows why, use `git bisect` to binary search your commit history. It finds the exact commit that introduced the bug in `O(log N)` time.
+2. **Rubber Ducking the Call Stack**: Go through the stack trace line by line out loud. Often, engineers skip the middle of the stack trace, assuming the framework is broken, when actually a middleware they wrote modified the request payload.
+3. **Isolating State**: Flaky bugs are almost always caused by shared state (global variables, database singletons, or thread locals). Write a test that runs the function 100 times concurrently to prove the race condition.
+4. **The "Five Whys" Root Cause Analysis**: Don't just fix the `NullPointerException`. Ask *why* it was null. Ask *why* the upstream system sent null. Ask *why* the contract was violated. Fix the source, not the symptom.
 
 ## 15. Common Mistakes
 
@@ -118,3 +144,10 @@ Used in backend incidents, test failures, data jobs, and API production support.
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 50k+ | The core language itself has great debugging examples | Highly relevant to understanding debugging rounds in production. |
+
+## 17. Final Interview Advice
+
+> BAE's Top Tip:
+> Don't just memorize these patterns. Understand *why* they exist. 
+> In a real interview, the interviewer cares more about how you communicate tradeoffs than whether you wrote a perfect one-liner.
+> If you get stuck, always verbalize your thought process! "I know a hash map gives O(1) lookup, but it will cost O(N) space. Let's start with that and optimize later."

@@ -1,135 +1,186 @@
 ---
-sidebar_position: 3
+sidebar_position: 2
 sidebar_label: "MCP Server Development"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# MCP Server Development
+# Developing MCP Servers
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
 | Topic | MCP Server Development |
 | Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Used For | Exposing your custom data or APIs to any AI assistant that supports the MCP protocol. |
+| Common Mistake | Using `print()` or `console.log()` for debugging when using the `stdio` transport. It corrupts the JSON-RPC stream! |
+| Performance | High. The official FastMCP SDK (Python) makes building servers as fast as writing FastAPI routes. |
 
 ## 2. Engineering Story
 
-Bro, your team just built an incredibly powerful internal knowledge base for the company, and now the business wants all your internal AI agents to be able to query it. The naive approach is to build a massive custom integration layer into every single agent framework you use (LangChain, CrewAI, AutoGen). But what happens next month when they adopt a new framework? You'd have to write the integration all over again. Instead of hardcoding connections into the clients, the engineering solution is to wrap your knowledge base in an MCP (Model Context Protocol) Server. By developing a standardized MCP server, you write the integration logic exactly once. Any AI agent that speaks MCP can instantly discover your knowledge base's resources, read its tools, and understand its prompt templates without needing any custom client-side code.
+Bro, you built an internal company Wiki using a weird proprietary database. You want Cursor (your IDE) and Claude Desktop to read this Wiki to help you write code. 
+Normally, you'd have to wait for the Cursor team to build an integration, which will never happen. 
+Instead, you spend 15 minutes writing an **MCP Server** in Python. You define one tool: `search_wiki(query)`. You compile it. You tell Cursor to run your script via `stdio`. Suddenly, Cursor's AI knows exactly how to query your proprietary company Wiki. You just gave your AI superpowers using a standard protocol.
 
 ## 3. Real-World Analogy
 
-Bro, think of it like this:
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A developer forging a custom plug (MCP Server) that perfectly fits a glowing universal outlet (MCP Client) to power a strange, complex machine (Company Database). */}
 
-| Building a custom adapter plug | MCP Server Development Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
-
-![Illustration of Bae soldering a custom adapter](../assets/protocols/mcp-server-development.png)
+Think of building an MCP Server like building an API, but for an LLM instead of a frontend React app.
+When you build a REST API, you write endpoints (`/users`, `/posts`) that return JSON for a UI.
+When you build an MCP Server, you write Tools (`get_users`, `read_post`) that return JSON for a Large Language Model. The framework handles the JSON-RPC parsing automatically.
 
 ## 4. Concept Explanation
 
-Bro, building an MCP server is how you expose your company's internal data safely to AI. You define resources (like files), prompts (templates), and tools (actions). The server implements the MCP JSON-RPC protocol over standard I/O or SSE. It's crucial to understand when to use this versus standard scripts.
+To build an MCP server, you don't need to manually parse JSON-RPC strings. Anthropic provides high-level SDKs for Python and TypeScript.
+In Python, the standard is the **FastMCP** framework (similar to FastAPI). 
+You create an instance of the server, and use decorators like `@mcp.tool()` to expose functions, or `@mcp.resource()` to expose static data. The SDK automatically generates the JSON Schemas from your Python type hints and handles the `stdio` or `SSE` transport layers.
 
 ## 5. Syntax Table
-
-| Concept | Syntax | Description |
+| Action | FastMCP Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| Init Server | `mcp = FastMCP("MyServer")` | Creates the server instance. |
+| Expose Tool | `@mcp.tool()` | Exposes an executable function to the LLM. |
+| Expose Resource | `@mcp.resource("config://app")` | Exposes read-only data via a URI. |
+| Run Server | `mcp.run(transport='stdio')` | Starts listening for JSON-RPC messages. |
 
 ## 6. Beginner Example
 
-```typescript
-const server = new Server({ name: 'my-server', version: '1.0.0' });
+A complete MCP Server in Python that exposes a simple Calculator tool.
+
+```python
+# calculator_mcp.py
+# Run with: pip install mcp
+from mcp.server.fastmcp import FastMCP
+
+# 1. Initialize the FastMCP server
+mcp = FastMCP("CalculatorServer")
+
+# 2. Expose a tool using the decorator
+# The docstring and type hints are CRITICAL. They become the JSON Schema for the LLM!
+@mcp.tool()
+def add_numbers(a: float, b: float) -> float:
+    """Adds two numbers together. Use this when the user asks for addition."""
+    return a + b
+
+@mcp.tool()
+def multiply_numbers(a: float, b: float) -> float:
+    """Multiplies two numbers together."""
+    return a * b
+
+if __name__ == "__main__":
+    # 3. Start the server (defaults to stdio)
+    # WARNING: Do not use print() anywhere in this file!
+    mcp.run()
 ```
 
 ## 7. Real-World Engineering Example
 
-```typescript
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === 'get_data') return { content: [{ type: 'text', text: 'data' }] };
-});
+In production, you often need to expose **Resources** (data the LLM can read directly without calling a tool) and handle asynchronous network calls securely.
+
+```python
+import httpx
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("GitHub_Lite_Server")
+
+# 1. Resources use custom URI schemes. 
+# The LLM can request "github://readme/owner/repo" to get file contents.
+@mcp.resource("github://readme/{owner}/{repo}")
+async def get_readme(owner: str, repo: str) -> str:
+    """Fetches the README.md for a given public GitHub repository."""
+    url = f"https://raw.githubusercontent.com/{owner}/{repo}/main/README.md"
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        if response.status_code == 200:
+            return response.text
+        return f"Error: Could not fetch README for {owner}/{repo}"
+
+# 2. Tools are executable actions.
+@mcp.tool()
+async def get_repo_stars(owner: str, repo: str) -> int:
+    """Gets the exact star count of a GitHub repository."""
+    url = f"https://api.github.com/repos/{owner}/{repo}"
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url)
+        data = response.json()
+        return data.get("stargazers_count", 0)
+
+if __name__ == "__main__":
+    mcp.run()
 ```
 
 ## 8. Internal Working
 
-Bro, here is exactly how MCP Server Development orchestrates data internally.
+How `FastMCP` translates Python code into MCP Protocol messages.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Custom Database", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Your Node.js MCP Server", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "JSON-RPC via stdio", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'py', type: 'core', data: { label: '@mcp.tool() def get_weather(city: str)' } },
+    { id: 'ref', type: 'process', data: { label: 'FastMCP Reflection (Type Hints)' } },
+    { id: 'sch', type: 'warning', data: { label: 'Generates JSON Schema' } },
+    { id: 'rpc', type: 'tool', data: { label: 'list_tools() Response' } },
+    { id: 'llm', type: 'output', data: { label: 'LLM Context Window' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'py', target: 'ref', type: 'step' },
+    { id: 'e2', source: 'ref', target: 'sch', label: 'Extracts types', type: 'smoothstep' },
+    { id: 'e3', source: 'sch', target: 'rpc', type: 'step' },
+    { id: 'e4', source: 'rpc', target: 'llm', label: 'Injected into prompt', animated: true }
+  ]}
 />
 
 ## 9. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+| SDK / Framework | Setup Speed | Best For |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| `FastMCP` (Python) | Very Fast | Data science, Python backends, rapid prototyping. |
+| `@modelcontextprotocol/sdk` (TS) | Fast | Node.js environments, Web devs. |
+| Raw JSON-RPC | Very Slow | Specialized languages (Rust/Go) without an official SDK yet. |
 
 ## 10. Top Interview Questions
-
 | Question | Answer |
 |---|---|
-| Q: What are the core components of an MCP Server? | A: An MCP Server typically exposes Resources, Prompts, and Tools that connected clients can consume. |
-| Q: How do you secure an MCP Server? | A: By strictly validating all inputs, authenticating the client connection, and restricting access to underlying data systems. |
-| Q: What is the difference between Resources and Tools in MCP? | A: Resources are static or dynamic data provided to the agent as context, while Tools are executable functions the agent can call. |
-| Q: How do you handle long-running tool executions? | A: The protocol allows for progress notifications and asynchronous execution patterns to keep the client informed. |
-| Q: Why build a custom MCP Server instead of using REST APIs directly? | A: MCP standardizes the discovery and interaction schema, allowing any compatible LLM agent to immediately use the server without custom integration code. |
+| Why must you NOT use `print()` in an MCP server? | Because the default transport mechanism is `stdio`. The client (like Claude) reads `stdout` expecting strictly formatted JSON-RPC objects. If it reads a random string like `Debug: starting...`, the JSON parser crashes and the connection drops. |
+| How *do* you log debug information? | You must log to `stderr`! Use `sys.stderr.write()` or configure the Python `logging` module to output strictly to `stderr`. |
+| What is the difference between `@mcp.resource()` and `@mcp.tool()`? | A Resource provides read-only context (like a file or DB schema) via a URI pattern. A Tool is an action that takes arguments (often mutating state). |
 
 ## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? MCP Server Development has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what happens if your tool takes 5 minutes to run (like a massive SQL query)?
+The MCP protocol itself doesn't have a strict timeout, but the Client (e.g., Cursor or Claude Desktop) usually does (e.g., 60 seconds). If your server blocks for 5 minutes, the client will drop the connection. For heavy tasks, you should return an immediate status (e.g., "Query started with JobID 123") and provide a secondary tool like `check_job_status(job_id)`.
 
 ## 12. Real-World Usage
 
-Tech giants are adopting MCP Server Development for their internal developer platforms and automated ops pipelines.
+- **Connecting Internal Databases**: Writing an MCP server that wraps `psycopg2` so Claude Desktop can securely query an internal AWS RDS instance without exposing the DB to the internet.
+- **Controlling Smart Home Devices**: A developer wrote a HomeAssistant MCP server. Now they can type in Claude: "Turn off the living room lights," Claude calls the tool, and the lights turn off.
 
 ## 13. Best Practices
-
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Provide exhaustive python `docstrings` for every tool | Leave docstrings blank |
+| Use precise Python type hints (`int`, `List[str]`) | Use `dict` or `Any`, which prevents accurate Schema generation |
+| Log all errors gracefully to `stderr` | Let exceptions bubble up and print stack traces to `stdout` |
 
 ## 14. Production Notes
+> Production Note:
+> The easiest way to distribute your Python MCP server is using `uv` (the ultrafast python package manager). If you package your script and upload it to PyPI or GitHub, users can run it seamlessly in their Claude config via `"command": "uvx", "args": ["github:yourname/your-mcp-server"]`. `uvx` creates an isolated ephemeral environment, installs dependencies, and runs the server without messing up the host's global python installation.
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
+
+## 17. Advanced Development (Prompts & SSE)
+1. **Dynamic Prompts**: MCP Servers can also expose `@mcp.prompt()`. This allows the server to dictate *how* the LLM should think. You can define a prompt template like "CodeReviewTemplate" on the server, and the client UI can dynamically load it.
+2. **Server-Sent Events (SSE)**: If you want to host an MCP server on the internet (e.g., deploying to Render or Heroku), you cannot use `stdio`. FastMCP allows you to easily bind the server to a FastAPI app and expose `/sse` and `/messages` HTTP endpoints for remote client connections.
 
 ## 15. Common Mistakes
-
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+- **Hanging Subprocesses**: If your MCP server spawns background threads that don't terminate when the main script receives a SIGTERM, the process will become a zombie on the user's host machine.
+- **Assuming the LLM understands URI schemes**: If you define a resource `custom://wiki/{page}`, you MUST provide a tool that allows the LLM to discover what pages exist (e.g. `list_wiki_pages()`). Otherwise, the LLM will never know what URIs to request!
 
 ## 16. Related Topics
+- JSON Schema Generation
+- Standard Input/Output Pipes (`stdio`)
+- Server-Sent Events
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk) | ⭐ 2k+ | MCP TS SDK | SDK for building servers |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | ⭐ 3k+ | Official Python SDK | Contains the FastMCP implementation used by most developers. |

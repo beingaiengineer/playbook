@@ -12,101 +12,173 @@ import LearningFlow from '@site/src/components/LearningFlow';
 |---|---|
 | Topic | Code Execution in AutoGen |
 | Difficulty | Intermediate |
-| Used For | Executing generated code safely in AutoGen. |
-| Common Mistake | Running agent-generated code without a sandbox (Docker). |
-| Performance | Depends on the framework and underlying LLM latency. |
+| Used For | Allowing LLMs to write, run, and debug Python code autonomously. |
+| Common Mistake | Running code directly on your host machine without a Docker sandbox, leading to file system corruption or hanging loops. |
+| Performance | High execution latency due to Docker container spin-up and teardown. |
 
-## 2. Real-World Analogy
-Like an architect who not only draws the blueprints but also puts on a hard hat and builds the house themselves to make sure it works.
+## 2. Engineering Story
 
-![Real World Analogy](./images/autogen-code-execution/analogy.png)
+Bro, LLMs are great at writing code, but they often hallucinate subtle bugs (like a missing import or off-by-one error). Usually, you copy their code, run it, get a traceback, paste the traceback back into the LLM, and say "fix this."
+AutoGen says, "Why are you doing this manually?" With AutoGen's Code Execution, the LLM generates a Python script, a `UserProxyAgent` saves it to disk, runs it in a sandboxed Docker container, captures `stdout` and `stderr`, and literally replies to the LLM with the error trace so it can fix itself. It's an autonomous debugging loop.
 
-| Construction | Code Execution |
-|---|---|
-| Blueprint | Generated Code |
-| Hard Hat | Docker Sandbox |
-| Building | Execution Engine |
+## 3. Real-World Analogy
 
-## 3. Concept Explanation
-AutoGen excels at generating and executing code iteratively. A coding agent writes the script, and a UserProxyAgent (acting as the executor) runs it and feeds the output or error trace back to the coding agent to fix it. Always use Docker to sandbox execution.
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A robot sitting at a computer typing code, while a secondary secure glass box (Docker) runs the code and shows the output on a screen for the robot to read. */}
 
-## 4. Syntax Table
-| Action | Code Example |
-|---|---|
-| Enable Execution | `code_execution_config={"use_docker": True}` |
-| Disable Execution | `code_execution_config=False` |
+Think of Code Execution like a bomb disposal squad.
+You don't diffuse a bomb in your living room (Host OS). You put it inside a heavily reinforced, isolated steel chamber (Docker Sandbox) and trigger it remotely. If it blows up (crashes or tries to delete files), it only ruins the chamber, and your living room is completely safe.
 
-## 5. Beginner Example
+## 4. Concept Explanation
+
+AutoGen relies heavily on the `UserProxyAgent` to execute code. When an `AssistantAgent` sends a message containing a Markdown code block (e.g., \`\`\`python ... \`\`\`), the `UserProxyAgent` parses the block, writes it to a temporary `.py` file, and spawns a subprocess to execute it. 
+For security, AutoGen provides a `DockerCommandLineCodeExecutor`. It spins up a temporary Docker container, mounts a shared working directory, executes the Python script inside the container, and returns the console output as a chat message.
+
+## 5. Syntax Table
+| Concept | Code | Description |
+|---|---|---|
+| Local Exec (Dangerous) | `LocalCommandLineCodeExecutor(work_dir="output")` | Runs code directly on your machine. |
+| Docker Exec (Safe) | `DockerCommandLineCodeExecutor(image="python:3.11")` | Runs code inside a Docker sandbox. |
+| Agent Config | `UserProxyAgent(code_execution_config={"executor": executor})` | Attaches the executor to the proxy. |
+
+## 6. Beginner Example
+
+A simple local execution setup (not recommended for production, but good for learning).
+
 ```python
-executor = autogen.UserProxyAgent(
-    name="Executor",
-    code_execution_config={"work_dir": "workspace", "use_docker": True}
+import autogen
+from autogen.coding import LocalCommandLineCodeExecutor
+
+# 1. Create a local executor (Runs on your host machine!)
+local_executor = LocalCommandLineCodeExecutor(
+    timeout=60, # Kill script if it hangs for >60s
+    work_dir="coding_workspace" # Save scripts here
 )
+
+# 2. Attach it to a User Proxy
+user_proxy = autogen.UserProxyAgent(
+    name="Proxy",
+    human_input_mode="NEVER",
+    code_execution_config={"executor": local_executor}
+)
+
+# 3. Create the Coder
+coder = autogen.AssistantAgent(
+    name="Coder",
+    llm_config={"config_list": [{"model": "gpt-4"}]}
+)
+
+# 4. Start the autonomous coding loop
+user_proxy.initiate_chat(coder, message="Write a python script to print the first 20 fibonacci numbers.")
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
+
+In production, you MUST use Docker. Here is how you execute code safely in an isolated environment.
+
 ```python
-# Using a custom Docker image with pre-installed dependencies
-executor = autogen.UserProxyAgent(
-    name="DataScienceExecutor",
-    code_execution_config={
-        "work_dir": "data_workspace",
-        "use_docker": "my-data-science-env:latest"
-    }
+import autogen
+from autogen.coding.docker_commandline_code_executor import DockerCommandLineCodeExecutor
+
+# 1. Spin up a Docker executor
+# It will pull the python:3.11-slim image and run code inside it
+docker_executor = DockerCommandLineCodeExecutor(
+    image="python:3.11-slim",
+    timeout=120,
+    work_dir="secure_workspace" # Mounted into the container
 )
+
+secure_proxy = autogen.UserProxyAgent(
+    name="SecureProxy",
+    human_input_mode="NEVER",
+    code_execution_config={"executor": docker_executor}
+)
+
+data_scientist = autogen.AssistantAgent(
+    name="DataScientist",
+    llm_config={"config_list": [{"model": "gpt-4"}]}
+)
+
+# The agent will write a script, and secure_proxy will run it inside Docker!
+with docker_executor: # Ensure the container is cleaned up afterwards
+    secure_proxy.initiate_chat(
+        data_scientist, 
+        message="Write a python script that saves a matplotlib scatter plot to 'plot.png'."
+    )
 ```
 
-## 7. Internal Working
-Here is how it works under the hood. The flow represents the lifecycle of the agent's execution process.
+## 8. Internal Working
 
-<LearningFlow />
+How the Code Executor intercepts and runs markdown code blocks.
 
-## 8. Performance Table
-| Operation | Complexity |
-|---|---|
-| Initialization | O(1) |
-| Tool Execution | O(N) where N is payload size |
-| State Update | O(1) |
+<LearningFlow
+  nodes={[
+    { id: 'llm', type: 'core', data: { label: 'LLM Generates Code Block' } },
+    { id: 'proxy', type: 'process', data: { label: 'UserProxyAgent Parses Regex' } },
+    { id: 'disk', type: 'output', data: { label: 'Saves temp_code.py' } },
+    { id: 'docker', type: 'tool', data: { label: 'Docker Exec Subprocess' } },
+    { id: 'reply', type: 'warning', data: { label: 'Return stdout/stderr to LLM' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'llm', target: 'proxy', type: 'step' },
+    { id: 'e2', source: 'proxy', target: 'disk', type: 'step' },
+    { id: 'e3', source: 'disk', target: 'docker', label: 'Mount Volume', type: 'smoothstep' },
+    { id: 'e4', source: 'docker', target: 'reply', label: 'Captures logs', animated: true },
+    { id: 'e5', source: 'reply', target: 'llm', label: 'Self-Correction Loop' }
+  ]}
+/>
 
-## 9. Top Interview Questions
+## 9. Performance Table
+| Executor Type | Setup Latency | Security Level |
+|---|---|---|
+| LocalCommandLine | Very Fast (under 0.1s) | Critical Danger (Root access) |
+| DockerCommandLine | Slower (2-5s container boot) | High (Sandboxed) |
+| JupyterKernel | Medium | High (Good for data science) |
+
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| Why does AutoGen recommend Docker for code execution? | Because LLMs can generate malicious or destructive code (like `rm -rf /`). Docker sandboxes this safely. |
-| What happens if code execution fails in AutoGen? | The error stack trace is sent back to the LLM agent as a message, prompting it to debug and rewrite the code. |
-| What are the security implications? | You must implement guardrails to prevent unauthorized tool execution or prompt injection. |
-| When should you NOT use this? | When a simple direct LLM call or basic script would suffice. |
-| How does it scale? | By distributing agent workloads across serverless functions or containerized environments. |
+| Why should you never use `use_docker=False` in production? | If the LLM hallucinates or is prompt-injected with `import os; os.system("rm -rf /")`, it will literally wipe your server's hard drive. |
+| How does the agent handle missing pip dependencies? | The LLM will receive a `ModuleNotFoundError` from the executor. A smart agent will then generate a new script that runs `!pip install library` or equivalent bash commands to install it dynamically. |
+| Can the executor run bash commands? | Yes. The `UserProxyAgent` can execute `sh` or `bash` code blocks, not just Python. |
 
-## 10. Tricky Questions & Edge Cases
-Watch out for concurrency issues, bro. If multiple agents try to update the same shared state without proper locking mechanisms, you'll run into race conditions that are a nightmare to debug.
+## 11. Tricky Questions & Edge Cases
 
-## 11. Real-World Usage
-Used by top tech companies for internal tooling, customer support automation, and complex data pipeline orchestration. For instance, tech teams use these patterns to orchestrate delivery logistics dynamically based on real-time traffic data.
+Bro, what happens if the code generated by the LLM enters an infinite loop, like `while True: pass`?
+By default, the subprocess will hang forever and eat your server's CPU. You MUST define a `timeout` argument on your `CodeExecutor`. If it hits the timeout, AutoGen forcefully kills the subprocess and replies to the LLM: `TimeoutError: Execution took too long`.
 
-## 12. Best Practices
+## 12. Real-World Usage
+
+- **Automated Pentesting**: An agent writes python scripts to probe an API for SQL injection vulnerabilities. The executor runs the scripts, returns the HTTP responses, and the agent iterates.
+- **Data Engineering**: Give the agent a messy CSV file. It writes a pandas script to clean it, execute it, checks the output distribution, and saves a polished parquet file.
+
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Write comprehensive unit tests for individual agent tools | Skip error handling and assume the LLM will always return the perfect format |
-| Use structured logging to trace agent decision paths | Hardcode sensitive API keys directly in the agent's configuration |
-| Implement clear guardrails and timeout limits | Let an agent run indefinitely in an unbounded loop |
+| Use `DockerCommandLineCodeExecutor` in cloud environments | Run local execution on your primary laptop without knowing what the agent is doing |
+| Set a strict `timeout=60` | Let scripts run indefinitely |
+| Pre-install heavy dependencies (like PyTorch) in the custom Docker Image | Force the agent to run `pip install torch` on every single conversation turn |
 
-## 13. Production Notes
-Warning: Always monitor memory usage and LLM token limits in production. A rogue agent stuck in a loop can quickly rack up massive API bills. Implement hard limits and alerting.
+## 14. Production Notes
+> Production Note:
+> If you deploy AutoGen on AWS Fargate or Kubernetes, remember that you are running Docker inside Docker (DinD). Managing nested container permissions can be an infrastructure nightmare. Often, teams prefer the `JupyterKernel` executor connected to a remote JupyterHub server for cloud deployments instead of spawning local DinD instances.
 
-## 14. Common Mistakes
-| Mistake | Fix |
-|---|---|
-| Ignoring logs | Add structured logging to track every step of the agent's thought process |
-| Assuming perfect output | Use tools like Pydantic to strictly validate output schemas before proceeding |
+---
 
-## 15. Related Topics
-- Framework Architecture Patterns
-- Production Deployment Strategies
-- Agent Observability
+## 17. Advanced Code Execution (Jupyter)
+1. **Stateful Execution**: The standard Command Line Executor treats every script as isolated. If Script A declares `x = 5`, Script B cannot access `x`.
+2. **Jupyter Code Executor**: AutoGen provides a `JupyterCodeExecutor` that maintains state across turns. Just like a Jupyter Notebook, if the agent defines a dataframe in the first message, it can plot that same dataframe in the second message without reloading the CSV!
 
-## 16. Top GitHub Repos
+## 15. Common Mistakes
+- **Missing Docker Daemon**: Trying to use `use_docker=True` on a machine that doesn't have Docker Desktop installed or running. The script will crash instantly.
+- **File Path Confusion**: The LLM tries to read `/home/user/data.csv`, but because the code is running in Docker, that path doesn't exist. You must mount the correct `work_dir`.
+
+## 16. Related Topics
+- Sandboxing & Containerization
+- Interactive Python Kernels (Jupyter)
+- Prompt Injection Vulnerabilities
+
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 25k+ | Microsoft AutoGen | The core framework repository |
-| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | Key competitor offering different paradigms |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Popular alternative for specific use cases |
+| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Contains the `autogen.coding` module. |
+| [jupyter/jupyter](https://github.com/jupyter/jupyter) | ⭐ 15k+ | Interactive computing | The backbone technology for the stateful JupyterCodeExecutor. |

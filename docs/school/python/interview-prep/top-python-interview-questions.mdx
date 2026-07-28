@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+sidebar_label: "Top Python Interview Questions"
 ---
 
 import PythonInterviewPrep from '@site/src/components/PythonInterviewPrep';
@@ -89,6 +90,22 @@ Bro, this shows you understand clean setup, dependency isolation, and why produc
 
 The quiz stores answers and scores in browser `localStorage`. No backend is required.
 
+<LearningFlow
+  nodes={[
+    { id: 'q', type: 'core', data: { label: 'Python Question' } },
+    { id: 'think', type: 'process', data: { label: 'Recall Internal Working\n(e.g., GIL, Memory)' } },
+    { id: 'ans', type: 'output', data: { label: 'Clear, Concise Answer' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'q', target: 'think', type: 'smoothstep', animated: true },
+    { id: 'e2', source: 'think', target: 'ans', type: 'step' }
+  ]}
+/>
+
+---
+
+## 9. Performance Table
+
 | Data | Stored For |
 |---|---|
 | Selected answers | Resume later |
@@ -143,7 +160,19 @@ Use this section before:
 > Production Note:
 > Interview answers should connect syntax to production behavior.
 
-Bro, when you explain setup, mention reproducible builds. When you explain execution flow, mention imports and startup. That is how answers sound senior.
+Bro, when you explain setup, mention reproducible builds. When you explain execution flow, mention imports and startup. That is how answers sound senior. If you memorize documentation, you will fail the behavioral follow-ups.
+
+---
+
+## 17. Advanced Top Interview Traps
+1. **The "List Comprehension vs Generator" Trap**:
+   - Interviewer: "How do you process a 10GB log file?"
+   - Trap: If you say `[process(line) for line in file]`, you fail. That creates a 10GB list in memory and crashes your server.
+   - Fix: Use a generator `(process(line) for line in file)` which yields one item at a time.
+2. **The `global` Keyword Trap**:
+   - Interviewer: "Why shouldn't you use global variables?"
+   - Trap: Saying "because it's bad practice" isn't enough.
+   - Fix: Mention thread-safety. In a web server (like Flask), global variables are shared across multiple requests concurrently, leading to terrifying race conditions and data corruption.
 
 ## 15. Common Mistakes
 
@@ -165,6 +194,8 @@ Bro, when you explain setup, mention reproducible builds. When you explain execu
 
 
 ---
+
+import LearningFlow from '@site/src/components/LearningFlow';
 
 ### Top GitHub Repositories
 

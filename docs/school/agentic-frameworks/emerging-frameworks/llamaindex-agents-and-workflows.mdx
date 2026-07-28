@@ -1,6 +1,6 @@
 ---
-sidebar_position: 3
-sidebar_label: "LlamaIndex Agents and Workflows"
+sidebar_position: 4
+sidebar_label: "LlamaIndex Workflows"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -8,125 +8,186 @@ import LearningFlow from '@site/src/components/LearningFlow';
 # LlamaIndex Agents and Workflows
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
-| Topic | LlamaIndex Agents and Workflows |
+| Topic | LlamaIndex Agents & Workflows |
 | Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Used For | Connecting LLMs to complex data sources (RAG) and orchestrating event-driven agentic workflows. |
+| Common Mistake | Using the legacy `AgentRunner` instead of the new highly customizable event-driven `Workflows`. |
+| Performance | Highly optimized for data ingestion and retrieval; Workflows run asynchronously for high throughput. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you built an AI app that reads 50 PDFs using standard RAG. But your users want more. They ask, "Compare the financial report in PDF A with the trends in our Snowflake database, then email the summary to John."
+Standard RAG fails because it just does vector search. You need an **Agent**. 
+LlamaIndex, historically the king of data ingestion, introduced `FunctionCallingAgentWorker` and event-driven `Workflows`. Now, you give LlamaIndex a "Query Engine Tool" (for the PDFs), a "SQL Tool" (for Snowflake), and an "Email Tool". The LlamaIndex agent autonomously routes between these massive data sources to solve complex, multi-step user queries.
 
-| A massive national library with a smart librarian | LlamaIndex Agents and Workflows Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
+## 3. Real-World Analogy
 
-![Illustration of Bae as a librarian navigating index](../assets/emerging-frameworks/llamaindex-agents-and-workflows.png)
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A highly organized librarian (LlamaIndex) standing at a massive desk. When asked a complex question, they dispatch flying drones (Agents) into the archives to fetch specific books, synthesize the answer, and deliver a final report. */}
 
-## 3. Concept Explanation
+Think of LlamaIndex like a massive university library.
+Standard RAG is the card catalog—you look up a keyword and find a book.
+LlamaIndex Agents and Workflows are like hiring a team of research assistants. You give them a prompt, and they autonomously run into the archives, cross-reference multiple encyclopedias, calculate statistics, and write you a comprehensive research paper.
 
-Bro, LlamaIndex started as just a RAG framework, but its agent workflows are next level. It connects your agents directly to vast data pipelines, making it the undisputed king when your agent needs to query terabytes of enterprise data. It's crucial to understand when to use this versus standard scripts.
+## 4. Concept Explanation
 
-## 4. Syntax Table
+LlamaIndex has evolved from just "Indexes" to full Agentic Orchestration.
+1. **Query Engine Tools**: Wrapping your RAG pipelines into standard Tools that agents can call.
+2. **FunctionCallingAgent**: An agent that uses OpenAI's native tool-calling capabilities to decide which Query Engine to use.
+3. **Workflows (v0.10+)**: A modern, event-driven architecture. Instead of rigid DAGs, nodes emit `Events`, and other nodes listen for those events. This allows for incredibly flexible loops, human-in-the-loop, and parallel execution.
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| Create Tool | `QueryEngineTool(query_engine=engine, metadata=...)` | Wraps RAG into an agent tool. |
+| Create Agent | `OpenAIAgent.from_tools(tools)` | A basic auto-routing agent. |
+| Workflow Event | `@step async def my_step(self, ev: StartEvent) -> StopEvent:` | Event-driven agentic node. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-agent = ReActAgent.from_tools([query_engine_tool], llm=llm, verbose=True)
-```
-
-## 6. Real-World Engineering Example
+Creating an Agent that has access to a calculator and a document query engine.
 
 ```python
-workflow = Workflow(timeout=60)
-@step
-def query_data(self, ctx):
-    return index.as_retriever().retrieve(ctx.query)
+# pip install llama-index
+from llama_index.core.tools import FunctionTool
+from llama_index.agent.openai import OpenAIAgent
+
+# 1. Define a python tool
+def multiply(a: int, b: int) -> int:
+    """Multiplies two integers and returns the result."""
+    return a * b
+
+multiply_tool = FunctionTool.from_defaults(fn=multiply)
+
+# (Assume `doc_tool` is a QueryEngineTool wrapping a PDF index)
+# doc_tool = QueryEngineTool(...)
+
+# 2. Create the Agent
+agent = OpenAIAgent.from_tools(
+    [multiply_tool], 
+    system_prompt="You are a helpful assistant with a calculator.",
+    verbose=True
+)
+
+# 3. Chat with the agent
+response = agent.chat("What is 150 multiplied by 4?")
+print(str(response)) # 600
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is exactly how LlamaIndex Agents and Workflows orchestrates data internally.
+In modern LlamaIndex (v0.10+), you build **Workflows**. They use `@step` decorators and Python events to orchestrate complex multi-agent logic asynchronously.
+
+```python
+import asyncio
+from llama_index.core.workflow import Event, StartEvent, StopEvent, Workflow, step
+
+# 1. Define custom Events
+class ReviewEvent(Event):
+    code: str
+
+# 2. Define the Workflow class
+class CodeGenerationWorkflow(Workflow):
+    
+    # 3. Step 1: Triggered by StartEvent
+    @step
+    async def write_code(self, ev: StartEvent) -> ReviewEvent:
+        print("Writing code for:", ev.prompt)
+        # LLM Logic here...
+        generated_code = "def hello(): print('world')"
+        
+        # Emits the ReviewEvent!
+        return ReviewEvent(code=generated_code)
+    
+    # 4. Step 2: Listens for ReviewEvent
+    @step
+    async def review_code(self, ev: ReviewEvent) -> StopEvent:
+        print("Reviewing code:", ev.code)
+        # Review Logic here...
+        
+        # Emits StopEvent to end the workflow
+        return StopEvent(result="Code Approved!")
+
+async def main():
+    wf = CodeGenerationWorkflow(timeout=60, verbose=True)
+    result = await wf.run(prompt="Write a hello world function")
+    print(result)
+
+asyncio.run(main())
+```
+
+## 8. Internal Working
+
+How Event-Driven Workflows route execution.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Data Pipelines", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "LlamaIndex Workflow", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Synthesized Answer", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'start', type: 'core', data: { label: 'StartEvent(prompt)' } },
+    { id: 'write', type: 'process', data: { label: '@step: write_code' } },
+    { id: 'evt', type: 'warning', data: { label: 'Emits: ReviewEvent' } },
+    { id: 'rev', type: 'process', data: { label: '@step: review_code' } },
+    { id: 'stop', type: 'output', data: { label: 'StopEvent(result)' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'start', target: 'write', type: 'step' },
+    { id: 'e2', source: 'write', target: 'evt', type: 'smoothstep' },
+    { id: 'e3', source: 'evt', target: 'rev', label: 'Async Trigger', animated: true },
+    { id: 'e4', source: 'rev', target: 'stop', type: 'step' }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Architecture | Complexity | Scalability |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| Basic `OpenAIAgent` | Low | Low (Monolithic loop) |
+| LangChain DAG | Medium | Medium (Rigid graphs) |
+| LlamaIndex Workflows | High | High (Event-driven, async, decoupled) |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What makes LlamaIndex Agents and Workflows unique? | Its specific approach to state and tooling. |
-| When should I avoid it? | When a simple rule-based script is enough. |
-| How do you handle errors? | Try-catch blocks and explicit retry policies. |
-| Does it support streaming? | Yes, natively via async generators. |
-| How to test it? | Mock the LLM responses. |
+| Why did LlamaIndex pivot to Event-Driven Workflows? | Because rigid graphs (DAGs) are hard to manage when you have complex loops, parallel execution, or human-in-the-loop pauses. Events allow nodes to be completely decoupled. If Step A emits an Event, Step B, C, and D can all listen to it and run in parallel instantly. |
+| What is a QueryEngineTool? | It is LlamaIndex's superpower. It wraps an entire RAG pipeline (embedder, retriever, synthesizer) into a single Tool with a description. The LLM can then decide *when* to execute a RAG search. |
+| Can I use LlamaIndex Agents with local models? | Yes. You can swap the `OpenAIAgent` for `ReActAgent` which works seamlessly with local models like Llama-3 via Ollama, using string-based reasoning instead of OpenAI's proprietary JSON tool calls. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? LlamaIndex Agents and Workflows has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what happens if your Workflow emits an Event, but no `@step` is configured to listen to it?
+The Workflow will hang! Because it is strictly event-driven, the system waits for a `StopEvent` to terminate. If an event is emitted into the void, the workflow pauses indefinitely until it hits the global `timeout` parameter and crashes. You must ensure all event pathways eventually route to a `StopEvent`.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Tech giants are adopting LlamaIndex Agents and Workflows for their internal developer platforms and automated ops pipelines.
+- **Multi-Document Analysis**: A law firm uses LlamaIndex Agents to compare three different contracts. The Agent has a `QueryEngineTool` for each contract, autonomously queries each one, and synthesizes the differences.
+- **Event-Driven AI Backends**: Using Workflows to handle incoming customer support emails. The `StartEvent` parses the email. It emits a `SearchKnowledgebaseEvent`, which triggers a RAG step. The RAG step emits a `DraftReplyEvent`, triggering the writer agent.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Use Event-Driven Workflows for new production apps | Stick to legacy `AgentRunner` abstractions |
+| Wrap RAG indexes cleanly into `QueryEngineTools` | Try to manually query the vector DB inside the agent loop |
+| Use `PydanticProgram` for strictly typed outputs | Rely on raw string parsing for agent responses |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> Event-driven architectures shine in scalable cloud environments. Because LlamaIndex Workflows use Python `asyncio` events, you can theoretically map these internal software events to external cloud events (like AWS EventBridge or Kafka topics), allowing distributed microservices to act as nodes in a massive AI workflow.
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Routing (SubQuestionQueryEngine)
+1. **Sub-Question Queries**: Before Workflows, LlamaIndex built massive agentic power via the `SubQuestionQueryEngine`. If a user asks, "Compare the revenue of Uber and Lyft in 2021", the engine autonomously splits the prompt into two sub-questions: "Uber 2021 revenue" and "Lyft 2021 revenue", executes them in parallel against different RAG tools, and merges the answers.
+2. **Context Window Management**: LlamaIndex provides advanced memory modules (`ChatMemoryBuffer`) that automatically summarize or truncate chat history before it exceeds the LLM's context window, ensuring agents don't crash on turn 50 of a conversation.
 
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+## 15. Common Mistakes
+- **Overloading Tools**: Giving an agent 30 different `QueryEngineTools`. The LLM's context window gets clogged with tool descriptions, and it hallucinates which tool to use. Use a `ToolRetriever` to dynamically fetch only the relevant tools based on the user's prompt.
+- **Ignoring Async**: Writing synchronous blocking code inside an `@step` function. This freezes the entire Event loop and ruins the performance benefits of Workflows.
 
-## 15. Related Topics
+## 16. Related Topics
+- Event-Driven Architecture
+- Retrieval-Augmented Generation (RAG)
+- ReAct Prompting
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | LlamaIndex main repository | The actual framework |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 30k+ | The official LlamaIndex repo. | The premier framework for connecting LLMs to data. |

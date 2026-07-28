@@ -1,131 +1,201 @@
 ---
-sidebar_position: 6
-sidebar_label: "Camel AI"
+sidebar_position: 2
+sidebar_label: "CAMEL AI"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Camel AI
+# CAMEL AI Framework
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
-| Topic | Camel AI |
-| Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Topic | CAMEL AI Framework |
+| Difficulty | Advanced |
+| Used For | Role-playing multi-agent systems that autonomously explore complex tasks. |
+| Common Mistake | Giving agents overlapping roles, causing them to agree instantly instead of collaborating to solve a problem. |
+| Performance | High token usage due to autonomous back-and-forth communication. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you want to write a Python game, but you don't want to code. You could prompt ChatGPT 50 times, correcting it when it makes a mistake. 
+What if you instead created an AI "Python Programmer" and an AI "Game Designer"? You give them a high-level goal: "Create Flappy Bird."
+Instead of you prompting them, **CAMEL** takes over. CAMEL generates 10 specific sub-tasks automatically. Then, the Game Designer prompts the Programmer to write the physics engine. The Programmer writes it and replies. The Game Designer evaluates it and asks for the graphics. They talk to *each other* autonomously until the game is done. You just sit back and watch.
 
-| Two debaters on a stage | Camel AI Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
+## 3. Real-World Analogy
 
-![Illustration of Bae as an expert debater](../assets/emerging-frameworks/camel-ai.png)
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Two robots sitting at a desk, one wearing a director's hat giving instructions, the other wearing a hard hat writing code, while a human boss watches them work from a distance. */}
 
-## 3. Concept Explanation
+Think of CAMEL like a theatrical improv scene.
+You (the user) give the two actors a prompt: "You are a cop and a robber trapped in a bank vault. Go!"
+You don't write the script. The actors (Agents) bounce off each other. Actor A says a line, Actor B reacts, Actor A counters. CAMEL provides the structure and the stage for this autonomous role-play to happen without human intervention.
 
-Bro, Camel AI is built on the concept of 'role-playing' agents. You define two agents—like a Python Programmer and a Stock Trader—and let them autonomously converse and collaborate to solve a complex task. It's fascinating for simulation. It's crucial to understand when to use this versus standard scripts.
+## 4. Concept Explanation
 
-## 4. Syntax Table
+CAMEL stands for **C**ommunicative **A**gents for "**M**ind" **E**xploration of **L**arge Scale Language Model Society.
+It pioneered the **Role-Playing Framework**. The core pattern involves:
+1. **AI User**: An agent acting as the task assigner (e.g., The Game Designer).
+2. **AI Assistant**: An agent acting as the task executor (e.g., The Programmer).
+3. **Task Specifier**: A specialized agent that takes your vague idea ("Make a game") and turns it into a highly detailed, concrete prompt.
+CAMEL relies heavily on "Inception Prompting" to keep agents strictly in character.
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| AI User | `user_agent = RolePlaying(...)` | The agent that gives the instructions. |
+| AI Assistant | `assistant_agent = RolePlaying(...)` | The agent that writes the code/solves the task. |
+| Role Playing | `session = RolePlaying(user_role_name="...", assistant_role_name="...")` | Starts the autonomous loop. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-task = Task('Write a trading script')
-role_play = RolePlaying(assistant, user, task)
-```
-
-## 6. Real-World Engineering Example
+Setting up a basic Role-Playing session between a Stock Trader and a Python Developer.
 
 ```python
-camel_session = RolePlaying(assistant_role_name='Senior Engineer', user_role_name='Product Manager', task_prompt='Design API')
-camel_session.step(input_msg)
+# pip install camel-ai
+from camel.agents import RolePlaying
+from camel.configs import ChatGPTConfig
+
+# Define the roles and the high-level task
+task_prompt = "Develop a trading bot for the stock market"
+
+# Initialize the Role-Playing session
+role_play_session = RolePlaying(
+    assistant_role_name="Python Programmer",
+    user_role_name="Stock Trader",
+    task_prompt=task_prompt,
+    with_task_specify=True, # Auto-expands the vague task into detailed specs
+)
+
+# Output the generated detailed task
+print(f"Detailed Task: {role_play_session.task_prompt}")
+
+# Start the autonomous conversation loop
+chat_turn_limit, n = 10, 0
+input_msg = role_play_session.init_chat()
+
+while n < chat_turn_limit:
+    n += 1
+    # Agents talk to each other!
+    assistant_response, user_response = role_play_session.step(input_msg)
+    
+    print(f"User (Trader):\n {user_response.msg.content}\n")
+    print(f"Assistant (Programmer):\n {assistant_response.msg.content}\n")
+    
+    if assistant_response.terminated:
+        break
+    input_msg = assistant_response.msg
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is exactly how Camel AI orchestrates data internally.
+In research and production, CAMEL is often used for massive data synthesis. If you need 10,000 conversational data points to train a new Open-Source LLM, you use CAMEL to generate them autonomously.
+
+```python
+from camel.agents import RolePlaying
+
+# You want to generate a synthetic dataset of Medical Triage conversations
+roles = [
+    ("Triage Nurse", "Panicked Patient"),
+    ("Senior Oncologist", "Medical Student"),
+    ("Pharmacist", "Elderly Customer")
+]
+
+synthetic_dataset = []
+
+for assistant_role, user_role in roles:
+    session = RolePlaying(
+        assistant_role_name=assistant_role,
+        user_role_name=user_role,
+        task_prompt="Discuss a medical symptom and determine the next steps.",
+        with_task_specify=True
+    )
+    
+    # Run the simulation for 5 turns
+    input_msg = session.init_chat()
+    for _ in range(5):
+        assistant_res, user_res = session.step(input_msg)
+        synthetic_dataset.append({
+            "user": user_res.msg.content,
+            "assistant": assistant_res.msg.content
+        })
+        input_msg = assistant_res.msg
+
+# You now have highly realistic, specialized conversational data for fine-tuning!
+```
+
+## 8. Internal Working
+
+How the CAMEL Inception and Task Specification works.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Role A", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Camel Conversation", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Role B", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'Vague Prompt: "Build an App"' } },
+    { id: 'spec', type: 'process', data: { label: 'Task Specifier Agent' } },
+    { id: 'det', type: 'warning', data: { label: 'Detailed Task: "Build a React Native Weather App"' } },
+    { id: 'usr_ag', type: 'tool', data: { label: 'AI User (PM)' } },
+    { id: 'ast_ag', type: 'tool', data: { label: 'AI Assistant (Dev)' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'spec', type: 'step' },
+    { id: 'e2', source: 'spec', target: 'det', label: 'Expands prompt', type: 'smoothstep' },
+    { id: 'e3', source: 'det', target: 'usr_ag', type: 'step' },
+    { id: 'e4', source: 'det', target: 'ast_ag', type: 'step' },
+    { id: 'e5', source: 'usr_ag', target: 'ast_ag', label: 'Instruction', animated: true },
+    { id: 'e6', source: 'ast_ag', target: 'usr_ag', label: 'Solution', animated: true }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Pattern | Autonomy | Token Cost |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| Single Agent Prompt | Low | Low |
+| CAMEL Role-Playing | Maximum | Very High |
+| RAG | Low | Medium |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What makes Camel AI unique? | Its specific approach to state and tooling. |
-| When should I avoid it? | When a simple rule-based script is enough. |
-| How do you handle errors? | Try-catch blocks and explicit retry policies. |
-| Does it support streaming? | Yes, natively via async generators. |
-| How to test it? | Mock the LLM responses. |
+| What is Inception Prompting? | It is CAMEL's core technique of injecting a highly rigid system prompt into the agents before they start talking, forcing them to never break character and always push the task forward. |
+| What is the Task Specifier? | Humans are lazy and write terrible, vague prompts ("Make a game"). CAMEL uses a specialized LLM call *before* the role-play starts to expand the vague prompt into a 3-paragraph highly detailed specification. |
+| How is CAMEL different from AutoGen? | AutoGen focuses on arbitrary group chats and code execution. CAMEL specifically pioneered the rigid 2-agent (AI User + AI Assistant) role-playing loop for task exploration and synthetic data generation. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? Camel AI has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what prevents the AI User and AI Assistant from getting stuck in an infinite loop saying "Thank you!" "You're welcome!" "No, thank you!"?
+CAMEL's Inception Prompt explicitly forbids conversational pleasantries. The system prompt hardcodes rules like: "Never say thank you. Never apologize. When the task is complete, output `<CAMEL_TASK_DONE>`." The framework parses for that exact token to terminate the loop.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Tech giants are adopting Camel AI for their internal developer platforms and automated ops pipelines.
+- **Synthetic Data Generation**: Creating massive dialogue datasets to fine-tune open-source models like LLaMA.
+- **Automated Research**: Simulating a debate between an "Evolutionary Biologist" and a "Quantum Physicist" to explore novel cross-disciplinary theories.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Use explicit stopping conditions (`<CAMEL_TASK_DONE>`) | Let the agents loop indefinitely |
+| Use `with_task_specify=True` | Pass a 3-word prompt directly into the role-playing session |
+| Assign highly contrasting roles | Assign "Programmer 1" and "Programmer 2" (they will just echo each other) |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> CAMEL is rarely deployed as a user-facing REST API because the role-playing loops take minutes to complete and generate massive amounts of text. It is primarily used as an asynchronous backend job or a local research tool for generating datasets and exploring complex architectures offline.
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Societal Simulation
+1. **Embodied Agents**: CAMEL supports connecting agents to real-world environments. You can create a simulation of a virtual town where agents have roles (Baker, Mayor, Police) and interact with each other and the environment, similar to the famous Stanford Smallville paper.
+2. **Multi-Agent Societies**: Beyond just two agents, CAMEL allows for the creation of "Societies" where the framework dynamically spins up new agents (e.g., a "QA Tester") mid-conversation if the original two agents decide they need specialized help.
 
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+## 15. Common Mistakes
+- **Vague Roles**: Telling the agent it is a "Helper". The Inception Prompt will fail to constrain the agent's behavior. Tell it specifically: "You are a Senior DevOps Engineer with 10 years of Kubernetes experience."
+- **Ignoring Token Limits**: Running a 50-turn role-play on GPT-4. Because the entire chat history is sent on every turn, turn 49 will cost 100x more than turn 1.
 
-## 15. Related Topics
+## 16. Related Topics
+- AutoGen Group Chats
+- Synthetic Data Generation
+- Prompt Engineering (Inception)
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [camel-ai/camel](https://github.com/camel-ai/camel) | ⭐ 5k+ | Camel Role-playing Agents | Core repo |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [camel-ai/camel](https://github.com/camel-ai/camel) | ⭐ 5k+ | The official CAMEL repository. | The origin of the Role-Playing agent pattern. |

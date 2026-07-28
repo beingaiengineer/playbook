@@ -1,6 +1,6 @@
 ---
 sidebar_position: 7
-sidebar_label: "Callbacks & Hooks in Google ADK"
+sidebar_label: "Callbacks & Hooks"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -11,99 +11,162 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Area | Details |
 |---|---|
 | Topic | Callbacks & Hooks in Google ADK |
-| Difficulty | Intermediate |
-| Used For | Using hooks to intercept agent events in Google ADK. |
-| Common Mistake | Blocking the main execution thread with synchronous hooks. |
-| Performance | Depends on the framework and underlying LLM latency. |
+| Difficulty | Advanced |
+| Used For | Injecting custom logic (logging, auditing, halting) into the agent's lifecycle. |
+| Common Mistake | Using synchronous, blocking hooks that delay the LLM response by 5 seconds. |
+| Performance | Instantaneous, assuming hooks are non-blocking or executed asynchronously. |
 
-## 2. Real-World Analogy
-Like setting an alarm clock. You tell the clock (the system) to wake you up (the callback) when a specific time happens (the event).
+## 2. Engineering Story
 
-![Real World Analogy](./images/google-adk-callbacks-and-hooks/analogy.png)
+Bro, imagine deploying an AI agent that issues refunds. A user figures out a prompt injection attack and tells the agent to refund them $99,000. The agent gladly executes the `issue_refund(99000)` tool. You only find out a week later when finance yells at you.
+If you had implemented a **`before_tool_execute` hook**, you could have intercepted the tool payload *before* it executed, run a simple `if amount > 100: raise Exception`, blocked the execution, and immediately paged your PagerDuty. Hooks are your safety net in production.
 
-| Real World | Code Equivalent |
-|---|---|
-| Alarm Clock | Event Listener |
-| Waking up | Callback Execution |
-| Time condition | Event Trigger |
+## 3. Real-World Analogy
 
-## 3. Concept Explanation
-Callbacks and hooks in Google ADK allow you to inject custom logic at specific points in the agent lifecycle, such as before a tool is called, after a response is generated, or when an error occurs. This is critical for logging and observability.
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict security checkpoint at an airport where a guard (the hook) intercepts a passenger (the tool call) before they board the plane. */}
 
-## 4. Syntax Table
+Think of a hook like an airport security checkpoint. 
+The LLM deciding to call a tool is like a passenger buying a ticket. They *want* to get on the plane (execute the tool). But before they board, they pass through a metal detector (the Hook). The hook scans their bag, logs their name, and if they have something illegal, the hook denies them entry immediately.
+
+## 4. Concept Explanation
+
+Callbacks and hooks in Google ADK allow you to inject Python functions into specific phases of the Agent's execution loop. The core phases are:
+- `on_prompt`: Before the request hits Vertex AI.
+- `on_response`: After the raw response comes back.
+- `before_tool`: Right before a Python tool is executed.
+- `after_tool`: Right after a Python tool returns data to the LLM.
+
+These are critical for **Observability** (pushing telemetry to Cloud Logging) and **Security** (intercepting bad tool calls).
+
+## 5. Syntax Table
 | Action | Code Example |
 |---|---|
-| Register Hook | `agent.on("before_tool", my_callback)` |
-| Define Callback | `def my_callback(event): print(event)` |
+| Register Hook | `agent.add_hook("before_tool", audit_logger)` |
+| Hook Signature | `def my_hook(event: EventContext): ...` |
+| Block Execution | `raise adk.exceptions.HaltExecution("Denied")` |
 
-## 5. Beginner Example
+## 6. Beginner Example
+
+A simple hook that prints to the console whenever the LLM decides to use a tool.
+
 ```python
-def log_tool_usage(event):
-    print(f"Tool {event.tool_name} was called.")
+from google_adk import Agent, EventContext
 
-agent.on("before_tool_execution", log_tool_usage)
+agent = Agent(model="gemini-1.5-pro", tools=[my_calculator_tool])
+
+# 1. Define the hook function
+def log_tool_usage(event: EventContext):
+    # event contains metadata about what the LLM is trying to do
+    print(f"[AUDIT LOG] LLM requested tool: {event.tool_name}")
+    print(f"Arguments: {event.tool_args}")
+
+# 2. Attach the hook to the agent
+agent.add_hook("before_tool", log_tool_usage)
+
+# When this runs, the hook will fire automatically
+agent.run("Calculate 543 * 992")
 ```
 
-## 6. Real-World Engineering Example
-```python
-def async_audit_log(event):
-    # Send to Google Cloud Logging non-blocking
-    cloud_logger.log_async(event.data)
+## 7. Real-World Engineering Example
 
-agent.register_hook("on_llm_response", async_audit_log)
+In enterprise production, hooks are used to send asynchronous metrics to Google Cloud Monitoring so you don't slow down the user's chat response.
+
+```python
+import asyncio
+from google_adk import Agent, EventContext
+from google.cloud import logging
+
+cloud_logger = logging.Client().logger("agent_metrics")
+
+# Use an async hook so we don't block the HTTP response!
+async def async_audit_log(event: EventContext):
+    # Log token usage to GCP
+    if event.phase == "on_response":
+        tokens = event.metadata.get("total_tokens")
+        cloud_logger.log_struct(
+            {"action": "llm_completion", "tokens": tokens, "user": event.session_id}
+        )
+
+agent = Agent(model="gemini-1.5-pro")
+# Registering the async hook
+agent.add_async_hook("on_response", async_audit_log)
 ```
 
-## 7. Internal Working
-Here is how it works under the hood. The flow represents the lifecycle of the agent's execution process.
+## 8. Internal Working
 
-<LearningFlow />
+Here is exactly when the hooks fire during an ADK execution cycle.
 
-## 8. Performance Table
-| Operation | Complexity |
-|---|---|
-| Initialization | O(1) |
-| Tool Execution | O(N) where N is payload size |
-| State Update | O(1) |
+<LearningFlow
+  nodes={[
+    { id: '1', type: 'core', data: { label: 'User Prompt' } },
+    { id: 'hook1', type: 'process', data: { label: 'Hook: on_prompt' } },
+    { id: 'vertex', type: 'output', data: { label: 'Vertex AI API' } },
+    { id: 'hook2', type: 'process', data: { label: 'Hook: before_tool' } },
+    { id: 'tool', type: 'tool', data: { label: 'Execute Tool' } },
+    { id: 'hook3', type: 'process', data: { label: 'Hook: after_tool' } }
+  ]}
+  edges={[
+    { id: 'e1', source: '1', target: 'hook1', type: 'step' },
+    { id: 'e2', source: 'hook1', target: 'vertex', type: 'step' },
+    { id: 'e3', source: 'vertex', target: 'hook2', label: 'Wants Tool', type: 'smoothstep' },
+    { id: 'e4', source: 'hook2', target: 'tool', type: 'step' },
+    { id: 'e5', source: 'tool', target: 'hook3', type: 'step' },
+    { id: 'e6', source: 'hook3', target: 'vertex', label: 'Send Result Back', animated: true }
+  ]}
+/>
 
-## 9. Top Interview Questions
+## 9. Performance Table
+| Hook Type | Performance Impact | Use Case |
+|---|---|---|
+| Synchronous | High (Blocks thread) | Validation, Security blocking |
+| Asynchronous | Low (Awaited) | API calls, external DB queries |
+| Fire-and-Forget | Zero | Telemetry, Audit Logging |
+
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| Why use hooks instead of modifying the agent code? | Hooks allow separation of concerns, keeping agent logic clean while handling cross-cutting concerns like logging or metrics. |
-| What is a common pitfall with callbacks? | Making them synchronous and blocking, which slows down the agent response time. |
-| What are the security implications? | You must implement guardrails to prevent unauthorized tool execution or prompt injection. |
-| When should you NOT use this? | When a simple direct LLM call or basic script would suffice. |
-| How does it scale? | By distributing agent workloads across serverless functions or containerized environments. |
+| Why use hooks instead of modifying the tool's python code directly? | Separation of concerns. You want to write the tool logic once. Security, logging, and metrics are cross-cutting concerns that should be injected via hooks at the Agent level. |
+| Can a hook stop an agent from executing? | Yes. If a `before_tool` hook throws an exception (like a permission denied error), the ADK catches it, cancels the tool execution, and returns the error string to the LLM so it knows it was denied. |
+| How do you prevent hooks from slowing down the agent? | By using `async` hooks and dispatching heavy I/O operations (like writing to BigQuery) as background tasks or pushing them to a Pub/Sub queue. |
 
-## 10. Tricky Questions & Edge Cases
-Watch out for concurrency issues, bro. If multiple agents try to update the same shared state without proper locking mechanisms, you'll run into race conditions that are a nightmare to debug.
+## 11. Tricky Questions & Edge Cases
 
-## 11. Real-World Usage
-Used by top tech companies for internal tooling, customer support automation, and complex data pipeline orchestration. For instance, tech teams use these patterns to orchestrate delivery logistics dynamically based on real-time traffic data.
+Bro, what happens if your `on_response` logging hook throws an exception (e.g., your database is down)? Does the user still get their chat message?
+It depends on how the ADK handles hook failures. Typically, if a telemetry hook fails, you want to swallow the error (fail gracefully) so the user still gets their chat response. If a *security* hook fails, you want to hard-crash the request. Always wrap your non-critical hooks in `try/except` blocks.
 
-## 12. Best Practices
+## 12. Real-World Usage
+
+- **PII Redaction**: An `on_prompt` hook that uses a Regex pattern to replace Social Security Numbers with `[REDACTED]` before the text ever touches the Vertex AI endpoint.
+- **Cost Allocation**: An `on_response` hook that grabs the `token_count` from the metadata and writes it to BigQuery, tagged with the `customer_id`, so the finance team can bill customers accurately for AI usage.
+
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Write comprehensive unit tests for individual agent tools | Skip error handling and assume the LLM will always return the perfect format |
-| Use structured logging to trace agent decision paths | Hardcode sensitive API keys directly in the agent's configuration |
-| Implement clear guardrails and timeout limits | Let an agent run indefinitely in an unbounded loop |
+| Use hooks for observability and tracing | Hardcode `print()` statements inside every single tool |
+| Make telemetry hooks asynchronous | Block the user waiting for an INSERT query to finish |
+| Use `before_tool` for access control | Assume the LLM will obey system prompts to not call restricted tools |
 
-## 13. Production Notes
-Warning: Always monitor memory usage and LLM token limits in production. A rogue agent stuck in a loop can quickly rack up massive API bills. Implement hard limits and alerting.
+## 14. Production Notes
+> Production Note:
+> If you are using OpenTelemetry (OTel), hooks are the perfect place to start and stop spans. You start a span in `before_tool`, inject the tool's name as an attribute, and end the span in `after_tool`. This gives you beautiful waterfall charts in Google Cloud Trace showing exactly how much time the LLM spent "thinking" vs how much time it spent executing tools.
 
-## 14. Common Mistakes
-| Mistake | Fix |
-|---|---|
-| Ignoring logs | Add structured logging to track every step of the agent's thought process |
-| Assuming perfect output | Use tools like Pydantic to strictly validate output schemas before proceeding |
+---
 
-## 15. Related Topics
-- Framework Architecture Patterns
-- Production Deployment Strategies
-- Agent Observability
+## 17. Advanced Hook Patterns
+1. **Dynamic Tool Modification**: Advanced hooks can actually mutate the `EventContext`. For example, if the LLM hallucinated a bad parameter for a tool, a `before_tool` hook could detect it, rewrite the parameter to a safe default, and pass the mutated event down the chain without breaking the flow.
+2. **Global Application Hooks**: Instead of attaching hooks to a specific `Agent` instance, enterprise ADK setups use Dependency Injection to register global hooks at the application layer. This ensures every single agent spawned in the server automatically inherits the company's security and auditing hooks, preventing junior devs from accidentally bypassing security.
 
-## 16. Top GitHub Repos
+## 15. Common Mistakes
+- **Overloading Hooks**: Putting heavy ML models (like a toxicity classifier) synchronously inside an `on_prompt` hook, adding 3 seconds of latency to every chat message.
+- **Leaking Secrets**: Logging the raw `EventContext.tool_args` into Cloud Logging when the tool is `change_password(new_password="123")`.
+
+## 16. Related Topics
+- Aspect-Oriented Programming (AOP)
+- OpenTelemetry
+- Cloud Audit Logs
+
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [google/generative-ai-python](https://github.com/google/generative-ai-python) | ⭐ 4k+ | Official Google GenAI SDK | Foundation for Google ADK integrations |
-| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | Key competitor offering different paradigms |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Popular alternative for specific use cases |
+| [open-telemetry/opentelemetry-python](https://github.com/open-telemetry/opentelemetry-python) | ⭐ 4k+ | OpenTelemetry Python | The standard way to trace agent executions via hooks. |
+| [google/generative-ai-python](https://github.com/google/generative-ai-python) | ⭐ 4k+ | Official Google GenAI SDK | Understanding the raw payloads that hooks intercept. |

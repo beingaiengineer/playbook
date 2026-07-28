@@ -1,8 +1,10 @@
 ---
 sidebar_position: 6
+sidebar_label: "Senior Python Questions"
 ---
 
 import InterviewCheatSheet from '@site/src/components/InterviewCheatSheet';
+import LearningFlow from '@site/src/components/LearningFlow';
 
 # Senior Python Questions
 
@@ -64,6 +66,20 @@ Launching a Python API needs health checks, metrics, structured logs, dependency
 
 Senior answers connect Python internals to business risk: GIL, memory, imports, dependency drift, and failure recovery.
 
+<LearningFlow
+  nodes={[
+    { id: 'req', type: 'core', data: { label: 'Ambiguous Business Req' } },
+    { id: 'trade', type: 'process', data: { label: 'Discuss Trade-offs\n(Memory vs CPU)' } },
+    { id: 'arch', type: 'output', data: { label: 'Robust Architecture' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'req', target: 'trade', type: 'smoothstep', animated: true },
+    { id: 'e2', source: 'trade', target: 'arch', type: 'step' }
+  ]}
+/>
+
+---
+
 ## 9. Performance Table
 
 | Concern | Senior Lens |
@@ -96,7 +112,17 @@ Used in senior backend, staff engineer, platform, AI engineering, and tech lead 
 ## 14. Production Notes
 
 > Production Note:
-> Senior answers should include ownership, incident response, and maintainability.
+> Senior answers should include ownership, incident response, and maintainability. Writing code is 10% of a senior engineer's job; 90% is ensuring that code doesn't wake anyone up at 3 AM.
+
+---
+
+## 17. Advanced Top Senior Questions
+1. **How do you handle a production memory leak in Python?**
+   - Answer: Look at `tracemalloc`, check for circular references that the GC can't clear, and review C-extensions that might not be releasing memory back to the OS.
+2. **When would you NOT use FastAPI/Asyncio?**
+   - Answer: If the application is CPU-bound (e.g. image processing, heavy math), Asyncio provides zero benefit and actually adds overhead. Use `multiprocessing` or C-extensions instead.
+3. **How do you safely deploy a breaking database schema change?**
+   - Answer: Never in one PR. Use the Expand-Contract pattern. PR 1: Add new column. PR 2: Write to both. PR 3: Backfill old data. PR 4: Read from new. PR 5: Drop old column.
 
 ## 15. Common Mistakes
 
@@ -118,3 +144,10 @@ Used in senior backend, staff engineer, platform, AI engineering, and tech lead 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [satwikkansal/wtfpython](https://github.com/satwikkansal/wtfpython) | ⭐ 50k+ | What the f*ck Python - tricky bits | Highly relevant to understanding senior python questions in production. |
+
+## 17. Final Interview Advice
+
+> BAE's Top Tip:
+> Don't just memorize these patterns. Understand *why* they exist. 
+> In a real interview, the interviewer cares more about how you communicate tradeoffs than whether you wrote a perfect one-liner.
+> If you get stuck, always verbalize your thought process! "I know a hash map gives O(1) lookup, but it will cost O(N) space. Let's start with that and optimize later."

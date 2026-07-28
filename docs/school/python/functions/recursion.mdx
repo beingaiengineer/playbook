@@ -1,6 +1,9 @@
 ---
 sidebar_position: 5
+sidebar_label: "Recursion"
 ---
+
+import LearningFlow from '@site/src/components/LearningFlow';
 
 # Recursion
 
@@ -129,6 +132,24 @@ In a recursive function like `factorial(3)`:
 5. `factorial(3)` resumes, calculates `3 * 2`, and returns `6`.
 
 If you forget the base case, Python keeps creating stack frames until it runs out of memory, resulting in a `RecursionError: maximum recursion depth exceeded`.
+
+<LearningFlow
+  nodes={[
+    { id: 'call3', type: 'core', data: { label: 'factorial(3)\nWaits for factorial(2)' } },
+    { id: 'call2', type: 'core', data: { label: 'factorial(2)\nWaits for factorial(1)' } },
+    { id: 'call1', type: 'core', data: { label: 'factorial(1)\nBase Case Hit!' } },
+    { id: 'ret1', type: 'output', data: { label: 'Returns 1' } },
+    { id: 'ret2', type: 'output', data: { label: '2 * 1 = 2\nReturns 2' } },
+    { id: 'ret3', type: 'output', data: { label: '3 * 2 = 6\nReturns 6' } },
+  ]}
+  edges={[
+    { id: 'e1', source: 'call3', target: 'call2', label: 'calls', animated: true },
+    { id: 'e2', source: 'call2', target: 'call1', label: 'calls', animated: true },
+    { id: 'e3', source: 'call1', target: 'ret1', type: 'step' },
+    { id: 'e4', source: 'ret1', target: 'ret2', label: 'unwinds', animated: true },
+    { id: 'e5', source: 'ret2', target: 'ret3', label: 'unwinds', animated: true },
+  ]}
+/>
 
 ---
 

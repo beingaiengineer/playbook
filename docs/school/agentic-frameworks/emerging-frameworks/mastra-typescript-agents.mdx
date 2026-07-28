@@ -1,130 +1,204 @@
 ---
 sidebar_position: 5
-sidebar_label: "Mastra TypeScript Agents"
+sidebar_label: "Mastra (TypeScript)"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Mastra TypeScript Agents
+# Mastra (TypeScript Agents)
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
-| Topic | Mastra TypeScript Agents |
+| Topic | Mastra |
 | Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Used For | Building AI agents natively in TypeScript, deeply integrated with the modern web stack (Next.js). |
+| Common Mistake | Trying to force Python AI frameworks into a Node.js monorepo instead of using a native TS framework like Mastra. |
+| Performance | High, built on standard web primitives and optimized for edge deployment. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you are a frontend developer. You build amazing Next.js apps. Your boss says, "Add an AI agent."
+You look at LangChain, AutoGen, and CrewAI... they are all Python! You now have to spin up a FastAPI backend, write Python, manage pip environments, and build a fragile REST API just to talk to your Next.js frontend.
+Enter **Mastra**. It is an AI framework built *from the ground up* for TypeScript. You write your agents, tools, and workflows in standard TS. It integrates perfectly with Vercel AI SDK, meaning you can stream agent thoughts directly into your React components without ever leaving your monorepo. 
 
-| A modern coffee shop operations system | Mastra TypeScript Agents Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
+## 3. Real-World Analogy
 
-![Illustration of Bae operating a digital ordering system](../assets/emerging-frameworks/mastra-typescript-agents.png)
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A mechanic trying to force a huge, oily truck engine (Python) into a sleek, electric sports car (TypeScript App), until someone hands them a perfectly designed, native electric motor (Mastra). */}
 
-## 3. Concept Explanation
+Think of using Python AI in a JS app like translating a conversation live.
+The user speaks English (React), the translator converts it to French (REST API), the expert answers in French (Python Agent), and the translator converts it back to English. It's slow and prone to errors.
+Mastra allows the expert to just speak English natively. The Agent runs in the same Node.js environment as your app, sharing types and eliminating the API translation layer completely.
 
-Bro, if you are a frontend or Node.js dev, Mastra is your best friend. Instead of context-switching to Python, Mastra gives you native TypeScript primitives to build agents right alongside your Next.js or Node app with full type safety. It's crucial to understand when to use this versus standard scripts.
+## 4. Concept Explanation
 
-## 4. Syntax Table
+Mastra provides three core primitives for TypeScript developers:
+1. **Agents**: The core LLM wrapper with a system prompt and memory.
+2. **Tools**: Strictly typed TypeScript functions using `zod` schemas. 
+3. **Workflows**: State machines (Directed Acyclic Graphs) that orchestrate complex multi-step processes reliably, with built-in telemetry and persistence.
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| Define Tool Schema | `schema: z.object({ city: z.string() })` | Zod schemas generate the LLM Tool JSON perfectly. |
+| Create Agent | `const agent = new Agent({ name: "Helper", instructions: "..." })` | Initializes the TS agent. |
+| Stream Response | `const stream = await agent.stream("Hi")` | Native async streaming for UIs. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```typescript
-const agent = new Agent({ name: 'Helper' });
-```
-
-## 6. Real-World Engineering Example
+Defining a Zod-typed Tool and attaching it to a Mastra Agent.
 
 ```typescript
-const myAgent = new MastraAgent({ tools: [dbTool], llm: openai('gpt-4o') });
-await myAgent.execute('fetch data');
+// npm i @mastra/core zod
+import { Agent, Tool } from '@mastra/core';
+import { z } from 'zod';
+
+// 1. Define a strictly typed Tool using Zod
+const weatherTool = new Tool({
+  name: 'getWeather',
+  description: 'Gets the current weather for a city',
+  schema: z.object({
+    city: z.string(),
+  }),
+  execute: async ({ context }) => {
+    // Simulated API call
+    console.log(`Fetching weather for ${context.city}...`);
+    return { temperature: 72, condition: 'Sunny' };
+  },
+});
+
+// 2. Create the Agent
+const weatherAgent = new Agent({
+  name: 'WeatherBot',
+  instructions: 'You are a helpful assistant. Use tools to answer questions.',
+  tools: { weatherTool },
+});
+
+// 3. Execute the agent
+async function main() {
+  const response = await weatherAgent.generate('What is the weather in New York?');
+  console.log(response.text); 
+}
+
+main();
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is exactly how Mastra TypeScript Agents orchestrates data internally.
+In production, you use Mastra **Workflows** to build resilient, multi-step backend processes (like processing a user upload).
+
+```typescript
+import { Workflow, Step } from '@mastra/core';
+import { z } from 'zod';
+
+// 1. Define a Step (Node in the graph)
+const extractDataStep = new Step({
+  id: 'extract_data',
+  inputSchema: z.object({ rawText: z.string() }),
+  outputSchema: z.object({ summary: z.string(), urgency: z.number() }),
+  execute: async ({ context }) => {
+    // Call LLM or custom logic here
+    return { summary: "Server is down", urgency: 9 };
+  }
+});
+
+const alertAdminStep = new Step({
+  id: 'alert_admin',
+  inputSchema: z.object({ urgency: z.number() }),
+  execute: async ({ context }) => {
+    if (context.urgency > 8) console.log("SENDING PAGERDUTY ALERT!");
+    return { success: true };
+  }
+});
+
+// 2. Build the DAG Workflow
+const incidentWorkflow = new Workflow({ name: 'IncidentHandler' });
+
+// 3. Connect the graph!
+incidentWorkflow
+  .step(extractDataStep)
+  .then(alertAdminStep, {
+    // Map output of step 1 to input of step 2
+    mapInput: (data) => ({ urgency: data.extract_data.urgency }) 
+  });
+
+incidentWorkflow.commit();
+
+// 4. Run it
+incidentWorkflow.execute({ rawText: "PRODUCTION DB CRASHED!" });
+```
+
+## 8. Internal Working
+
+How Mastra integrates with the frontend via Vercel AI SDK.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "TS Application", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Mastra Agent Instance", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Typed Output", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'ui', type: 'core', data: { label: 'React / Next.js Client' } },
+    { id: 'api', type: 'process', data: { label: 'Next.js API Route (/api/chat)' } },
+    { id: 'agt', type: 'tool', data: { label: 'Mastra Agent (TypeScript)' } },
+    { id: 'str', type: 'warning', data: { label: 'Vercel AI Stream' } },
+    { id: 'dom', type: 'output', data: { label: 'UI Auto-Updates' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'ui', target: 'api', type: 'step' },
+    { id: 'e2', source: 'api', target: 'agt', type: 'step' },
+    { id: 'e3', source: 'agt', target: 'str', label: 'Returns standard stream', type: 'smoothstep' },
+    { id: 'e4', source: 'str', target: 'dom', animated: true }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Framework | Language | Monorepo Compatibility |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| AutoGen/CrewAI | Python | Poor (Requires separate backend) |
+| LangChain.js | JS/TS | Good (But highly complex APIs) |
+| Mastra | TypeScript | Excellent (Native Zod/Next.js support) |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What makes Mastra TypeScript Agents unique? | Its specific approach to state and tooling. |
-| When should I avoid it? | When a simple rule-based script is enough. |
-| How do you handle errors? | Try-catch blocks and explicit retry policies. |
-| Does it support streaming? | Yes, natively via async generators. |
-| How to test it? | Mock the LLM responses. |
+| Why use Mastra instead of LangChain.js? | LangChain.js is often criticized for being a messy port of the Python library, bringing Pythonic object-oriented baggage into JS. Mastra is built specifically for modern TypeScript paradigms (Zod, functional pipelines, Vercel AI SDK). |
+| What is the purpose of Zod in Mastra Tools? | LLMs require JSON Schemas to know what arguments to pass to a tool. Zod automatically compiles your TypeScript types into perfect JSON Schemas for the LLM, ensuring you get strictly typed data back. |
+| How do Mastra Workflows handle failure? | Workflows act as state machines. Because the execution state is tracked at every step, if a step fails, you can resume the workflow from the failure point without re-running the expensive LLM calls from the beginning. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? Mastra TypeScript Agents has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what happens if the LLM hallucinates arguments that bypass your Zod schema?
+Mastra tools intercept the LLM's raw JSON response and run `schema.parse()`. If the LLM sends `{ "city": 123 }` instead of a string, Zod throws a validation error. The framework catches this error and automatically sends it back to the LLM saying, "Error: city must be a string. Fix it and try again." The LLM self-corrects autonomously!
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Tech giants are adopting Mastra TypeScript Agents for their internal developer platforms and automated ops pipelines.
+- **Next.js AI Dashboards**: Embedding a Mastra agent directly into a Next.js server action. The user asks for a chart, the agent queries the database tool, and streams React Server Components (RSCs) directly to the frontend.
+- **Automated Support Triage**: A Node.js backend cron job that pulls Zendesk tickets, runs them through a Mastra Workflow to classify intent, and routes them to human departments.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Use `zod` for everything | Use `any` types in your tools |
+| Deploy to Edge or Serverless functions (Vercel) | Rely on long-running stateful memory variables |
+| Use Workflows for predictable, multi-step backend processes | Use conversational Agents for strict data transformations |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> TypeScript environments (especially Vercel Edge functions) have strict timeout limits (e.g., 10s to 60s). If your Mastra Agent performs deep tool calling loops, it will easily hit these timeouts. In production, you must use streaming responses to keep the HTTP connection alive, or offload the Workflow to a background queue (like Inngest or Upstash).
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Integrations
+1. **Model Agnostic**: Mastra natively supports OpenAI, Anthropic, and Google Gemini via a unified API. You can switch models by simply changing the model string, and Mastra handles translating your Zod tools into the specific format required by that provider.
+2. **Evaluation & Telemetry**: Mastra provides built-in evals. You can write unit tests for your agents that run deterministic assertions against non-deterministic LLM outputs to ensure your agent's quality doesn't degrade over time.
 
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+## 15. Common Mistakes
+- **Ignoring Async/Await**: Forgetting that LLM calls are highly asynchronous network I/O. Failing to properly await agent generation will result in empty UI rendering.
+- **Bloated System Prompts**: Writing a 5,000-word instruction block for a simple agent. Keep agents small and orchestrate them via Workflows instead.
 
-## 15. Related Topics
+## 16. Related Topics
+- Vercel AI SDK
+- Zod Schema Validation
+- Edge Computing
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [mastra-ai/mastra](https://github.com/mastra-ai/mastra) | ⭐ 2k+ | Mastra TS Framework | The framework |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [mastra-ai/mastra](https://github.com/mastra-ai/mastra) | ⭐ 1k+ | The official Mastra repository. | The leading native TypeScript agent framework. |

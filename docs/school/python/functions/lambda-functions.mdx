@@ -1,5 +1,6 @@
 ---
 sidebar_position: 4
+sidebar_label: "Lambda Functions"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -118,6 +119,26 @@ At the bytecode level, Python treats lambdas almost exactly the same as function
 When Python encounters a `lambda`, it creates a function object in memory. The only difference is that a `def` binds that object to a variable name, while a `lambda` returns the object directly without a name (its internal `__name__` attribute is simply `<lambda>`).
 
 Because they are fundamentally the same object type, there is no performance advantage to using a lambda over a `def`.
+
+<LearningFlow
+  nodes={[
+    { id: 'def', type: 'core', data: { label: 'def square(x)' } },
+    { id: 'lambda', type: 'core', data: { label: 'lambda x:' } },
+    { id: 'compile', type: 'process', data: { label: 'Bytecode Compilation' } },
+    { id: 'obj1', type: 'output', data: { label: 'Function Object\n__name__ = "square"' } },
+    { id: 'obj2', type: 'output', data: { label: 'Function Object\n__name__ = "<lambda>"' } },
+    { id: 'bind', type: 'process', data: { label: 'Bind to name "square"' } },
+    { id: 'nobind', type: 'warning', data: { label: 'Returned directly\n(No binding)' } },
+  ]}
+  edges={[
+    { id: 'e1', source: 'def', target: 'compile', type: 'smoothstep' },
+    { id: 'e2', source: 'lambda', target: 'compile', type: 'smoothstep' },
+    { id: 'e3', source: 'compile', target: 'obj1', label: 'creates', animated: true },
+    { id: 'e4', source: 'compile', target: 'obj2', label: 'creates', animated: true },
+    { id: 'e5', source: 'obj1', target: 'bind', type: 'step' },
+    { id: 'e6', source: 'obj2', target: 'nobind', type: 'step' },
+  ]}
+/>
 
 ---
 

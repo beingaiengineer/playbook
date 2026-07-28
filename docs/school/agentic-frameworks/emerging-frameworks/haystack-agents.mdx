@@ -1,5 +1,5 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 sidebar_label: "Haystack Agents"
 ---
 
@@ -8,125 +8,192 @@ import LearningFlow from '@site/src/components/LearningFlow';
 # Haystack Agents
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
-| Topic | Haystack Agents |
+| Topic | Haystack Agentic Pipelines |
 | Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Used For | Building enterprise-grade, highly structured RAG pipelines and conditional agent workflows. |
+| Common Mistake | Treating Haystack like an unstructured conversational agent. It is fundamentally a Pipeline orchestrator (DAG). |
+| Performance | High, due to strict node-based execution and robust vector database integrations. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you built a RAG system to read company PDFs. It works perfectly. But then your boss says, "If the user asks about the weather, call a weather API. If they ask about PDFs, use RAG. If they ask about SQL, query the database."
+You try to cram all this into a single LangChain agent, and it hallucinates constantly, using the PDF tool to check the weather.
+Enter **Haystack**. Instead of hoping the LLM figures it out, you build a strict, visual **Pipeline**. You use a `ConditionalRouter`. If the prompt contains "weather", it goes to Node A (API). If it contains "document", it goes to Node B (RAG). You combine the predictability of traditional programming with the power of LLMs.
 
-| An assembly line in a car factory | Haystack Agents Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
+## 3. Real-World Analogy
 
-![Illustration of Bae at an assembly line](../assets/emerging-frameworks/haystack-agents.png)
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A complex factory conveyor belt where boxes (Data) are routed down different paths by mechanical arms (Conditional Routers) into specific processing machines (Generators/Retrievers). */}
 
-## 3. Concept Explanation
+Think of Haystack like a factory assembly line.
+In a factory, a raw material (User Prompt) enters the building. A sorting machine (Router) looks at it. If it's metal, it sends it to the welder (Code Executor). If it's wood, it sends it to the saw (RAG Retriever). Haystack pipelines are rigid, predictable, and highly efficient assembly lines for AI.
 
-Bro, Haystack uses a highly modular pipeline approach. You connect components (like LLMs, retrievers, and web searchers) into directed graphs. It's incredibly explicit and great for NLP-heavy production tasks. It's crucial to understand when to use this versus standard scripts.
+## 4. Concept Explanation
 
-## 4. Syntax Table
+Haystack (by deepset) was originally designed for enterprise Search and RAG. With Haystack 2.0, they introduced **Agentic Pipelines**.
+The core primitives are:
+1. **Components**: The building blocks (e.g., `PromptBuilder`, `OpenAIGenerator`, `QdrantRetriever`).
+2. **Pipelines**: The graph that connects components together.
+3. **Conditional Routing**: Components that evaluate data and dynamically route execution down different branches of the pipeline, creating "Agentic" decision-making without relying entirely on LLM reasoning.
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| Initialize Pipeline | `pipe = Pipeline()` | Creates the DAG graph. |
+| Add Node | `pipe.add_component("llm", OpenAIGenerator())` | Adds a processor to the graph. |
+| Connect Nodes | `pipe.connect("retriever", "llm")` | Wires the output of A to the input of B. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-pipeline = Pipeline()
-pipeline.add_component('llm', prompt_builder)
-```
-
-## 6. Real-World Engineering Example
+A simple Haystack 2.0 Pipeline that builds a prompt and generates a response.
 
 ```python
-agent_pipeline = Pipeline()
-agent_pipeline.add_component('router', ConditionalRouter())
-agent_pipeline.connect('router.branch1', 'llm')
+# pip install haystack-ai
+from haystack import Pipeline
+from haystack.components.builders import PromptBuilder
+from haystack.components.generators import OpenAIGenerator
+
+# 1. Define the components
+prompt_template = "Translate the following to French: {{text}}"
+prompt_builder = PromptBuilder(template=prompt_template)
+llm = OpenAIGenerator(model="gpt-4o") # Requires OPENAI_API_KEY env var
+
+# 2. Create the Pipeline
+pipe = Pipeline()
+pipe.add_component("builder", prompt_builder)
+pipe.add_component("llm", llm)
+
+# 3. Connect them (Output of builder goes into LLM)
+pipe.connect("builder", "llm")
+
+# 4. Run the pipeline!
+result = pipe.run(
+    data={
+        "builder": {"text": "Hello, how are you today?"}
+    }
+)
+
+print(result["llm"]["replies"][0]) # "Bonjour, comment allez-vous aujourd'hui ?"
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is exactly how Haystack Agents orchestrates data internally.
+In production, you use Conditional Routers to make "Agentic" pipelines that branch dynamically.
+
+```python
+from haystack import Pipeline
+from haystack.components.routers import ConditionalRouter
+from haystack.components.generators import OpenAIGenerator
+from haystack.components.builders import PromptBuilder
+
+# 1. Define Routing Logic
+routes = [
+    {
+        "condition": "{{'math' in query.lower()}}",
+        "output": "{{query}}",
+        "output_name": "math_route",
+        "output_type": str,
+    },
+    {
+        "condition": "{{'poem' in query.lower()}}",
+        "output": "{{query}}",
+        "output_name": "poem_route",
+        "output_type": str,
+    },
+]
+
+router = ConditionalRouter(routes)
+
+# 2. Define specialized generators
+math_llm = OpenAIGenerator(system_prompt="You are a strict mathematician. Output only numbers.")
+poem_llm = OpenAIGenerator(system_prompt="You are Shakespeare. Answer in iambic pentameter.")
+
+# 3. Build Pipeline
+pipe = Pipeline()
+pipe.add_component("router", router)
+pipe.add_component("math_llm", math_llm)
+pipe.add_component("poem_llm", poem_llm)
+
+# 4. Connect routes to specific components!
+pipe.connect("router.math_route", "math_llm.prompt")
+pipe.connect("router.poem_route", "poem_llm.prompt")
+
+# 5. Run - The router evaluates the string and sends it down ONE path
+pipe.run(data={"router": {"query": "Write me a poem about AI."}})
+```
+
+## 8. Internal Working
+
+How a RAG Pipeline flows in Haystack.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Pipeline Start", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Component Nodes", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Pipeline End", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'User Query' } },
+    { id: 'emb', type: 'process', data: { label: 'TextEmbedder' } },
+    { id: 'ret', type: 'tool', data: { label: 'DocumentRetriever (Qdrant)' } },
+    { id: 'bld', type: 'warning', data: { label: 'PromptBuilder' } },
+    { id: 'llm', type: 'output', data: { label: 'LLM Generator' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'emb', type: 'step' },
+    { id: 'e2', source: 'emb', target: 'ret', label: 'Vector', type: 'smoothstep' },
+    { id: 'e3', source: 'ret', target: 'bld', label: 'Documents', type: 'step' },
+    { id: 'e4', source: 'bld', target: 'llm', label: 'Injected Prompt', animated: true }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Node Type | Latency | Determinism |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| Conditional Router | Microseconds | 100% (Evaluates Python/Jinja conditions) |
+| Retriever (Vector DB) | Milliseconds | 100% |
+| LLM Generator | Seconds | Low (Generative) |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What makes Haystack Agents unique? | Its specific approach to state and tooling. |
-| When should I avoid it? | When a simple rule-based script is enough. |
-| How do you handle errors? | Try-catch blocks and explicit retry policies. |
-| Does it support streaming? | Yes, natively via async generators. |
-| How to test it? | Mock the LLM responses. |
+| Why use Haystack instead of LangChain? | Haystack explicitly forces you to define your execution graph (Pipeline) upfront using `.connect()`. This makes it vastly easier to debug, visualize, and deploy to production than LangChain's highly abstracted magic. |
+| What is a Haystack Component? | A standalone Python class with a `@component` decorator and a `run()` method. It takes strict typed inputs and returns a dictionary of outputs. |
+| How do Haystack pipelines loop? | By connecting the output of a downstream node back to the input of an upstream node, creating cycles (useful for self-correcting agents). |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? Haystack Agents has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what happens if you try to connect `Retriever` output to `OpenAIGenerator` input, but the types don't match?
+Haystack's `.connect()` method performs strict validation *before* the pipeline runs. If Node A outputs `List[Document]` and Node B expects `str`, Haystack throws a `PipelineConnectError` immediately. This saves you from runtime crashes in production! You must insert a `PromptBuilder` between them to convert the Documents into a String.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Tech giants are adopting Haystack Agents for their internal developer platforms and automated ops pipelines.
+- **Enterprise Document Search**: Replacing internal Elasticsearch instances with a Haystack Pipeline that embeds queries, searches Pinecone, reranks the top 10 results using a Cohere Reranker, and synthesizes a final answer.
+- **Multimodal Agents**: A pipeline that routes image inputs to a vision model (GPT-4-Vision) and text inputs to a standard model (GPT-4o), merging the outputs into a single JSON response.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Use explicit Conditional Routers for branching logic | Rely on the LLM to autonomously decide every single step |
+| Draw out your pipeline DAG on a whiteboard first | Start coding `.connect()` blindly |
+| Use Haystack's built-in telemetry / tracing | Deploy blindly to production |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> Haystack provides a `haystack.utils.draw()` method that literally outputs an image (PNG) of your pipeline's graph. In enterprise environments, integrating this visual graph export into your CI/CD pipeline documentation ensures that non-technical stakeholders always know exactly how the AI architecture is currently wired.
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced RAG & Reranking
+1. **Rerankers**: In advanced Haystack pipelines, you don't just trust the Vector Database. You retrieve 50 documents, then pass them through a `SentenceTransformersRanker` (a specialized cross-encoder model). It re-scores and re-orders the 50 documents against the user's query, returning only the top 3 most relevant ones to the LLM. This drastically reduces hallucinations.
+2. **WebSearch Integration**: You can add a `SerperDevWebSearch` component alongside your Vector Database retriever, and use a `DocumentJoiner` to merge internet results with your private company data before feeding it to the prompt.
 
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+## 15. Common Mistakes
+- **Hanging Pipelines**: Creating cycles (loops) without a clear exit condition in the router. The pipeline will loop endlessly until it hits recursion limits.
+- **Passing raw dictionaries**: Trying to pass raw JSON into a Node instead of using Haystack's official `Document` class, which breaks downstream components that expect strict typing.
 
-## 15. Related Topics
+## 16. Related Topics
+- Retrieval-Augmented Generation (RAG)
+- Directed Acyclic Graphs (DAGs)
+- Semantic Routing
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [deepset-ai/haystack](https://github.com/deepset-ai/haystack) | ⭐ 15k+ | Haystack core framework | Core repository |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [deepset-ai/haystack](https://github.com/deepset-ai/haystack) | ⭐ 15k+ | The official Haystack repository. | The premier open-source orchestrator for production RAG. |

@@ -1,133 +1,176 @@
 ---
-sidebar_position: 1
-sidebar_label: "Smolagents Huggingface"
+sidebar_position: 7
+sidebar_label: "SmolAgents"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Smolagents Huggingface
+# SmolAgents (HuggingFace)
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
-| Topic | Smolagents Huggingface |
-| Difficulty | Intermediate |
-| Used For | Building Smolagents |
-| Common Mistake | Using dynamic types incorrectly |
-| Performance | Fast execution |
+| Topic | SmolAgents (HuggingFace) |
+| Difficulty | Beginner |
+| Used For | Building ultra-lightweight, code-first agents that write Python instead of JSON. |
+| Common Mistake | Trying to force a CodeAgent to return structured JSON data when it is inherently designed to execute Python logic. |
+| Performance | Massive performance/cost improvements because writing Python strings requires fewer tokens than deeply nested JSON schemas. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you've used LangChain and AutoGen. Behind the scenes, they rely on "Tool Calling". The LLM is forced to format its thoughts as a massive JSON object like `{"tool": "weather", "args": {"city": "NY"}}`. 
+The problem? JSON is terrible for reasoning. It costs a ton of tokens, and open-source models (like Llama-3) are notoriously bad at outputting perfect JSON, causing parsing errors constantly.
+Enter **SmolAgents** by HuggingFace. They realized something profound: LLMs are incredible at writing Python code. Instead of forcing the LLM to output JSON to call a tool, SmolAgents tells the LLM: "Just write a Python script that calls the tool." The LLM writes python natively, executes it in a local sandbox, and gets the answer. It is ridiculously simple, fast, and works beautifully with cheap open-source models.
 
-| Kitchen Instruction | Smolagents Equivalent |
-|---|---|
-| Recipe format | Schema |
-| Chef checking ingredients | Type checking |
-| Cooking process | Agent execution |
+## 3. Real-World Analogy
 
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A chef checking ingredients against a recipe format to represent type checking in Smolagents Huggingface. */}
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A small, cute robot bypassing a massive, complex control panel full of wires (JSON Tool Calling) and instead just quickly typing commands on a simple keyboard (CodeAgent Python). */}
 
-## 3. Concept Explanation
+Think of JSON tool calling like filling out a highly bureaucratic 10-page tax form just to request a pencil. If you make one typo, the form is rejected.
+Think of a `CodeAgent` like handing someone a Python terminal. You want a pencil? Just type `get_pencil()`. It's direct, expressive, and eliminates the bureaucratic overhead.
 
-Bro, here is why you need this. When you are building agents...
+## 4. Concept Explanation
 
-## 4. Syntax Table
+SmolAgents is a minimalist framework (hence "smol") built around the `CodeAgent` primitive.
+1. **CodeAgents**: Instead of using ReAct with JSON, the agent loops by generating Python code snippets, executing them, and observing the output.
+2. **Local Sandbox**: To run the AI's python code safely, SmolAgents includes a built-in Python sandbox restricting access to dangerous operations.
+3. **Model Agnostic**: Because it relies on standard Python generation instead of proprietary OpenAI JSON tool-calling APIs, it works incredibly well with HuggingFace Hub, Ollama, and vLLM models.
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `agent = Agent()` | Creates a new agent |
-| Execute | `agent.run()` | Runs the agent |
+| Create Tool | `@tool def get_weather(loc: str):` | Defines an action the agent can use. |
+| Create CodeAgent | `agent = CodeAgent(tools=[...], model=...)` | The agent that writes python to solve goals. |
+| Run Agent | `agent.run("What is the weather?")` | Kicks off the execution loop. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-# A simple example
-def run_agent():
-    print("Agent running")
-```
-
-## 6. Real-World Engineering Example
+Creating a CodeAgent that can fetch the weather and do math, using a HuggingFace serverless model.
 
 ```python
-# Production example
-def production_agent():
-    print("Agent running in production")
+# pip install smolagents
+from smolagents import CodeAgent, HfApiModel, tool
+
+# 1. Define tools using decorators
+@tool
+def get_weather(location: str) -> str:
+    """Fetches the current weather.
+    Args:
+        location: The city to search.
+    """
+    return f"It is sunny and 75F in {location}"
+
+# 2. Initialize a free HuggingFace model (e.g., Qwen or Llama)
+model = HfApiModel("Qwen/Qwen2.5-Coder-32B-Instruct")
+
+# 3. Create the CodeAgent
+agent = CodeAgent(tools=[get_weather], model=model)
+
+# 4. Run it!
+agent.run("What is the weather in Paris, and what is 75F in Celsius?")
+```
+*Under the hood, the LLM will literally generate: `temp_f = 75; temp_c = (temp_f - 32) * 5/9; print(temp_c)` and execute it.*
+
+## 7. Real-World Engineering Example
+
+Using SmolAgents for advanced data analysis. You give the agent a CSV, and it autonomously writes pandas code to analyze it.
+
+```python
+import pandas as pd
+from smolagents import CodeAgent, LocalPythonSandbox, HfApiModel, tool
+
+# 1. Provide a tool to read local data
+@tool
+def read_csv(filepath: str) -> str:
+    """Reads a CSV and returns the head."""
+    df = pd.read_csv(filepath)
+    return str(df.head())
+
+model = HfApiModel("meta-llama/Llama-3.3-70B-Instruct")
+
+# 2. Strict sandboxing is crucial when running AI-generated python!
+agent = CodeAgent(
+    tools=[read_csv], 
+    model=model,
+    sandbox=LocalPythonSandbox() # Blocks importing 'os', 'sys', etc.
+)
+
+# The agent will write Python code to read the CSV, perform math, and return the answer.
+result = agent.run("Read sales.csv and calculate the total revenue for Q3.")
+print(result)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
-Bro, here is what happens under the hood.
+How a CodeAgent execution loop differs from a JSON Tool Calling loop.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Input", detail: "Receive data", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Process", detail: "Execute logic", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Output", detail: "Return result", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'Goal: Math' } },
+    { id: 'llm', type: 'warning', data: { label: 'LLM Generates Python String' } },
+    { id: 'sbx', type: 'process', data: { label: 'Execute in Python Sandbox' } },
+    { id: 'err', type: 'tool', data: { label: 'Traceback Error?' } },
+    { id: 'out', type: 'output', data: { label: 'Final Answer' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'llm', type: 'step' },
+    { id: 'e2', source: 'llm', target: 'sbx', label: 'Runs: a=5+5', type: 'smoothstep' },
+    { id: 'e3', source: 'sbx', target: 'err', type: 'step' },
+    { id: 'e4', source: 'err', target: 'llm', label: 'Yes, feed error back', animated: true },
+    { id: 'e5', source: 'err', target: 'out', label: 'No, return 10', type: 'step' }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Agent Type | API Cost | Open-Source Model Support |
 |---|---|---|
-| Initialization | O(1) | O(1) |
-| Execution | O(n) | O(n) |
+| JSON ToolAgent (OpenAI) | High | Poor (Struggles with JSON escaping) |
+| Python CodeAgent | Low | Excellent (Models excel at Python) |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What is this? | It is a framework concept. |
-| Why use it? | For better agents. |
-| How to scale? | Use distributed systems. |
-| Common errors? | Type errors. |
-| Best practice? | Validate inputs. |
+| Why are CodeAgents better for Open-Source models? | Models like Llama-3 or Mistral often mess up JSON syntax (e.g., missing a trailing comma), which breaks the framework parser. However, these models were trained heavily on GitHub and write flawless Python syntax. |
+| Is executing AI-generated python dangerous? | Extremely. That is why SmolAgents ships with a `LocalPythonSandbox`. It parses the AST (Abstract Syntax Tree) of the generated code and blocks malicious imports like `os` or `subprocess`. |
+| Can SmolAgents use standard JSON Tool Calling? | Yes. While it defaults to `CodeAgent`, it also provides a `ToolCallingAgent` if you prefer the standard OpenAI JSON approach. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, watch out for these tricky parts.
+Bro, what happens if the AI writes a Python script that takes 30 minutes to run?
+If the AI writes an infinite loop or a highly complex computation, the LocalPythonSandbox will hang your main thread. You must implement execution timeouts. If the script hits the timeout, the sandbox kills it, returns the Timeout error to the LLM, and forces the LLM to write a more optimized version.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Top companies use this for...
+- **Local Desktop Agents**: Because SmolAgents works flawlessly with Ollama (running locally on your Macbook), you can build completely private, free AI agents that organize your local files without sending data to the cloud.
+- **HuggingFace Hub Integration**: Agents that can natively download computer vision or text-to-speech models from HF, run inferences on them locally via python scripts, and return the result.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do validate inputs | Don't trust raw data |
-| Do use strict types | Don't use Any |
+| Use `CodeAgent` for complex logic and math tasks | Use `CodeAgent` in an un-sandboxed cloud environment |
+| Provide excellent docstrings in your `@tool` definitions | Assume the LLM knows how to use your tool without instructions |
+| Pair SmolAgents with specialized coding models (Qwen-Coder, DeepSeek-Coder) | Use weak models (e.g. 1B parameters) that cannot write coherent Python |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> The built-in AST sandbox in SmolAgents is good for local safety, but it is NOT considered cryptographically secure for multi-tenant SaaS platforms. If you let users run arbitrary CodeAgents on your web servers, a determined attacker via prompt injection could potentially break out of the AST sandbox. In production SaaS, you must execute the code inside isolated Docker containers or Firecracker microVMs.
 
-:::warning
-Bro, in production, always monitor your agent's memory usage and execution time.
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Ecosystem (Gradio)
+1. **Gradio UI**: Because HuggingFace built SmolAgents, it integrates perfectly with Gradio. You can build a web UI for your agent in literally two lines of code using `GradioUI(agent).launch()`. This instantly gives you a ChatGPT-like interface.
+2. **Dynamic Tool Imports**: SmolAgents allows you to load tools dynamically from the HuggingFace Hub. If your agent decides it needs to generate an image, it can pull an image-generation tool off the Hub mid-conversation and use it!
 
-| Mistake | Fix |
-|---|---|
-| Ignoring types | Use type hints |
+## 15. Common Mistakes
+- **Assuming Persistent State**: If the agent writes `x = 10` in turn 1, and in turn 2 writes `print(x)`, it will fail. Each python snippet execution is stateless. The agent must pass variables back to the conversation history or use external storage.
+- **Overloading Tools**: Giving the agent 50 tools. Even though Python generation is robust, a massive prompt full of tool descriptions will degrade the LLM's reasoning ability. Keep the toolset "smol".
 
-## 15. Related Topics
+## 16. Related Topics
+- Abstract Syntax Trees (AST Sandboxing)
+- HuggingFace Transformers
+- Code Llama & Qwen-Coder
 
-- [Pydantic AI Fundamentals](../pydantic-ai/pydantic-ai-fundamentals.mdx)
-
-## 16. Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 1k+ | Official repo | Core framework |
-| [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | Official repo | Core framework |
-| [huggingface/smolagents](https://github.com/huggingface/smolagents) | ⭐ 2k+ | Official repo | Core framework |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | Langchain | Alternative |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 18k+ | CrewAI | Alternative |
+| [huggingface/smolagents](https://github.com/huggingface/smolagents) | ⭐ 10k+ | The official SmolAgents repository. | The leading framework for Python-native code agents. |

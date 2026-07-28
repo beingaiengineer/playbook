@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-sidebar_label: "Multi-Agent Orchestration in Google ADK"
+sidebar_label: "Multi-Agent Orchestration"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -11,106 +11,163 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Area | Details |
 |---|---|
 | Topic | Multi-Agent Orchestration in Google ADK |
-| Difficulty | Intermediate |
-| Used For | Building multi-agent orchestrations using Google ADK. |
-| Common Mistake | Trying to manage agent state manually instead of using Google ADK's native session management. |
-| Performance | Depends on the framework and underlying LLM latency. |
+| Difficulty | Advanced |
+| Used For | Building teams of specialized AI agents that route tasks to each other. |
+| Common Mistake | Creating an infinite loop where Agent A routes to Agent B, and Agent B routes back to Agent A. |
+| Performance | Scales horizontally but introduces network latency on handoffs. |
 
-## 2. Real-World Analogy
-Bro, think of it like managing a large Indian wedding. You need coordination, tools, and a clear plan.
+## 2. Engineering Story
 
-![Real World Analogy](./images/google-adk-multi-agent-orchestration/analogy.png)
+Bro, you built an IT support bot. At first, it just answered password reset questions. Then management wanted it to also write SQL queries to check employee PTO, and also draft HR emails. You jammed all 50 tools into a single Gemini agent. The result? The agent got confused, hallucinated, and accidentally emailed the CEO's PTO balance to the entire company. 
+This is why you use multi-agent orchestration. Instead of one massive "God Agent," you build three tiny, specialized agents: `IT_Agent`, `SQL_Agent`, and `HR_Agent`. You put a `RouterAgent` in front of them. When a user asks about PTO, the Router securely hands off the conversation to the `HR_Agent`, which only has access to HR tools. 
 
-| Wedding Task | Agent Equivalent |
-|---|---|
-| Event Planner | Orchestrator Agent |
-| Caterer | Tool |
-| Guest List | Memory/State |
+## 3. Real-World Analogy
 
-## 3. Concept Explanation
-Google ADK provides native tools to orchestrate multiple agents. Unlike other frameworks where you have to build the routing logic from scratch, Google ADK offers built-in orchestrator components that can coordinate task delegation among worker agents using Vertex AI under the hood.
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A hospital triage desk (Router Agent) directing patients to specialized doctors (Worker Agents) based on their symptoms. */}
 
-## 4. Syntax Table
+Think of a hospital. You don't have one super-doctor who does brain surgery, delivers babies, and fixes broken toes. 
+You walk in, you meet the Triage Nurse (Router Agent). The nurse assesses you and routes you to the Cardiologist (Specialist Agent). The Cardiologist only has cardiology tools. If they find a different issue, they refer you to another specialist.
+
+## 4. Concept Explanation
+
+Google ADK provides native orchestration patterns powered by Vertex AI. Unlike LangGraph, which requires you to manually define nodes and edges in a state graph, Google ADK uses a declarative approach. You define a pool of specialized `Agents`, and you instantiate an `Orchestrator` or a `Router`. The orchestrator uses the LLM to dynamically decide which agent should handle the current turn, automatically transferring the `Session` state so the specialist has full context.
+
+## 5. Syntax Table
 | Action | Code Example |
 |---|---|
-| Create Orchestrator | `orchestrator = adk.Orchestrator(agents=[agent1, agent2])` |
-| Run Workflow | `orchestrator.execute(task="Summarize data")` |
+| Define Specialist | `sql_agent = Agent(name="SQL", tools=[db_tool])` |
+| Create Router | `router = adk.Router(agents=[sql_agent, hr_agent])` |
+| Execute Handoff | `router.process("Write a query for...", session)` |
 
-## 5. Beginner Example
+## 6. Beginner Example
+
+A simple router that decides between two agents.
+
 ```python
 import google_adk as adk
 
-# Define agents
-researcher = adk.Agent(name="researcher")
-writer = adk.Agent(name="writer")
+# 1. Define highly scoped agents
+researcher = adk.Agent(
+    name="Researcher",
+    system_instruction="You only search the web for facts."
+)
 
-# Orchestrate
-team = adk.Orchestrator(agents=[researcher, writer])
-team.execute("Research AI trends and write a blog.")
+writer = adk.Agent(
+    name="Writer",
+    system_instruction="You only write poetic summaries."
+)
+
+# 2. Create the Orchestrator
+team = adk.Orchestrator(
+    agents=[researcher, writer],
+    default_agent="Researcher"
+)
+
+# The Orchestrator automatically decides researcher -> writer
+result = team.execute("Find out who won the 2022 World Cup and write a poem about it.")
+print(result)
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
+
+In enterprise, you don't use synchronous routers for everything. For heavy tasks, you orchestrate agents via Google Cloud Pub/Sub, passing messages asynchronously.
+
 ```python
-def customer_support_workflow(ticket_data):
-    triage_agent = adk.Agent(role="triage")
-    tech_agent = adk.Agent(role="tech_support")
+from google_adk import Agent, Session
+from google_cloud import pubsub_v1
 
-    # Google ADK router automatically passes context
-    router = adk.Router(agents=[triage_agent, tech_agent])
-    return router.process(ticket_data)
+# Triage agent processes the initial user request
+triage_agent = Agent(name="Triage", model="gemini-1.5-flash")
+
+def handle_incoming_ticket(ticket_text, session_id):
+    session = Session(session_id)
+    classification = triage_agent.run(f"Classify this ticket: {ticket_text}")
+    
+    # Asynchronous handoff via Pub/Sub
+    publisher = pubsub_v1.PublisherClient()
+    
+    if classification.text == "BILLING":
+        topic_path = publisher.topic_path("my-project", "billing-agent-queue")
+    else:
+        topic_path = publisher.topic_path("my-project", "tech-support-queue")
+        
+    # Send the session ID so the next agent can resume the context
+    publisher.publish(topic_path, session_id.encode("utf-8"))
+    return "Your ticket has been routed to a specialist."
 ```
 
-## 7. Internal Working
-Here is how it works under the hood. The flow represents the lifecycle of the agent's execution process.
+## 8. Internal Working
 
-<LearningFlow />
+How a Router transfers State (Context) between Agents.
 
-## 8. Performance Table
-| Operation | Complexity |
-|---|---|
-| Initialization | O(1) |
-| Tool Execution | O(N) where N is payload size |
-| State Update | O(1) |
+<LearningFlow
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'User Request' } },
+    { id: 'router', type: 'process', data: { label: 'Router Agent (Vertex)' } },
+    { id: 'a1', type: 'tool', data: { label: 'HR Agent' } },
+    { id: 'a2', type: 'tool', data: { label: 'IT Agent' } },
+    { id: 'out', type: 'output', data: { label: 'Final Response' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'router', type: 'step' },
+    { id: 'e2', source: 'router', target: 'a1', label: 'If HR', type: 'smoothstep' },
+    { id: 'e3', source: 'router', target: 'a2', label: 'If IT', type: 'smoothstep' },
+    { id: 'e4', source: 'a1', target: 'out', type: 'step' },
+    { id: 'e5', source: 'a2', target: 'out', type: 'step' }
+  ]}
+/>
 
-## 9. Top Interview Questions
+## 9. Performance Table
+| Pattern | Latency | Complexity | Use Case |
+|---|---|---|---|
+| Router | Medium (2 LLM calls) | Low | Simple Triage |
+| Supervisor | High (N LLM calls) | High | Code Generation / Review |
+| Pub/Sub Handoff | Asynchronous | Very High | Long-running background tasks |
+
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| How does ADK handle agent handoffs? | Through native `Router` and `Orchestrator` classes that manage state transfer implicitly. |
-| What is the advantage of ADK over LangGraph here? | Tighter integration with GCP IAM and Vertex AI out-of-the-box. |
-| What are the security implications? | You must implement guardrails to prevent unauthorized tool execution or prompt injection. |
-| When should you NOT use this? | When a simple direct LLM call or basic script would suffice. |
-| How does it scale? | By distributing agent workloads across serverless functions or containerized environments. |
+| What is the danger of giving one agent 50 tools? | "Context dilution." The LLM gets confused, token usage explodes, and security risk increases. Multi-agent architecture fixes this. |
+| How does ADK handle agent handoffs? | Through native `Router` and `Orchestrator` classes that manage state transfer implicitly via the shared `Session` object. |
+| What is the advantage of ADK over LangGraph here? | Tighter integration with GCP IAM and Vertex AI out-of-the-box. LangGraph requires manually wiring up state schemas and graph edges. |
 
-## 10. Tricky Questions & Edge Cases
-Watch out for concurrency issues, bro. If multiple agents try to update the same shared state without proper locking mechanisms, you'll run into race conditions that are a nightmare to debug.
+## 11. Tricky Questions & Edge Cases
 
-## 11. Real-World Usage
-Used by top tech companies for internal tooling, customer support automation, and complex data pipeline orchestration. For instance, tech teams use these patterns to orchestrate delivery logistics dynamically based on real-time traffic data.
+Bro, what happens if Agent A routes to Agent B, but Agent B doesn't know the answer and routes back to Agent A?
+This is a **Routing Loop**. Google ADK mitigates this by enforcing `max_hops` (usually 3 or 5). If the agents pass the context back and forth too many times, the Orchestrator throws a `MaxHopsExceeded` exception to save your API bill.
 
-## 12. Best Practices
+## 12. Real-World Usage
+- **Software Engineering Teams**: A "Coder Agent" writes the python script, hands it to a "Tester Agent" which runs the script, which hands it back to the "Coder Agent" with the error logs to fix.
+- **Financial Auditing**: A "Document Extraction Agent" pulls data from PDFs, routes it to a "Validation Agent" to check math, which routes to a "Formatting Agent".
+
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Write comprehensive unit tests for individual agent tools | Skip error handling and assume the LLM will always return the perfect format |
-| Use structured logging to trace agent decision paths | Hardcode sensitive API keys directly in the agent's configuration |
-| Implement clear guardrails and timeout limits | Let an agent run indefinitely in an unbounded loop |
+| Give specialized agents exactly 1-3 tools | Build a "God Agent" with 50 tools |
+| Use asynchronous queues (Pub/Sub) for slow agents | Block an HTTP request waiting for 4 agents to finish |
+| Set a hard limit on `max_hops` | Let agents loop infinitely |
 
-## 13. Production Notes
-Warning: Always monitor memory usage and LLM token limits in production. A rogue agent stuck in a loop can quickly rack up massive API bills. Implement hard limits and alerting.
+## 14. Production Notes
+> Production Note:
+> Tracing a request through 5 different agents is a nightmare. You must pass a single `correlation_id` through every agent invocation. When using Google ADK in production, inject the `correlation_id` into Cloud Logging so you can query exactly which agent failed in a complex chain.
 
-## 14. Common Mistakes
-| Mistake | Fix |
-|---|---|
-| Ignoring logs | Add structured logging to track every step of the agent's thought process |
-| Assuming perfect output | Use tools like Pydantic to strictly validate output schemas before proceeding |
+---
 
-## 15. Related Topics
-- Framework Architecture Patterns
-- Production Deployment Strategies
-- Agent Observability
+## 17. Advanced Orchestration Patterns
+1. **The Supervisor Pattern**: Instead of agents handing off linearly, you create a Supervisor Agent. The Supervisor looks at the task, breaks it down into sub-tasks, assigns them to Worker Agents in parallel, waits for all results, and synthesizes the final answer. Google ADK supports this via `asyncio` `gather` combined with multiple agent runs.
+2. **Dynamic Tool Provisioning**: Instead of hardcoding tools into an agent, a highly advanced Orchestrator can query a Datastore of available tools, and inject only the necessary tools into the Worker Agent at runtime before handing off the task.
 
-## 16. Top GitHub Repos
+## 15. Common Mistakes
+- **Shared State Corruption**: Allowing two agents to modify the exact same `Session` object concurrently in separate threads without locks.
+- **Ignoring Fallbacks**: Not providing a fallback response if the Router Agent fails to match the user's intent to any of the available sub-agents.
+
+## 16. Related Topics
+- Agentic Design Patterns
+- Graph Architectures
+- Pub/Sub Architectures
+
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [google/generative-ai-python](https://github.com/google/generative-ai-python) | ⭐ 4k+ | Official Google GenAI SDK | Foundation for Google ADK integrations |
-| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | Key competitor offering different paradigms |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Popular alternative for specific use cases |
+| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | The industry standard for graph-based multi-agent orchestration. |
+| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Excellent for sequential multi-agent workflows. |

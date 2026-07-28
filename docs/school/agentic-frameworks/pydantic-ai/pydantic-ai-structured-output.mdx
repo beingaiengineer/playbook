@@ -1,133 +1,179 @@
 ---
 sidebar_position: 4
-sidebar_label: "Pydantic Ai Structured Output"
+sidebar_label: "Structured Output"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Pydantic Ai Structured Output
+# Pydantic AI Structured Output
 
 ## 1. Quick Summary
 
 | Area | Details |
 |---|---|
-| Topic | Pydantic Ai Structured Output |
+| Topic | Pydantic AI Structured Output |
 | Difficulty | Intermediate |
-| Used For | Building Pydantic |
-| Common Mistake | Using dynamic types incorrectly |
-| Performance | Fast execution |
+| Used For | Forcing LLMs to return strict JSON data instead of plain text. |
+| Common Mistake | Giving the LLM a massive, highly nested schema that it fails to understand. |
+| Performance | Fast, but adds a small latency overhead for JSON schema generation. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, imagine parsing resumes using an LLM. You ask the LLM to return the candidate's name and skills. Half the time it returns `Name: John, Skills: Python`. The other half it returns `{"name": "John", "skills": ["Python"]}`. You write regex to parse this, and it constantly breaks in production. By switching to Pydantic AI and strictly defining a `ResumeModel(BaseModel)`, the framework forces the LLM to output perfect JSON. If the LLM makes a mistake, Pydantic catches it and asks the LLM to fix it. Your regex nightmares are over.
 
-| Kitchen Instruction | Pydantic Equivalent |
-|---|---|
-| Recipe format | Schema |
-| Chef checking ingredients | Type checking |
-| Cooking process | Agent execution |
+## 3. Real-World Analogy
 
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A chef checking ingredients against a recipe format to represent type checking in Pydantic Ai Structured Output. */}
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict postal worker forcing a customer to fill out a form perfectly inside the boxes before accepting the package. */}
 
-## 3. Concept Explanation
+Think of structured output like a strict government form. 
+If you hand a blank piece of paper to someone and say "write your details", they will write it however they want. But if you give them a form with exact boxes for "First Name" and "Age", they are forced to structure their data. 
+Pydantic AI generates that "form" (JSON Schema) for the LLM.
 
-Bro, here is why you need this. When you are building agents...
+## 4. Concept Explanation
 
-## 4. Syntax Table
+LLMs are fundamentally text generators. Left alone, they babble in markdown. Pydantic AI uses "Structured Outputs" (often via OpenAI's JSON mode or Tool Calling features) to pass a strict JSON Schema to the model. The model is constrained to only output tokens that match this schema. When the output arrives, Pydantic validates it into a Python object.
+
+## 5. Syntax Table
 
 | Concept | Syntax | Description |
 |---|---|---|
-| Initialize | `agent = Agent()` | Creates a new agent |
-| Execute | `agent.run()` | Runs the agent |
+| Define Schema | `class MyModel(BaseModel):` | Standard Pydantic model |
+| Set Result Type | `result_type=MyModel` | Passed into the `Agent` |
+| Nested Types | `items: list[str]` | LLM understands lists and dicts |
 
-## 5. Beginner Example
-
-```python
-# A simple example
-def run_agent():
-    print("Agent running")
-```
-
-## 6. Real-World Engineering Example
+## 6. Beginner Example
 
 ```python
-# Production example
-def production_agent():
-    print("Agent running in production")
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+
+class CityInfo(BaseModel):
+    name: str = Field(..., description="The name of the city")
+    population: int
+    is_capital: bool
+
+# We explicitly tell the Agent what we want back
+agent = Agent('openai:gpt-4o', result_type=CityInfo)
+
+result = agent.run_sync("Tell me about Paris")
+
+# result.data is guaranteed to be a CityInfo object
+print(result.data.is_capital) # True
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is what happens under the hood.
+In production, you often need to extract an array of complex nested objects from a single massive document, like scraping product details from an HTML page.
+
+```python
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+
+class Product(BaseModel):
+    id: str = Field(..., description="The unique SKU")
+    price_usd: float
+    in_stock: bool
+
+class ScrapeResult(BaseModel):
+    products: list[Product]
+    summary: str
+
+agent = Agent('openai:gpt-4o', result_type=ScrapeResult)
+result = agent.run_sync("Here is the HTML of a store page...")
+
+for product in result.data.products:
+    print(f"Product {product.id} costs ${product.price_usd}")
+```
+
+## 8. Internal Working
+
+Bro, here is what happens under the hood when you use `result_type`.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Input", detail: "Receive data", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Process", detail: "Execute logic", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Output", detail: "Return result", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'model', type: 'core', data: { label: 'Pydantic BaseModel' } },
+    { id: 'schema', type: 'process', data: { label: 'Generates JSON Schema' } },
+    { id: 'llm', type: 'process', data: { label: 'LLM Generates JSON' } },
+    { id: 'validate', type: 'core', data: { label: 'Pydantic Validation' } },
+    { id: 'success', type: 'output', data: { label: 'Python Object' } },
+    { id: 'retry', type: 'warning', data: { label: 'Validation Error -> Retry LLM' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'model', target: 'schema', type: 'smoothstep' },
+    { id: 'e2', source: 'schema', target: 'llm', type: 'smoothstep' },
+    { id: 'e3', source: 'llm', target: 'validate', type: 'step' },
+    { id: 'e4', source: 'validate', target: 'success', label: 'Valid', animated: true },
+    { id: 'e5', source: 'validate', target: 'retry', label: 'Invalid' },
+    { id: 'e6', source: 'retry', target: 'llm', type: 'smoothstep', animated: true }
+  ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
-| Operation | Time Complexity | Space Complexity |
+| Output Strategy | Latency | Reliability |
 |---|---|---|
-| Initialization | O(1) | O(1) |
-| Execution | O(n) | O(n) |
+| Raw Text | Fastest | Very Low (needs regex) |
+| JSON Mode | Fast | Medium (LLM might break schema) |
+| Structured Outputs / Tools | Slightly Slower | 100% Reliable |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
-| What is this? | It is a framework concept. |
-| Why use it? | For better agents. |
-| How to scale? | Use distributed systems. |
-| Common errors? | Type errors. |
-| Best practice? | Validate inputs. |
+| How does Pydantic AI fix broken JSON? | If the LLM returns invalid JSON (e.g. missing a required field), Pydantic throws a ValidationError. The Agent catches this, sends the error back to the LLM, and asks it to fix its mistake. |
+| What is the difference between JSON Mode and Tool Calling for structured output? | JSON mode just tells the LLM to output JSON. Tool Calling explicitly forces the LLM to call a "function" where the arguments perfectly match your JSON Schema. |
+| Can you stream structured output? | Yes, but streaming partial JSON requires specialized parsing (like `ijson` or Pydantic's internal stream parsers) because the JSON is incomplete while streaming. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, watch out for these tricky parts.
+Bro, what if you use a `Union` type in your Pydantic model?
+```python
+class Result(BaseModel):
+    data: Union[str, int]
+```
+LLMs struggle heavily with ambiguous `Union` types because the schema becomes `anyOf`. The LLM might output a string when you expect an int. Always try to make your schemas as deterministic and concrete as possible. Instead of `Union`, use optional fields or strict enums.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Top companies use this for...
+- **Data Extraction**: Converting unstructured PDFs into structured SQL rows.
+- **Classification**: Forcing an LLM to categorize an email strictly into `Support`, `Sales`, or `Spam` using an Enum.
+- **Code Generation**: Ensuring the LLM returns code in a specific block format alongside metadata.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
-| Do validate inputs | Don't trust raw data |
-| Do use strict types | Don't use Any |
+| Do use `Field(description="...")` heavily | Don't assume the LLM knows what "ts" means (say "timestamp in UTC") |
+| Do use Python `Enum` for classification | Don't just use `str` and hope it picks the right category |
+| Do keep your models flat and simple | Don't nest models 5 levels deep, the LLM will get confused |
 
-## 13. Production Notes
+## 14. Production Notes
 
-:::warning
-Bro, in production, always monitor your agent's memory usage and execution time.
-:::
+> Production Note:
+> Extensive schemas eat up context window tokens. Every time you pass a massive `BaseModel`, its JSON Schema is injected into the system prompt. If your model has 100 fields, you are burning thousands of tokens per request just on the schema itself! Keep output models lean.
 
-## 14. Common Mistakes
+---
 
-| Mistake | Fix |
-|---|---|
-| Ignoring types | Use type hints |
+## 17. Advanced Structured Output Patterns
+1. **Dynamic Schemas**: Sometimes you don't know the exact schema until runtime (e.g. a user defines a custom table). You can use Pydantic's `create_model()` to dynamically generate a `BaseModel` on the fly and pass it to `result_type`.
+2. **Discriminators**: When using `Union` types, always use a `Discriminator` (e.g. a `type` field). This makes it infinitely easier for the LLM to choose the right schema branch rather than guessing based on fields.
 
-## 15. Related Topics
+## 15. Common Mistakes
 
-- [Pydantic AI Fundamentals](../pydantic-ai/pydantic-ai-fundamentals.mdx)
+- **Vague Field Names**: Naming a field `data` instead of `extracted_customer_address`.
+- **Missing Descriptions**: Not using the `Field(description="...")` which is exactly what guides the LLM's reasoning.
+- **Massive Prompts**: Trying to explain the schema in the text prompt instead of letting the Pydantic model document itself.
 
-## 16. Top GitHub Repos
+## 16. Related Topics
+
+- Data Extraction
+- Prompt Engineering for JSON
+- Pydantic Validation
+- Function Calling
+
+### Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 1k+ | Official repo | Core framework |
-| [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | Official repo | Core framework |
-| [huggingface/smolagents](https://github.com/huggingface/smolagents) | ⭐ 2k+ | Official repo | Core framework |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | Langchain | Alternative |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 18k+ | CrewAI | Alternative |
+| [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 20k+ | Data validation using Python type hints | The engine behind the structured outputs. |
+| [jxnl/instructor](https://github.com/jxnl/instructor) | ⭐ 8k+ | Structured outputs for LLMs | A fantastic alternative/companion library specifically built just for structured extraction. |

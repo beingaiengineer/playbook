@@ -1,130 +1,172 @@
 ---
-sidebar_position: 2
-sidebar_label: "Agno (formerly Phidata)"
+sidebar_position: 1
+sidebar_label: "Agno (Phidata)"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Agno (formerly Phidata)
+# Agno (Formerly Phidata)
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
-| Topic | Agno (formerly Phidata) |
-| Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Topic | Agno (Formerly Phidata) |
+| Difficulty | Beginner |
+| Used For | Building agents with long-term memory, built-in RAG (Knowledge), and structured tool usage. |
+| Common Mistake | Using Agno for complex multi-agent orchestration. It is better suited for highly capable, stateful single agents. |
+| Performance | Fast and lightweight, deeply integrated with Postgres for persistent memory. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you built an OpenAI chatbot using LangChain. Now you want it to remember the user's name across sessions. You realize you have to build a PostgreSQL database, write a custom memory manager, handle vector embeddings, and manually inject the history into every prompt. It takes you three days.
+Enter **Agno** (formerly known as Phidata). Agno says, "Memory, Knowledge, and Tools shouldn't be hard." You just add `memory=PgMemoryDb(...)` to your Agent definition, and Agno automatically saves the chat history, extracts long-term user preferences, and loads them perfectly on the next turn. You just built a stateful production agent in 5 lines of code.
 
-| A custom financial advisory firm | Agno (formerly Phidata) Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
+## 3. Real-World Analogy
 
-![Illustration of Bae as a financial advisor](../assets/emerging-frameworks/agno-formerly-phidata.png)
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A highly organized robotic assistant with a massive filing cabinet bolted to its back (Memory), holding a textbook (Knowledge), and a Swiss army knife (Tools). */}
 
-## 3. Concept Explanation
+Think of a standard LLM like a brilliant temp worker with amnesia. They answer your question perfectly, but if they leave the room and come back, they forget who you are.
+Agno gives that temp worker a permanent desk, a notebook containing your past conversations (Memory), a library of company documents (Knowledge), and a toolkit (Tools). They are no longer a temp worker; they are a permanent employee.
 
-Bro, Agno (which used to be Phidata) is all about giving your LLMs actual memory, knowledge, and tools without the massive boilerplate of older frameworks. It treats agents as independent problem solvers with dedicated storage. It's crucial to understand when to use this versus standard scripts.
+## 4. Concept Explanation
 
-## 4. Syntax Table
+Agno focuses on the **Stateful Agent** pattern. An Agno `Agent` consists of three pillars:
+1. **Memory**: Stores chat history and extracts summarized facts (e.g., "User likes Python"). Often backed by SQLite or PostgreSQL.
+2. **Knowledge**: Built-in RAG capabilities. You point Agno to a PDF or a website, and it automatically handles the chunking, embedding, and vector search.
+3. **Tools**: Python functions that the agent can execute (e.g., searching the web via DuckDuckGo).
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| Create Agent | `agent = Agent(model=OpenAIChat(...))` | Initializes the agent. |
+| Add Memory | `memory=PgMemoryDb(...)` | Connects agent to persistent Postgres. |
+| Add Knowledge | `knowledge=PDFUrlKnowledgeBase(...)` | Connects agent to a vector database for RAG. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-agent = Agent(tools=[SearchTool()], memory=Memory())
-```
-
-## 6. Real-World Engineering Example
+A simple agent that searches the web and remembers what you talked about.
 
 ```python
-financial_agent = Agent(tools=[yfinance_tool, postgres_tool], storage=PgStorage(), show_tool_calls=True)
+# pip install agno duckduckgo-search
+from agno.agent import Agent
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+# Create a web-searching agent
+web_agent = Agent(
+    name="Web Helper",
+    tools=[DuckDuckGoTools()],
+    show_tool_calls=True,
+    markdown=True,
+)
+
+# The agent will autonomously decide to use the search tool
+web_agent.print_response("What is the current stock price of TSLA?", stream=True)
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is exactly how Agno (formerly Phidata) orchestrates data internally.
+In production, you want the Agent to remember the user across sessions using PostgreSQL.
+
+```python
+import os
+from agno.agent import Agent
+from agno.memory.db.postgres import PgMemoryDb
+from agno.storage.agent.postgres import PgAgentStorage
+
+db_url = os.environ.get("DATABASE_URL")
+
+# 1. Setup Persistent Storage for the Agent's state
+agent_storage = PgAgentStorage(table_name="agent_sessions", db_url=db_url)
+# 2. Setup Persistent Memory for the actual chat history and extracted facts
+agent_memory = PgMemoryDb(table_name="agent_memory", db_url=db_url)
+
+financial_agent = Agent(
+    name="FinanceBot",
+    storage=agent_storage,
+    memory=agent_memory,
+    add_history_to_messages=True, # Automatically injects past context
+)
+
+# Start session 1
+financial_agent.print_response("Hi, my name is Alex and I have 50 shares of AAPL.")
+
+# Imagine the script restarts here! You can resume the exact session:
+# financial_agent = Agent(..., session_id="previous_id")
+# financial_agent.print_response("How many shares of AAPL do I have?")
+# Output: "You have 50 shares."
+```
+
+## 8. Internal Working
+
+How Agno injects Memory and Knowledge into the LLM context.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "User Query", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Agno Memory & Tools", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Response", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'User Prompt' } },
+    { id: 'mem', type: 'process', data: { label: 'Fetch Chat History (Postgres)' } },
+    { id: 'rag', type: 'tool', data: { label: 'Fetch Knowledge (Vector DB)' } },
+    { id: 'bld', type: 'warning', data: { label: 'Agno builds Context Window' } },
+    { id: 'llm', type: 'output', data: { label: 'LLM Generates Answer' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'bld', type: 'step' },
+    { id: 'e2', source: 'mem', target: 'bld', label: 'Past 5 messages', type: 'smoothstep' },
+    { id: 'e3', source: 'rag', target: 'bld', label: 'Top 3 chunks', type: 'smoothstep' },
+    { id: 'e4', source: 'bld', target: 'llm', animated: true }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Storage Type | Setup Complexity | Persistence |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| In-Memory | Zero | Lost on restart |
+| SQLite | Low | Good for local desktop apps |
+| PostgreSQL | Medium | Enterprise scalable |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What makes Agno (formerly Phidata) unique? | Its specific approach to state and tooling. |
-| When should I avoid it? | When a simple rule-based script is enough. |
-| How do you handle errors? | Try-catch blocks and explicit retry policies. |
-| Does it support streaming? | Yes, natively via async generators. |
-| How to test it? | Mock the LLM responses. |
+| Why did Phidata rebrand to Agno? | To reflect a broader focus beyond just "data" agents, moving towards general-purpose, highly capable AGI-oriented agentic workflows. |
+| What makes Agno different from LangChain? | LangChain is a massive, complex toolkit where you have to wire everything together manually. Agno is highly opinionated; it gives you a clean, pre-wired `Agent` class that natively handles memory and knowledge with zero boilerplate. |
+| How does Agno handle RAG? | Via `KnowledgeBases`. You provide a data source (PDF, Website, Notion), and Agno automatically chunks it, embeds it, stores it in a Vector DB (like PgVector or Pinecone), and gives the agent a semantic search tool. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? Agno (formerly Phidata) has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what happens if the user talks to the agent for 500 turns? Does Agno send the entire history to OpenAI and bankrupt you?
+No. Agno uses memory windowing. By default, it might only inject the last 10 messages into the system prompt. For older context, Agno uses an "Archivist" mechanism to summarize older conversations into bullet points (e.g., "User is a vegan") and injects those summaries instead, saving massive amounts of tokens.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Tech giants are adopting Agno (formerly Phidata) for their internal developer platforms and automated ops pipelines.
+- **Customer Support Bots**: Connect Agno to Zendesk. Give it a `KnowledgeBase` pointing to your company FAQ. It automatically answers questions and remembers customer account details across different tickets.
+- **Personalized Tutors**: An agent that teaches you Python, remembers exactly which concepts you struggled with last week, and tests you on them today.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Use `PgMemoryDb` for production applications | Rely on the default in-memory SQLite storage for a web backend |
+| Enable `markdown=True` and `stream=True` for better UX | Wait 15 seconds for a giant block of text to generate synchronously |
+| Give your Agent a specific, narrow persona | Try to build one massive Agno agent that does everything |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> Agno relies heavily on PostgreSQL (specifically `pgvector`) for both relational memory storage and vector knowledge storage. In enterprise environments, deploying a managed Postgres database (like AWS RDS or Supabase) with the `pgvector` extension enabled is an absolute prerequisite for scaling Agno agents.
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Tooling & Structured Output
+1. **Structured Output (Pydantic)**: You can force an Agno agent to return strict JSON by setting `response_model=MyPydanticClass`. Agno natively hooks into OpenAI's Structured Outputs feature, guaranteeing that the agent will return parseable JSON instead of conversational text.
+2. **Agent Teams**: While Agno shines at single agents, you can pass a list of agents to a central "Team Leader" agent. The leader can delegate tasks to sub-agents (e.g., a Writer and a Researcher) to solve complex workflows, though it is less rigid than AutoGen's GroupChat.
 
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+## 15. Common Mistakes
+- **Forgetting to load Knowledge**: Defining a `KnowledgeBase` but forgetting to run `knowledge_base.load()`. The agent will search an empty vector database and hallucinate answers.
+- **Mixing Session IDs**: If two different users hit your API, you MUST pass a unique `session_id` to the Agent for each user. If you use the same session ID, User B will see User A's chat history!
 
-## 15. Related Topics
+## 16. Related Topics
+- Retrieval-Augmented Generation (RAG)
+- Long-Term Agent Memory
+- PostgreSQL & PgVector
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [agno-agi/agno](https://github.com/agno-agi/agno) | ⭐ 8k+ | The core Agno framework | Core repo |
-| [agno-agi/phidata](https://github.com/agno-agi/phidata) | ⭐ 12k+ | Legacy Phidata repo | Historical context |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [agno-agi/agno](https://github.com/agno-agi/agno) | ⭐ 15k+ | The official Agno (formerly Phidata) repository. | Contains all code for memory, storage, and agents. |

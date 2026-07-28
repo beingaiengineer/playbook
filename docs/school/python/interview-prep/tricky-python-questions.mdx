@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+sidebar_label: "Tricky Python Questions"
 ---
 
 import InterviewCheatSheet from '@site/src/components/InterviewCheatSheet';
@@ -60,6 +61,20 @@ Shared mutable state can leak data between requests, jobs, or tests.
 
 Names point to objects. Containers store references. Closures read variables from scope when called.
 
+<LearningFlow
+  nodes={[
+    { id: 'code', type: 'core', data: { label: 'Deceptive Code Snippet' } },
+    { id: 'trap', type: 'warning', data: { label: 'Identify Edge Case\n(e.g., Mutable Default Args)' } },
+    { id: 'out', type: 'output', data: { label: 'Explain True Output' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'code', target: 'trap', type: 'smoothstep', animated: true },
+    { id: 'e2', source: 'trap', target: 'out', type: 'step' }
+  ]}
+/>
+
+---
+
 ## 9. Performance Table
 
 | Area | Note |
@@ -91,7 +106,22 @@ Used in debugging rounds, senior reviews, and interviews that test practical Pyt
 ## 14. Production Notes
 
 > Production Note:
-> Most tricky Python bugs are simple once you identify shared state, scope, or iterator exhaustion.
+> Most tricky Python bugs are simple once you identify shared state, scope, or iterator exhaustion. Always wrap side-effect-heavy code in idempotent retry blocks.
+
+---
+
+## 17. Advanced Edge Cases and Traps
+1. **Late Binding Closures**:
+   - Code: `funcs = [lambda: i for i in range(3)]`
+   - Trap: Calling `funcs[0]()` returns `2`, not `0`! Python binds closures by reference, not value. By the time you call the lambda, the loop finished and `i` is 2.
+   - Fix: Use a default argument: `[lambda i=i: i for i in range(3)]`.
+2. **Dictionary Key Overwrites (Hash Collisions)**:
+   - Code: `d = {1: "int", True: "bool"}`
+   - Trap: `print(d)` outputs `{1: "bool"}`. Wait, what?
+   - Fix: In Python, `1 == True` is `True`, and their hashes are identical. Dictionaries overwrite existing keys if they evaluate as equal!
+3. **The `+=` operator on Tuples containing Lists**:
+   - Code: `t = (1, 2, [3, 4])` then `t[2] += [5, 6]`
+   - Trap: It throws a `TypeError` (because tuples are immutable) BUT the list inside actually gets updated to `[3, 4, 5, 6]` anyway. It's the most infamous quirk in Python!
 
 ## 15. Common Mistakes
 
@@ -110,6 +140,8 @@ Used in debugging rounds, senior reviews, and interviews that test practical Pyt
 
 
 ---
+
+import LearningFlow from '@site/src/components/LearningFlow';
 
 ### Top GitHub Repositories
 

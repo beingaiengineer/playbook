@@ -1,8 +1,10 @@
 ---
 sidebar_position: 5
+sidebar_label: "System Design Rounds"
 ---
 
 import InterviewCheatSheet from '@site/src/components/InterviewCheatSheet';
+import LearningFlow from '@site/src/components/LearningFlow';
 
 # System Design Rounds
 
@@ -63,6 +65,20 @@ Payment retry needs idempotency keys, durable queueing, retry limits, logging, a
 
 Every component has tradeoffs: latency, consistency, cost, complexity, and failure behavior.
 
+<LearningFlow
+  nodes={[
+    { id: 'client', type: 'core', data: { label: 'Massive Traffic Spike' } },
+    { id: 'lb', type: 'process', data: { label: 'Load Balancer' } },
+    { id: 'db', type: 'data', data: { label: 'Distributed Database' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'client', target: 'lb', type: 'smoothstep', animated: true },
+    { id: 'e2', source: 'lb', target: 'db', type: 'step' }
+  ]}
+/>
+
+---
+
 ## 9. Performance Table
 
 | Choice | Tradeoff |
@@ -95,7 +111,16 @@ Used in backend, platform, AI systems, and senior engineering interviews.
 ## 14. Production Notes
 
 > Production Note:
-> A design is incomplete without monitoring, rollback, ownership, and recovery paths.
+> A design is incomplete without monitoring, rollback, ownership, and recovery paths. When presenting a system design, proactively highlight single points of failure (SPOFs) before the interviewer asks about them.
+
+---
+
+## 17. Advanced System Design Patterns
+1. **Idempotency**: In distributed systems, network calls can fail. If a client retries a payment API 3 times, you must not charge them $300. Use Idempotency Keys (e.g. UUIDs) stored in Redis or a DB to guarantee exactly-once processing.
+2. **Circuit Breakers**: If a downstream microservice is failing, hitting it with more retries will take down your service too. Implement a Circuit Breaker pattern to immediately fail requests locally until the downstream recovers.
+3. **Eventual Consistency vs Strong Consistency**:
+   - *Strong Consistency* (RDBMS): Used for financial transactions. Slow, requires locking.
+   - *Eventual Consistency* (NoSQL/Event Streams): Used for social media feeds. Fast, highly available, but users might see slightly stale data for a few seconds.
 
 ## 15. Common Mistakes
 
@@ -117,3 +142,10 @@ Used in backend, platform, AI systems, and senior engineering interviews.
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 50k+ | Learn how to design large-scale systems | Highly relevant to understanding system design rounds in production. |
+
+## 17. Final Interview Advice
+
+> BAE's Top Tip:
+> Don't just memorize these patterns. Understand *why* they exist. 
+> In a real interview, the interviewer cares more about how you communicate tradeoffs than whether you wrote a perfect one-liner.
+> If you get stuck, always verbalize your thought process! "I know a hash map gives O(1) lookup, but it will cost O(N) space. Let's start with that and optimize later."

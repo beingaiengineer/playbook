@@ -12,97 +12,156 @@ import LearningFlow from '@site/src/components/LearningFlow';
 |---|---|
 | Topic | Sessions & State in Google ADK |
 | Difficulty | Intermediate |
-| Used For | Managing state in Google ADK. |
-| Common Mistake | Losing context across multiple turns. |
-| Performance | Depends on the framework and underlying LLM latency. |
+| Used For | Persisting multi-turn chat history for ADK Agents securely. |
+| Common Mistake | Storing session objects in global memory, which leaks context between concurrent users. |
+| Performance | Very fast locally, dependent on Firestore latency when running distributed. |
 
-## 2. Real-World Analogy
-Imagine a waiter who remembers your order perfectly from the time you sit down until you leave. The "session" is your entire meal, and the "state" is exactly what you ordered and where you are in the meal.
+## 2. Engineering Story
 
-![Real World Analogy](./images/google-adk-sessions-and-state/analogy.png)
+Bro, imagine you deployed a support bot. User A says "My name is Alice." User B says "What is my name?" and the bot replies "You are Alice!" 
+This is the nightmare of stateless agents in a concurrent web server. Because the developer stored the conversation history in a global python list, every user was reading the same memory. By switching to Google ADK's `Session` manager backed by Firestore, you isolate every user's chat history via a unique UUID, ensuring privacy and eliminating context leaks.
 
-| Waiter Action | Session Equivalent |
-|---|---|
-| Taking order | Initializing state |
-| Remembering drinks | Maintaining context |
-| Bringing bill | Ending session |
+## 3. Real-World Analogy
 
-## 3. Concept Explanation
-In Google ADK, sessions are persistent contexts that track a conversation or a long-running task over multiple API calls. ADK abstracts away the complexity of passing message history manually by maintaining a `Session` object.
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A bartender managing multiple different open tabs for different customers using a categorized notebook. */}
 
-## 4. Syntax Table
+Imagine a waiter managing tables.
+If the waiter uses one single notepad for the entire restaurant (Global State), they will mix up Table 5's steak with Table 2's salad. 
+Instead, the waiter creates a separate check (Session) for every single table, keyed by the table number (Session ID). When you order more food, they only look at your specific check.
+
+## 4. Concept Explanation
+
+LLMs are completely stateless. To have a conversation, you must pass the entire chat history in every single API call. Google ADK abstracts this using the `Session` object. A session automatically appends the user's prompt, the LLM's response, and any intermediate Tool calls (function calling) to an internal message array. In production, ADK connects this session directly to Google Cloud Firestore or BigQuery to persist it across server restarts.
+
+## 5. Syntax Table
 | Action | Code Example |
 |---|---|
-| Start Session | `session = adk.Session.start()` |
-| Add Context | `session.add_message("Hello")` |
+| Start Session | `session = agent.create_session(session_id="user-123")` |
+| Add Message | `session.chat("Hello")` # Automatically saved |
+| Retrieve History| `history = session.get_history()` |
 
-## 5. Beginner Example
+## 6. Beginner Example
+
+A local session using in-memory state. Great for quick testing, terrible for production.
+
 ```python
-session = adk.Session.start()
-session.send_message("What is the weather?")
-response = session.send_message("And in Tokyo?") # Remembers the context
+from google_adk import Agent
+
+agent = Agent(model="gemini-1.5-pro", name="Helper")
+
+# Automatically creates an in-memory session with a random UUID
+session = agent.create_session()
+
+response1 = session.chat("My favorite color is Blue.")
+print(response1.text)
+
+response2 = session.chat("What is my favorite color?")
+# The agent remembers because the Session appended the previous turn automatically.
+print(response2.text) # "Your favorite color is Blue."
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
+
+In production (e.g. on Cloud Run), containers die and restart constantly. You MUST persist the session to a database like Firestore.
+
 ```python
-def process_long_document(doc_chunks):
-    session = adk.Session.start(persistence="firestore")
-    for chunk in doc_chunks:
-        session.process(chunk)
-    return session.get_summary()
+from google_adk import Agent
+from google_adk.storage import FirestoreSessionStorage
+
+# Configure GCP Firestore to hold all conversation state
+storage = FirestoreSessionStorage(
+    project_id="my-gcp-project",
+    collection_name="adk_sessions"
+)
+
+agent = Agent(model="gemini-1.5-pro", name="Support")
+
+# When the user logs in, we grab their unique ID
+user_session_id = "user_uuid_9921"
+
+# The ADK pulls their historical state from Firestore automatically!
+session = agent.create_session(
+    session_id=user_session_id, 
+    storage=storage
+)
+
+# Continues the conversation from where they left off yesterday
+response = session.chat("Did you check on that refund status?")
 ```
 
-## 7. Internal Working
-Here is how it works under the hood. The flow represents the lifecycle of the agent's execution process.
+## 8. Internal Working
 
-<LearningFlow />
+Here is how the ADK automatically synchronizes state.
 
-## 8. Performance Table
-| Operation | Complexity |
-|---|---|
-| Initialization | O(1) |
-| Tool Execution | O(N) where N is payload size |
-| State Update | O(1) |
+<LearningFlow
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'User Prompt' } },
+    { id: 'db', type: 'process', data: { label: 'ADK Fetches History (Firestore)' } },
+    { id: 'llm', type: 'warning', data: { label: 'Vertex AI Generates' } },
+    { id: 'save', type: 'process', data: { label: 'ADK Saves New Turn' } },
+    { id: 'out', type: 'output', data: { label: 'Return to User' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'db', type: 'step' },
+    { id: 'e2', source: 'db', target: 'llm', type: 'smoothstep' },
+    { id: 'e3', source: 'llm', target: 'save', type: 'step' },
+    { id: 'e4', source: 'save', target: 'out', type: 'step' },
+    { id: 'e5', source: 'save', target: 'db', label: 'Updates DB', animated: true }
+  ]}
+/>
 
-## 9. Top Interview Questions
+## 9. Performance Table
+| Storage Backend | Latency | Scalability |
+|---|---|---|
+| In-Memory | < 1ms | Fails across multiple servers |
+| Firestore | ~50ms | Infinitely Scalable |
+| Cloud SQL | ~20ms | High, requires connection pooling |
+
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| How does ADK store sessions? | It can use in-memory storage for development, but integrates with Google Cloud Datastore or Firestore for production. |
-| What happens to state if the agent crashes? | If persistent storage is configured, the state can be recovered using the session ID. |
-| What are the security implications? | You must implement guardrails to prevent unauthorized tool execution or prompt injection. |
-| When should you NOT use this? | When a simple direct LLM call or basic script would suffice. |
-| How does it scale? | By distributing agent workloads across serverless functions or containerized environments. |
+| Why do LLM agents need sessions at all? | Because LLMs APIs are RESTful and stateless. Without sessions, they have no memory of the previous prompt. |
+| What is the danger of large sessions? | As a conversation gets longer, the token count increases linearly. This drives up latency and costs, and eventually hits the model's context window limit (though Gemini 1.5 Pro has 2M tokens). |
+| How does ADK handle tool execution state? | The session array stores not just text, but `FunctionCall` and `FunctionResponse` objects, allowing the LLM to know exactly what tool it ran 3 turns ago. |
 
-## 10. Tricky Questions & Edge Cases
-Watch out for concurrency issues, bro. If multiple agents try to update the same shared state without proper locking mechanisms, you'll run into race conditions that are a nightmare to debug.
+## 11. Tricky Questions & Edge Cases
 
-## 11. Real-World Usage
-Used by top tech companies for internal tooling, customer support automation, and complex data pipeline orchestration. For instance, tech teams use these patterns to orchestrate delivery logistics dynamically based on real-time traffic data.
+Bro, how do you handle a session that exceeds the LLM context window?
+You must implement **Memory Summarization**. The ADK allows you to hook into the session lifecycle. If the history exceeds a certain token threshold, you trigger a background agent to read the 50 messages, summarize them into 1 paragraph, delete the 50 messages, and prepend the summary to the session.
 
-## 12. Best Practices
+## 12. Real-World Usage
+
+- **Customer Support Dashboards**: Storing session state in Firestore allows human agents to open the dashboard and instantly read the transcript of what the AI bot discussed with the user.
+- **Multi-Day Workflows**: A user asks an agent to run an analysis on Friday. On Monday, they log back in and type "where are we at?". The agent remembers the Friday context perfectly.
+
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Write comprehensive unit tests for individual agent tools | Skip error handling and assume the LLM will always return the perfect format |
-| Use structured logging to trace agent decision paths | Hardcode sensitive API keys directly in the agent's configuration |
-| Implement clear guardrails and timeout limits | Let an agent run indefinitely in an unbounded loop |
+| Use external persistence (Firestore/Redis) in production | Rely on Python memory (dicts/lists) in a web framework |
+| Generate unique, unguessable Session IDs (UUIDv4) | Use predictable session IDs like `user_1`, leading to IDOR vulnerabilities |
+| Clear old sessions to save DB costs | Let dead sessions sit in Firestore forever |
 
-## 13. Production Notes
-Warning: Always monitor memory usage and LLM token limits in production. A rogue agent stuck in a loop can quickly rack up massive API bills. Implement hard limits and alerting.
+## 14. Production Notes
+> Production Note:
+> Never log raw session histories to standard console logs without redacting PII. If your user types their credit card into the bot, and the Session object saves it to Firestore and Cloud Logging, you just violated PCI compliance. Use GCP Data Loss Prevention (DLP) API to scan and redact inputs before they hit the session state.
 
-## 14. Common Mistakes
-| Mistake | Fix |
-|---|---|
-| Ignoring logs | Add structured logging to track every step of the agent's thought process |
-| Assuming perfect output | Use tools like Pydantic to strictly validate output schemas before proceeding |
+---
 
-## 15. Related Topics
-- Framework Architecture Patterns
-- Production Deployment Strategies
-- Agent Observability
+## 17. Advanced Session Architecture
+1. **Branching Sessions**: Sometimes a user wants to explore a "what-if" scenario without ruining the main conversation. Advanced ADK usage allows you to "fork" a session ID, cloning the history into a new Firestore document, letting the user explore a tangent safely.
+2. **System Prompt Injection**: Sessions only track the dynamic conversation. If you need to update the agent's behavior mid-session (e.g. the user upgraded to a premium plan), you must update the core Agent's `system_instruction` independently of the session history.
 
-## 16. Top GitHub Repos
+## 15. Common Mistakes
+- **Leaking Context**: Re-using the same `session` object variable in a global FastAPI route.
+- **Ignoring Size Limits**: Letting a session grow to 1 million tokens, making every single chat turn cost $5 in Gemini API fees.
+
+## 16. Related Topics
+- State Management
+- Firestore Architecture
+- Managing Context Windows
+
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [google-cloud/firestore](https://github.com/googleapis/google-cloud-python) | ⭐ 8k+ | Google Cloud Python Client | Used for ADK state persistence |
-| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | Key competitor offering different paradigms |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Popular alternative for specific use cases |
+| [googleapis/google-cloud-python](https://github.com/googleapis/google-cloud-python) | ⭐ 8k+ | Firestore SDK | The underlying storage mechanism for ADK sessions in production. |
+| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | LangGraph | Shows alternative ways to manage state via highly complex graph architectures. |

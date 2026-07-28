@@ -1,8 +1,10 @@
 ---
 sidebar_position: 4
+sidebar_label: "Coding Round Patterns"
 ---
 
 import InterviewCheatSheet from '@site/src/components/InterviewCheatSheet';
+import LearningFlow from '@site/src/components/LearningFlow';
 
 # Coding Round Patterns
 
@@ -65,6 +67,20 @@ Hash maps and queues show up in deduplication, scheduling, retries, and stream p
 
 Pattern choice controls complexity. Bro, the same problem can be O(n²) or O(n) depending on structure.
 
+<LearningFlow
+  nodes={[
+    { id: 'prob', type: 'core', data: { label: 'Coding Problem' } },
+    { id: 'match', type: 'process', data: { label: 'Pattern Matching\n(Hash Map, Two Pointers, etc.)' } },
+    { id: 'sol', type: 'output', data: { label: 'Optimal O(N) Solution' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'prob', target: 'match', type: 'smoothstep', animated: true },
+    { id: 'e2', source: 'match', target: 'sol', type: 'step' }
+  ]}
+/>
+
+---
+
 ## 9. Performance Table
 
 | Pattern | Typical Complexity |
@@ -97,7 +113,17 @@ Used in technical screens, pair programming rounds, and performance-focused back
 ## 14. Production Notes
 
 > Production Note:
-> Algorithmic thinking matters in production when data size grows or latency becomes visible.
+> Algorithmic thinking matters in production when data size grows or latency becomes visible. An O(n^2) loop might run fine locally with 10 records, but will completely bring down your backend when deployed to production handling 100,000 active users.
+
+---
+
+## 17. Advanced Top Patterns to Master
+1. **Sliding Window**: Use this when dealing with contiguous sub-arrays or substrings (e.g., "Longest substring without repeating characters"). It drops complexity from O(n^2) to O(n).
+2. **Two Pointers**: Crucial for sorted arrays (e.g., "Two Sum II"). You place one pointer at the start and one at the end, moving inward based on a condition.
+3. **Top K Elements (Heap)**: Whenever you see "Find the Top K", "Kth largest", or "Kth most frequent", immediately reach for Python's `heapq` module.
+4. **Depth-First Search (DFS) vs Breadth-First Search (BFS)**:
+   - Use **DFS** (via recursion or a stack) when you need to explore all possibilities (e.g., finding all paths in a maze).
+   - Use **BFS** (via `collections.deque`) when you need the *shortest* path in an unweighted graph.
 
 ## 15. Common Mistakes
 
@@ -119,3 +145,10 @@ Used in technical screens, pair programming rounds, and performance-focused back
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [keon/algorithms](https://github.com/keon/algorithms) | ⭐ 50k+ | Python examples for coding interview algorithms | Highly relevant to understanding coding round patterns in production. |
+
+## 17. Final Interview Advice
+
+> BAE's Top Tip:
+> Don't just memorize these patterns. Understand *why* they exist. 
+> In a real interview, the interviewer cares more about how you communicate tradeoffs than whether you wrote a perfect one-liner.
+> If you get stuck, always verbalize your thought process! "I know a hash map gives O(1) lookup, but it will cost O(N) space. Let's start with that and optimize later."

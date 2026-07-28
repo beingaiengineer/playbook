@@ -1,133 +1,193 @@
 ---
-sidebar_position: 7
+sidebar_position: 6
 sidebar_label: "MetaGPT"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# MetaGPT
+# MetaGPT (Software Company Simulation)
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
 | Topic | MetaGPT |
-| Difficulty | Intermediate |
-| Used For | Building advanced AI agents in production |
-| Common Mistake | Using it without understanding the underlying execution graph |
-| Performance | Scales horizontally if deployed stateless |
+| Difficulty | Advanced |
+| Used For | Simulating an entire software development company to transform a single line of text into a complete, functioning codebase. |
+| Common Mistake | Trying to use MetaGPT as a simple chatbot. It is a massive, multi-agent orchestrator. |
+| Performance | High latency (can take minutes/hours to generate a project), highly structured file output. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, if you want an LLM to build a web app, you prompt it. It spits out 500 lines of spaghetti code in one file. Half the functions don't connect.
+How do *real* humans build software? A Product Manager writes a PRD (Product Requirements Document). An Architect designs the system API. An Engineer writes the code. A QA tester writes unit tests.
+**MetaGPT** digitizes this exact process. You assign roles to AI agents and enforce **Standardized Operating Procedures (SOPs)**. You type: "Build a Flappy Bird clone." MetaGPT's PM writes a markdown PRD. The Architect generates mermaid diagrams. The Engineer writes the Python files. The result is a fully structured, professional codebase.
 
-| A full software development company | MetaGPT Equivalent |
-|---|---|
-| Instructions | Prompts / Configuration |
-| Actors | The Agent instances |
-| Hand-offs | Function calls / Transitions |
+## 3. Real-World Analogy
 
-![Illustration of Bae in a software company chain of command](../assets/emerging-frameworks/metagpt.png)
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: An assembly line of robots working in an office. One robot in a suit writes a blueprint, hands it to a robot with glasses who draws a diagram, who hands it to a robot with a hard hat who builds a physical machine. */}
 
-## 3. Concept Explanation
+Think of MetaGPT like an automated digital agency.
+You don't hire a single "Super Coder" to build your startup. You hire an agency with a PM, Designer, Coder, and Tester. MetaGPT provides the virtual agency. You are the client. You give them a one-sentence requirement, and they pass standardized documents down the assembly line until the software is done.
 
-Bro, MetaGPT literally simulates an entire software company. You give it a one-line prompt, and its agents (Product Manager, Architect, Project Manager, Engineer) generate PRDs, system designs, APIs, and finally the code. It embodies standard operating procedures (SOPs). It's crucial to understand when to use this versus standard scripts.
+## 4. Concept Explanation
 
-## 4. Syntax Table
+MetaGPT pioneered the concept of **SOP-driven Multi-Agent Systems**.
+Instead of agents chatting freely in an unstructured group chat (like AutoGen), agents in MetaGPT communicate primarily by publishing standardized documents (Environment). 
+1. **Roles**: Pre-defined personas (e.g., `ProductManager`, `Architect`, `Engineer`).
+2. **Actions**: Specific tasks a role must perform (e.g., `WritePRD`, `WriteDesign`, `WriteCode`).
+3. **Environment**: A shared message board. When the PM finishes the PRD, they pin it to the board. The Architect is subscribed to PRDs, wakes up, and starts their action.
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `init()` | Bootstraps the setup |
-| Execute | `run()` | Triggers the main loop |
+| Role Setup | `class ProductManager(Role):` | Defines a worker on the assembly line. |
+| Action Setup | `class WritePRD(Action):` | Defines the specific task (SOP) they execute. |
+| Run Company | `await team.run(idea="Build tetris")` | Starts the waterfall process. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-company = SoftwareCompany()
-company.invest(3.0)
-company.run('Write a CLI snake game')
-```
-
-## 6. Real-World Engineering Example
+Starting a MetaGPT software company with a single command using their built-in roles.
 
 ```python
-async def run_company():
-    role = Architect()
-    await role.run(message)
+# pip install metagpt
+import asyncio
+from metagpt.team import Team
+from metagpt.roles import ProductManager, Architect, ProjectManager, Engineer
+
+async def startup():
+    # 1. Create a Team (Software Company)
+    company = Team()
+    
+    # 2. Hire the employees
+    company.hire([
+        ProductManager(),
+        Architect(),
+        ProjectManager(),
+        Engineer()
+    ])
+    
+    # 3. Give them funding/budget (token limit)
+    company.invest(investment=3.0)
+    
+    # 4. Give the CEO (You) requirement
+    idea = "Write a python CLI tool that plays Tic-Tac-Toe in the terminal."
+    
+    # 5. Let the company run!
+    await company.run(idea=idea)
+
+asyncio.run(startup())
+```
+*When this runs, MetaGPT creates a `workspace/` folder and saves the PRD.md, SystemDesign.md, and the final `main.py` files iteratively.*
+
+## 7. Real-World Engineering Example
+
+You can build custom SOPs beyond software development. Here is an example of an AI Marketing Agency.
+
+```python
+from metagpt.roles import Role
+from metagpt.actions import Action
+from metagpt.team import Team
+
+# 1. Define custom Actions (SOPs)
+class WriteSEOArticle(Action):
+    async def run(self, topic: str):
+        prompt = f"Write a 500 word SEO optimized article about {topic}."
+        return await self._aask(prompt)
+
+class ReviewArticle(Action):
+    async def run(self, article: str):
+        prompt = f"Review this article for grammar. Output the fixed version:\n{article}"
+        return await self._aask(prompt)
+
+# 2. Define Roles and assign their Actions
+class Writer(Role):
+    def __init__(self):
+        super().__init__(name="Alice", profile="SEO Writer")
+        self.set_actions([WriteSEOArticle])
+        
+class Editor(Role):
+    def __init__(self):
+        super().__init__(name="Bob", profile="Senior Editor")
+        self.set_actions([ReviewArticle])
+        # The Editor subscribes to outputs from the Writer!
+        self._watch([WriteSEOArticle])
+
+# 3. Run the team
+# ... (Team setup similar to beginner example)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
-Bro, here is exactly how MetaGPT orchestrates data internally.
+How the Environment and Message Board routes data via Pub/Sub.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Product Requirement", detail: "Input phase", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "MetaGPT SOP Pipeline", detail: "Execution engine", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Deployed Code", detail: "Final output", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'usr', type: 'core', data: { label: 'User Idea' } },
+    { id: 'pm', type: 'process', data: { label: 'Role: Product Manager' } },
+    { id: 'env', type: 'warning', data: { label: 'Shared Environment (Message Board)' } },
+    { id: 'arc', type: 'tool', data: { label: 'Role: Architect (Watches PRD)' } },
+    { id: 'eng', type: 'output', data: { label: 'Role: Engineer (Watches Design)' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'usr', target: 'pm', type: 'step' },
+    { id: 'e2', source: 'pm', target: 'env', label: 'Publishes PRD', type: 'smoothstep' },
+    { id: 'e3', source: 'env', target: 'arc', label: 'Triggers', animated: true },
+    { id: 'e4', source: 'arc', target: 'env', label: 'Publishes Design', type: 'smoothstep' },
+    { id: 'e5', source: 'env', target: 'eng', label: 'Triggers', animated: true }
+  ]}
 />
 
-## 8. Performance Table
-
-| Operation | Time Complexity | Space Complexity |
+## 9. Performance Table
+| Pattern | Token Usage | Output Quality |
 |---|---|---|
-| Setup | O(1) | O(1) |
-| Invocation | O(N) | O(N) |
+| Single Chatbot | Low | Poor (Spaghetti code) |
+| AutoGen Group Chat | Very High | Medium (Agents get distracted) |
+| MetaGPT (SOPs) | High | Excellent (Strictly formatted documents) |
 
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What makes MetaGPT unique? | Its specific approach to state and tooling. |
-| When should I avoid it? | When a simple rule-based script is enough. |
-| How do you handle errors? | Try-catch blocks and explicit retry policies. |
-| Does it support streaming? | Yes, natively via async generators. |
-| How to test it? | Mock the LLM responses. |
+| What is an SOP in MetaGPT? | Standardized Operating Procedure. It forces the LLM to output its thoughts in a very strict format (like a markdown table or a specific class structure) before the next agent takes over, drastically reducing hallucination. |
+| How do agents communicate in MetaGPT? | Not via direct group chat. They communicate via a Publish/Subscribe model. Agent A publishes an artifact to the Environment. Agent B is "watching" for that specific artifact type, wakes up, and processes it. |
+| What makes MetaGPT better at writing software than ChatGPT? | ChatGPT has to hold the entire project context in its immediate memory. MetaGPT serializes the context into files (PRD, System Design) and uses specialized agents to focus purely on one file at a time, mimicking human engineering processes. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if the LLM hallucinates a tool call? MetaGPT has specific guardrails, but you must configure them properly or you'll get infinite loops.
+Bro, what happens if the Engineer agent writes code that conflicts with the Architect's design?
+In early versions, this was a huge problem. MetaGPT solves this by injecting an `ActionNode` loop. The QA/Tester agent attempts to run the Engineer's code. If it throws an error, the error log is published back to the Environment. The Engineer is subscribed to errors, wakes up, reads the log, and patches the code. It is an autonomous CI/CD loop.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Tech giants are adopting MetaGPT for their internal developer platforms and automated ops pipelines.
+- **Automated MVP Generation**: Founders using MetaGPT to generate the boilerplate React/FastAPI code for a startup idea overnight.
+- **Data Engineering Factories**: A team of MetaGPT agents configured to ingest dirty CSV files, write a Pandas cleaning script, test the script, and output clean Parquet files.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do set strict timeouts | Don't let agents run forever |
-| Do validate outputs strongly | Don't trust LLM JSON natively |
+| Use MetaGPT for complex, multi-step document generation tasks | Use MetaGPT for simple Q&A chatbots |
+| Override `_watch()` to strictly define the Pub/Sub dependency graph | Let all agents watch all messages (creates chaos) |
+| Use GPT-4 or Claude 3.5 Sonnet | Attempt to run MetaGPT on Llama-7B (it fails to follow SOP formatting) |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> MetaGPT relies heavily on executing the code it generates locally (e.g., running `python main.py` to test it). In production, you CANNOT run this on your bare-metal API server. You must integrate MetaGPT with isolated Docker containers or Firecracker microVMs, otherwise the generated code can compromise your host infrastructure.
 
-:::warning
-Bro, in production, always ensure you have LangSmith or similar observability attached. You need to see the traces!
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Mechanics (Action Nodes)
+1. **ActionNodes**: To guarantee that an LLM outputs the exact format required by an SOP, MetaGPT uses ActionNodes. Under the hood, these map to OpenAI's structured JSON output or Pydantic parsers, ensuring the `Architect` doesn't just write a paragraph, but strictly returns a dictionary containing `{"mermaid_diagram": "..."}`.
+2. **Incremental Development**: Modern MetaGPT supports resuming projects. You can point the `Team` at an existing codebase, provide a new PRD ("Add a login page"), and the agents will read the existing code and apply diffs rather than generating from scratch.
 
-| Mistake | Fix |
-|---|---|
-| Missing type schemas | Use Pydantic models for all tool inputs |
+## 15. Common Mistakes
+- **Under-funding the Investment**: Setting `company.invest(0.1)` (10 cents). Generating a complex app requires dozens of GPT-4 calls. The company will go "bankrupt" halfway through generating the architecture and crash.
+- **Ignoring the Workspace**: Wondering where the output went. MetaGPT saves all artifacts to the local disk in a `/workspace` directory, not just in memory.
 
-## 15. Related Topics
+## 16. Related Topics
+- Publish/Subscribe Architecture
+- Software Engineering Methodologies (Waterfall/Agile)
+- AutoGen vs MetaGPT
 
-- [What Are AI Agents](../intro/what-are-ai-agents.mdx)
-
-## Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [geekan/MetaGPT](https://github.com/geekan/MetaGPT) | ⭐ 40k+ | MetaGPT framework | Core repo |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | General framework | Ecosystem standard |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 20k+ | Agent framework | Ecosystem context |
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft framework | Multi-agent context |
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Typed agents | Ecosystem context |
+| [geekan/MetaGPT](https://github.com/geekan/MetaGPT) | ⭐ 40k+ | The official MetaGPT repository. | One of the most starred AI agent frameworks in the world. |

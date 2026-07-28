@@ -1,133 +1,175 @@
 ---
 sidebar_position: 3
-sidebar_label: "Pydantic Ai Tools And Dependencies"
+sidebar_label: "Tools And Dependencies"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Pydantic Ai Tools And Dependencies
+# Pydantic AI Tools and Dependencies
 
 ## 1. Quick Summary
 
 | Area | Details |
 |---|---|
-| Topic | Pydantic Ai Tools And Dependencies |
+| Topic | Pydantic AI Tools and Dependencies |
 | Difficulty | Intermediate |
-| Used For | Building Pydantic |
-| Common Mistake | Using dynamic types incorrectly |
-| Performance | Fast execution |
+| Used For | Allowing your LLM agents to execute real Python code securely. |
+| Common Mistake | Using global variables inside tools instead of Dependency Injection. |
+| Performance | Fast, but heavily dependent on the external APIs your tools call. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, imagine you built an agent that answers questions about a company's database. You wrote a tool `@agent.tool def query_db(...)` and hardcoded the production database connection string right into the file. It worked perfectly. Then, someone wanted to use the same agent in the staging environment. They had to rewrite the entire file! 
+Worse, when 100 concurrent users hit the agent, they all shared the exact same database session, causing massive concurrency crashes. By learning about Dependency Injection (`RunContext`), you learned to isolate state per request and pass the database connection dynamically.
 
-| Kitchen Instruction | Pydantic Equivalent |
-|---|---|
-| Recipe format | Schema |
-| Chef checking ingredients | Type checking |
-| Cooking process | Agent execution |
+## 3. Real-World Analogy
 
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A chef checking ingredients against a recipe format to represent type checking in Pydantic Ai Tools And Dependencies. */}
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A surgeon in an operating room being handed specific, sterilized tools by a nurse for a specific patient, representing dependency injection. */}
 
-## 3. Concept Explanation
+Think of an agent like a Surgeon, and tools as surgical instruments.
+A surgeon doesn't bring their own tools from home (Global State). Instead, a nurse hands them a specific, sterilized tray of tools tailored exactly for that specific patient (Dependency Injection).
 
-Bro, here is why you need this. When you are building agents...
+## 4. Concept Explanation
 
-## 4. Syntax Table
+An LLM cannot interact with the outside world—it just generates text. **Tools** are Python functions you provide to the LLM so it can fetch data or take actions. 
+**Dependencies** (`deps`) are runtime variables (like database connections, HTTP clients, or user IDs) that you inject into those tools when the agent runs, keeping your tools stateless and thread-safe.
+
+## 5. Syntax Table
 
 | Concept | Syntax | Description |
 |---|---|---|
-| Initialize | `agent = Agent()` | Creates a new agent |
-| Execute | `agent.run()` | Runs the agent |
+| Define Tool | `@agent.tool` | Decorator to register a function as a tool |
+| Dependency Context | `ctx: RunContext[MyDeps]` | How a tool accesses injected dependencies |
+| Injecting Deps | `agent.run(..., deps=...)` | Passing dependencies at runtime |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-# A simple example
-def run_agent():
-    print("Agent running")
-```
-
-## 6. Real-World Engineering Example
+Let's build an agent with a simple tool. No dependencies yet.
 
 ```python
-# Production example
-def production_agent():
-    print("Agent running in production")
+from pydantic_ai import Agent
+
+agent = Agent('openai:gpt-4o')
+
+@agent.tool
+def get_weather(location: str) -> str:
+    """Gets the current weather for a location."""
+    if location == "London":
+        return "Rainy, 15C"
+    return "Sunny, 25C"
+
+result = agent.run_sync("Do I need an umbrella in London?")
+print(result.data) # "Yes, it is currently rainy and 15C in London."
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is what happens under the hood.
+Now let's use Dependency Injection. We want the tool to query a database, but the database connection should be passed at runtime.
+
+```python
+from dataclasses import dataclass
+from pydantic_ai import Agent, RunContext
+
+@dataclass
+class MyDeps:
+    user_id: int
+    db_connection: object # Pretend this is an async asyncpg connection
+
+agent = Agent('openai:gpt-4o', deps_type=MyDeps)
+
+@agent.tool
+async def get_user_balance(ctx: RunContext[MyDeps]) -> float:
+    """Gets the bank balance for the current user."""
+    # We securely access the isolated user_id and db connection!
+    query = f"SELECT balance FROM users WHERE id = {ctx.deps.user_id}"
+    balance = await ctx.deps.db_connection.execute(query)
+    return balance
+
+# At runtime, we inject the dependencies:
+deps = MyDeps(user_id=42, db_connection=db)
+result = await agent.run("What is my balance?", deps=deps)
+```
+
+## 8. Internal Working
+
+Bro, here is what happens when the LLM decides to call a tool.
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Input", detail: "Receive data", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Process", detail: "Execute logic", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Output", detail: "Return result", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'llm', type: 'core', data: { label: 'LLM Generates Tool Call' } },
+    { id: 'pydantic', type: 'process', data: { label: 'Pydantic Validates Arguments' } },
+    { id: 'inject', type: 'process', data: { label: 'Inject RunContext (Deps)' } },
+    { id: 'exec', type: 'output', data: { label: 'Execute Python Function' } },
+    { id: 'return', type: 'core', data: { label: 'Return result to LLM' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'llm', target: 'pydantic', type: 'smoothstep' },
+    { id: 'e2', source: 'pydantic', target: 'inject', type: 'smoothstep' },
+    { id: 'e3', source: 'inject', target: 'exec', type: 'step' },
+    { id: 'e4', source: 'exec', target: 'return', type: 'step' },
+    { id: 'e5', source: 'return', target: 'llm', label: 'loops back', animated: true }
+  ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
-| Operation | Time Complexity | Space Complexity |
+| Architecture | Thread Safety | Scalability |
 |---|---|---|
-| Initialization | O(1) | O(1) |
-| Execution | O(n) | O(n) |
+| Global Variables in Tools | Extremely Poor | Will crash under load |
+| Injected `RunContext` | 100% Safe | Highly Scalable |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
-| What is this? | It is a framework concept. |
-| Why use it? | For better agents. |
-| How to scale? | Use distributed systems. |
-| Common errors? | Type errors. |
-| Best practice? | Validate inputs. |
+| What is the purpose of `deps_type` in Pydantic AI? | It strongly types the dependency object you plan to pass into your tools, ensuring your IDE and type checker can catch errors if you access `ctx.deps` incorrectly. |
+| Why shouldn't you use global variables in agent tools? | Because web servers like FastAPI handle multiple requests concurrently in the same process. Global variables would be shared across users, leading to data leaks. |
+| Can a tool return a complex Pydantic object? | Yes, Pydantic AI automatically serializes the returned Pydantic object into JSON before sending it back to the LLM. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, watch out for these tricky parts.
+Bro, what if your tool raises an exception? (e.g. the database times out).
+By default, if a tool raises an exception, the agent execution stops and throws a Python error. However, Pydantic AI allows you to raise a special `ModelRetry` exception. If you raise `ModelRetry`, the error message is sent back to the LLM, and the LLM is given another chance to call the tool with different arguments!
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Top companies use this for...
+- **RAG Systems**: A tool that searches a Vector Database. The vector DB client is passed via dependencies.
+- **Action Execution**: A tool that triggers an AWS Lambda function or sends an email via SendGrid.
+- **Internal APIs**: Fetching live inventory status from an ERP system.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
-| Do validate inputs | Don't trust raw data |
-| Do use strict types | Don't use Any |
+| Provide extremely detailed docstrings for your tools | Assume the LLM knows what the function does based on the name |
+| Use `RunContext` for all external state | Hardcode API keys inside the tool function |
+| Keep tools focused on doing one single thing | Create a "god tool" that tries to do 10 different things |
 
-## 13. Production Notes
+## 14. Production Notes
 
-:::warning
-Bro, in production, always monitor your agent's memory usage and execution time.
-:::
+> Production Note:
+> The docstring of your Python function is literally injected into the LLM's prompt. If your docstring is confusing or inaccurate, the LLM will hallucinate arguments. Treat tool docstrings as critical prompt engineering.
 
-## 14. Common Mistakes
+---
 
-| Mistake | Fix |
-|---|---|
-| Ignoring types | Use type hints |
+## 17. Advanced Tool Patterns
+1. **Dynamic Tool Provisioning**: You don't have to attach all tools to an agent statically. You can dynamically attach tools at runtime based on the user's permission level. For example, an admin user gets the `@agent.tool` for deleting records, while a read-only user does not.
+2. **Streaming Tool Outputs**: If a tool takes a long time (like a massive SQL query), the user will stare at a loading spinner. Modern frameworks are starting to support streaming status updates from *inside* the tool back to the client while the tool is executing.
 
-## 15. Related Topics
+## 15. Common Mistakes
 
-- [Pydantic AI Fundamentals](../pydantic-ai/pydantic-ai-fundamentals.mdx)
+- **Missing Type Hints**: If you write `def search(query):` without type hints (`query: str`), Pydantic cannot generate a JSON Schema, and the tool will fail.
+- **Returning Massive Data**: Returning a 10MB JSON string from a tool. The LLM's context window will instantly blow up. Always summarize or truncate tool outputs.
 
-## 16. Top GitHub Repos
+## 16. Related Topics
+
+- Function Calling in LLMs
+- Dependency Injection in Python
+- Type Hinting
+
+### Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 1k+ | Official repo | Core framework |
-| [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | Official repo | Core framework |
-| [huggingface/smolagents](https://github.com/huggingface/smolagents) | ⭐ 2k+ | Official repo | Core framework |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | Langchain | Alternative |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 18k+ | CrewAI | Alternative |
+| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Type-safe AI agents | The framework handling the tools. |
+| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | Langchain | Useful for comparing how different frameworks handle tool execution. |

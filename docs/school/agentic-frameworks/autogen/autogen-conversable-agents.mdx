@@ -1,110 +1,182 @@
 ---
 sidebar_position: 2
-sidebar_label: "Conversable Agents in AutoGen"
+sidebar_label: "Conversable Agents"
 ---
 
 import LearningFlow from '@site/src/components/LearningFlow';
 
-# Conversable Agents in AutoGen
+# AutoGen Conversable Agents
 
 ## 1. Quick Summary
 | Area | Details |
 |---|---|
-| Topic | Conversable Agents in AutoGen |
+| Topic | Conversable Agents |
 | Difficulty | Intermediate |
-| Used For | Building agents that can chat and collaborate. |
-| Common Mistake | Not setting clear termination conditions, causing infinite conversation loops. |
-| Performance | Depends on the framework and underlying LLM latency. |
+| Used For | The foundational building block for all AutoGen interactions. |
+| Common Mistake | Using `human_input_mode="ALWAYS"` in a production script and wondering why the server hangs. |
+| Performance | Relies on REST API calls to OpenAI or local LLMs. |
 
-## 2. Real-World Analogy
-Like a lively debate club. Each member can speak, listen, and respond to the others, keeping the conversation flowing until a conclusion is reached.
+## 2. Engineering Story
 
-![Real World Analogy](./images/autogen-conversable-agents/analogy.png)
+Bro, you want to build an agent that reviews pull requests. You start writing a massive `while` loop with `requests.post()` to OpenAI, managing message arrays, and handling role parsing manually. Your code is a spaghetti mess of `messages.append({"role": "user", "content": ...})`.
+Instead, you import AutoGen's `ConversableAgent`. This class abstracts the entire chat lifecycle. You just define the agent, call `.generate_reply()`, and the agent automatically handles the message formatting, API calls, tool execution, and token limits.
 
-| Debate Club | Agentic Concept |
-|---|---|
-| Speaker | ConversableAgent |
-| Moderator | Orchestrator |
-| Closing Statement | Termination Message |
+## 3. Real-World Analogy
 
-## 3. Concept Explanation
-In AutoGen, all agents inherit from `ConversableAgent`. This means they are inherently designed to send, receive, and process messages. This abstraction allows you to seamlessly mix LLM-backed agents, tool-executing agents, and human users in the same conversation thread.
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Two diplomats passing official, sealed letters back and forth at a negotiating table, representing agent messaging. */}
 
-## 4. Syntax Table
-| Action | Code Example |
-|---|---|
-| Define Agent | `agent = ConversableAgent("name")` |
-| Send Message | `agent1.send("Hello", agent2)` |
+Think of a `ConversableAgent` like an email client (e.g., Outlook). 
+It has an inbox (incoming messages), an outbox (sending messages), and a brain (the LLM reading the emails). You don't need to know how SMTP or TCP/IP works to send an email; similarly, you don't need to know how OpenAI's Chat Completion API structures JSON to use a Conversable Agent.
 
-## 5. Beginner Example
+## 4. Concept Explanation
+
+The `ConversableAgent` is the base class in AutoGen. Almost everything else (`AssistantAgent`, `UserProxyAgent`) inherits from it. It implements the ability to:
+1. Receive messages via `receive()`.
+2. Keep an internal memory of the conversation history.
+3. Generate a response using an LLM, Code Executor, or Human Input.
+4. Send messages back via `send()`.
+
+## 5. Syntax Table
+| Concept | Code Example | Description |
+|---|---|---|
+| Base Class | `agent = ConversableAgent(name="Bob")` | Highly configurable agent. |
+| Assistant | `agent = AssistantAgent(name="Coder")` | Pre-configured with a system prompt for coding. |
+| Proxy | `agent = UserProxyAgent(name="Human")` | Pre-configured to ask for human input. |
+
+## 6. Beginner Example
+
+Two agents having a completely autonomous conversation, stopping when they say "TERMINATE".
+
 ```python
-agent_a = autogen.ConversableAgent("Agent_A")
-agent_b = autogen.ConversableAgent("Agent_B")
+from autogen import ConversableAgent
 
-# Manual message sending
-agent_a.send("What is 2+2?", agent_b)
-```
+config = {"config_list": [{"model": "gpt-4o", "api_key": "YOUR_KEY"}]}
 
-## 6. Real-World Engineering Example
-```python
-reviewer = autogen.ConversableAgent(
-    name="CodeReviewer",
-    system_message="Review code for security vulnerabilities. Reply TERMINATE when done.",
-    is_termination_msg=lambda x: x.get("content", "").rstrip().endswith("TERMINATE")
+# Agent 1
+comedian = ConversableAgent(
+    name="Comedian",
+    system_message="You are a comedian. Tell a joke. End with TERMINATE when the joke is done.",
+    llm_config=config,
+    is_termination_msg=lambda msg: "TERMINATE" in msg.get("content", "")
 )
+
+# Agent 2
+audience = ConversableAgent(
+    name="Audience",
+    system_message="You are the audience. Laugh at the joke.",
+    llm_config=config,
+)
+
+# Start the chat
+audience.initiate_chat(comedian, message="Tell me a joke!")
 ```
 
-## 7. Internal Working
-Here is how it works under the hood. The flow represents the lifecycle of the agent's execution process.
+## 7. Real-World Engineering Example
 
-<LearningFlow />
+In production, you often need to register custom Python functions (Tools) directly to the ConversableAgent so it can fetch live data.
 
-## 8. Performance Table
-| Operation | Complexity |
-|---|---|
-| Initialization | O(1) |
-| Tool Execution | O(N) where N is payload size |
-| State Update | O(1) |
+```python
+from autogen import ConversableAgent, register_function
 
-## 9. Top Interview Questions
+def get_stock_price(ticker: str) -> float:
+    # Simulated API call
+    return 150.0
+
+analyst = ConversableAgent(
+    name="Financial_Analyst",
+    system_message="You are a financial analyst. Use tools to get data.",
+    llm_config={"config_list": [{"model": "gpt-4"}]}
+)
+
+executor = ConversableAgent(
+    name="Executor",
+    llm_config=False, # Doesn't need an LLM, just runs code
+    human_input_mode="NEVER"
+)
+
+# Register the tool so the analyst can suggest it, and the executor can run it
+register_function(
+    get_stock_price,
+    caller=analyst,
+    executor=executor,
+    name="get_stock_price",
+    description="Fetches live stock price"
+)
+
+executor.initiate_chat(analyst, message="What is the price of AAPL?")
+```
+
+## 8. Internal Working
+
+How `ConversableAgent` routes a message internally to generate a reply.
+
+<LearningFlow
+  nodes={[
+    { id: 'in', type: 'core', data: { label: 'receive(message)' } },
+    { id: 'human', type: 'process', data: { label: 'Check Human Input?' } },
+    { id: 'code', type: 'tool', data: { label: 'Execute Code/Tools?' } },
+    { id: 'llm', type: 'warning', data: { label: 'Call LLM?' } },
+    { id: 'out', type: 'output', data: { label: 'send(reply)' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'in', target: 'human', type: 'step' },
+    { id: 'e2', source: 'human', target: 'code', label: 'No human', type: 'smoothstep' },
+    { id: 'e3', source: 'code', target: 'llm', label: 'No tools to run', type: 'smoothstep' },
+    { id: 'e4', source: 'llm', target: 'out', type: 'step' }
+  ]}
+/>
+
+## 9. Performance Table
+| Reply Strategy | Latency | Cost |
+|---|---|---|
+| LLM Generate | High | $$$ |
+| Code Execution | Medium (Docker) | $0 |
+| Human Input | Infinite | $0 |
+
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| How do you stop two ConversableAgents from talking forever? | Implement the `is_termination_msg` callback or set `max_consecutive_auto_reply`. |
-| Can a ConversableAgent be backed by a custom LLM? | Yes, you can register custom reply functions or use custom LLM clients. |
-| What are the security implications? | You must implement guardrails to prevent unauthorized tool execution or prompt injection. |
-| When should you NOT use this? | When a simple direct LLM call or basic script would suffice. |
-| How does it scale? | By distributing agent workloads across serverless functions or containerized environments. |
+| What is the difference between `AssistantAgent` and `UserProxyAgent`? | They are both `ConversableAgent`s under the hood. `AssistantAgent` defaults to using an LLM and no code execution. `UserProxyAgent` defaults to no LLM, enabling code execution, and asking for human input. |
+| How does the agent know when to stop talking? | You must configure `is_termination_msg`. Often, developers use a lambda function to check if the string `"TERMINATE"` is in the message. |
+| Can a `ConversableAgent` use local models? | Yes, you can point the `llm_config` to an Ollama or vLLM endpoint that mimics the OpenAI API format. |
 
-## 10. Tricky Questions & Edge Cases
-Watch out for concurrency issues, bro. If multiple agents try to update the same shared state without proper locking mechanisms, you'll run into race conditions that are a nightmare to debug.
+## 11. Tricky Questions & Edge Cases
 
-## 11. Real-World Usage
-Used by top tech companies for internal tooling, customer support automation, and complex data pipeline orchestration. For instance, tech teams use these patterns to orchestrate delivery logistics dynamically based on real-time traffic data.
+Bro, what happens if both agents have `human_input_mode="ALWAYS"`?
+The script will freeze on both ends! One agent will wait for you to type something in the terminal, send it, and then the other agent will immediately prompt you in the terminal again. Always ensure at least one agent is fully autonomous in a back-and-forth loop.
 
-## 12. Best Practices
+## 12. Real-World Usage
+
+- **Customer Support Router**: A `ConversableAgent` that greets the user, collects their issue, and then hands the session over to a specialized department agent via `initiate_chat`.
+- **Automated Code Review**: An agent that receives a GitHub PR diff, analyzes it against the company's style guide, and generates markdown comments.
+
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Write comprehensive unit tests for individual agent tools | Skip error handling and assume the LLM will always return the perfect format |
-| Use structured logging to trace agent decision paths | Hardcode sensitive API keys directly in the agent's configuration |
-| Implement clear guardrails and timeout limits | Let an agent run indefinitely in an unbounded loop |
+| Set a strict `max_consecutive_auto_reply` limit | Let two agents talk back and forth 5,000 times |
+| Use `human_input_mode="TERMINATE"` | Ship `human_input_mode="ALWAYS"` to a serverless cloud |
+| Provide highly specific `system_message` strings | Use default personas for complex enterprise tasks |
 
-## 13. Production Notes
-Warning: Always monitor memory usage and LLM token limits in production. A rogue agent stuck in a loop can quickly rack up massive API bills. Implement hard limits and alerting.
+## 14. Production Notes
+> Production Note:
+> The `ConversableAgent` logs its conversation history entirely in memory. If your Python process crashes, the conversation is gone. In production, you must hook into the agent's reply mechanisms and write the message payloads to a database (like PostgreSQL or DynamoDB) so you can resume the chat later.
 
-## 14. Common Mistakes
-| Mistake | Fix |
-|---|---|
-| Ignoring logs | Add structured logging to track every step of the agent's thought process |
-| Assuming perfect output | Use tools like Pydantic to strictly validate output schemas before proceeding |
+---
 
-## 15. Related Topics
-- Framework Architecture Patterns
-- Production Deployment Strategies
-- Agent Observability
+## 17. Advanced Agent Configuration
+1. **Multiple LLM Backends**: A `ConversableAgent` can accept a list of models in `config_list`. It will attempt to use the first model (e.g. GPT-4o). If it hits a rate limit or a 500 error, it automatically falls back to the next model in the list (e.g. Gemini 1.5 Pro).
+2. **Reply Functions**: You can completely override how an agent thinks by registering a custom reply function using `agent.register_reply()`. This allows you to bypass the LLM entirely for specific message types and insert custom deterministic logic (like looking up an ID in a database before passing it to the LLM).
 
-## 16. Top GitHub Repos
+## 15. Common Mistakes
+- **Forgetting `is_termination_msg`**: If you don't tell the agent how to stop, it will hallucinate polite conversation ("You're welcome! Anything else? No, thank you! Goodbye!") until it hits the max round limit.
+- **Wrong Role Configuration**: Setting `llm_config=False` on an agent that desperately needs to generate text, causing it to fail silently or prompt the human endlessly.
+
+## 16. Related Topics
+- Agentic Design Patterns
+- Tool Registration
+- State Management
+
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 25k+ | Microsoft AutoGen | The core framework repository |
-| [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | Key competitor offering different paradigms |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Popular alternative for specific use cases |
+| [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Where the ConversableAgent source code lives. |

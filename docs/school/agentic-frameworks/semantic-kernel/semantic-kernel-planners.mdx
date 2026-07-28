@@ -8,126 +8,169 @@ import LearningFlow from '@site/src/components/LearningFlow';
 # Semantic Kernel Planners
 
 ## 1. Quick Summary
-
 | Area | Details |
 |---|---|
 | Topic | Semantic Kernel Planners |
-| Difficulty | Intermediate |
-| Used For | Building Semantic |
-| Common Mistake | Using dynamic types incorrectly |
-| Performance | Fast execution |
+| Difficulty | Advanced |
+| Used For | Allowing the LLM to autonomously create a multi-step execution plan from a library of available plugins. |
+| Common Mistake | Giving a planner 50 complex plugins and expecting it to formulate a perfect plan without hallucinations. |
+| Performance | Slower execution time due to the upfront LLM generation of the plan before execution begins. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
 
-Bro, think of it like this:
+Bro, you built an AI that can write emails (Plugin A), search Jira (Plugin B), and calculate math (Plugin C). A user asks: "Find how many Jira tickets are assigned to me, divide that by 5, and email my boss the result."
+Without a Planner, you have to write rigid Python `if/else` logic to chain these plugins together. It's a nightmare. 
+With a **Semantic Kernel Planner**, you just give the Kernel the user's goal. The Planner (acting as the LLM's brain) looks at all the plugins you loaded, writes a "plan" (like a mini-script), and then executes it step-by-step. It figures out the orchestration completely autonomously.
 
-| Kitchen Instruction | Semantic Equivalent |
-|---|---|
-| Recipe format | Schema |
-| Chef checking ingredients | Type checking |
-| Cooking process | Agent execution |
+## 3. Real-World Analogy
 
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A chef checking ingredients against a recipe format to represent type checking in Semantic Kernel Planners. */}
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A human manager (the Planner) looking at a complex customer request, drawing out a flowchart on a whiteboard, and then delegating tasks to specific robot workers (Plugins) in order. */}
 
-## 3. Concept Explanation
+Think of a Planner like a General Contractor building a house.
+You tell the contractor, "Build a house." The contractor knows they have a Plumber, an Electrician, and a Framer (Plugins). The contractor creates a strict blueprint (The Plan): Framer goes first, then Plumber, then Electrician. The contractor then executes the blueprint. 
 
-Bro, here is why you need this. When you are building agents...
+## 4. Concept Explanation
 
-## 4. Syntax Table
+A Planner takes a user's goal and returns a `Plan` object. This plan is an executable graph of Kernel Functions.
+Historically, SK had multiple planners (Sequential, Action). Now, the most powerful planners are:
+1. **Handlebars Planner**: Uses the LLM to generate a Handlebars template script representing the steps, which SK then executes safely.
+2. **FunctionCallingStepwisePlanner**: Relies on modern OpenAI Tool Calling features to execute steps dynamically, evaluating the result of step 1 before deciding on step 2 (similar to ReAct).
 
-| Concept | Syntax | Description |
+## 5. Syntax Table
+| Concept | Code | Description |
 |---|---|---|
-| Initialize | `agent = Agent()` | Creates a new agent |
-| Execute | `agent.run()` | Runs the agent |
+| Create Planner | `planner = FunctionCallingStepwisePlanner()` | Initializes the planner logic. |
+| Generate Plan | `result = await planner.invoke(kernel, goal)` | Creates and executes the plan in one step. |
+| Handlebars Planner | `planner = HandlebarsPlanner()` | Uses Handlebars syntax for templated orchestration. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
-```python
-# A simple example
-def run_agent():
-    print("Agent running")
-```
-
-## 6. Real-World Engineering Example
+Using a modern Stepwise Planner to solve a multi-step problem.
 
 ```python
-# Production example
-def production_agent():
-    print("Agent running in production")
+import asyncio
+import semantic_kernel as sk
+import semantic_kernel.connectors.ai.open_ai as sk_oai
+from semantic_kernel.planners import FunctionCallingStepwisePlanner, FunctionCallingStepwisePlannerOptions
+from semantic_kernel.core_plugins import MathPlugin, TimePlugin
+
+async def main():
+    kernel = sk.Kernel()
+    kernel.add_service(sk_oai.OpenAIChatCompletion(service_id="default", ai_model_id="gpt-4o", api_key="KEY"))
+    
+    # Load Plugins
+    kernel.import_plugin_from_object(MathPlugin(), "Math")
+    kernel.import_plugin_from_object(TimePlugin(), "Time")
+    
+    # Setup the Planner
+    options = FunctionCallingStepwisePlannerOptions(max_iterations=5)
+    planner = FunctionCallingStepwisePlanner(service_id="default", options=options)
+    
+    # The Goal requires BOTH plugins!
+    goal = "What is the current year added to 50?"
+    
+    # The planner figures out: 1. Call TimePlugin.year 2. Call MathPlugin.add
+    result = await planner.invoke(kernel, question=goal)
+    print(f"Final Answer: {result.final_answer}")
+
+asyncio.run(main())
 ```
 
-## 7. Internal Working
+## 7. Real-World Engineering Example
 
-Bro, here is what happens under the hood.
+In enterprise, you use the `HandlebarsPlanner` when you want a deterministic plan generated upfront that you can log or inspect before executing.
+
+```python
+import semantic_kernel as sk
+from semantic_kernel.planners.handlebars_planner import HandlebarsPlanner
+
+async def generate_and_execute_plan(kernel: sk.Kernel, user_goal: str):
+    planner = HandlebarsPlanner()
+    
+    # 1. Generate the plan (Does NOT execute it yet)
+    # The LLM writes a Handlebars script using the available plugins
+    plan = await planner.create_plan(kernel, user_goal)
+    
+    print("Generated Plan Script:\n", plan)
+    
+    # 2. You could pause here and ask a human to approve the plan!
+    
+    # 3. Execute the Handlebars plan
+    result = await plan.invoke(kernel)
+    return result
+```
+
+## 8. Internal Working
+
+How the `FunctionCallingStepwisePlanner` loops (ReAct Pattern).
 
 <LearningFlow
-  diagram={{
-    nodes: [
-      { id: "1", title: "Input", detail: "Receive data", x: 0, y: 0, kind: "data" },
-      { id: "2", title: "Process", detail: "Execute logic", x: 250, y: 0, kind: "process" },
-      { id: "3", title: "Output", detail: "Return result", x: 500, y: 0, kind: "output" }
-    ],
-    edges: [
-      { source: "1", target: "2", animated: true },
-      { source: "2", target: "3", animated: true }
-    ]
-  }}
+  nodes={[
+    { id: 'goal', type: 'core', data: { label: 'User Goal' } },
+    { id: 'llm', type: 'warning', data: { label: 'LLM Evaluates State' } },
+    { id: 'tool', type: 'tool', data: { label: 'Execute Selected Plugin' } },
+    { id: 'check', type: 'process', data: { label: 'Goal Achieved?' } },
+    { id: 'out', type: 'output', data: { label: 'Return Answer' } }
+  ]}
+  edges={[
+    { id: 'e1', source: 'goal', target: 'llm', type: 'step' },
+    { id: 'e2', source: 'llm', target: 'tool', label: 'Emits Tool Call', type: 'smoothstep' },
+    { id: 'e3', source: 'tool', target: 'check', type: 'step' },
+    { id: 'e4', source: 'check', target: 'llm', label: 'No, Re-evaluate', animated: true },
+    { id: 'e5', source: 'check', target: 'out', label: 'Yes', type: 'step' }
+  ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
+| Planner Type | Speed | Adaptability | Cost |
+|---|---|---|---|
+| Handlebars Planner | Medium (Generates upfront) | Low (Breaks if an early step fails) | Low (1 LLM call to plan) |
+| Stepwise Planner | Slow (Evaluates every step) | High (Can self-correct) | High (N LLM calls) |
 
-| Operation | Time Complexity | Space Complexity |
-|---|---|---|
-| Initialization | O(1) | O(1) |
-| Execution | O(n) | O(n) |
-
-## 9. Top Interview Questions
-
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
-| What is this? | It is a framework concept. |
-| Why use it? | For better agents. |
-| How to scale? | Use distributed systems. |
-| Common errors? | Type errors. |
-| Best practice? | Validate inputs. |
+| What is the primary risk of using a Planner? | Hallucination. If you have 50 plugins, the LLM might get confused and try to call a `WeatherPlugin` with the wrong arguments. |
+| What is the difference between Handlebars and Stepwise planners? | Handlebars creates the entire plan upfront and then executes it (DAG style). Stepwise executes one step, observes the result, and then decides the next step dynamically (ReAct style). |
+| How do planners know what plugins are available? | The Kernel extracts the names, descriptions, and type-hints of all imported plugins and injects them into the LLM's system prompt or Tool-Calling schema. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, watch out for these tricky parts.
+Bro, what happens if the Stepwise planner gets stuck in an infinite loop?
+It might call `SearchJira`, fail, call `SearchJira` again, fail, forever. To prevent your API bill from exploding, `FunctionCallingStepwisePlannerOptions` requires a `max_iterations` parameter (usually 5 or 10). If it hits that limit, it aborts and throws a `PlannerException`.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
-Top companies use this for...
+- **Automated Workflows**: A user types "Onboard new employee Alice". The planner orchestrates: `CreateADAccount(Alice)`, `AssignLaptop(Alice)`, `SendWelcomeEmail(Alice)`.
+- **Data Analysts**: "Query the Q3 sales, plot it on a bar chart, and save it to my drive." The planner orchestrates SQL plugins, Matplotlib plugins, and File I/O plugins autonomously.
 
-## 12. Best Practices
-
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
-| Do validate inputs | Don't trust raw data |
-| Do use strict types | Don't use Any |
+| Write extremely detailed `description` strings for your Plugins | Use vague names like "DoTask" |
+| Limit the Kernel to only the Plugins needed for the task | Load 100 plugins and overwhelm the LLM's context window |
+| Use Stepwise Planner for complex, unpredictable tasks | Use Handlebars Planner if API calls are likely to fail and require retry logic |
 
-## 13. Production Notes
+## 14. Production Notes
+> Production Note:
+> Relying purely on Planners in production is risky. Because it relies on the LLM's emergent reasoning, it is non-deterministic. For highly regulated enterprise pipelines (like Banking transactions), avoid Planners. Instead, hardcode the orchestration pipeline yourself using standard Python code, and only use the LLM for specific semantic transformations within that pipeline.
 
-:::warning
-Bro, in production, always monitor your agent's memory usage and execution time.
-:::
+---
 
-## 14. Common Mistakes
+## 17. Advanced Planner Concepts
+1. **Human-in-the-Loop (HITL)**: You can write a Native Plugin called `RequestHumanApproval`. If the Planner decides it needs to delete a database table, it calls that plugin, which halts execution, emails an admin, and waits for a webhook callback before the Planner resumes.
+2. **Custom Prompts**: Planners rely on massive under-the-hood system prompts. If the planner is failing to utilize your specific plugins correctly, you can customize the planner's prompt template via the options configuration to give it specific instructions (e.g., "Always use the Database Plugin before the Email Plugin").
 
-| Mistake | Fix |
-|---|---|
-| Ignoring types | Use type hints |
+## 15. Common Mistakes
+- **Poor Descriptions**: Giving a plugin the description "Searches stuff." The planner has no idea what it searches. Change it to: "Searches the internal Confluence wiki for HR policies."
+- **Missing Parameters**: If your Native Plugin doesn't use python type hints (e.g., `def search(query: str):`), the planner generates a malformed schema, and the LLM will fail to pass the correct arguments.
 
-## 15. Related Topics
+## 16. Related Topics
+- ReAct Agent Patterns
+- Function Calling / Tool Use
+- LangChain Agents vs SK Planners
 
-- [Pydantic AI Fundamentals](../pydantic-ai/pydantic-ai-fundamentals.mdx)
-
-## 16. Top GitHub Repos
-
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
-| [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 1k+ | Official repo | Core framework |
-| [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | Official repo | Core framework |
-| [huggingface/smolagents](https://github.com/huggingface/smolagents) | ⭐ 2k+ | Official repo | Core framework |
-| [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | Langchain | Alternative |
-| [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 18k+ | CrewAI | Alternative |
+| [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | The official Semantic Kernel repo | Contains the core Planner implementations. |
