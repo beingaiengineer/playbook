@@ -223,6 +223,8 @@ No active blockers.
 
 ## Lessons Learned
 
+- When fixing broken Docusaurus image links across multiple subdirectories, verify the exact relative path required (e.g., `../assets/` vs `../../assets/`). Use `npm run build` after fixing paths to strictly ensure no broken images remain before committing.
+
 No reusable insights recorded yet.
 
 ---
