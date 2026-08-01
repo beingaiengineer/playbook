@@ -51,7 +51,15 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-158] | Retrofit FDE + Section 18: `classes-and-objects-real-world.mdx`
+- [ ] [BAE-FDE-159] | Retrofit FDE + Section 18: `clean-architecture.mdx`
+- [ ] [BAE-FDE-160] | Retrofit FDE + Section 18: `dependency-injection.mdx`
+- [ ] [BAE-FDE-161] | Retrofit FDE + Section 18: `design-patterns-strategy.mdx`
+- [ ] [BAE-FDE-162] | Retrofit FDE + Section 18: `inheritance-vs-composition.mdx`
+- [ ] [BAE-FDE-163] | Retrofit FDE + Section 18: `oop-in-production.mdx`
+- [ ] [BAE-FDE-164] | Retrofit FDE + Section 18: `repository-pattern.mdx`
+- [ ] [BAE-FDE-165] | Retrofit FDE + Section 18: `service-layer-pattern.mdx`
+- [ ] [BAE-FDE-166] | Retrofit FDE + Section 18: `solid-principles.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -95,7 +103,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 9
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 9
 
 ---
 

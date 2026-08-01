@@ -51,7 +51,16 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-330] | Retrofit FDE + Section 18: `agile-principles.mdx`
+- [ ] [BAE-FDE-331] | Retrofit FDE + Section 18: `daily-standups.mdx`
+- [ ] [BAE-FDE-332] | Retrofit FDE + Section 18: `definition-of-done.mdx`
+- [ ] [BAE-FDE-333] | Retrofit FDE + Section 18: `kanban-method.mdx`
+- [ ] [BAE-FDE-334] | Retrofit FDE + Section 18: `scrum-framework.mdx`
+- [ ] [BAE-FDE-335] | Retrofit FDE + Section 18: `sprint-planning.mdx`
+- [ ] [BAE-FDE-336] | Retrofit FDE + Section 18: `sprint-retrospectives.mdx`
+- [ ] [BAE-FDE-337] | Retrofit FDE + Section 18: `sprint-reviews-and-demos.mdx`
+- [ ] [BAE-FDE-338] | Retrofit FDE + Section 18: `waterfall-vs-agile.mdx`
+- [ ] [BAE-FDE-339] | Retrofit FDE + Section 18: `what-is-sdlc.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -87,7 +96,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 10
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 10
 
 ---
 

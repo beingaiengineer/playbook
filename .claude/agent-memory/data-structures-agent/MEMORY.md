@@ -1,0 +1,137 @@
+# Project Execution State — Data Structures Course
+
+## Project Goal
+
+This is a Docusaurus-based multi-topic playbook platform called **BAE School**.
+
+The Data Structures course teaches Applied Data Structures through the lens of a Forward Deployed Software Engineer (FDSE), focusing on:
+- Real client integration problems
+- Legacy system constraints
+- Production-scale data handling
+- AI-native engineering (knowledge graphs, vector search foundations)
+
+---
+
+## Course Design & Outline
+
+Refer to [design.md](../../docs/school/data-structures/design.md) for the full curriculum map.
+
+---
+
+## Course Status
+
+- **Status**: Not Started
+- **Progress**: 0 / 14
+- **Next Milestone**: Write first batch of lessons
+
+---
+
+## Health
+
+🔴 Not Started
+- 0% complete
+- Awaiting first session
+
+---
+
+## Current Focus
+
+Write the first batch of Data Structures lessons with full 18-section content, FDE framing, and AI Agent Instructions.
+
+---
+
+## Execution Board
+
+### TODO
+- [ ] [BAE-DS-001] | Write `arrays-memory.mdx` — Arrays & Memory Layout
+- [ ] [BAE-DS-002] | Write `linked-lists.mdx` — Linked Lists
+- [ ] [BAE-DS-003] | Write `stacks-queues.mdx` — Stacks & Queues
+- [ ] [BAE-DS-004] | Write `hash-maps.mdx` — Hash Maps Deep Dive
+- [ ] [BAE-DS-005] | Write `consistent-hashing.mdx` — Consistent Hashing
+- [ ] [BAE-DS-006] | Write `trees-bst.mdx` — Trees & Binary Search Trees
+- [ ] [BAE-DS-007] | Write `b-trees-indexing.mdx` — B-Trees & Database Indexing
+- [ ] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
+- [ ] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
+- [ ] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
+- [ ] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
+- [ ] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
+- [ ] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
+- [ ] [BAE-DS-014] | Write `knowledge-graphs.mdx` — Knowledge Graphs
+
+### IN PROGRESS
+_Empty_
+
+### REVIEW
+_Empty_
+
+### DONE
+_Empty_
+
+---
+
+## Dependencies
+
+No active dependencies.
+
+---
+
+## Blockers
+
+No active blockers.
+
+---
+
+## Lessons Learned
+
+No reusable insights recorded yet.
+
+---
+
+## Metrics
+
+- Lessons Completed: 0
+- Lessons Remaining: 14
+- Completion %: 0%
+- Open Tasks: 14
+
+---
+
+### Next Task
+- [ ] [BAE-DS-001] | Write `arrays-memory.mdx` — Arrays & Memory Layout
+- [ ] [BAE-DS-002] | Write `linked-lists.mdx` — Linked Lists
+- [ ] [BAE-DS-003] | Write `stacks-queues.mdx` — Stacks & Queues
+- [ ] [BAE-DS-004] | Write `hash-maps.mdx` — Hash Maps Deep Dive
+- [ ] [BAE-DS-005] | Write `consistent-hashing.mdx` — Consistent Hashing
+- [ ] [BAE-DS-006] | Write `trees-bst.mdx` — Trees & Binary Search Trees
+- [ ] [BAE-DS-007] | Write `b-trees-indexing.mdx` — B-Trees & Database Indexing
+- [ ] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
+- [ ] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
+- [ ] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
+
+## Backlog
+- [ ] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
+- [ ] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
+- [ ] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
+- [ ] [BAE-DS-014] | Write `knowledge-graphs.mdx` — Knowledge Graphs
+
+---
+
+## Execution Review
+
+| BAE ID | What's Done (High Level) |
+|---|---|
+| _None yet_ | _Course not started_ |
+
+---
+
+## Next Improvements
+
+- [ ] Add LearningFlow diagrams to all lessons
+- [ ] Queue Bae illustrations for all 14 topics
+- [ ] Add Section 18 AI Agent Instructions to all lessons
+
+---
+
+## Automation State
+
+No automation history yet.

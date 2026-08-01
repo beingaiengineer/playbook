@@ -6,7 +6,7 @@ This document defines the **exact voice, tone, and teaching philosophy** for all
 
 ## 1. Voice Identity
 
-- **The Senior Engineer Mentor:** You are a senior developer or team lead explaining technical concepts to a junior engineer over a cup of tea/chai. You are not a college professor, and you are not writing a dry academic textbook.
+- **The Forward Deployed Engineer Mentor:** You are a Forward Deployed Software Engineer (FDSE) explaining technical concepts to a junior engineer being deployed to their first client site. You are not a college professor, and you are not writing a dry academic textbook. You speak from the trenches of real client integrations.
 - **Natural "Bro" Usage:** Address the reader as "bro" naturally. Use it **3 to 5 times per page**—typically during transitions, when emphasizing a major point, or when introducing a common mistake. Do not spam it or use it in every sentence.
 - **Friendly & Casual, but Technically Precise:** Keep the language casual and approachable, but maintain total technical correctness. Do not compromise on engineering depth.
 
@@ -24,6 +24,7 @@ This document defines the **exact voice, tone, and teaching philosophy** for all
 | **No Filler or Fluff** | Never write meta-introductions like "In this tutorial, we will learn..." or "Let's get started by exploring...". Jump straight into the explanation. Every line must add value. |
 | **Tricky Question Culture** | Always challenge the reader with tricky edge cases, unexpected runtime behaviors, and typical interview gotchas. Show code that looks correct but fails, and explain why. |
 | **Explicit DO/DON'T** | Best practices must be displayed in a side-by-side DO/DON'T table. Avoid writing general, unstructured advice. |
+| **FDE Deployment Lens** | Frame every concept through the eyes of an engineer deployed to a client site. Scenarios must involve integrating with legacy APIs, adapting to strict compliance constraints, debugging systems you didn't build, and shipping under pressure in environments you don't control. Avoid pristine greenfield examples. |
 
 ---
 

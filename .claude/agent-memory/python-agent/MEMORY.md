@@ -44,7 +44,149 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-167] | Retrofit FDE + Section 18: `advanced-python/context-managers.mdx`
+- [ ] [BAE-FDE-168] | Retrofit FDE + Section 18: `advanced-python/descriptors.mdx`
+- [ ] [BAE-FDE-169] | Retrofit FDE + Section 18: `advanced-python/dynamic-typing.mdx`
+- [ ] [BAE-FDE-170] | Retrofit FDE + Section 18: `advanced-python/garbage-collection.mdx`
+- [ ] [BAE-FDE-171] | Retrofit FDE + Section 18: `advanced-python/memory-management.mdx`
+- [ ] [BAE-FDE-172] | Retrofit FDE + Section 18: `advanced-python/metaclasses.mdx`
+- [ ] [BAE-FDE-173] | Retrofit FDE + Section 18: `advanced-python/monkey-patching.mdx`
+- [ ] [BAE-FDE-174] | Retrofit FDE + Section 18: `advanced-python/mutability.mdx`
+- [ ] [BAE-FDE-175] | Retrofit FDE + Section 18: `advanced-python/python-internals.mdx`
+- [ ] [BAE-FDE-176] | Retrofit FDE + Section 18: `advanced-python/shallow-vs-deep-copy.mdx`
+- [ ] [BAE-FDE-177] | Retrofit FDE + Section 18: `ai-engineering/ai-agents.mdx`
+- [ ] [BAE-FDE-178] | Retrofit FDE + Section 18: `ai-engineering/ai-observability.mdx`
+- [ ] [BAE-FDE-179] | Retrofit FDE + Section 18: `ai-engineering/async-ai-workflows.mdx`
+- [ ] [BAE-FDE-180] | Retrofit FDE + Section 18: `ai-engineering/llm-basics.mdx`
+- [ ] [BAE-FDE-181] | Retrofit FDE + Section 18: `ai-engineering/numpy.mdx`
+- [ ] [BAE-FDE-182] | Retrofit FDE + Section 18: `ai-engineering/pandas.mdx`
+- [ ] [BAE-FDE-183] | Retrofit FDE + Section 18: `ai-engineering/python-for-ai.mdx`
+- [ ] [BAE-FDE-184] | Retrofit FDE + Section 18: `ai-engineering/rag-pipelines.mdx`
+- [ ] [BAE-FDE-185] | Retrofit FDE + Section 18: `ai-engineering/vector-databases.mdx`
+- [ ] [BAE-FDE-186] | Retrofit FDE + Section 18: `api-development/api-versioning.mdx`
+- [ ] [BAE-FDE-187] | Retrofit FDE + Section 18: `api-development/authentication.mdx`
+- [ ] [BAE-FDE-188] | Retrofit FDE + Section 18: `api-development/fastapi.mdx`
+- [ ] [BAE-FDE-189] | Retrofit FDE + Section 18: `api-development/flask.mdx`
+- [ ] [BAE-FDE-190] | Retrofit FDE + Section 18: `api-development/middleware.mdx`
+- [ ] [BAE-FDE-191] | Retrofit FDE + Section 18: `api-development/rate-limiting.mdx`
+- [ ] [BAE-FDE-192] | Retrofit FDE + Section 18: `api-development/requests-library.mdx`
+- [ ] [BAE-FDE-193] | Retrofit FDE + Section 18: `api-development/rest-api-basics.mdx`
+- [ ] [BAE-FDE-194] | Retrofit FDE + Section 18: `best-practices/clean-code.mdx`
+- [ ] [BAE-FDE-195] | Retrofit FDE + Section 18: `best-practices/coding-standards.mdx`
+- [ ] [BAE-FDE-196] | Retrofit FDE + Section 18: `best-practices/engineering-principles.mdx`
+- [ ] [BAE-FDE-197] | Retrofit FDE + Section 18: `best-practices/production-checklists.mdx`
+- [ ] [BAE-FDE-198] | Retrofit FDE + Section 18: `best-practices/project-structure.mdx`
+- [ ] [BAE-FDE-199] | Retrofit FDE + Section 18: `best-practices/scalability-guidelines.mdx`
+- [ ] [BAE-FDE-200] | Retrofit FDE + Section 18: `best-practices/security-best-practices.mdx`
+- [ ] [BAE-FDE-201] | Retrofit FDE + Section 18: `collections/collections-module.mdx`
+- [ ] [BAE-FDE-202] | Retrofit FDE + Section 18: `collections/counter.mdx`
+- [ ] [BAE-FDE-203] | Retrofit FDE + Section 18: `collections/defaultdict.mdx`
+- [ ] [BAE-FDE-204] | Retrofit FDE + Section 18: `collections/deque.mdx`
+- [ ] [BAE-FDE-205] | Retrofit FDE + Section 18: `collections/dictionaries.mdx`
+- [ ] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
+- [ ] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
+- [ ] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
+- [ ] [BAE-FDE-209] | Retrofit FDE + Section 18: `collections/sets.mdx`
+- [ ] [BAE-FDE-210] | Retrofit FDE + Section 18: `collections/tuples.mdx`
+- [ ] [BAE-FDE-211] | Retrofit FDE + Section 18: `concurrency/async-await.mdx`
+- [ ] [BAE-FDE-212] | Retrofit FDE + Section 18: `concurrency/asyncio.mdx`
+- [ ] [BAE-FDE-213] | Retrofit FDE + Section 18: `concurrency/gil.mdx`
+- [ ] [BAE-FDE-214] | Retrofit FDE + Section 18: `concurrency/locks-semaphores.mdx`
+- [ ] [BAE-FDE-215] | Retrofit FDE + Section 18: `concurrency/multiprocessing.mdx`
+- [ ] [BAE-FDE-216] | Retrofit FDE + Section 18: `concurrency/queues.mdx`
+- [ ] [BAE-FDE-217] | Retrofit FDE + Section 18: `concurrency/race-conditions.mdx`
+- [ ] [BAE-FDE-218] | Retrofit FDE + Section 18: `concurrency/threading.mdx`
+- [ ] [BAE-FDE-219] | Retrofit FDE + Section 18: `control-flow/break-continue-pass.mdx`
+- [ ] [BAE-FDE-220] | Retrofit FDE + Section 18: `control-flow/if-else.mdx`
+- [ ] [BAE-FDE-221] | Retrofit FDE + Section 18: `control-flow/loops.mdx`
+- [ ] [BAE-FDE-222] | Retrofit FDE + Section 18: `control-flow/match-case.mdx`
+- [ ] [BAE-FDE-223] | Retrofit FDE + Section 18: `control-flow/nested-conditions.mdx`
+- [ ] [BAE-FDE-224] | Retrofit FDE + Section 18: `control-flow/pattern-programs.mdx`
+- [ ] [BAE-FDE-225] | Retrofit FDE + Section 18: `databases/connection-pooling.mdx`
+- [ ] [BAE-FDE-226] | Retrofit FDE + Section 18: `databases/indexing.mdx`
+- [ ] [BAE-FDE-227] | Retrofit FDE + Section 18: `databases/orm-vs-raw-sql.mdx`
+- [ ] [BAE-FDE-228] | Retrofit FDE + Section 18: `databases/postgresql.mdx`
+- [ ] [BAE-FDE-229] | Retrofit FDE + Section 18: `databases/sqlalchemy.mdx`
+- [ ] [BAE-FDE-230] | Retrofit FDE + Section 18: `databases/sqlite.mdx`
+- [ ] [BAE-FDE-231] | Retrofit FDE + Section 18: `databases/transactions.mdx`
+- [ ] [BAE-FDE-232] | Retrofit FDE + Section 18: `error-handling/custom-exceptions.mdx`
+- [ ] [BAE-FDE-233] | Retrofit FDE + Section 18: `error-handling/debugging.mdx`
+- [ ] [BAE-FDE-234] | Retrofit FDE + Section 18: `error-handling/exceptions.mdx`
+- [ ] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
+- [ ] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
+- [ ] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
+- [ ] [BAE-FDE-238] | Retrofit FDE + Section 18: `file-handling/file-best-practices.mdx`
+- [ ] [BAE-FDE-239] | Retrofit FDE + Section 18: `file-handling/json-files.mdx`
+- [ ] [BAE-FDE-240] | Retrofit FDE + Section 18: `file-handling/pathlib.mdx`
+- [ ] [BAE-FDE-241] | Retrofit FDE + Section 18: `file-handling/reading-files.mdx`
+- [ ] [BAE-FDE-242] | Retrofit FDE + Section 18: `file-handling/writing-files.mdx`
+- [ ] [BAE-FDE-243] | Retrofit FDE + Section 18: `functions/arguments-parameters.mdx`
+- [ ] [BAE-FDE-244] | Retrofit FDE + Section 18: `functions/closures.mdx`
+- [ ] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
+- [ ] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
+- [ ] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
+- [ ] [BAE-FDE-248] | Retrofit FDE + Section 18: `functions/iterators.mdx`
+- [ ] [BAE-FDE-249] | Retrofit FDE + Section 18: `functions/lambda-functions.mdx`
+- [ ] [BAE-FDE-250] | Retrofit FDE + Section 18: `functions/recursion.mdx`
+- [ ] [BAE-FDE-251] | Retrofit FDE + Section 18: `functions/return-values.mdx`
+- [ ] [BAE-FDE-252] | Retrofit FDE + Section 18: `fundamentals/comments-docstrings.mdx`
+- [ ] [BAE-FDE-253] | Retrofit FDE + Section 18: `fundamentals/data-types.mdx`
+- [ ] [BAE-FDE-254] | Retrofit FDE + Section 18: `fundamentals/input-output.mdx`
+- [ ] [BAE-FDE-255] | Retrofit FDE + Section 18: `fundamentals/operators.mdx`
+- [ ] [BAE-FDE-256] | Retrofit FDE + Section 18: `fundamentals/type-conversion.mdx`
+- [ ] [BAE-FDE-257] | Retrofit FDE + Section 18: `fundamentals/variables.mdx`
+- [ ] [BAE-FDE-258] | Retrofit FDE + Section 18: `interview-prep/coding-round-patterns.mdx`
+- [ ] [BAE-FDE-259] | Retrofit FDE + Section 18: `interview-prep/debugging-rounds.mdx`
+- [ ] [BAE-FDE-260] | Retrofit FDE + Section 18: `interview-prep/senior-python-questions.mdx`
+- [ ] [BAE-FDE-261] | Retrofit FDE + Section 18: `interview-prep/system-design-rounds.mdx`
+- [ ] [BAE-FDE-262] | Retrofit FDE + Section 18: `interview-prep/top-python-interview-questions.mdx`
+- [ ] [BAE-FDE-263] | Retrofit FDE + Section 18: `interview-prep/tricky-python-questions.mdx`
+- [ ] [BAE-FDE-264] | Retrofit FDE + Section 18: `intro/first-python-program.mdx`
+- [ ] [BAE-FDE-265] | Retrofit FDE + Section 18: `intro/python-execution-flow.mdx`
+- [ ] [BAE-FDE-266] | Retrofit FDE + Section 18: `intro/setup-python.mdx`
+- [ ] [BAE-FDE-267] | Retrofit FDE + Section 18: `intro/what-is-python.mdx`
+- [ ] [BAE-FDE-268] | Retrofit FDE + Section 18: `modules-packages/dependency-management.mdx`
+- [ ] [BAE-FDE-269] | Retrofit FDE + Section 18: `modules-packages/modules.mdx`
+- [ ] [BAE-FDE-270] | Retrofit FDE + Section 18: `modules-packages/packages.mdx`
+- [ ] [BAE-FDE-271] | Retrofit FDE + Section 18: `modules-packages/pip.mdx`
+- [ ] [BAE-FDE-272] | Retrofit FDE + Section 18: `modules-packages/pyproject-toml.mdx`
+- [ ] [BAE-FDE-273] | Retrofit FDE + Section 18: `modules-packages/virtual-environments.mdx`
+- [ ] [BAE-FDE-274] | Retrofit FDE + Section 18: `oops/abstraction.mdx`
+- [ ] [BAE-FDE-275] | Retrofit FDE + Section 18: `oops/classes-objects.mdx`
+- [ ] [BAE-FDE-276] | Retrofit FDE + Section 18: `oops/composition-vs-inheritance.mdx`
+- [ ] [BAE-FDE-277] | Retrofit FDE + Section 18: `oops/constructors.mdx`
+- [ ] [BAE-FDE-278] | Retrofit FDE + Section 18: `oops/dataclasses.mdx`
+- [ ] [BAE-FDE-279] | Retrofit FDE + Section 18: `oops/encapsulation.mdx`
+- [ ] [BAE-FDE-280] | Retrofit FDE + Section 18: `oops/inheritance.mdx`
+- [ ] [BAE-FDE-281] | Retrofit FDE + Section 18: `oops/magic-methods.mdx`
+- [ ] [BAE-FDE-282] | Retrofit FDE + Section 18: `oops/polymorphism.mdx`
+- [ ] [BAE-FDE-283] | Retrofit FDE + Section 18: `oops/solid-principles.mdx`
+- [ ] [BAE-FDE-284] | Retrofit FDE + Section 18: `performance/caching.mdx`
+- [ ] [BAE-FDE-285] | Retrofit FDE + Section 18: `performance/lazy-loading.mdx`
+- [ ] [BAE-FDE-286] | Retrofit FDE + Section 18: `performance/memory-optimization.mdx`
+- [ ] [BAE-FDE-287] | Retrofit FDE + Section 18: `performance/numpy-performance.mdx`
+- [ ] [BAE-FDE-288] | Retrofit FDE + Section 18: `performance/performance-best-practices.mdx`
+- [ ] [BAE-FDE-289] | Retrofit FDE + Section 18: `performance/profiling.mdx`
+- [ ] [BAE-FDE-290] | Retrofit FDE + Section 18: `performance/vectorization.mdx`
+- [ ] [BAE-FDE-291] | Retrofit FDE + Section 18: `strings/f-strings.mdx`
+- [ ] [BAE-FDE-292] | Retrofit FDE + Section 18: `strings/regex.mdx`
+- [ ] [BAE-FDE-293] | Retrofit FDE + Section 18: `strings/string-basics.mdx`
+- [ ] [BAE-FDE-294] | Retrofit FDE + Section 18: `strings/string-formatting.mdx`
+- [ ] [BAE-FDE-295] | Retrofit FDE + Section 18: `strings/string-methods.mdx`
+- [ ] [BAE-FDE-296] | Retrofit FDE + Section 18: `strings/unicode.mdx`
+- [ ] [BAE-FDE-297] | Retrofit FDE + Section 18: `system-design/distributed-systems.mdx`
+- [ ] [BAE-FDE-298] | Retrofit FDE + Section 18: `system-design/event-driven-systems.mdx`
+- [ ] [BAE-FDE-299] | Retrofit FDE + Section 18: `system-design/microservices.mdx`
+- [ ] [BAE-FDE-300] | Retrofit FDE + Section 18: `system-design/production-patterns.mdx`
+- [ ] [BAE-FDE-301] | Retrofit FDE + Section 18: `system-design/python-architecture.mdx`
+- [ ] [BAE-FDE-302] | Retrofit FDE + Section 18: `system-design/queue-systems.mdx`
+- [ ] [BAE-FDE-303] | Retrofit FDE + Section 18: `system-design/scalable-python.mdx`
+- [ ] [BAE-FDE-304] | Retrofit FDE + Section 18: `testing/integration-testing.mdx`
+- [ ] [BAE-FDE-305] | Retrofit FDE + Section 18: `testing/load-testing.mdx`
+- [ ] [BAE-FDE-306] | Retrofit FDE + Section 18: `testing/mocking.mdx`
+- [ ] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
+- [ ] [BAE-FDE-308] | Retrofit FDE + Section 18: `testing/test-best-practices.mdx`
+- [ ] [BAE-FDE-309] | Retrofit FDE + Section 18: `testing/unit-testing.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -234,7 +376,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 174
 - Lessons Remaining: 112
 - Completion %: 60.8%
-- Open Tasks: 0
+- Open Tasks: 143
 
 ---
 

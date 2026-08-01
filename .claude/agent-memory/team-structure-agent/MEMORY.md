@@ -50,7 +50,15 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-359] | Retrofit FDE + Section 18: `communication-in-engineering.mdx`
+- [ ] [BAE-FDE-360] | Retrofit FDE + Section 18: `cross-team-collaboration.mdx`
+- [ ] [BAE-FDE-361] | Retrofit FDE + Section 18: `engineering-ladder.mdx`
+- [ ] [BAE-FDE-362] | Retrofit FDE + Section 18: `engineering-manager-role.mdx`
+- [ ] [BAE-FDE-363] | Retrofit FDE + Section 18: `engineering-org-structure.mdx`
+- [ ] [BAE-FDE-364] | Retrofit FDE + Section 18: `product-manager-role.mdx`
+- [ ] [BAE-FDE-365] | Retrofit FDE + Section 18: `remote-work-engineering.mdx`
+- [ ] [BAE-FDE-366] | Retrofit FDE + Section 18: `tech-lead-vs-staff-engineer.mdx`
+- [ ] [BAE-FDE-367] | Retrofit FDE + Section 18: `your-first-day.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -86,7 +94,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 9
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 9
 
 ---
 

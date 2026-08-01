@@ -33,7 +33,7 @@ For the exact step-by-step execution lifecycle, always refer to **`HEARTBEAT.md`
 
 ## Definition of Done (DoD)
 A task is considered **Done** ONLY when:
-- All 16 sections are filled with in-depth, researched content.
+- All 18 sections are filled with in-depth, researched content.
 - Code blocks are executable and production-relevant.
 - A unique React Flow `<LearningFlow>` diagram is implemented.
 - Illustrations are queued or generated.

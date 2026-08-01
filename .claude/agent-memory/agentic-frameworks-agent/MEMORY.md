@@ -43,7 +43,102 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-001] | Retrofit FDE + Section 18: `architecture-patterns/agent-architectures-compared.mdx`
+- [ ] [BAE-FDE-002] | Retrofit FDE + Section 18: `architecture-patterns/human-in-the-loop.mdx`
+- [ ] [BAE-FDE-003] | Retrofit FDE + Section 18: `architecture-patterns/parallelization-pattern.mdx`
+- [ ] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
+- [ ] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
+- [ ] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
+- [ ] [BAE-FDE-007] | Retrofit FDE + Section 18: `architecture-patterns/routing-pattern.mdx`
+- [ ] [BAE-FDE-008] | Retrofit FDE + Section 18: `architecture-patterns/tool-use-pattern.mdx`
+- [ ] [BAE-FDE-009] | Retrofit FDE + Section 18: `autogen/autogen-code-execution.mdx`
+- [ ] [BAE-FDE-010] | Retrofit FDE + Section 18: `autogen/autogen-conversable-agents.mdx`
+- [ ] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
+- [ ] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
+- [ ] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
+- [ ] [BAE-FDE-014] | Retrofit FDE + Section 18: `best-practices/agent-anti-patterns.mdx`
+- [ ] [BAE-FDE-015] | Retrofit FDE + Section 18: `best-practices/agent-design-patterns.mdx`
+- [ ] [BAE-FDE-016] | Retrofit FDE + Section 18: `best-practices/agent-testing.mdx`
+- [ ] [BAE-FDE-017] | Retrofit FDE + Section 18: `best-practices/framework-selection-guide.mdx`
+- [ ] [BAE-FDE-018] | Retrofit FDE + Section 18: `best-practices/future-of-agents.mdx`
+- [ ] [BAE-FDE-019] | Retrofit FDE + Section 18: `crewai/crewai-agents-and-roles.mdx`
+- [ ] [BAE-FDE-020] | Retrofit FDE + Section 18: `crewai/crewai-flows-and-pipelines.mdx`
+- [ ] [BAE-FDE-021] | Retrofit FDE + Section 18: `crewai/crewai-fundamentals.mdx`
+- [ ] [BAE-FDE-022] | Retrofit FDE + Section 18: `crewai/crewai-memory-system.mdx`
+- [ ] [BAE-FDE-023] | Retrofit FDE + Section 18: `crewai/crewai-multi-agent-crews.mdx`
+- [ ] [BAE-FDE-024] | Retrofit FDE + Section 18: `crewai/crewai-production-deployment.mdx`
+- [ ] [BAE-FDE-025] | Retrofit FDE + Section 18: `crewai/crewai-tasks-and-processes.mdx`
+- [ ] [BAE-FDE-026] | Retrofit FDE + Section 18: `emerging-frameworks/agno-formerly-phidata.mdx`
+- [ ] [BAE-FDE-027] | Retrofit FDE + Section 18: `emerging-frameworks/camel-ai.mdx`
+- [ ] [BAE-FDE-028] | Retrofit FDE + Section 18: `emerging-frameworks/haystack-agents.mdx`
+- [ ] [BAE-FDE-029] | Retrofit FDE + Section 18: `emerging-frameworks/llamaindex-agents-and-workflows.mdx`
+- [ ] [BAE-FDE-030] | Retrofit FDE + Section 18: `emerging-frameworks/mastra-typescript-agents.mdx`
+- [ ] [BAE-FDE-031] | Retrofit FDE + Section 18: `emerging-frameworks/metagpt.mdx`
+- [ ] [BAE-FDE-032] | Retrofit FDE + Section 18: `emerging-frameworks/smolagents-huggingface.mdx`
+- [ ] [BAE-FDE-033] | Retrofit FDE + Section 18: `google-adk/google-adk-callbacks-and-hooks.mdx`
+- [ ] [BAE-FDE-034] | Retrofit FDE + Section 18: `google-adk/google-adk-fundamentals.mdx`
+- [ ] [BAE-FDE-035] | Retrofit FDE + Section 18: `google-adk/google-adk-multi-agent-orchestration.mdx`
+- [ ] [BAE-FDE-036] | Retrofit FDE + Section 18: `google-adk/google-adk-production-deployment.mdx`
+- [ ] [BAE-FDE-037] | Retrofit FDE + Section 18: `google-adk/google-adk-sessions-and-state.mdx`
+- [ ] [BAE-FDE-038] | Retrofit FDE + Section 18: `google-adk/google-adk-tools-and-functions.mdx`
+- [ ] [BAE-FDE-039] | Retrofit FDE + Section 18: `interview-prep/agent-coding-rounds.mdx`
+- [ ] [BAE-FDE-040] | Retrofit FDE + Section 18: `interview-prep/agent-system-design.mdx`
+- [ ] [BAE-FDE-041] | Retrofit FDE + Section 18: `intro/agent-ecosystem-landscape-2026.mdx`
+- [ ] [BAE-FDE-042] | Retrofit FDE + Section 18: `intro/agent-types-and-taxonomies.mdx`
+- [ ] [BAE-FDE-043] | Retrofit FDE + Section 18: `intro/agent-vs-chatbot-vs-rag.mdx`
+- [ ] [BAE-FDE-044] | Retrofit FDE + Section 18: `intro/anatomy-of-an-agent.mdx`
+- [ ] [BAE-FDE-045] | Retrofit FDE + Section 18: `intro/choosing-a-framework.mdx`
+- [ ] [BAE-FDE-046] | Retrofit FDE + Section 18: `intro/how-agents-think.mdx`
+- [ ] [BAE-FDE-047] | Retrofit FDE + Section 18: `intro/what-are-ai-agents.mdx`
+- [ ] [BAE-FDE-048] | Retrofit FDE + Section 18: `intro/your-first-agent.mdx`
+- [ ] [BAE-FDE-049] | Retrofit FDE + Section 18: `langchain-langgraph/langchain-fundamentals.mdx`
+- [ ] [BAE-FDE-050] | Retrofit FDE + Section 18: `langchain-langgraph/langgraph-human-in-loop.mdx`
+- [ ] [BAE-FDE-051] | Retrofit FDE + Section 18: `langchain-langgraph/langgraph-intro.mdx`
+- [ ] [BAE-FDE-052] | Retrofit FDE + Section 18: `langchain-langgraph/langgraph-memory.mdx`
+- [ ] [BAE-FDE-053] | Retrofit FDE + Section 18: `langchain-langgraph/langgraph-multi-agent.mdx`
+- [ ] [BAE-FDE-054] | Retrofit FDE + Section 18: `langchain-langgraph/langgraph-production-deployment.mdx`
+- [ ] [BAE-FDE-055] | Retrofit FDE + Section 18: `langchain-langgraph/langgraph-state-machines.mdx`
+- [ ] [BAE-FDE-056] | Retrofit FDE + Section 18: `langchain-langgraph/langsmith-observability.mdx`
+- [ ] [BAE-FDE-057] | Retrofit FDE + Section 18: `memory-and-state/agent-memory-types-overview.mdx`
+- [ ] [BAE-FDE-058] | Retrofit FDE + Section 18: `memory-and-state/conversation-management.mdx`
+- [ ] [BAE-FDE-059] | Retrofit FDE + Section 18: `memory-and-state/long-term-memory-persistence.mdx`
+- [ ] [BAE-FDE-060] | Retrofit FDE + Section 18: `memory-and-state/short-term-memory-context-window.mdx`
+- [ ] [BAE-FDE-061] | Retrofit FDE + Section 18: `memory-and-state/state-persistence-and-checkpointing.mdx`
+- [ ] [BAE-FDE-062] | Retrofit FDE + Section 18: `memory-and-state/vector-store-memory.mdx`
+- [ ] [BAE-FDE-063] | Retrofit FDE + Section 18: `multi-agent-systems/agent-communication-protocols.mdx`
+- [ ] [BAE-FDE-064] | Retrofit FDE + Section 18: `multi-agent-systems/hierarchical-agent-teams.mdx`
+- [ ] [BAE-FDE-065] | Retrofit FDE + Section 18: `multi-agent-systems/multi-agent-debugging.mdx`
+- [ ] [BAE-FDE-066] | Retrofit FDE + Section 18: `multi-agent-systems/multi-agent-patterns-overview.mdx`
+- [ ] [BAE-FDE-067] | Retrofit FDE + Section 18: `multi-agent-systems/orchestrator-worker-pattern.mdx`
+- [ ] [BAE-FDE-068] | Retrofit FDE + Section 18: `multi-agent-systems/supervisor-pattern.mdx`
+- [ ] [BAE-FDE-069] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-fundamentals.mdx`
+- [ ] [BAE-FDE-070] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-guardrails.mdx`
+- [ ] [BAE-FDE-071] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-handoffs.mdx`
+- [ ] [BAE-FDE-072] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-production-deployment.mdx`
+- [ ] [BAE-FDE-073] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-tools-and-functions.mdx`
+- [ ] [BAE-FDE-074] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-tracing.mdx`
+- [ ] [BAE-FDE-075] | Retrofit FDE + Section 18: `protocols/a2a-agent-cards.mdx`
+- [ ] [BAE-FDE-076] | Retrofit FDE + Section 18: `protocols/a2a-protocol-deep-dive.mdx`
+- [ ] [BAE-FDE-077] | Retrofit FDE + Section 18: `protocols/mcp-popular-servers.mdx`
+- [ ] [BAE-FDE-078] | Retrofit FDE + Section 18: `protocols/mcp-protocol-deep-dive.mdx`
+- [ ] [BAE-FDE-079] | Retrofit FDE + Section 18: `protocols/mcp-server-development.mdx`
+- [ ] [BAE-FDE-080] | Retrofit FDE + Section 18: `protocols/mcp-vs-a2a-when-to-use.mdx`
+- [ ] [BAE-FDE-081] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-fundamentals.mdx`
+- [ ] [BAE-FDE-082] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-production-deployment.mdx`
+- [ ] [BAE-FDE-083] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-structured-output.mdx`
+- [ ] [BAE-FDE-084] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-tools-and-dependencies.mdx`
+- [ ] [BAE-FDE-085] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-type-safe-agents.mdx`
+- [ ] [BAE-FDE-086] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-fundamentals.mdx`
+- [ ] [BAE-FDE-087] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-memory-and-embeddings.mdx`
+- [ ] [BAE-FDE-088] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-planners.mdx`
+- [ ] [BAE-FDE-089] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-plugins-and-functions.mdx`
+- [ ] [BAE-FDE-090] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-production-deployment.mdx`
+- [ ] [BAE-FDE-091] | Retrofit FDE + Section 18: `tools-and-actions/api-tools-rest-graphql.mdx`
+- [ ] [BAE-FDE-092] | Retrofit FDE + Section 18: `tools-and-actions/code-execution-sandboxes.mdx`
+- [ ] [BAE-FDE-093] | Retrofit FDE + Section 18: `tools-and-actions/database-tools.mdx`
+- [ ] [BAE-FDE-094] | Retrofit FDE + Section 18: `tools-and-actions/function-calling-deep-dive.mdx`
+- [ ] [BAE-FDE-095] | Retrofit FDE + Section 18: `tools-and-actions/tool-design-principles.mdx`
+- [ ] [BAE-FDE-096] | Retrofit FDE + Section 18: `tools-and-actions/tool-error-handling-and-retries.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -225,7 +320,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 177
 - Lessons Remaining: 8
 - Completion %: 95.6%
-- Open Tasks: 0
+- Open Tasks: 96
 
 ---
 

@@ -52,7 +52,16 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-107] | Retrofit FDE + Section 18: `artifact-management.mdx`
+- [ ] [BAE-FDE-108] | Retrofit FDE + Section 18: `automated-testing-in-ci.mdx`
+- [ ] [BAE-FDE-109] | Retrofit FDE + Section 18: `building-your-first-pipeline.mdx`
+- [ ] [BAE-FDE-110] | Retrofit FDE + Section 18: `code-quality-gates.mdx`
+- [ ] [BAE-FDE-111] | Retrofit FDE + Section 18: `docker-compose-in-ci.mdx`
+- [ ] [BAE-FDE-112] | Retrofit FDE + Section 18: `dockerfile-fundamentals.mdx`
+- [ ] [BAE-FDE-113] | Retrofit FDE + Section 18: `github-actions-fundamentals.mdx`
+- [ ] [BAE-FDE-114] | Retrofit FDE + Section 18: `pipeline-optimization.mdx`
+- [ ] [BAE-FDE-115] | Retrofit FDE + Section 18: `pipeline-security.mdx`
+- [ ] [BAE-FDE-116] | Retrofit FDE + Section 18: `what-is-cicd.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -97,7 +106,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 10
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 10
 
 ---
 

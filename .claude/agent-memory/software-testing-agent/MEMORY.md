@@ -51,7 +51,16 @@ Course complete. Reviewing backlog if any.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-349] | Retrofit FDE + Section 18: `api-testing.mdx`
+- [ ] [BAE-FDE-350] | Retrofit FDE + Section 18: `code-coverage.mdx`
+- [ ] [BAE-FDE-351] | Retrofit FDE + Section 18: `integration-testing.mdx`
+- [ ] [BAE-FDE-352] | Retrofit FDE + Section 18: `load-testing.mdx`
+- [ ] [BAE-FDE-353] | Retrofit FDE + Section 18: `mocking-and-patching.mdx`
+- [ ] [BAE-FDE-354] | Retrofit FDE + Section 18: `pytest-fixtures-and-parametrize.mdx`
+- [ ] [BAE-FDE-355] | Retrofit FDE + Section 18: `test-driven-development.mdx`
+- [ ] [BAE-FDE-356] | Retrofit FDE + Section 18: `testing-best-practices.mdx`
+- [ ] [BAE-FDE-357] | Retrofit FDE + Section 18: `testing-pyramid.mdx`
+- [ ] [BAE-FDE-358] | Retrofit FDE + Section 18: `unit-testing-with-pytest.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -96,7 +105,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 10
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 10
 
 ---
 

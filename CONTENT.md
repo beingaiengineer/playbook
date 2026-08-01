@@ -10,7 +10,7 @@ This is the canonical source for all educational content standards in BAE School
 - Show what happens when things go wrong, not just when they work.
 - Include both the "happy path" and failure modes.
 
-## 2. Mandatory 16-Section Lesson Template
+## 2. Mandatory 18-Section Lesson Template
 
 Every topic page MUST follow this exact 16-section structure, answering these questions in order: 
 1) Why should I care? 2) What production problem exists? 3) Engineering Story 4) Indian Analogy 5) How does it work? 6) Why is it designed this way? 7) How is it implemented? 8) How is it used in production? 9) What mistakes do engineers make? 10) What do interviewers ask?
@@ -79,6 +79,27 @@ Provide a table of 5–10 top-starred GitHub repos related to the topic.
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [owner/repo](https://github.com/owner/repo) | ⭐ 45k+ | Short description | How it relates |
+
+### 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Column | Purpose |
+|---|---|
+| **Directive** | A short label for the rule (e.g., "Code Generation", "Error Handling", "Testing"). |
+| **Instruction** | The precise, imperative rule the agent must follow when working with this concept. |
+| **Rationale** | Why this rule exists — the production failure or FDE constraint it prevents. |
+
+**Example (for a Hash Maps / Dictionaries topic):**
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Key Selection | Always use immutable, deterministic keys (`str`, `int`, `tuple`). Never use mutable objects as dict keys. | Mutable keys cause silent hash corruption and are undetectable in client debugging sessions. |
+| Default Values | Use `dict.get(key, default)` instead of raw `dict[key]` access in all generated code. | Client data is messy. Missing keys cause `KeyError` crashes in production integrations. |
+| Serialization | When serializing dicts to JSON for client APIs, always use `json.dumps(data, default=str)` to handle non-serializable values gracefully. | FDE deployments frequently encounter unexpected data types from legacy client systems. |
+| Cache Invalidation | When using dicts as caches, always implement a TTL or LRU eviction strategy. Never use unbounded dicts as caches. | Unbounded caches cause OOM kills on constrained client infrastructure. |
 
 ## 3. Diagram Rules (LearningFlow API)
 

@@ -50,7 +50,15 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-340] | Retrofit FDE + Section 18: `burn-rate-alerts.mdx`
+- [ ] [BAE-FDE-341] | Retrofit FDE + Section 18: `capacity-planning.mdx`
+- [ ] [BAE-FDE-342] | Retrofit FDE + Section 18: `chaos-engineering.mdx`
+- [ ] [BAE-FDE-343] | Retrofit FDE + Section 18: `defining-slis.mdx`
+- [ ] [BAE-FDE-344] | Retrofit FDE + Section 18: `error-budgets.mdx`
+- [ ] [BAE-FDE-345] | Retrofit FDE + Section 18: `reliability-engineering.mdx`
+- [ ] [BAE-FDE-346] | Retrofit FDE + Section 18: `setting-slos.mdx`
+- [ ] [BAE-FDE-347] | Retrofit FDE + Section 18: `sli-slo-sla-explained.mdx`
+- [ ] [BAE-FDE-348] | Retrofit FDE + Section 18: `toil-reduction.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -86,7 +94,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 9
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 9
 
 ---
 

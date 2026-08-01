@@ -51,7 +51,15 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-_Empty_
+- [ ] [BAE-FDE-139] | Retrofit FDE + Section 18: `blameless-postmortems.mdx`
+- [ ] [BAE-FDE-140] | Retrofit FDE + Section 18: `incident-commander-role.mdx`
+- [ ] [BAE-FDE-141] | Retrofit FDE + Section 18: `incident-communication.mdx`
+- [ ] [BAE-FDE-142] | Retrofit FDE + Section 18: `incident-response-process.mdx`
+- [ ] [BAE-FDE-143] | Retrofit FDE + Section 18: `incident-tools.mdx`
+- [ ] [BAE-FDE-144] | Retrofit FDE + Section 18: `on-call-culture.mdx`
+- [ ] [BAE-FDE-145] | Retrofit FDE + Section 18: `runbooks.mdx`
+- [ ] [BAE-FDE-146] | Retrofit FDE + Section 18: `severity-levels.mdx`
+- [ ] [BAE-FDE-147] | Retrofit FDE + Section 18: `what-is-an-incident.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -95,7 +103,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 9
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 0
+- Open Tasks: 9
 
 ---
 
