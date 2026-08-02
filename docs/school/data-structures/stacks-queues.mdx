@@ -1,0 +1,120 @@
+---
+sidebar_position: 3
+sidebar_label: "Stacks & Queues"
+---
+
+# Stacks & Queues
+
+## 1. Quick Summary
+| Area | Details |
+|---|---|
+| Topic | Stacks & Queues |
+| Difficulty | Intermediate |
+| Used For | Expression parsing, BFS for dependency resolution in client configuration graphs. |
+| Common Mistake | Using `pop(0)` on a standard Python list for queue dequeuing. |
+| Performance | O(1) (push/pop) time |
+
+## 2. Engineering Story
+A client deployed our infrastructure-as-code tool, but it kept deploying dependent services before their databases were ready. We needed to guarantee ordering. By implementing a topological sort using a Queue, we processed the dependency graph level by level (BFS), ensuring every database was up before the microservices tried to connect. Queue to the rescue, bro!
+
+## 3. Real-World Analogy
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of Stacks & Queues in a real-world scenario. */}
+
+| Real World | Technical Concept |
+|---|---|
+| Organizing items | Stacks & Queues |
+| Finding items | Search operations |
+
+## 4. Concept Explanation
+Stacks (LIFO - Last In, First Out) and Queues (FIFO - First In, First Out) are fundamental abstract data types. Stacks are used for backtracking, parsing, and managing execution context. Queues are essential for scheduling, buffering, and breadth-first exploration.
+
+## 5. Syntax Table
+| Feature | Syntax/Usage |
+|---|---|
+| Creation | `stack = []; queue = deque()` |
+| Access | `stack.pop(); queue.popleft()` |
+
+## 6. Beginner Example
+```python
+stack = []
+stack.append(1)
+val = stack.pop()
+
+from collections import deque
+queue = deque()
+queue.append(1)
+val = queue.popleft()
+```
+
+## 7. Real-World Engineering Example
+```python
+from collections import deque
+
+def process_tasks(tasks):
+    queue = deque(tasks)
+    while queue:
+        task = queue.popleft()
+        if not task.execute():
+            # Re-queue failed tasks with backoff
+            queue.append(task)
+```
+
+## 8. Internal Working
+import LearningFlow from '@site/src/components/LearningFlow';
+
+<LearningFlow
+  nodes={[
+    { id: '1', type: 'core', position: { x: 250, y: 0 }, data: { label: 'Data Input' } },
+    { id: '2', type: 'process', position: { x: 250, y: 100 }, data: { label: 'Process with Stacks & Queues' } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', animated: true }
+  ]}
+/>
+
+## 9. Performance Table
+| Operation | Time Complexity | Space Complexity |
+|---|---|---|
+| Access/Search | O(1) (push/pop) | O(n) |
+
+## 10. Top Interview Questions
+| Question | Answer |
+|---|---|
+| How do you implement a queue using stacks? | Use two stacks. Enqueue pushes to stack 1. Dequeue pops from stack 2. If stack 2 is empty, pop all from stack 1 and push to stack 2, then pop from stack 2. |
+| What are the drawbacks? | Unbounded queues in production systems can lead to Out Of Memory (OOM) errors. Always use bounded queues and handle backpressure. |
+| When should this be avoided? | Use arrays as queues if you need to pop from the front frequently without a specialized ring-buffer implementation. |
+| What is the space complexity? | O(n) |
+| How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
+
+## 11. Tricky Questions & Edge Cases
+If you use a simple array as a queue, popping from the front takes O(n) because all subsequent elements must be shifted left. Always use a ring buffer or doubly-linked list (like Python's deque).
+
+## 12. Real-World Usage
+Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax parsing and function call management.
+
+## 13. Best Practices
+| DO | DON'T |
+|---|---|
+| Use `collections.deque` in Python for queues, as lists have O(n) `pop(0)`. | Use arrays as queues if you need to pop from the front frequently without a specialized ring-buffer implementation. |
+
+## 14. Production Notes
+> **Warning**: Unbounded queues in production systems can lead to Out Of Memory (OOM) errors. Always use bounded queues and handle backpressure.
+
+## 15. Common Mistakes
+| Mistake | Correction |
+|---|---|
+| Using `pop(0)` on a standard Python list for queue dequeuing. | Import and use `collections.deque` and call `popleft()` for O(1) performance. |
+
+## 16. Related Topics
+- Breadth-First Search (BFS)
+- Depth-First Search (DFS)
+
+### Top GitHub Repositories
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [celery/celery](https://github.com/celery/celery) | ⭐ 22k+ | Distributed Task Queue. | Demonstrates production-grade distributed queueing and worker management. |
+
+## 17. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | When generating code that requires a queue in Python, always import `collections.deque`. Never use a standard list with `.pop(0)`. | Prevents massive performance degradations in deployed systems. |

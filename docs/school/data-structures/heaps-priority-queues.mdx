@@ -1,0 +1,127 @@
+---
+sidebar_position: 8
+sidebar_label: "Heaps & Priority Queues"
+---
+
+# Heaps & Priority Queues
+
+## 1. Quick Summary
+| Area | Details |
+|---|---|
+| Topic | Heaps & Priority Queues |
+| Difficulty | Intermediate |
+| Used For | SLA-aware task scheduling and job prioritization in client deployment pipelines. |
+| Common Mistake | Failing to add a tie-breaking secondary value to the heap tuple when the primary priority might collide. |
+| Performance | O(log N) (push/pop) time |
+
+## 2. Engineering Story
+Our client's background worker system processed video encoding tasks FIFO. When the marketing team uploaded a 4K ad, it stalled the queue for hours, while thousands of small user avatars waited. We replaced the standard queue with a Min-Heap Priority Queue, scoring tasks by size and SLA. Suddenly, avatars processed instantly while massive videos chewed through background cycles. Priority queues keep the system fluid, bro.
+
+## 3. Real-World Analogy
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of Heaps & Priority Queues in a real-world scenario. */}
+
+| Real World | Technical Concept |
+|---|---|
+| Organizing items | Heaps & Priority Queues |
+| Finding items | Search operations |
+
+## 4. Concept Explanation
+A Heap is a specialized tree-based structure that satisfies the heap property: in a Min-Heap, the parent is always smaller than its children. This makes finding the minimum element O(1). It's the standard way to implement a Priority Queue, where elements are dequeued based on priority rather than insertion order.
+
+## 5. Syntax Table
+| Feature | Syntax/Usage |
+|---|---|
+| Creation | `import heapq; heap = []` |
+| Access | `heapq.heappop(heap)` |
+
+## 6. Beginner Example
+```python
+import heapq
+
+heap = []
+heapq.heappush(heap, (2, 'medium task'))
+heapq.heappush(heap, (1, 'high priority task'))
+
+# Pops 'high priority task'
+next_task = heapq.heappop(heap)
+```
+
+## 7. Real-World Engineering Example
+```python
+import heapq
+import time
+
+class TaskScheduler:
+    def __init__(self):
+        self.queue = []
+
+    def schedule(self, execute_at, task_id):
+        # Min-heap based on timestamp
+        heapq.heappush(self.queue, (execute_at, task_id))
+
+    def run_ready_tasks(self):
+        now = time.time()
+        while self.queue and self.queue[0][0] <= now:
+            _, task_id = heapq.heappop(self.queue)
+            execute_task(task_id)
+```
+
+## 8. Internal Working
+import LearningFlow from '@site/src/components/LearningFlow';
+
+<LearningFlow
+  nodes={[
+    { id: '1', type: 'core', position: { x: 250, y: 0 }, data: { label: 'Data Input' } },
+    { id: '2', type: 'process', position: { x: 250, y: 100 }, data: { label: 'Process with Heaps & Priority Queues' } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', animated: true }
+  ]}
+/>
+
+## 9. Performance Table
+| Operation | Time Complexity | Space Complexity |
+|---|---|---|
+| Access/Search | O(log N) (push/pop) | O(N) |
+
+## 10. Top Interview Questions
+| Question | Answer |
+|---|---|
+| How is a heap typically stored in memory? | As a flat array. The children of the node at index i are located at 2i+1 and 2i+2. This makes it extremely cache-friendly. |
+| What are the drawbacks? | Heaps are not entirely sorted. They only guarantee that the root is the min/max. Searching for an arbitrary element in a heap takes O(N). |
+| When should this be avoided? | Use a sorted list as a priority queue; inserting into a sorted list takes O(N), while a heap takes O(log N). |
+| What is the space complexity? | O(N) |
+| How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
+
+## 11. Tricky Questions & Edge Cases
+If two items have the same priority in Python's heapq, it attempts to compare the objects themselves, which can crash if they lack a `__lt__` method. Always include a tiebreaker.
+
+## 12. Real-World Usage
+Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-driven simulation systems.
+
+## 13. Best Practices
+| DO | DON'T |
+|---|---|
+| Use Python's `heapq` module for fast, C-optimized heap operations. | Use a sorted list as a priority queue; inserting into a sorted list takes O(N), while a heap takes O(log N). |
+
+## 14. Production Notes
+> **Warning**: Heaps are not entirely sorted. They only guarantee that the root is the min/max. Searching for an arbitrary element in a heap takes O(N).
+
+## 15. Common Mistakes
+| Mistake | Correction |
+|---|---|
+| Failing to add a tie-breaking secondary value to the heap tuple when the primary priority might collide. | Push tuples like `(priority, counter, task_object)` so Python uses the unique counter if priorities match. |
+
+## 16. Related Topics
+- Job Queues
+- Algorithms (Dijkstra's)
+
+### Top GitHub Repositories
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The Python programming language source code. | Look at `Lib/heapq.py` for a brilliant, heavily optimized array-based heap implementation. |
+
+## 17. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | When using `heapq` in Python with complex objects, always insert a monotonic counter as a tie-breaker in the tuple to avoid unorderable type exceptions. | Prevents massive performance degradations in deployed systems. |

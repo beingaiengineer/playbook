@@ -43,16 +43,16 @@ Write the first batch of Data Structures lessons with full 18-section content, F
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-DS-001] | Write `arrays-memory.mdx` — Arrays & Memory Layout
-- [ ] [BAE-DS-002] | Write `linked-lists.mdx` — Linked Lists
-- [ ] [BAE-DS-003] | Write `stacks-queues.mdx` — Stacks & Queues
-- [ ] [BAE-DS-004] | Write `hash-maps.mdx` — Hash Maps Deep Dive
-- [ ] [BAE-DS-005] | Write `consistent-hashing.mdx` — Consistent Hashing
-- [ ] [BAE-DS-006] | Write `trees-bst.mdx` — Trees & Binary Search Trees
-- [ ] [BAE-DS-007] | Write `b-trees-indexing.mdx` — B-Trees & Database Indexing
-- [ ] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
-- [ ] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
-- [ ] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
+- [x] [BAE-DS-001] | Write `arrays-memory.mdx` — Arrays & Memory Layout
+- [x] [BAE-DS-002] | Write `linked-lists.mdx` — Linked Lists
+- [x] [BAE-DS-003] | Write `stacks-queues.mdx` — Stacks & Queues
+- [x] [BAE-DS-004] | Write `hash-maps.mdx` — Hash Maps Deep Dive
+- [x] [BAE-DS-005] | Write `consistent-hashing.mdx` — Consistent Hashing
+- [x] [BAE-DS-006] | Write `trees-bst.mdx` — Trees & Binary Search Trees
+- [x] [BAE-DS-007] | Write `b-trees-indexing.mdx` — B-Trees & Database Indexing
+- [x] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
+- [x] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
+- [x] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
 - [ ] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
 - [ ] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
 - [ ] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
@@ -97,16 +97,16 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-- [ ] [BAE-DS-001] | Write `arrays-memory.mdx` — Arrays & Memory Layout
-- [ ] [BAE-DS-002] | Write `linked-lists.mdx` — Linked Lists
-- [ ] [BAE-DS-003] | Write `stacks-queues.mdx` — Stacks & Queues
-- [ ] [BAE-DS-004] | Write `hash-maps.mdx` — Hash Maps Deep Dive
-- [ ] [BAE-DS-005] | Write `consistent-hashing.mdx` — Consistent Hashing
-- [ ] [BAE-DS-006] | Write `trees-bst.mdx` — Trees & Binary Search Trees
-- [ ] [BAE-DS-007] | Write `b-trees-indexing.mdx` — B-Trees & Database Indexing
-- [ ] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
-- [ ] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
-- [ ] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
+- [x] [BAE-DS-001] | Write `arrays-memory.mdx` — Arrays & Memory Layout
+- [x] [BAE-DS-002] | Write `linked-lists.mdx` — Linked Lists
+- [x] [BAE-DS-003] | Write `stacks-queues.mdx` — Stacks & Queues
+- [x] [BAE-DS-004] | Write `hash-maps.mdx` — Hash Maps Deep Dive
+- [x] [BAE-DS-005] | Write `consistent-hashing.mdx` — Consistent Hashing
+- [x] [BAE-DS-006] | Write `trees-bst.mdx` — Trees & Binary Search Trees
+- [x] [BAE-DS-007] | Write `b-trees-indexing.mdx` — B-Trees & Database Indexing
+- [x] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
+- [x] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
+- [x] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
 
 ## Backlog
 - [ ] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
