@@ -1,0 +1,110 @@
+---
+sidebar_position: 7
+sidebar_label: "B-Trees & Database Indexing"
+---
+
+# B-Trees & Database Indexing
+
+## 1. Quick Summary
+| Area | Details |
+|---|---|
+| Topic | B-Trees & Database Indexing |
+| Difficulty | Intermediate |
+| Used For | Why the client's PostgreSQL queries are slow — understanding what indexes actually are under the hood. |
+| Common Mistake | Creating single-column indexes for queries that always filter by multiple columns simultaneously. |
+| Performance | O(log N) time |
+
+## 2. Engineering Story
+A client's PostgreSQL database was taking 45 seconds to query a user's transaction history from a table of 200 million rows. They thought they needed a bigger server. I looked at the query plan: 'Sequential Scan'. I added a B-Tree index on the user ID column. The query dropped to 20 milliseconds. Bro, understanding B-Trees is the difference between buying a $5,000 server and writing a $0 fix.
+
+## 3. Real-World Analogy
+{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of B-Trees & Database Indexing in a real-world scenario. */}
+
+| Real World | Technical Concept |
+|---|---|
+| Organizing items | B-Trees & Database Indexing |
+| Finding items | Search operations |
+
+## 4. Concept Explanation
+A B-Tree is a self-balancing tree designed specifically for disk-based storage. Unlike a binary tree where nodes have 2 children, B-Tree nodes can have thousands of children. This makes the tree extremely shallow, minimizing the number of expensive disk I/O operations required to find a record.
+
+## 5. Syntax Table
+| Feature | Syntax/Usage |
+|---|---|
+| Creation | `CREATE INDEX idx_id ON table(id);` |
+| Access | `SELECT * FROM table WHERE id = X;` |
+
+## 6. Beginner Example
+```python
+-- Creating a B-Tree index in SQL
+CREATE INDEX idx_user_id ON transactions(user_id);
+```
+
+## 7. Real-World Engineering Example
+```python
+-- Using a composite B-Tree index for complex queries
+CREATE INDEX idx_user_date ON transactions(user_id, created_at DESC);
+
+-- This query is fully satisfied by the index
+SELECT amount FROM transactions WHERE user_id = 123 ORDER BY created_at DESC LIMIT 10;
+```
+
+## 8. Internal Working
+import LearningFlow from '@site/src/components/LearningFlow';
+
+<LearningFlow
+  nodes={[
+    { id: '1', type: 'core', position: { x: 250, y: 0 }, data: { label: 'Data Input' } },
+    { id: '2', type: 'process', position: { x: 250, y: 100 }, data: { label: 'Process with B-Trees & Database Indexing' } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', animated: true }
+  ]}
+/>
+
+## 9. Performance Table
+| Operation | Time Complexity | Space Complexity |
+|---|---|---|
+| Access/Search | O(log N) | O(N) |
+
+## 10. Top Interview Questions
+| Question | Answer |
+|---|---|
+| Why do databases use B-Trees instead of Binary Search Trees? | Disk access is slow. B-Trees read large blocks of data (pages) at once. A shallow, wide B-Tree requires far fewer disk reads than a deep, narrow BST. |
+| What are the drawbacks? | If you index a column with low cardinality (like a boolean 'is_active' flag), the B-Tree is useless and the optimizer will likely ignore it. |
+| When should this be avoided? | Over-index your database. Every B-Tree index slows down INSERT and UPDATE operations because the tree must be maintained. |
+| What is the space complexity? | O(N) |
+| How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
+
+## 11. Tricky Questions & Edge Cases
+Updating an indexed column requires the database to re-balance the B-Tree on disk. Heavy indexing can slow down INSERTs and UPDATEs significantly.
+
+## 12. Real-World Usage
+Relational databases (PostgreSQL, MySQL, Oracle) and file systems (NTFS, ext4).
+
+## 13. Best Practices
+| DO | DON'T |
+|---|---|
+| Index columns frequently used in WHERE, JOIN, and ORDER BY clauses. | Over-index your database. Every B-Tree index slows down INSERT and UPDATE operations because the tree must be maintained. |
+
+## 14. Production Notes
+> **Warning**: If you index a column with low cardinality (like a boolean 'is_active' flag), the B-Tree is useless and the optimizer will likely ignore it.
+
+## 15. Common Mistakes
+| Mistake | Correction |
+|---|---|
+| Creating single-column indexes for queries that always filter by multiple columns simultaneously. | Create a composite B-Tree index with the most selective columns first. |
+
+## 16. Related Topics
+- PostgreSQL Internals
+- Query Optimization
+
+### Top GitHub Repositories
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [postgres/postgres](https://github.com/postgres/postgres) | ⭐ 12k+ | The World's Most Advanced Open Source Relational Database. | Examine the `src/backend/access/nbtree` directory to see a production-grade B-Tree implementation. |
+
+## 17. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | When writing SQL schema generation scripts, always analyze query patterns to propose appropriate composite B-Tree indexes, and explicitly warn against over-indexing. | Prevents massive performance degradations in deployed systems. |
