@@ -231,3 +231,13 @@ The edge case is **Routing on Rejection**. If you are using HITL for approvals, 
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 35k+ | Multi-agent framework. | Features a built-in `human_input_mode="ALWAYS"` configuration for its UserProxy agents. |
 | [copilot-workspace](https://githubnext.com/projects/copilot-workspace/) | N/A | GitHub's AI development environment. | A masterclass in HITL UX: the AI drafts a plan, you edit the plan, the AI writes code, you edit the code. |
 | [langchain-ai/langgraph-studio](https://github.com/langchain-ai/langgraph-studio) | ⭐ 1k+ | Desktop IDE for LangGraph. | Provides a visual interface specifically designed for pausing, inspecting state, and resuming graphs manually. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Persistent Checkpointing | Always use a persistent checkpointer (e.g., PostgresSaver) when implementing HITL. Never use in-memory state savers for production graphs with human approval. | In-memory states are lost if the server restarts or the process dies while waiting for human input, rendering the pending task unresumable. |
+| Rejection Routing | When a human rejects an action, explicitly route the graph back to a reasoning/generation node or an END state. Do not blindly resume execution on the same node. | Failing to handle rejection paths causes the destructive action to execute regardless of the human's disapproval. |
+| State Serialization | Ensure all objects stored in the `TypedDict` state are natively serializable (JSON/Pydantic). Do not store open database connections, sockets, or complex objects. | Un-serializable state causes the graph to crash immediately upon hitting an `interrupt_before` node when it attempts to save to the database. |

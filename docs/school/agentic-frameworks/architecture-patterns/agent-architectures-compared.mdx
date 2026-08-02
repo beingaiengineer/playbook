@@ -219,3 +219,13 @@ The edge case is **Multi-intent Routing**. You must design your router to return
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 8k+ | Build resilient language agents as graphs. | The best framework for explicitly coding these different architectures as State Machines. |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 35k+ | Multi-agent framework. | Excellent for building Reflection and Routing architectures using conversational Group Chats. |
 | [crewAIInc/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 18k+ | Framework for orchestrating role-playing autonomous agents. | Native support for Sequential and Hierarchical (Plan-and-Execute style) architectures. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture Selection | Default to the ReAct pattern for single-tool tasks. Use Plan-and-Execute for multi-step goals. Do not build complex Routing systems unless explicitly required. | Mismatched architectures lead to high API costs, context drift, or fragile control flow in production deployments. |
+| Tool Output Parsing | Use native structured tool calling (e.g., JSON schema or Pydantic) instead of regex to parse agent outputs. | Parsing raw text for `Action:` blocks is brittle and crashes easily when the LLM formatting changes slightly. |
+| State Management | Maintain explicit state transitions and isolate `past_steps` to avoid massive context bloat. Do not pass full raw HTML/JSON into the agent's memory. | Bloated state exceeds token limits and degrades reasoning quality during Replanning or Fan-In operations. |
