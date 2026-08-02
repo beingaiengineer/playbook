@@ -53,10 +53,10 @@ Write the first batch of Data Structures lessons with full 18-section content, F
 - [x] [BAE-DS-008] | Write `heaps-priority-queues.mdx` — Heaps & Priority Queues
 - [x] [BAE-DS-009] | Write `graphs-traversals.mdx` — Graphs & Traversals
 - [x] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
-- [ ] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
-- [ ] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
-- [ ] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
-- [ ] [BAE-DS-014] | Write `knowledge-graphs.mdx` — Knowledge Graphs
+- [x] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
+- [x] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
+- [x] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
+- [x] [BAE-DS-014] | Write `knowledge-graphs.mdx` — Knowledge Graphs
 
 ### IN PROGRESS
 _Empty_
@@ -89,10 +89,10 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 0
-- Lessons Remaining: 14
-- Completion %: 0%
-- Open Tasks: 14
+- Lessons Completed: 14
+- Lessons Remaining: 0
+- Completion %: 100%
+- Open Tasks: 0
 
 ---
 
@@ -109,10 +109,10 @@ No reusable insights recorded yet.
 - [x] [BAE-DS-010] | Write `tries.mdx` — Tries (Prefix Trees)
 
 ## Backlog
-- [ ] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
-- [ ] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
-- [ ] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
-- [ ] [BAE-DS-014] | Write `knowledge-graphs.mdx` — Knowledge Graphs
+- [x] [BAE-DS-011] | Write `bloom-filters.mdx` — Bloom Filters
+- [x] [BAE-DS-012] | Write `hyperloglog.mdx` — HyperLogLog
+- [x] [BAE-DS-013] | Write `merkle-trees.mdx` — Merkle Trees
+- [x] [BAE-DS-014] | Write `knowledge-graphs.mdx` — Knowledge Graphs
 
 ---
 
@@ -121,6 +121,7 @@ No reusable insights recorded yet.
 | BAE ID | What's Done (High Level) |
 |---|---|
 | _None yet_ | _Course not started_ |
+| `[BAE-DS-011 to BAE-DS-014]` | Created advanced FDE data structure topics (Bloom Filters, HLL, Merkle Trees, KGs). |
 
 ---
 

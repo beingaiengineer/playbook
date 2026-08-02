@@ -1,0 +1,210 @@
+---
+sidebar_position: 11
+sidebar_label: "Bloom Filters"
+---
+
+# Bloom Filters
+
+## 1. Quick Summary
+
+| Area | Details |
+|---|---|
+| Topic | Bloom Filters |
+| Difficulty | Advanced |
+| Used For | Fast probabilistic set membership checking |
+| Common Mistake | Using them when you absolutely cannot tolerate false positives |
+| Performance | O(k) time complexity (k = number of hash functions), O(m) space complexity (m = number of bits) |
+
+## 2. Engineering Story
+
+Bro, imagine being deployed to a client site where their main database is getting hammered by millions of queries per second. Most of these queries are just checking if a user ID or a transaction ID exists. The database is constantly reading from disk, causing massive I/O spikes and latency across the entire platform. The client’s engineers are panicking and throwing more RAM at the database, but it’s not scaling. This is a classic case where you don't need a definitive answer for every query; you just need to know if the ID definitely does *not* exist. Enter the Bloom Filter: a space-efficient, probabilistic data structure that can tell you with 100% certainty if an item is not in a set, preventing unnecessary database hits.
+
+## 3. Real-World Analogy
+
+Imagine a high-security office building in Mumbai where thousands of people try to enter daily. Instead of checking every single person's ID against the massive central database (which is slow), the security guard at the gate has a quick checklist.
+
+| Bloom Filter Component | Real-World Equivalent |
+|---|---|
+| Bit Array | The security guard's checklist of authorized IDs. |
+| Hash Functions | Different ways the guard quickly checks the ID (e.g., checking the first letter, the last digit, the hologram). |
+| True Negative (Definite "No") | The guard immediately sees the ID doesn't match the quick checks and turns the person away. |
+| False Positive (Probable "Yes") | The ID matches the quick checks, so the guard lets the person through to the main reception for a full verification. |
+| The Database | The main reception desk that takes time but gives a definitive answer. |
+
+## 4. Concept Explanation
+
+A Bloom Filter is a probabilistic data structure used to test whether an element is a member of a set. False positive matches are possible, but false negatives are not. This means a Bloom Filter will tell you either "possibly in set" or "definitely not in set". It consists of a bit array of $m$ bits, initially all set to 0, and $k$ different hash functions. When you add an item, you hash it $k$ times, and set the bits at the resulting indices to 1. When you check for an item, you hash it again. If any of the bits at the resulting indices are 0, you know for sure the item is not in the set. If they are all 1, the item *might* be in the set (because other items could have flipped those bits).
+
+You use a Bloom Filter when you have a massive dataset and you want to avoid expensive lookups (like disk I/O or network calls) for items that don't exist. You do NOT use a Bloom Filter if your application cannot tolerate any false positives and requires 100% accuracy on every lookup.
+
+## 5. Syntax Table
+
+| Operation | Description | Complexity |
+|---|---|---|
+| `add(item)` | Hashes the item and sets corresponding bits to 1. | O(k) |
+| `contains(item)` | Hashes the item and checks if all corresponding bits are 1. | O(k) |
+
+## 6. Beginner Example
+
+```python
+import hashlib
+
+class SimpleBloomFilter:
+    def __init__(self, size, hash_count):
+        self.size = size
+        self.hash_count = hash_count
+        self.bit_array = [0] * size
+
+    def add(self, item):
+        for i in range(self.hash_count):
+            digest = hashlib.md5((item + str(i)).encode('utf-8')).hexdigest()
+            index = int(digest, 16) % self.size
+            self.bit_array[index] = 1
+
+    def contains(self, item):
+        for i in range(self.hash_count):
+            digest = hashlib.md5((item + str(i)).encode('utf-8')).hexdigest()
+            index = int(digest, 16) % self.size
+            if self.bit_array[index] == 0:
+                return False
+        return True
+
+# Usage
+bf = SimpleBloomFilter(100, 3)
+bf.add("user123")
+print(bf.contains("user123"))  # True
+print(bf.contains("user999"))  # False (definitely not in set)
+```
+
+## 7. Real-World Engineering Example
+
+```python
+import mmh3 # MurmurHash3 is faster and better suited for Bloom Filters
+import math
+
+class ProductionBloomFilter:
+    def __init__(self, capacity, error_rate):
+        self.capacity = capacity
+        self.error_rate = error_rate
+        self.num_bits = self._get_num_bits(capacity, error_rate)
+        self.num_hashes = self._get_num_hashes(self.num_bits, capacity)
+        self.bit_array = bytearray(math.ceil(self.num_bits / 8)) # Use bytearray for memory efficiency
+
+    def _get_num_bits(self, n, p):
+        return int(-(n * math.log(p)) / (math.log(2) ** 2))
+
+    def _get_num_hashes(self, m, n):
+        return int((m / n) * math.log(2))
+
+    def add(self, item):
+        for i in range(self.num_hashes):
+            digest = mmh3.hash(item, i) % self.num_bits
+            byte_index = digest // 8
+            bit_index = digest % 8
+            self.bit_array[byte_index] |= (1 << bit_index)
+
+    def contains(self, item):
+        for i in range(self.num_hashes):
+            digest = mmh3.hash(item, i) % self.num_bits
+            byte_index = digest // 8
+            bit_index = digest % 8
+            if not (self.bit_array[byte_index] & (1 << bit_index)):
+                return False
+        return True
+```
+
+## 8. Internal Working
+
+import LearningFlow from "@site/src/components/LearningFlow";
+
+<LearningFlow
+  steps={[
+    { id: '1', type: 'core', label: 'Item to Add' },
+    { id: '2', type: 'process', label: 'Hash Function 1' },
+    { id: '3', type: 'process', label: 'Hash Function 2' },
+    { id: '4', type: 'process', label: 'Hash Function k' },
+    { id: '5', type: 'data', label: 'Bit Array (m bits)' },
+    { id: '6', type: 'core', label: 'Item to Check' },
+    { id: '7', type: 'process', label: 'Hash 1...k' },
+    { id: '8', type: 'data', label: 'Check Bits' },
+    { id: '9', type: 'output', label: 'True (Possible) / False (Definite)' }
+  ]}
+  edges={[
+    { source: '1', target: '2', label: 'hashes' },
+    { source: '1', target: '3', label: 'hashes' },
+    { source: '1', target: '4', label: 'hashes' },
+    { source: '2', target: '5', label: 'sets bit' },
+    { source: '3', target: '5', label: 'sets bit' },
+    { source: '4', target: '5', label: 'sets bit' },
+    { source: '6', target: '7', label: 'hashes' },
+    { source: '7', target: '8', label: 'reads bits' },
+    { source: '8', target: '9', label: 'result' }
+  ]}
+/>
+
+## 9. Performance Table
+
+| Operation | Time Complexity | Space Complexity |
+|---|---|---|
+| Addition | O(k) | O(m) |
+| Lookup | O(k) | O(m) |
+| Deletion | N/A (Standard Bloom Filters don't support deletion) | N/A |
+
+## 10. Top Interview Questions
+
+| Question | Answer |
+|---|---|
+| Why can't you delete an item from a standard Bloom Filter? | If you flip a bit back to 0, you might be un-setting a bit that is shared by another item, causing false negatives for that other item. |
+| What happens if a Bloom Filter gets full? | The false positive rate will approach 1.0 (100%), making the filter useless, as it will just return "true" for everything. |
+| How do you choose the number of hash functions (k) and the size of the bit array (m)? | You calculate them based on your expected capacity (n) and your acceptable false positive rate (p) using specific mathematical formulas. |
+| How does a Counting Bloom Filter solve the deletion problem? | Instead of single bits, it uses small counters. Adding increments the counters, deleting decrements them. This uses more space. |
+| What is a false positive vs a false negative in this context? | A false positive is when the filter says the item is in the set when it isn't. A false negative is when the filter says the item is not in the set when it actually is (impossible in a standard Bloom Filter). |
+
+## 11. Tricky Questions & Edge Cases
+
+Bro, a classic gotcha is thinking you can use a cryptographic hash like SHA-256 for your Bloom Filter. Cryptographic hashes are designed to be slow to prevent brute-forcing. You want *fast*, non-cryptographic hashes like MurmurHash or CityHash to keep the O(k) lookup time minimal. Also, be careful with hash collisions; while the filter relies on them, poor hash functions will artificially inflate your false positive rate beyond the mathematical expectation.
+
+## 12. Real-World Usage
+
+Tech giants use Bloom Filters heavily. Databases like Cassandra and HBase use them to quickly check if a row exists in an SSTable before performing an expensive disk read. Content Delivery Networks (CDNs) like Akamai use them to avoid caching "one-hit wonders" (objects requested only once), saving massive amounts of disk space. Google Chrome uses them for its Safe Browsing feature to quickly check if a URL is on a malicious list before making a network call to Google's servers.
+
+## 13. Best Practices
+
+| DO | DON'T |
+|---|---|
+| DO use fast, non-cryptographic hash functions like MurmurHash. | DON'T use slow cryptographic hashes like SHA-256 or MD5. |
+| DO size your bit array correctly based on expected capacity and acceptable false positive rate. | DON'T guess the size; use the formulas to calculate `m` and `k`. |
+| DO use a Bloom Filter as a fast "pre-check" in front of a slower, authoritative data store. | DON'T use a Bloom Filter as the single source of truth for your application. |
+
+## 14. Production Notes
+
+:::caution Production Warning
+Bro, if your expected capacity `n` grows significantly beyond what you initially planned, your false positive rate `p` will skyrocket. You can't just resize a Bloom Filter dynamically like a dynamic array. You have to create a new, larger Bloom Filter and re-hash all your data into it. Plan your capacity carefully, or look into Scalable Bloom Filters if your data growth is unpredictable.
+:::
+
+## 15. Common Mistakes
+
+| Mistake | Bad Code | Good Code |
+|---|---|---|
+| Using slow hash functions | `hashlib.sha256(item.encode()).digest()` | `mmh3.hash(item, seed)` |
+| Trying to implement deletion | `self.bit_array[index] = 0 # Corrupts other items` | Use a Counting Bloom Filter instead if deletion is strictly required. |
+
+## 16. Related Topics
+- Hash Maps Deep Dive
+- B-Trees & Database Indexing
+
+## 17. Top GitHub Repositories
+
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [jaybaird/python-bloomfilter](https://github.com/jaybaird/python-bloomfilter) | ⭐ 1k+ | A pure python Bloom Filter implementation. | Good reference for understanding the implementation details. |
+| [tylertreat/BoomFilters](https://github.com/tylertreat/BoomFilters) | ⭐ 2k+ | Probabilistic data structures for processing continuous, unbounded streams in Go. | Shows advanced variants in a production-ready Go library. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Hash Selection | Use fast, non-cryptographic hash functions like `mmh3` (MurmurHash) when implementing Bloom Filters. | Cryptographic hashes introduce unnecessary latency in a data structure designed for speed. |
+| Sizing | Always calculate the bit array size (`m`) and number of hash functions (`k`) mathematically based on expected capacity (`n`) and desired false positive rate (`p`). | Guessing sizes leads to either memory waste or unacceptable false positive rates in production. |
+| No Deletion | Never implement a deletion method on a standard Bloom Filter bit array. | Flipping bits to 0 will cause false negatives by corrupting the state of other items sharing those bits. |
+{/* TODO: [BAE-ILLUSTRATION] | Bloom Filters | `bloom-filters.mdx` | `bloom-filter-security.png` | A busy Mumbai office building with a security guard at the gate holding a quick checklist. The guard is turning some people away immediately based on the checklist, while directing others to a main reception desk inside for full verification. | */}
