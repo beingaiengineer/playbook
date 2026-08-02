@@ -233,3 +233,13 @@ The edge case is **Fan-In Context Bloat**. The fix is Hierarchical Map-Reduce. I
 | [bclavie/RAGatouille](https://github.com/bclavie/RAGatouille) | ⭐ 2k+ | Fast RAG pipelines. | Shows how parallel processing of embeddings massively speeds up document indexing. |
 | [ray-project/ray](https://github.com/ray-project/ray) | ⭐ 31k+ | Framework for scaling AI applications. | When standard async isn't enough, Ray is used to parallelize agent workers across multiple physical machines. |
 | [celery/celery](https://github.com/celery/celery) | ⭐ 24k+ | Distributed task queue. | Often used as the backend for fanning out heavy agentic tasks in production Django/FastAPI environments. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Concurrency Control | When fanning out API calls, use semaphores (e.g., `asyncio.Semaphore`) to limit concurrent requests. Do not fire 50+ LLM requests simultaneously. | Unbounded concurrency immediately triggers 429 Too Many Requests errors from LLM providers, crashing the entire map-reduce operation. |
+| State Reduction | In Fan-In operations, only mutate state variables that are annotated with a Reducer (e.g., `Annotated[list, operator.add]`). Never overwrite global static state from a parallel worker. | Modifying static state keys concurrently causes race conditions, silent data loss, and unpredictable merge conflicts. |
+| Graceful Degradation | Use `return_exceptions=True` in `asyncio.gather()` or wrap parallel node execution in `try/except` blocks. | A single failure (like a 404 URL in one parallel task) should not crash the other successful tasks during the synthesis phase. |

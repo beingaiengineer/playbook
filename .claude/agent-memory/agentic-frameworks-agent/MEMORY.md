@@ -43,9 +43,9 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-001] | Retrofit FDE + Section 18: `architecture-patterns/agent-architectures-compared.mdx`
-- [ ] [BAE-FDE-002] | Retrofit FDE + Section 18: `architecture-patterns/human-in-the-loop.mdx`
-- [ ] [BAE-FDE-003] | Retrofit FDE + Section 18: `architecture-patterns/parallelization-pattern.mdx`
+- [x] [BAE-FDE-001] | Retrofit FDE + Section 18: `architecture-patterns/agent-architectures-compared.mdx`
+- [x] [BAE-FDE-002] | Retrofit FDE + Section 18: `architecture-patterns/human-in-the-loop.mdx`
+- [x] [BAE-FDE-003] | Retrofit FDE + Section 18: `architecture-patterns/parallelization-pattern.mdx`
 - [ ] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
 - [ ] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
 - [ ] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
