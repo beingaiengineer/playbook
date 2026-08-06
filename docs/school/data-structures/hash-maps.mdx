@@ -14,10 +14,10 @@ sidebar_label: "Hash Maps Deep Dive"
 | Common Mistake | Using `dict[key]` directly without checking if the key exists. |
 | Performance | O(1) average time |
 
-## 2. Engineering Story
+## 2. The Engineering Story
 We integrated with a legacy banking mainframe that took 3 seconds to return a customer balance. The client's mobile app was timing out. We threw an in-memory Hash Map in front of the API, keyed by customer ID, with a 5-minute TTL. The first request took 3 seconds, but the next 10,000 took 1 millisecond. Bro, hash maps save the day when dealing with slow external dependencies.
 
-## 3. Real-World Analogy
+## 3. The Real-World Analogy
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of Hash Maps Deep Dive in a real-world scenario. */}
 
 | Real World | Technical Concept |
@@ -25,23 +25,23 @@ We integrated with a legacy banking mainframe that took 3 seconds to return a cu
 | Organizing items | Hash Maps Deep Dive |
 | Finding items | Search operations |
 
-## 4. Concept Explanation
+## 4. How It Works
 A Hash Map maps keys to values for highly efficient lookups. It uses a hash function to compute an index into an array of buckets. When multiple keys hash to the same bucket (a collision), it uses techniques like chaining (linked lists) or open addressing (probing) to resolve it.
 
-## 5. Syntax Table
+## 5. Core Components
 | Feature | Syntax/Usage |
 |---|---|
 | Creation | `my_dict = {}` |
 | Access | `val = my_dict.get('key')` |
 
-## 6. Beginner Example
+## 6. Types of Operations
 ```python
 cache = {}
 cache['user_123'] = {'name': 'Alice'}
 user = cache.get('user_123')
 ```
 
-## 7. Real-World Engineering Example
+## 7. Implementation Examples
 ```python
 import hashlib
 import json
@@ -54,7 +54,7 @@ def generate_cache_key(request_params):
 cache[generate_cache_key({'id': 1})] = response
 ```
 
-## 8. Internal Working
+## 8. The LearningFlow Diagram
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
@@ -67,12 +67,12 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 9. Performance Table
+## 9. Time and Space Complexity
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
 | Access/Search | O(1) average | O(n) |
 
-## 10. Top Interview Questions
+## 10. Senior Engineering Interview Questions
 | Question | Answer |
 |---|---|
 | What happens when a hash map gets full? | The load factor exceeds a threshold, triggering a 'rehash'. A larger array is allocated, and all existing keys are re-hashed and moved to the new array. |
@@ -81,18 +81,18 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(n) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 11. Tricky Questions & Edge Cases
+## 11. Production Best Practices
 If the hash function is poor or malicious users intentionally send keys that cause collisions (Hash DOS), a hash map can degrade to O(N) performance.
 
-## 12. Real-World Usage
+## 12. Real-World Applications
 Database indexing (Hash Indexes), caching layers (Redis, Memcached), and symbol tables in compilers.
 
-## 13. Best Practices
+## 13. Comparison with Alternatives
 | DO | DON'T |
 |---|---|
 | Always provide a default value when accessing keys using `.get(key, default)`. | Use mutable objects as dictionary keys; their hash value will change, leading to silent data loss. |
 
-## 14. Production Notes
+## 14. Recommended Tools or Libraries
 > **Warning**: Hash collisions can be exploited maliciously (Hash DoS). Ensure your runtime uses randomized hash seeds to prevent predictable collisions.
 
 ## 15. Common Mistakes

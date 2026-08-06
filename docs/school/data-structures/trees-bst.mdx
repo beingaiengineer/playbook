@@ -14,10 +14,10 @@ sidebar_label: "Trees & Binary Search Trees"
 | Common Mistake | Failing to account for the worst-case unbalanced O(N) search time when designing systems based on simple BSTs. |
 | Performance | O(log N) average time |
 
-## 2. Engineering Story
+## 2. The Engineering Story
 A healthcare client needed to render a complex hierarchy of hospital departments, teams, and doctors, while quickly validating access permissions. Using a flat list meant O(N) scans for every permission check. We modeled the organization as a Tree. When a doctor requested access, we traversed up the tree in O(log N) time to see if their parent department had clearance. Fast and elegant, bro.
 
-## 3. Real-World Analogy
+## 3. The Real-World Analogy
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of Trees & Binary Search Trees in a real-world scenario. */}
 
 | Real World | Technical Concept |
@@ -25,16 +25,16 @@ A healthcare client needed to render a complex hierarchy of hospital departments
 | Organizing items | Trees & Binary Search Trees |
 | Finding items | Search operations |
 
-## 4. Concept Explanation
+## 4. How It Works
 A tree is a hierarchical data structure with a root and child nodes. A Binary Search Tree (BST) is a specific type where the left child is smaller than the parent, and the right child is larger. This enables fast O(log N) lookups, insertions, and deletions, provided the tree remains balanced.
 
-## 5. Syntax Table
+## 5. Core Components
 | Feature | Syntax/Usage |
 |---|---|
 | Creation | `root = Node(10)` |
 | Access | `traverse(root)` |
 
-## 6. Beginner Example
+## 6. Types of Operations
 ```python
 class TreeNode:
     def __init__(self, val):
@@ -46,7 +46,7 @@ root = TreeNode(10)
 root.left = TreeNode(5)
 ```
 
-## 7. Real-World Engineering Example
+## 7. Implementation Examples
 ```python
 def search_bst(root, target):
     if not root or root.val == target:
@@ -56,7 +56,7 @@ def search_bst(root, target):
     return search_bst(root.right, target)
 ```
 
-## 8. Internal Working
+## 8. The LearningFlow Diagram
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
@@ -69,12 +69,12 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 9. Performance Table
+## 9. Time and Space Complexity
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
 | Access/Search | O(log N) average | O(N) |
 
-## 10. Top Interview Questions
+## 10. Senior Engineering Interview Questions
 | Question | Answer |
 |---|---|
 | What is the worst-case time complexity of a BST? | O(N) if the tree becomes completely unbalanced (e.g., inserting sorted data), effectively turning into a linked list. |
@@ -83,18 +83,18 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 11. Tricky Questions & Edge Cases
+## 11. Production Best Practices
 Deleting a node in a BST that has two children requires finding the in-order successor (or predecessor), swapping values, and then deleting the successor node.
 
-## 12. Real-World Usage
+## 12. Real-World Applications
 DOM representation in browsers, file systems, and routing tables.
 
-## 13. Best Practices
+## 13. Comparison with Alternatives
 | DO | DON'T |
 |---|---|
 | Use self-balancing trees (AVL, Red-Black) in production to avoid O(N) worst-case scenarios. | Use recursion for traversing extremely deep trees in languages without tail-call optimization, as it will cause a stack overflow. |
 
-## 14. Production Notes
+## 14. Recommended Tools or Libraries
 > **Warning**: Always validate that your tree balancing logic covers all rotation cases, as an unbalanced tree destroys performance guarantees.
 
 ## 15. Common Mistakes

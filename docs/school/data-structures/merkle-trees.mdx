@@ -15,11 +15,11 @@ sidebar_label: "Merkle Trees"
 | Common Mistake | Recalculating the entire tree hash when only a small piece of data changes |
 | Performance | O(log n) time complexity for verification, O(n) space complexity (where n is the number of data blocks) |
 
-## 2. Engineering Story
+## 2. The Engineering Story
 
 Bro, imagine being deployed to a client running an air-gapped network for a government defense contractor. They need to sync massive, terabyte-sized database backups across different secure sites. The network is unreliable, and packets frequently get corrupted. If even a single byte flips during the transfer, the entire terabyte file becomes useless. They are currently downloading the whole file, hashing it, and realizing it's broken, then starting over. It takes days. You need a way to detect *exactly* which small chunk of data is corrupted so you only re-download that specific chunk, not the whole file. This is where you introduce the Merkle Tree: a hierarchical hashing structure that allows for rapid, precise data integrity verification.
 
-## 3. Real-World Analogy
+## 3. The Real-World Analogy
 
 Imagine managing a large, complex spice shipment from India to Europe. The shipment consists of 100 small boxes.
 
@@ -31,7 +31,7 @@ Imagine managing a large, complex spice shipment from India to Europe. The shipm
 | Root Hash | Placing the 10 medium crates into one large shipping container, and putting a master seal on the container based on the crate seals inside. |
 | Verification | When the container arrives, if the master seal is broken, you don't throw away the whole container. You check the medium crates. If a crate seal is broken, you check the small boxes inside it to find the specific spoiled box. |
 
-## 4. Concept Explanation
+## 4. How It Works
 
 A Merkle Tree (or Hash Tree) is a tree data structure in which every leaf node is labelled with the cryptographic hash of a data block, and every non-leaf node is labelled with the cryptographic hash of the labels of its child nodes.
 
@@ -39,7 +39,7 @@ It allows for efficient and secure verification of the contents of large data st
 
 You use Merkle Trees in distributed systems where data integrity and synchronization efficiency are critical (e.g., blockchains, Git, IPFS, distributed databases like Cassandra). You do NOT use Merkle Trees for small datasets where a simple single file hash is sufficient and the overhead of maintaining the tree structure is unnecessary.
 
-## 5. Syntax Table
+## 5. Core Components
 
 | Operation | Description | Complexity |
 |---|---|---|
@@ -47,7 +47,7 @@ You use Merkle Trees in distributed systems where data integrity and synchroniza
 | `verify(block, proof, root)`| Verifies a block belongs to the tree using a partial proof path. | O(log n) |
 | `update(block, index)` | Updates a single block and recalculates hashes up to the root. | O(log n) |
 
-## 6. Beginner Example
+## 6. Types of Operations
 
 ```python
 import hashlib
@@ -77,7 +77,7 @@ root_hash = build_merkle_tree(leaf_hashes)
 print(f"Root Hash: {root_hash}")
 ```
 
-## 7. Real-World Engineering Example
+## 7. Implementation Examples
 
 ```python
 import hashlib
@@ -125,7 +125,7 @@ def detect_corruption(tree1, tree2, current_node1, current_node2):
     return corruptions
 ```
 
-## 8. Internal Working
+## 8. The LearningFlow Diagram
 
 import LearningFlow from "@site/src/components/LearningFlow";
 
@@ -157,7 +157,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
   ]}
 />
 
-## 9. Performance Table
+## 9. Time and Space Complexity
 
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
@@ -165,7 +165,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | Verify Inclusion | O(log n) | O(log n) (size of the proof) |
 | Update Block | O(log n) (recalculate path to root) | O(1) (modify in place) |
 
-## 10. Top Interview Questions
+## 10. Senior Engineering Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -175,22 +175,22 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | How does Git use Merkle Trees? | Git uses a Directed Acyclic Graph (DAG) of objects, heavily inspired by Merkle Trees, where commits point to trees (directories), which point to blobs (files), all identified by SHA-1 hashes. |
 | Why use cryptographic hashes (like SHA-256) instead of fast hashes (like MurmurHash) for Merkle Trees? | Because Merkle Trees are primarily used for *security and cryptographic integrity*, ensuring malicious actors cannot easily engineer hash collisions to fake data verification. |
 
-## 11. Tricky Questions & Edge Cases
+## 11. Production Best Practices
 
 Bro, a major gotcha is the "second preimage attack". If your Merkle Tree implementation doesn't distinguish between leaf nodes and internal nodes (e.g., by prepending a `0x00` byte for leaves and `0x01` for internal nodes before hashing), an attacker could submit an internal node hash as a leaf node, tricking the verifier. Always salt or explicitly type your nodes before hashing in production implementations.
 
-## 12. Real-World Usage
+## 12. Real-World Applications
 
 Merkle Trees are the backbone of modern distributed systems. Apache Cassandra uses them for "anti-entropy" repairs: nodes exchange Merkle Trees to quickly figure out exactly which rows are out of sync without sending the actual data. IPFS uses them to verify distributed files. Bitcoin uses them to efficiently summarize all transactions in a block, allowing "Light Clients" to verify a payment without downloading the entire 500GB blockchain using a Merkle Proof.
 
-## 13. Best Practices
+## 13. Comparison with Alternatives
 
 | DO | DON'T |
 |---|---|
 | DO use strong cryptographic hashes (SHA-256, blake3) to prevent collision attacks. | DON'T use non-cryptographic hashes if the data verification involves untrusted parties. |
 | DO prepend domain separation bytes to distinguish leaf nodes from internal nodes. | DON'T hash internal nodes and leaf nodes identically, preventing length extension and preimage attacks. |
 
-## 14. Production Notes
+## 14. Recommended Tools or Libraries
 
 :::caution Production Warning
 Bro, in massive databases (like DynamoDB or Cassandra), recalculating a massive Merkle Tree for every single write is too expensive. Systems typically batch updates or use rolling Merkle Trees, maintaining the tree asynchronously to avoid blocking the hot path of the database write operations.
