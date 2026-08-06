@@ -15,11 +15,11 @@ sidebar_label: "Knowledge Graphs"
 | Common Mistake | Using them for simple transactional data where a relational DB is faster |
 | Performance | O(1) for traversing a known edge, highly variable for complex graph queries |
 
-## 2. Engineering Story
+## 2. The Engineering Story
 
 Bro, you're deployed to a massive healthcare client. They have patient records in an SQL database, doctor schedules in an API, research papers in PDFs, and treatment guidelines in a wiki. They want to build an AI agent that can answer: "Which doctors available tomorrow specialize in treating conditions similar to Patient X's rare disease, and what recent research supports that treatment?" You can't write an SQL JOIN across PDFs and APIs. You need a data structure that connects *meaning*. You introduce a Knowledge Graph, converting all this siloed data into interconnected entities (nodes) and relationships (edges), allowing the AI to traverse the context and "reason" about the answer.
 
-## 3. Real-World Analogy
+## 3. The Real-World Analogy
 
 Imagine trying to understand the plot of a complex TV show like Game of Thrones using only a spreadsheet.
 
@@ -31,7 +31,7 @@ Imagine trying to understand the plot of a complex TV show like Game of Thrones 
 | Graph Traversal (Querying) | Tracing the connections: "Find everyone who 'is loyal to' someone who 'hates' House Lannister." |
 | Relational DB Limitation | A spreadsheet can list characters, but tracking a web of ever-changing alliances requires chaotic, slow JOIN tables. |
 
-## 4. Concept Explanation
+## 4. How It Works
 
 A Knowledge Graph is a specialized graph data structure that models information as a network of entities (nodes) and their semantic relationships (edges). Unlike a relational database that structures data into rigid tables, a knowledge graph is schema-flexible and designed specifically to traverse deep connections rapidly. It stores data conceptually, forming an ontology.
 
@@ -39,7 +39,7 @@ In the AI era, Knowledge Graphs are critical for Retrieval-Augmented Generation 
 
 You use Knowledge Graphs when your data is highly interconnected, the relationships are as important as the data itself, and you need to perform complex traversal queries (e.g., recommendation engines, fraud detection rings, semantic search). You do NOT use them for high-throughput, simple transactional data (like processing thousands of identical e-commerce orders per second).
 
-## 5. Syntax Table
+## 5. Core Components
 
 *Note: Knowledge Graphs are typically queried using specialized languages like Cypher (Neo4j) or SPARQL (RDF).*
 
@@ -49,7 +49,7 @@ You use Knowledge Graphs when your data is highly interconnected, the relationsh
 | `MATCH (a)-[r:KNOWS]->(b)` | Find a relationship where 'a' knows 'b'. |
 | `CREATE (n:Person {name: 'Bae'})`| Create a new node with properties. |
 
-## 6. Beginner Example
+## 6. Types of Operations
 
 ```python
 # Conceptual example using NetworkX (a Python graph library)
@@ -76,7 +76,7 @@ for neighbor in kg.successors("Jon"):
 # Jon LOYAL_TO House Stark
 ```
 
-## 7. Real-World Engineering Example
+## 7. Implementation Examples
 
 ```python
 # FDE Scenario: Building a simple RAG context builder
@@ -118,7 +118,7 @@ kg.add_relation("ServiceA", "READS_FROM", "DB1")
 print(kg.get_context_for_llm("ServiceA"))
 ```
 
-## 8. Internal Working
+## 8. The LearningFlow Diagram
 
 import LearningFlow from "@site/src/components/LearningFlow";
 
@@ -148,7 +148,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
   ]}
 />
 
-## 9. Performance Table
+## 9. Time and Space Complexity
 
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
@@ -156,7 +156,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | Deep Traversal (Pathfinding) | O(V + E) (Depends on graph size/depth) | O(V) |
 | Adding Node/Edge | O(1) | O(1) |
 
-## 10. Top Interview Questions
+## 10. Senior Engineering Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -166,22 +166,22 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | What is an Ontology? | An ontology is the formal schema or "vocabulary" of the knowledge graph. It defines what types of entities exist (e.g., "Person", "Company") and how they are allowed to relate to each other (e.g., a "Person" can "WORK_FOR" a "Company"). |
 | How do you handle changing schemas in a Knowledge Graph? | Knowledge Graphs are typically schema-flexible. You can add new node properties or new relationship types on the fly without running heavy database migrations like `ALTER TABLE` in SQL. |
 
-## 11. Tricky Questions & Edge Cases
+## 11. Production Best Practices
 
 Bro, a major gotcha is the "supernode" problem. Imagine a knowledge graph of Twitter. The node for "Elon Musk" has hundreds of millions of incoming "FOLLOWS" edges. If you write a query that traverses through that supernode, your graph engine will try to load millions of relationships into memory, causing a massive performance bottleneck or an OOM crash. You must design queries and data models to avoid blindly traversing supernodes.
 
-## 12. Real-World Usage
+## 12. Real-World Applications
 
 Google uses the Google Knowledge Graph to enhance its search engine results with semantic-search information (the info box you see on the right side of search results). Palantir uses knowledge graphs extensively in their Foundry platform to help military and corporate clients map complex organizational data, logistics, and intelligence. Fraud detection teams at banks use graphs to detect circular money transfers (A sends to B, B to C, C back to A), a pattern that is nearly impossible to detect quickly with standard SQL.
 
-## 13. Best Practices
+## 13. Comparison with Alternatives
 
 | DO | DON'T |
 |---|---|
 | DO use properties on edges to store relationship context (e.g., `(Jon)-[MARRIED {{year: 2020}}]->(Jane)`). | DON'T create a new relationship type for every data point (e.g., `MARRIED_IN_2020`). |
 | DO use graphs for highly connected data where traversing depth > 2 is common. | DON'T use a graph database if your queries are mostly aggregate reporting (e.g., `SELECT SUM(sales)`). |
 
-## 14. Production Notes
+## 14. Recommended Tools or Libraries
 
 :::caution Production Warning
 Bro, extracting entities from unstructured text to build a knowledge graph using LLMs is slow and expensive. You cannot do this synchronously on the hot path of a user request. Entity extraction and relationship mapping must be done in asynchronous background pipelines (e.g., Kafka consumers or Airflow DAGs) to keep the graph updated without blocking the client.

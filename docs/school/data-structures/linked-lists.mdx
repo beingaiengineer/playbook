@@ -14,10 +14,10 @@ sidebar_label: "Linked Lists"
 | Common Mistake | Forgetting to update the `next` or `prev` pointers correctly when inserting or deleting nodes. |
 | Performance | O(n) time |
 
-## 2. Engineering Story
+## 2. The Engineering Story
 We were building a collaborative document editor for a law firm. They needed an infinite undo/redo history that wouldn't freeze the UI. Storing states in a giant array meant every new state required shifting data around when we hit our memory cap and needed to evict old states. Switching to a doubly linked list allowed us to instantly drop the oldest state and append a new one in O(1) time without touching the rest of the history, bro.
 
-## 3. Real-World Analogy
+## 3. The Real-World Analogy
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of Linked Lists in a real-world scenario. */}
 
 | Real World | Technical Concept |
@@ -25,16 +25,16 @@ We were building a collaborative document editor for a law firm. They needed an 
 | Organizing items | Linked Lists |
 | Finding items | Search operations |
 
-## 4. Concept Explanation
+## 4. How It Works
 A linked list is a sequence of nodes where each node points to the next (and possibly previous) node. Unlike arrays, elements are not stored contiguously in memory. This means insertion and deletion at known positions is incredibly fast, but finding a position requires O(n) traversal.
 
-## 5. Syntax Table
+## 5. Core Components
 | Feature | Syntax/Usage |
 |---|---|
 | Creation | `head = Node(1)` |
 | Access | `node = head.next` |
 
-## 6. Beginner Example
+## 6. Types of Operations
 ```python
 class Node:
     def __init__(self, data):
@@ -45,7 +45,7 @@ head = Node(1)
 head.next = Node(2)
 ```
 
-## 7. Real-World Engineering Example
+## 7. Implementation Examples
 ```python
 class LRUCache:
     def __init__(self, capacity: int):
@@ -55,7 +55,7 @@ class LRUCache:
     # ... (Implementation requires linking nodes)
 ```
 
-## 8. Internal Working
+## 8. The LearningFlow Diagram
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
@@ -68,12 +68,12 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 9. Performance Table
+## 9. Time and Space Complexity
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
 | Access/Search | O(n) | O(n) |
 
-## 10. Top Interview Questions
+## 10. Senior Engineering Interview Questions
 | Question | Answer |
 |---|---|
 | When would you choose a linked list over an array? | When you have a highly volatile dataset with frequent insertions and deletions at both ends, and random access is not required. |
@@ -82,18 +82,18 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(n) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 11. Tricky Questions & Edge Cases
+## 11. Production Best Practices
 Detecting a cycle in a linked list can be tricky without using extra memory. The standard approach is Floyd's Cycle-Finding Algorithm (Tortoise and Hare), which uses two pointers moving at different speeds.
 
-## 12. Real-World Usage
+## 12. Real-World Applications
 Operating system process scheduling queues, implementing LRU caches, and managing free memory blocks in memory allocators.
 
-## 13. Best Practices
+## 13. Comparison with Alternatives
 | DO | DON'T |
 |---|---|
 | Use doubly linked lists when you need to traverse backwards or remove a specific node in O(1) given its reference. | Use linked lists for data that requires frequent binary searching or random index access. |
 
-## 14. Production Notes
+## 14. Recommended Tools or Libraries
 > **Warning**: Linked lists have poor cache locality. Iterating over a linked list can be significantly slower than an array in practice due to CPU cache misses.
 
 ## 15. Common Mistakes
