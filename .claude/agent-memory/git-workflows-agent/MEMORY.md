@@ -138,3 +138,15 @@ _Empty_
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.
+
+### Next Task
+- [ ] [BAE-FDE-129] | Retrofit FDE + Section 18: `branching-strategies.mdx`
+- [ ] [BAE-FDE-130] | Retrofit FDE + Section 18: `code-review-culture.mdx`
+- [ ] [BAE-FDE-131] | Retrofit FDE + Section 18: `conventional-commits.mdx`
+- [ ] [BAE-FDE-132] | Retrofit FDE + Section 18: `git-advanced-operations.mdx`
+- [ ] [BAE-FDE-133] | Retrofit FDE + Section 18: `git-fundamentals.mdx`
+- [ ] [BAE-FDE-134] | Retrofit FDE + Section 18: `git-hooks-and-automation.mdx`
+- [ ] [BAE-FDE-135] | Retrofit FDE + Section 18: `git-rebase-vs-merge.mdx`
+- [ ] [BAE-FDE-136] | Retrofit FDE + Section 18: `merge-conflicts.mdx`
+- [ ] [BAE-FDE-137] | Retrofit FDE + Section 18: `monorepo-vs-polyrepo.mdx`
+- [ ] [BAE-FDE-138] | Retrofit FDE + Section 18: `pull-requests.mdx`

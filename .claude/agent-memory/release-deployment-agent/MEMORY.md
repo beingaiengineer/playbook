@@ -136,3 +136,15 @@ No reusable insights recorded yet.
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.
+
+### Next Task
+- [ ] [BAE-FDE-310] | Retrofit FDE + Section 18: `blue-green-deployment.mdx`
+- [ ] [BAE-FDE-311] | Retrofit FDE + Section 18: `canary-deployment.mdx`
+- [ ] [BAE-FDE-312] | Retrofit FDE + Section 18: `deployment-fundamentals.mdx`
+- [ ] [BAE-FDE-313] | Retrofit FDE + Section 18: `deployment-strategies.mdx`
+- [ ] [BAE-FDE-314] | Retrofit FDE + Section 18: `environments-dev-staging-prod.mdx`
+- [ ] [BAE-FDE-315] | Retrofit FDE + Section 18: `feature-flags.mdx`
+- [ ] [BAE-FDE-316] | Retrofit FDE + Section 18: `infrastructure-as-code.mdx`
+- [ ] [BAE-FDE-317] | Retrofit FDE + Section 18: `release-management.mdx`
+- [ ] [BAE-FDE-318] | Retrofit FDE + Section 18: `rollback-strategies.mdx`
+- [ ] [BAE-FDE-319] | Retrofit FDE + Section 18: `terraform-basics.mdx`

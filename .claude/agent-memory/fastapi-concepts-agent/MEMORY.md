@@ -144,3 +144,15 @@ No reusable insights recorded yet.
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.
+
+### Next Task
+- [ ] [BAE-FDE-117] | Retrofit FDE + Section 18: `authentication-jwt.mdx`
+- [ ] [BAE-FDE-118] | Retrofit FDE + Section 18: `background-tasks.mdx`
+- [ ] [BAE-FDE-119] | Retrofit FDE + Section 18: `crud-operations.mdx`
+- [ ] [BAE-FDE-120] | Retrofit FDE + Section 18: `error-handling-in-apis.mdx`
+- [ ] [BAE-FDE-121] | Retrofit FDE + Section 18: `fastapi-fundamentals.mdx`
+- [ ] [BAE-FDE-122] | Retrofit FDE + Section 18: `middleware-and-cors.mdx`
+- [ ] [BAE-FDE-123] | Retrofit FDE + Section 18: `pydantic-validation.mdx`
+- [ ] [BAE-FDE-124] | Retrofit FDE + Section 18: `rate-limiting.mdx`
+- [ ] [BAE-FDE-125] | Retrofit FDE + Section 18: `request-response-models.mdx`
+- [ ] [BAE-FDE-126] | Retrofit FDE + Section 18: `rest-api-design.mdx`

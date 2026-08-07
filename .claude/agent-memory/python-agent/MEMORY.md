@@ -392,6 +392,18 @@ No reusable insights recorded yet.
 - [x] [BAE-REVIEW-121] | Audit `system-design/production-patterns.mdx`
 - [x] [BAE-REVIEW-122] | Audit `ai-engineering/python-for-ai.mdx`
 
+- [ ] [BAE-FDE-167] | Retrofit FDE + Section 18: `advanced-python/context-managers.mdx`
+- [ ] [BAE-FDE-168] | Retrofit FDE + Section 18: `advanced-python/descriptors.mdx`
+- [ ] [BAE-FDE-169] | Retrofit FDE + Section 18: `advanced-python/dynamic-typing.mdx`
+- [ ] [BAE-FDE-170] | Retrofit FDE + Section 18: `advanced-python/garbage-collection.mdx`
+- [ ] [BAE-FDE-171] | Retrofit FDE + Section 18: `advanced-python/memory-management.mdx`
+- [ ] [BAE-FDE-172] | Retrofit FDE + Section 18: `advanced-python/metaclasses.mdx`
+- [ ] [BAE-FDE-173] | Retrofit FDE + Section 18: `advanced-python/monkey-patching.mdx`
+- [ ] [BAE-FDE-174] | Retrofit FDE + Section 18: `advanced-python/mutability.mdx`
+- [ ] [BAE-FDE-175] | Retrofit FDE + Section 18: `advanced-python/python-internals.mdx`
+- [ ] [BAE-FDE-176] | Retrofit FDE + Section 18: `advanced-python/shallow-vs-deep-copy.mdx`
+
+
 ## Backlog
 - [x] [BAE-REVIEW-021] | Audit `functions/recursion.mdx`
 - [x] [BAE-REVIEW-022] | Audit `functions/decorators.mdx`

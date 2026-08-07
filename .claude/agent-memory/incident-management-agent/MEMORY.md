@@ -135,3 +135,14 @@ _Empty_
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.
+
+### Next Task
+- [ ] [BAE-FDE-139] | Retrofit FDE + Section 18: `blameless-postmortems.mdx`
+- [ ] [BAE-FDE-140] | Retrofit FDE + Section 18: `incident-commander-role.mdx`
+- [ ] [BAE-FDE-141] | Retrofit FDE + Section 18: `incident-communication.mdx`
+- [ ] [BAE-FDE-142] | Retrofit FDE + Section 18: `incident-response-process.mdx`
+- [ ] [BAE-FDE-143] | Retrofit FDE + Section 18: `incident-tools.mdx`
+- [ ] [BAE-FDE-144] | Retrofit FDE + Section 18: `on-call-culture.mdx`
+- [ ] [BAE-FDE-145] | Retrofit FDE + Section 18: `runbooks.mdx`
+- [ ] [BAE-FDE-146] | Retrofit FDE + Section 18: `severity-levels.mdx`
+- [ ] [BAE-FDE-147] | Retrofit FDE + Section 18: `what-is-an-incident.mdx`

@@ -137,3 +137,14 @@ _Empty_
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.
+
+### Next Task
+- [ ] [BAE-FDE-359] | Retrofit FDE + Section 18: `communication-in-engineering.mdx`
+- [ ] [BAE-FDE-360] | Retrofit FDE + Section 18: `cross-team-collaboration.mdx`
+- [ ] [BAE-FDE-361] | Retrofit FDE + Section 18: `engineering-ladder.mdx`
+- [ ] [BAE-FDE-362] | Retrofit FDE + Section 18: `engineering-manager-role.mdx`
+- [ ] [BAE-FDE-363] | Retrofit FDE + Section 18: `engineering-org-structure.mdx`
+- [ ] [BAE-FDE-364] | Retrofit FDE + Section 18: `product-manager-role.mdx`
+- [ ] [BAE-FDE-365] | Retrofit FDE + Section 18: `remote-work-engineering.mdx`
+- [ ] [BAE-FDE-366] | Retrofit FDE + Section 18: `tech-lead-vs-staff-engineer.mdx`
+- [ ] [BAE-FDE-367] | Retrofit FDE + Section 18: `your-first-day.mdx`

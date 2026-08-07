@@ -357,6 +357,18 @@ No reusable insights recorded yet.
 
 ---
 
+- [ ] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
+- [ ] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
+- [ ] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
+- [ ] [BAE-FDE-007] | Retrofit FDE + Section 18: `architecture-patterns/routing-pattern.mdx`
+- [ ] [BAE-FDE-008] | Retrofit FDE + Section 18: `architecture-patterns/tool-use-pattern.mdx`
+- [ ] [BAE-FDE-009] | Retrofit FDE + Section 18: `autogen/autogen-code-execution.mdx`
+- [ ] [BAE-FDE-010] | Retrofit FDE + Section 18: `autogen/autogen-conversable-agents.mdx`
+- [ ] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
+- [ ] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
+- [ ] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
+
+
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |

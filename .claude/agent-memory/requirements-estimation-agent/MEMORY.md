@@ -137,3 +137,15 @@ No reusable insights recorded yet.
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.
+
+### Next Task
+- [ ] [BAE-FDE-320] | Retrofit FDE + Section 18: `acceptance-criteria.mdx`
+- [ ] [BAE-FDE-321] | Retrofit FDE + Section 18: `architecture-decision-records.mdx`
+- [ ] [BAE-FDE-322] | Retrofit FDE + Section 18: `estimation-techniques.mdx`
+- [ ] [BAE-FDE-323] | Retrofit FDE + Section 18: `planning-poker.mdx`
+- [ ] [BAE-FDE-324] | Retrofit FDE + Section 18: `product-requirement-documents.mdx`
+- [ ] [BAE-FDE-325] | Retrofit FDE + Section 18: `requirement-gathering.mdx`
+- [ ] [BAE-FDE-326] | Retrofit FDE + Section 18: `technical-debt.mdx`
+- [ ] [BAE-FDE-327] | Retrofit FDE + Section 18: `velocity-and-burndown.mdx`
+- [ ] [BAE-FDE-328] | Retrofit FDE + Section 18: `writing-rfcs.mdx`
+- [ ] [BAE-FDE-329] | Retrofit FDE + Section 18: `writing-user-stories.mdx`
