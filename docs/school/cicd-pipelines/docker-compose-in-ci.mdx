@@ -33,6 +33,10 @@ Bro, think of setting up a cricket stadium for a match.
 
 You don't want to manually start a Postgres database, a Redis cache, and a backend API one by one in your pipeline. Docker Compose lets you define the entire "stadium" in one YAML file and bring it up with a single command.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 While a `Dockerfile` builds a single application image, **Docker Compose** is a tool for defining and running multi-container Docker applications. You use a `docker-compose.yml` file to configure your app's services.
@@ -215,7 +219,7 @@ When you build a microservices architecture, you can't test one service in isola
 - Dockerfile Fundamentals
 - Pipeline Optimization
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -224,3 +228,13 @@ When you build a microservices architecture, you can't test one service in isola
 | [cypress-io/cypress](https://github.com/cypress-io/cypress) | ⭐ 46k+ | Fast, easy and reliable E2E testing | Often run directly against environments spun up by Docker Compose in CI. |
 | [BretFisher/node-docker-good-defaults](https://github.com/BretFisher/node-docker-good-defaults) | ⭐ 2.5k+ | Node.js Docker best practices | Excellent reference for structuring your Dockerfiles and Compose files for Node apps. |
 | [awesome-compose](https://github.com/docker/awesome-compose) | ⭐ 30k+ | Awesome Docker Compose samples | A massive library of official templates for starting almost any tech stack with Compose. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Daemon Configuration | Ensure `docker-compose` commands in CI use the `--abort-on-container-exit` flag when running tests. | Prevents the CI job from hanging indefinitely if a background service container crashes. |
+| CI Wait Scripts | Always use a wait-for-it script or healthcheck for databases before executing integration tests. | Database containers take several seconds to boot. Tests will fail if they try to connect immediately. |
+| Network Clean-up | Ensure `docker-compose down -v` is executed in a pipeline `always()` step. | FDE CI runners often reuse environments; lingering volumes from previous runs cause state contamination. |

@@ -33,6 +33,10 @@ Bro, think of the immigration check at Delhi Airport (IGI).
 
 If your face doesn't match, or your visa is fake, the officer rejects you immediately. A Code Quality Gate acts exactly like this officer—emotionless and strict—ensuring no garbage code enters the production server.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 A **Quality Gate** is a milestone in your CI pipeline. It defines a set of boolean (pass/fail) conditions that the code must meet. If the code fails any condition, the pipeline stops, and the Pull Request is blocked from merging.
@@ -199,7 +203,7 @@ Financial tech companies (like Stripe, Razorpay, or banks) cannot afford securit
 - Pipeline Security
 - Pipeline Optimization
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -208,3 +212,13 @@ Financial tech companies (like Stripe, Razorpay, or banks) cannot afford securit
 | [astral-sh/ruff](https://github.com/astral-sh/ruff) | ⭐ 32k+ | Extremely fast Python linter | Replacing Flake8/Black because it runs in milliseconds, speeding up CI gates. |
 | [SonarSource/sonarcloud-github-action](https://github.com/SonarSource/sonarcloud-github-action) | ⭐ 1k+ | Official SonarCloud Action | The easiest way to integrate enterprise-grade quality gates into GitHub Actions. |
 | [typicode/husky](https://github.com/typicode/husky) | ⭐ 32k+ | Git hooks made easy | Prevents developers from pushing code that will fail the CI gate by checking it locally first. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| CI Checks Enforcement | Never bypass or instruct the user to use `--no-verify` or force push to skip CI quality gates. | Code quality gates exist to block technical debt. Bypassing them introduces untracked vulnerabilities. |
+| Linter Errors | Fix linter or formatter errors at the source code level instead of disabling rules globally. | Masking errors with `// eslint-disable` defeats the purpose of the quality gate. |
+| Typechecking | Ensure `npm run typecheck` or equivalent static analysis commands are included before the build step. | Catches silent typing errors before expensive container builds begin. |

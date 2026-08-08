@@ -33,6 +33,10 @@ Bro, think about packing a specialized Mumbai Dabbawala tiffin box (dabba).
 
 A Dockerfile is just a recipe. It tells the kitchen exactly how to pack the dabba. Because the dabba is a standard size, it doesn't matter if you eat it in Mumbai, Delhi, or New York; the food inside (the app) works exactly the same.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 A **Dockerfile** is a plain text file containing a list of instructions that the Docker daemon reads to automatically build a **Docker Image**.
@@ -209,7 +213,7 @@ Companies like Swiggy and Uber run tens of thousands of containers orchestrated 
 - Docker Compose in CI
 - Pipeline Security
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -218,3 +222,13 @@ Companies like Swiggy and Uber run tens of thousands of containers orchestrated 
 | [hadolint/hadolint](https://github.com/hadolint/hadolint) | ⭐ 9.5k+ | Dockerfile linter | Enforces best practices and catches common Dockerfile errors before you build. |
 | [GoogleContainerTools/distroless](https://github.com/GoogleContainerTools/distroless) | ⭐ 17k+ | Language-focused docker images | Extremely secure images that contain *only* your application and its runtime dependencies—no shell, no bash, no package managers. |
 | [wagoodman/dive](https://github.com/wagoodman/dive) | ⭐ 41k+ | Tool for exploring Docker image layers | Visually inspects your Docker images to see exactly which files are wasting space in each layer. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Base Images | Always use specific, minimal base images (e.g., `node:18-alpine` instead of `node:latest`). | Avoids massive image sizes, reduces the attack surface, and prevents breaking changes on re-builds. |
+| Layer Caching | Order Dockerfile instructions from least-frequently changed to most-frequently changed (e.g., install dependencies before copying source code). | Dramatically speeds up CI build times by maximizing Docker layer cache hits. |
+| Root User | Never run containers as the `root` user. Explicitly create and switch to a non-root `USER`. | Running as root violates FDE zero-trust security policies and Kubernetes pod security admission rules. |
