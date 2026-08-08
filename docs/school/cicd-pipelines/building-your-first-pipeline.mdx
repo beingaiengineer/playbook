@@ -33,6 +33,10 @@ Bro, building your first pipeline is like teaching a new assistant how to open y
 
 You write the instructions once, and the assistant (GitHub Actions) follows them flawlessly every single time. If the cash register is broken (tests fail), they call you immediately instead of opening the shop.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 Building a pipeline is simply translating developer commands into a structured YAML file.
@@ -219,7 +223,7 @@ When you join a company like Swiggy, the first thing you'll do on a new microser
 - Automated Testing in CI
 - Code Quality Gates
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -228,3 +232,13 @@ When you join a company like Swiggy, the first thing you'll do on a new microser
 | [actions/setup-go](https://github.com/actions/setup-go) | ⭐ 3.1k+ | Official Go setup action | The standard way to configure Golang environments in a pipeline. |
 | [nektos/act](https://github.com/nektos/act) | ⭐ 48k+ | Run GitHub Actions locally | Essential tool so you don't clutter your git history with "fix yaml again" commits. |
 | [reviewdog/reviewdog](https://github.com/reviewdog/reviewdog) | ⭐ 6k+ | Automated code review tool | Integrates directly into pipelines to post linting errors as inline comments on PRs. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Dependency Declaration | Always declare exact version pins for GitHub Actions (e.g., `actions/checkout@v4.1.0` instead of `actions/checkout@v4` or `@main`). | Unpinned actions allow upstream maintainers to push breaking changes directly into production pipelines. |
+| Step Naming | Provide descriptive `name:` labels for every step in the pipeline YAML. | Generic steps like `run: npm install` provide no debug context on the CI failure screen. |
+| Permission Scoping | Explicitly define `permissions:` at the job level. Default to `read-all` unless write access is absolutely required. | Prevents compromised runner environments from writing malicious code back to the repository. |

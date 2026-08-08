@@ -33,6 +33,10 @@ Bro, think of a large Indian wedding catering operation.
 
 You do not take raw vegetables to the wedding hall and cook there. That is slow, messy, and risky. You cook it in the kitchen, seal it in a container (artifact), and deliver it. Never compile code on production servers, bro.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 An **Artifact** is any file or collection of files produced during a CI/CD pipeline.
@@ -212,7 +216,7 @@ At enterprises, nothing goes to production without being securely stored in a re
 - Dockerfile Fundamentals
 - Docker Compose in CI
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -221,3 +225,13 @@ At enterprises, nothing goes to production without being securely stored in a re
 | [aws-actions/configure-aws-credentials](https://github.com/aws-actions/configure-aws-credentials) | ⭐ 4.1k+ | Auth with AWS in GitHub Actions | Required before you can upload artifacts directly to an AWS S3 bucket. |
 | [jfrog/setup-jfrog-cli](https://github.com/jfrog/setup-jfrog-cli) | ⭐ 200+ | Official JFrog CLI setup | Used by enterprises to push massive Java/C++ binaries to Artifactory. |
 | [docker/build-push-action](https://github.com/docker/build-push-action) | ⭐ 4.5k+ | Build and push Docker images | Docker images are the most common modern artifacts; this action pushes them to registries automatically. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Cache vs. Artifact | Never use GitHub Actions Artifacts (`actions/upload-artifact`) for NPM `node_modules` or Python `venv` environments. Use `actions/cache` instead. | Uploading `node_modules` as artifacts explodes storage costs and slows down pipelines drastically in FDE environments. |
+| Deterministic Naming | Always append the commit SHA or timestamp to release artifact zip files (e.g., `app-release-\$\{GITHUB_SHA\}.zip`). | Avoids overwriting previous artifacts named `latest.zip`, ensuring safe rollbacks. |
+| Path Handling | Always use relative paths when defining artifact upload and download paths in YAML. | Hardcoded absolute paths break across different CI runner OS types (Ubuntu vs Windows). |

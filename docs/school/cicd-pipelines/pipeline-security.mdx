@@ -33,6 +33,10 @@ Bro, think about a highly secure bank vault (Production).
 
 If the armored truck (your pipeline) is compromised, the hackers don't need to break into the bank vault. They just ride the truck straight in. Your CI/CD pipeline has keys to production; if it gets hacked, your whole company gets hacked.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 **Pipeline Security** (often called DevSecOps) focuses on securing the automation servers that build and deploy your code.
@@ -223,7 +227,7 @@ At strict tech companies, developers have zero direct access to production serve
 - Dockerfile Fundamentals
 - Artifact Management
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -232,3 +236,13 @@ At strict tech companies, developers have zero direct access to production serve
 | [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) | ⭐ 14k+ | Find leaked credentials | Deeply scans git history and pipeline outputs to ensure no secrets have been accidentally committed. |
 | [github/codeql-action](https://github.com/github/codeql-action) | ⭐ 3.5k+ | Run GitHub CodeQL SAST | The easiest way to integrate deep semantic code security scanning into your PRs. |
 | [snyk/cli](https://github.com/snyk/cli) | ⭐ 6k+ | Snyk vulnerability scanner CLI | Industry standard for Software Composition Analysis (finding vulnerabilities in open-source dependencies). |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Secret Scanning | Integrate tools like TruffleHog or Gitleaks in the pipeline to prevent secret leakage. | Prevents developers from accidentally pushing temporary API keys to production repositories. |
+| Principle of Least Privilege | Scope GitHub token (`GITHUB_TOKEN`) permissions down to `contents: read` at the top of the file. | A compromised dependency running in the CI step cannot write to the repository or approve PRs. |
+| OIDC Authentication | Prefer OpenID Connect (OIDC) over long-lived IAM user keys when connecting to AWS/GCP from CI. | OIDC eliminates the need to rotate static secrets and reduces the risk of key theft. |

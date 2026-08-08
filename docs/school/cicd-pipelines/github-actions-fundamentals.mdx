@@ -33,6 +33,10 @@ Bro, think of a Swiggy delivery kitchen.
 
 Just like a Swiggy kitchen doesn't start cooking until an order is placed, GitHub Actions doesn't spin up a runner until a specific event (like a push or pull request) happens.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 GitHub Actions is a CI/CD platform deeply integrated into GitHub. Instead of running a separate server like Jenkins, GitHub lets you define your automation directly in your repository using YAML files placed in the `.github/workflows/` directory.
@@ -207,7 +211,7 @@ Almost every modern open-source project (like React, Tailwind, Vite) uses GitHub
 - Pipeline Optimization
 - Docker Compose in CI
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -216,3 +220,13 @@ Almost every modern open-source project (like React, Tailwind, Vite) uses GitHub
 | [actions/upload-artifact](https://github.com/actions/upload-artifact) | ⭐ 3.2k+ | Upload pipeline artifacts | Required to pass compiled code or test coverage reports between jobs. |
 | [peter-evans/create-pull-request](https://github.com/peter-evans/create-pull-request) | ⭐ 4.5k+ | Auto-create PRs from pipelines | Amazing for bots that auto-update dependencies and open PRs. |
 | [github/super-linter](https://github.com/github/super-linter) | ⭐ 10k+ | Combination of multiple linters | A heavy but thorough way to lint codebases across multiple languages at once. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Trigger Scoping | Restrict pipeline triggers (`on: push`) to specific branches (`main`) and specific file paths (`src/**`). | Prevents wasting CI minutes by running full build pipelines on trivial README.md updates. |
+| Secrets Management | Never hardcode API keys or passwords in YAML. Always use `\$\{\{ secrets.SECRET_NAME \}\}`. | Hardcoded secrets are permanently recorded in git history and lead to critical FDE breaches. |
+| Action Versions | Pin external GitHub Actions to specific full versions or commit SHAs instead of `@v1` or `@master`. | Prevents supply chain attacks where a compromised action repository pushes a malicious `@v1` tag. |

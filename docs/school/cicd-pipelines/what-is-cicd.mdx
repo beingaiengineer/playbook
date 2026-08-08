@@ -32,6 +32,10 @@ Bro, think about an automated Amul milk packaging line.
 
 If you rely on humans to test the milk, pack it, and put it on the trucks manually, they will eventually make a mistake or drop a packet. CI/CD removes human error by fully automating the pipeline.
 
+
+
+> **FDE Scenario:** In Field Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
+
 ### 3. Concept Explanation
 
 CI/CD stands for Continuous Integration and Continuous Deployment (or Delivery).
@@ -224,7 +228,7 @@ Companies like **Netflix** deploy thousands of times a day using internal CD too
 - Code Quality Gates
 - Artifact Management
 
-### Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -233,3 +237,13 @@ Companies like **Netflix** deploy thousands of times a day using internal CD too
 | [nektos/act](https://github.com/nektos/act) | ⭐ 48k+ | Run your GitHub Actions locally | Lets you debug pipelines on your laptop instead of pushing 50 "fix yaml" commits. |
 | [drone/drone](https://github.com/drone/drone) | ⭐ 30k+ | Container-Native CI/CD | A modern, clean alternative to heavy CI systems. |
 | [tektoncd/pipeline](https://github.com/tektoncd/pipeline) | ⭐ 9k+ | Kubernetes-native CI/CD | Represents the future of pipelines running entirely within K8s clusters. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Terminology | Clearly distinguish between Continuous Integration (building/testing) and Continuous Deployment (pushing to prod). | Confusing the two leads to incorrect architectural decisions where automated tests are skipped before deployment. |
+| Stateless Design | Ensure scripts and code designed for CI pipelines do not depend on local workstation state. | CI runners are ephemeral. If a script requires manual human input or local files, it will crash the pipeline. |
+| Fail-fast Principle | Configure pipelines to fail immediately on the first error (`set -e` in bash). | Hiding errors behind `|| true` causes pipelines to appear green while deploying broken artifacts to production. |
