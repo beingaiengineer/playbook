@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, LLMs are great at writing code, but they often hallucinate subtle bugs (like a missing import or off-by-one error). Usually, you copy their code, run it, get a traceback, paste the traceback back into the LLM, and say "fix this."
 AutoGen says, "Why are you doing this manually?" With AutoGen's Code Execution, the LLM generates a Python script, a `UserProxyAgent` saves it to disk, runs it in a sandboxed Docker container, captures `stdout` and `stderr`, and literally replies to the LLM with the error trace so it can fix itself. It's an autonomous debugging loop.
 
+
+
+**FDE Scenario:** Executing LLM-generated code in a client's environment without sandboxing is catastrophic. FDEs use AutoGen's local execution with strict Docker-based isolation to ensure that malicious or buggy code never impacts production.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A robot sitting at a computer typing code, while a secondary secure glass box (Docker) runs the code and shows the output on a screen for the robot to read. */}
@@ -182,3 +186,15 @@ By default, the subprocess will hang forever and eat your server's CPU. You MUST
 |---|---|---|---|
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Contains the `autogen.coding` module. |
 | [jupyter/jupyter](https://github.com/jupyter/jupyter) | ⭐ 15k+ | Interactive computing | The backbone technology for the stateful JupyterCodeExecutor. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Sandbox Enforcement** | Never execute AutoGen code blocks outside of a dedicated Docker container. | Running untrusted code directly on the host is a critical FDE security violation. |
+| **Timeout Limits** | Enforce strict timeouts on all code execution blocks. | Prevents malicious or poorly-written generated code from hanging the server with infinite loops. |

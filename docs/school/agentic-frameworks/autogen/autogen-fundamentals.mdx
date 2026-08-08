@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, imagine you are a solo developer trying to build a complex data pipeline. You write code, you get an error, you Google the error, you fix it, and you run it again. This takes you 4 hours.
 What if you could clone yourself? You create one AI clone called "Coder" and another called "Reviewer". You tell them: "Build me a data pipeline." The Coder writes the script, the Reviewer points out a syntax error, the Coder fixes it, and the Reviewer executes it to verify. You just sit back and watch them chat. That is exactly what Microsoft AutoGen does.
 
+
+
+**FDE Scenario:** Deploying single-shot LLM scripts doesn't scale for complex enterprise workflows. FDEs use AutoGen to structure resilient, collaborative multi-agent systems that mirror real-world engineering team dynamics.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A boardroom table with different robots talking to each other while a human manager (UserProxyAgent) occasionally raises a hand to approve a decision. */}
@@ -176,3 +180,15 @@ If you let the `UserProxyAgent` execute code natively, your CPU spikes to 100% a
 |---|---|---|---|
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | The official Microsoft repository. | The undisputed source of truth for the framework. |
 | [microsoft/autogen-studio](https://github.com/microsoft/autogen/tree/main/samples/apps/autogen-studio) | ⭐ 5k+ | A no-code UI for AutoGen. | Allows you to drag and drop agents without writing Python. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Dependency Management** | Pin AutoGen versions explicitly in `requirements.txt`. | The AutoGen API evolves rapidly; unpinned versions will break FDE deployments unexpectedly. |
+| **State Persistence** | Do not rely on in-memory state for long-running workflows. | FDE microservices are stateless; agent conversations must be backed by a persistent database. |
