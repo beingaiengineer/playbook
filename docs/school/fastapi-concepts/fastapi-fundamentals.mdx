@@ -26,6 +26,9 @@ You initially wrap the model in Flask. It works, but it's sluggish. To handle th
 
 You need a framework that is native to Python (to run the ML model), asynchronous (to handle high concurrency without blocking), strictly typed (to validate inbound requests automatically), and self-documenting. You rewrite the service in FastAPI. CPU usage drops by 60%, the data scientists get automatic validation via Pydantic, and the Go engineers get a beautiful, auto-generated Swagger UI.
 
+
+**FDE Scenario:** You are deployed to a traditional enterprise where the QA team refuses to test APIs unless they have a comprehensive, 100-page Swagger document. Writing this manually takes weeks, and it goes out of date instantly. By introducing FastAPI, you leverage its automatic OpenAPI generation based on strict Pydantic types. You deliver a flawless, interactive Swagger UI on day one, satisfying the client's rigid compliance requirements while completely bypassing the manual documentation slog.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A hyper-efficient Mumbai Dabbawala sorting system where every lunchbox is strictly checked for correct tags (typing) and sorted asynchronously without anyone waiting in line. */}
@@ -234,3 +237,14 @@ The number one mistake in FastAPI production is using synchronous database drive
 | [encode/starlette](https://github.com/encode/starlette) | ⭐ 9k+ | The little ASGI framework that shines. | The underlying web toolkit that gives FastAPI its speed. |
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 18k+ | Data validation using Python type hints. | The core validation engine utilized by FastAPI. |
 | [encode/uvicorn](https://github.com/encode/uvicorn) | ⭐ 7k+ | A lightning-fast ASGI server. | The server used to actually run FastAPI applications. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Type Hinting | Always use strict Python type hints for all endpoint parameters and return types. | FastAPI relies on type hints for validation and OpenAPI generation; without them, the framework is useless. |
+| Async/Await | Use `async def` for endpoints that perform non-blocking I/O (like database calls). | Ensures the API can handle high concurrency under load in production environments. |
+| Blocking Code | Do not run heavy synchronous blocking code inside an `async def` endpoint. | Blocking the event loop will cause the entire API to freeze and timeout for all clients. |
+| Documentation | Provide docstrings and `summary` parameters for all endpoints. | FDE deployments require auto-generated OpenAPI docs to be highly readable for third-party integrators. |

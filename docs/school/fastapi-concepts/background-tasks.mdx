@@ -26,6 +26,9 @@ In testing, it works fine. In production, users click "Sign Up" and stare at a s
 
 The client doesn't need to wait for Salesforce to respond before they are allowed to see the "Welcome to the dashboard" screen. By moving the email and CRM logic into a Background Task, your API can save the user to the database and instantly return a `201 Created` response in 50 milliseconds. The server then quietly finishes the slow email tasks in the background while the user is already interacting with your app.
 
+
+**FDE Scenario:** You are integrated into a legacy client's infrastructure where the only way to log audit events is via a fragile, rate-limited SOAP API that often times out. If you make this call synchronously, your modern FastAPI service will freeze, angering the client's mobile users. By pushing these unreliable legacy network calls into FastAPI background tasks, your core API remains blazing fast and responsive, isolating the client's frontend from their own backend's instability.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A busy Indian restaurant where a customer pays the cashier. The cashier hands them a receipt instantly (HTTP Response) and tosses the order ticket to the kitchen (Background Task). The customer walks away happy without waiting for the food to actually be cooked at the counter. */}
@@ -221,3 +224,14 @@ Do not use FastAPI Background Tasks for infinite loops (e.g., a background worke
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI Framework. | The implementation of BackgroundTasks is built directly into Starlette/FastAPI. |
 | [celery/celery](https://github.com/celery/celery) | ⭐ 25k+ | Distributed Task Queue. | The industry standard for background tasks that are too big or critical for FastAPI to handle in-memory. |
 | [rq/rq](https://github.com/rq/rq) | ⭐ 9k+ | Simple job queues for Python. | A much simpler alternative to Celery if you just need a persistent Redis queue. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Isolation | Do not put heavy CPU-bound tasks (like image processing) in standard FastAPI background tasks. Use Celery or a message queue instead. | FastAPI background tasks run in the same event loop. Heavy CPU work will block the entire server. |
+| Error Handling | Always wrap background task logic in broad `try/except` blocks and log failures robustly. | Background tasks do not return HTTP responses. Unhandled exceptions will fail silently, causing lost client data. |
+| Idempotency | Ensure functions executed as background tasks are idempotent (safe to retry). | Network glitches in FDE environments may cause tasks to be triggered multiple times. |
+| Dependency Injection | Only pass simple data structures (like IDs or dicts) to background tasks, not live database connections. | Connections might close before the background task executes, causing transaction crashes. |

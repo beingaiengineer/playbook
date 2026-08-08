@@ -26,6 +26,9 @@ However, instead of the API catching this and telling the mobile app "401 Unauth
 
 You realize that a good API doesn't just return data; it manages expectations when things break. You implement global exception handlers. Now, when a database error occurs, the server catches it, logs the traceback internally for the engineers, and returns a clean, standardized JSON error (`\{\"code\": \"SESSION_EXPIRED\"\}`) with an HTTP 401 status. The mobile app reads it and gracefully routes the user to the login screen.
 
+
+**FDE Scenario:** You are integrating your API with a strict financial institution. Their security compliance mandates that no internal server details, database IPs, or framework tracebacks ever leak in API responses. A generic 500 error with a traceback violates their security policy and triggers an automatic compliance audit. You must implement a global exception handler that intercepts every failure, logs the traceback securely to an internal observability platform, and returns a sanitized, standardized JSON error to the client.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A receptionist at a high-end Indian hospital. When a doctor is unavailable, instead of screaming medical jargon at the patient, the receptionist calmly provides a standardized, polite explanation and a clear next step (reschedule). */}
@@ -239,3 +242,14 @@ If you are designing a brand new API and want to follow the ultimate standard, l
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI Framework. | The documentation on handling errors is world-class. |
 | [getsentry/sentry-python](https://github.com/getsentry/sentry-python) | ⭐ 2k+ | Sentry SDK for Python. | Sentry integrates with global exception handlers to automatically report 500s. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Information Leakage | Never return raw exception strings (`str(e)`) or stack traces in API HTTP responses. | Leaks sensitive internal infrastructure details to potentially hostile external clients. |
+| Global Handlers | Use FastAPI's `@app.exception_handler` to catch all unhandled exceptions globally. | Prevents silent failures and ensures all errors follow a strict, unified JSON format. |
+| Client Errors | Use HTTP 4XX for client errors, and HTTP 5XX for server errors. | FDE integration teams rely on standard status codes to build automatic retry logic. |
+| Logging | Always log the full exception and traceback internally before returning the sanitized 500 response. | Without logs, FDEs cannot debug silent production crashes in client environments. |
