@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, you built an awesome AutoGen script. Your `Coder` and `Reviewer` agents build a snake game in terminal. You decide to make a web app. You wrap `initiate_chat` in a FastAPI endpoint and deploy to AWS.
 A user clicks "Generate Game". The request starts. The agents debate for 2 minutes. Suddenly, the user gets a `504 Gateway Timeout`. The browser gave up waiting! Even worse, if your server restarts, the entire conversation history is wiped from memory because `ConversableAgent` stores everything in RAM. You realize AutoGen wasn't built for the web out-of-the-box.
 
+
+
+**FDE Scenario:** Prototyping AutoGen in a Jupyter notebook is easy, but FDEs must deploy it into highly available, stateless enterprise microservices. This requires overcoming state management, logging, and infrastructure challenges unique to production environments.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Moving a chaotic brainstorming session from a local whiteboard in a garage to a highly structured, recorded, and monitored corporate meeting room. */}
@@ -165,3 +169,15 @@ Because the default `ConversableAgent` keeps history in Python lists in memory, 
 |---|---|---|---|
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Framework source. |
 | [celery/celery](https://github.com/celery/celery) | ⭐ 25k+ | Distributed Task Queue | The gold standard for running async agent loops in python. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Stateless Design** | Design AutoGen APIs to accept the entire conversation history per request or load it from a DB. | FDE deployments on Kubernetes will kill and restart pods; local state will be lost. |
+| **Observability** | Implement comprehensive tracing for every agent interaction and tool call. | When an agent fails in production, FDEs need detailed logs to debug the chain of thought. |

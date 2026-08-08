@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, you want to build an agent that reviews pull requests. You start writing a massive `while` loop with `requests.post()` to OpenAI, managing message arrays, and handling role parsing manually. Your code is a spaghetti mess of `messages.append({"role": "user", "content": ...})`.
 Instead, you import AutoGen's `ConversableAgent`. This class abstracts the entire chat lifecycle. You just define the agent, call `.generate_reply()`, and the agent automatically handles the message formatting, API calls, tool execution, and token limits.
 
+
+
+**FDE Scenario:** When orchestrating multi-agent workflows for client tasks, FDEs rely on AutoGen's ConversableAgents to act as distinct personas (e.g., a dev and a reviewer) that rigorously vet each other's work before a final output is returned.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Two diplomats passing official, sealed letters back and forth at a negotiating table, representing agent messaging. */}
@@ -180,3 +184,15 @@ The script will freeze on both ends! One agent will wait for you to type somethi
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Where the ConversableAgent source code lives. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Persona Clarity** | Define extremely specific, non-overlapping system prompts for each ConversableAgent. | Prevents agents from hallucinating each other's responsibilities or duplicating work. |
+| **Termination Conditions** | Explicitly define when the conversation should end (e.g., returning 'TERMINATE'). | Without clear exit conditions, agents will chat endlessly, burning client budgets. |

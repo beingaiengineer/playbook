@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, you built an AI dev team. You have a `Coder`, a `Tester`, and a `Product_Manager`. You start them in a Group Chat. The PM says "Build a login page." The Coder writes the code. The Tester says "It fails." The Coder rewrites it. Suddenly, the PM jumps back in and says, "Actually, let's make it a sign-up page!" 
 Without strict rules, the agents talk over each other like a chaotic Zoom call. By mastering Group Chat patterns, you enforce turn-taking: The PM speaks once, the Coder speaks, the Tester speaks, and the PM only speaks again if the Tester passes the code.
 
+
+
+**FDE Scenario:** Managing communications among 5+ specialized agents for client projects quickly devolves into chaos. FDEs implement structured GroupChat topologies in AutoGen to maintain orderly, predictable workflows and prevent endless conversational loops.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A boardroom meeting where a strict human moderator is pointing a baton at specific robots, deciding exactly whose turn it is to speak. */}
@@ -178,3 +182,15 @@ Because the chat is broadcasted, the very next turn will send those 10,000 token
 |---|---|---|---|
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Contains all GroupChat logic. |
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | LangGraph | Shows how to do strict state machine routing instead of conversational routing. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Speaker Selection** | Use deterministic speaker selection (`speaker_selection_method='round_robin'`) for predictable workflows. | LLM-based speaker selection in large group chats is prone to hallucination and instability. |
+| **Message Constraints** | Enforce maximum message lengths and strict context window management. | Group chats quickly exhaust token limits, causing catastrophic failures in long client interactions. |

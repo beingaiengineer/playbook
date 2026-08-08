@@ -17,6 +17,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | **Common Mistake** | Missing a strict stopping condition, leading to infinite critique loops |
 | **Performance** | High token usage due to appending critiques and retries into the context window |
 
+
+
+**FDE Scenario:** When an agent fails to extract data from a client's undocumented system, simply retrying the same prompt fails repeatedly. FDEs use Reflexion to ensure the agent evaluates its own failures and modifies its strategy on the next attempt.
+
 ## 2. Real-World Analogy
 
 Bro, think about writing an important email to the CEO. You don't just type it out and instantly hit send.
@@ -218,3 +222,15 @@ The fix is **Grounding the Evaluator**. You must provide the Evaluator with a st
 | [magentic-one](https://github.com/microsoft/autogen/tree/main/python/packages/magentic-one) | ⭐ 35k+ | Microsoft AutoGen's multi-agent system. | Uses reflection between a coder and a reviewer agent to produce high-quality software. |
 | [princeton-nlp/SWE-agent](https://github.com/princeton-nlp/SWE-agent) | ⭐ 12k+ | Agent that fixes GitHub issues. | Relies heavily on environment reflection (running bash commands and parsing output) to fix bugs. |
 | [gpt-engineer-org/gpt-engineer](https://github.com/gpt-engineer-org/gpt-engineer) | ⭐ 50k+ | Specify what you want it to build, the AI asks for clarification, and then builds it. | Implements a form of reflection by asking the user clarifying questions before and during generation. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Failure Logging** | Capture the exact error message and context when an action fails. | Without precise error details, the reflexion phase cannot generate meaningful corrective advice. |
+| **Iteration Limits** | Implement a hard cap on reflexion loops. | Prevents infinite loops and massive token costs in FDE environments when an issue is truly unresolvable. |

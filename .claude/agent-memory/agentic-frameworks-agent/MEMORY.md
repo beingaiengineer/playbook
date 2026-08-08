@@ -46,16 +46,16 @@ Ready for next planning phase.
 - [x] [BAE-FDE-001] | Retrofit FDE + Section 18: `architecture-patterns/agent-architectures-compared.mdx`
 - [x] [BAE-FDE-002] | Retrofit FDE + Section 18: `architecture-patterns/human-in-the-loop.mdx`
 - [x] [BAE-FDE-003] | Retrofit FDE + Section 18: `architecture-patterns/parallelization-pattern.mdx`
-- [ ] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
-- [ ] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
-- [ ] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
-- [ ] [BAE-FDE-007] | Retrofit FDE + Section 18: `architecture-patterns/routing-pattern.mdx`
-- [ ] [BAE-FDE-008] | Retrofit FDE + Section 18: `architecture-patterns/tool-use-pattern.mdx`
-- [ ] [BAE-FDE-009] | Retrofit FDE + Section 18: `autogen/autogen-code-execution.mdx`
-- [ ] [BAE-FDE-010] | Retrofit FDE + Section 18: `autogen/autogen-conversable-agents.mdx`
-- [ ] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
-- [ ] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
-- [ ] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
+- [x] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
+- [x] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
+- [x] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
+- [x] [BAE-FDE-007] | Retrofit FDE + Section 18: `architecture-patterns/routing-pattern.mdx`
+- [x] [BAE-FDE-008] | Retrofit FDE + Section 18: `architecture-patterns/tool-use-pattern.mdx`
+- [x] [BAE-FDE-009] | Retrofit FDE + Section 18: `autogen/autogen-code-execution.mdx`
+- [x] [BAE-FDE-010] | Retrofit FDE + Section 18: `autogen/autogen-conversable-agents.mdx`
+- [x] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
+- [x] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
+- [x] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
 - [ ] [BAE-FDE-014] | Retrofit FDE + Section 18: `best-practices/agent-anti-patterns.mdx`
 - [ ] [BAE-FDE-015] | Retrofit FDE + Section 18: `best-practices/agent-design-patterns.mdx`
 - [ ] [BAE-FDE-016] | Retrofit FDE + Section 18: `best-practices/agent-testing.mdx`
@@ -357,16 +357,16 @@ No reusable insights recorded yet.
 
 ---
 
-- [ ] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
-- [ ] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
-- [ ] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
-- [ ] [BAE-FDE-007] | Retrofit FDE + Section 18: `architecture-patterns/routing-pattern.mdx`
-- [ ] [BAE-FDE-008] | Retrofit FDE + Section 18: `architecture-patterns/tool-use-pattern.mdx`
-- [ ] [BAE-FDE-009] | Retrofit FDE + Section 18: `autogen/autogen-code-execution.mdx`
-- [ ] [BAE-FDE-010] | Retrofit FDE + Section 18: `autogen/autogen-conversable-agents.mdx`
-- [ ] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
-- [ ] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
-- [ ] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
+- [x] [BAE-FDE-004] | Retrofit FDE + Section 18: `architecture-patterns/plan-and-execute.mdx`
+- [x] [BAE-FDE-005] | Retrofit FDE + Section 18: `architecture-patterns/react-pattern.mdx`
+- [x] [BAE-FDE-006] | Retrofit FDE + Section 18: `architecture-patterns/reflection-and-reflexion.mdx`
+- [x] [BAE-FDE-007] | Retrofit FDE + Section 18: `architecture-patterns/routing-pattern.mdx`
+- [x] [BAE-FDE-008] | Retrofit FDE + Section 18: `architecture-patterns/tool-use-pattern.mdx`
+- [x] [BAE-FDE-009] | Retrofit FDE + Section 18: `autogen/autogen-code-execution.mdx`
+- [x] [BAE-FDE-010] | Retrofit FDE + Section 18: `autogen/autogen-conversable-agents.mdx`
+- [x] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
+- [x] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
+- [x] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
 
 
 ## Execution Review

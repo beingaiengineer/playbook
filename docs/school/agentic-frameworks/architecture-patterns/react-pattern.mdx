@@ -17,6 +17,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Assuming ReAct means the React.js frontend framework. It means Reason + Act. |
 | Performance | High token cost and high latency, as it requires multiple LLM round-trips to complete a single task |
 
+
+
+**FDE Scenario:** In a chaotic FDE integration environment, basic LLM chains hallucinate or get stuck. ReAct forces the agent to explicitly reason about its next steps based on the actual tool output, crucial for interacting with unpredictable legacy client APIs.
+
 ## 2. Real-World Analogy
 
 ![Illustration of Bae as a detective examining a footprint](../assets/architecture-patterns/react-pattern.png)
@@ -232,3 +236,15 @@ Bro, the ReAct scratchpad grows with every loop. If your agent executes a DB que
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 6k+ | LangGraph | The modern, state-machine approach to building robust ReAct loops. |
 | [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) | ⭐ 160k+ | AutoGPT | One of the earliest massive implementations of a ReAct-style loop running autonomously. |
 | [anthropics/anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) | ⭐ 4k+ | Claude Tool Use | Shows how to properly implement ReAct thinking with Claude's XML and Tool features. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| **Observation Parsing** | Always rigorously parse tool observations before generating the next thought. | Blindly executing tools without validating the previous output leads to cascading errors. |
+| **Action Formatting** | Strictly adhere to the specified JSON schema for tool actions. | Client APIs will reject improperly formatted requests from the agent. |
