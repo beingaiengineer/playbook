@@ -26,6 +26,9 @@ Because your backend API simply took the entire JSON payload and dumped it strai
 
 You've suffered both a privilege escalation attack and a massive data leak in one day. Why? Because you didn't strictly model your boundaries. You treated the frontend's request as trustworthy and your database's raw output as safe for public consumption. You need strict Request Models to reject unexpected inputs (like `is_admin`) and strict Response Models to filter out sensitive outputs (like passwords).
 
+
+**FDE Scenario:** You are deployed to a healthcare client bound by strict HIPAA regulations. Their database stores patient records containing sensitive health data and billing info. A junior frontend dev asks for a quick endpoint to display patient names. If you blindly return the raw database model, you will leak protected health information to the frontend. By creating a specific `PatientPublicResponse` Pydantic model, you guarantee that only the `name` and `id` are ever serialized and sent over the wire, physically preventing compliance breaches.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A high-security corporate building where a receptionist (Request Model) strict checks what visitors bring in, and an exit scanner (Response Model) ensures employees don't accidentally walk out with confidential documents. */}
@@ -249,3 +252,14 @@ In FastAPI, you can use standard Python return type hints `-> UserOut:` instead 
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI framework. | The context in which these models are applied. |
 | [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices) | ⭐ 15k+ | FastAPI Best Practices. | Contains excellent sections on how to structure multiple Pydantic models. |
 | [Netflix/dispatch](https://github.com/Netflix/dispatch) | ⭐ 4k+ | Incident management framework by Netflix. | Built on FastAPI, demonstrating complex, nested Pydantic request/response models in production. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Model Separation | Never use the same Pydantic model for database schemas, request payloads, and response payloads. | Reusing models leads to accidental over-posting (privilege escalation) and data leakage. |
+| Response Parameter | Always explicitly set the `response_model` parameter in the FastAPI endpoint decorator. | FastAPI uses this to filter out sensitive fields before sending the JSON to the client. |
+| Explicit Excludes | Use Pydantic's `exclude` functionality to ensure fields like passwords are never serialized. | Provides a defense-in-depth mechanism against accidental data exposure. |
+| Input Validation | Strictly define request models to reject unexpected or malicious fields injected by clients. | Prevents mass-assignment vulnerabilities in FDE deployments. |

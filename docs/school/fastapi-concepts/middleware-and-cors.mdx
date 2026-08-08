@@ -26,6 +26,9 @@ A month later, your manager asks for a report on API latency. You realize you ha
 
 You've stumbled into the two most common global API problems: browser security (CORS) and global request lifecycle management. By understanding Middleware, you can elegantly solve both. You configure a strict CORS middleware to only allow the Vercel domain, and you write a custom timing middleware that intercepts every request, times it, and logs it automatically. The architecture is clean, and the frontend is secure.
 
+
+**FDE Scenario:** You are integrating your SaaS product into a hospital's heavily firewalled intranet. The hospital's strict IT policy blocks all traffic unless it has specific CORS headers, and they require every single API request to be stamped with a unique trace ID for their audit logs. Instead of modifying 200 individual endpoints, you deploy global CORS middleware to satisfy their firewall and a custom request-tracing middleware that injects the required headers automatically. You solve a massive compliance nightmare at the architecture level in just 20 lines of code.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A massive corporate office building where every single employee, regardless of their destination, must pass through a metal detector (Middleware) before entering and when leaving. */}
@@ -227,3 +230,14 @@ In FastAPI, the order you add middleware is the *reverse* order of execution. Th
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI Framework. | Includes robust, built-in CORS middleware powered by Starlette. |
 | [encode/starlette](https://github.com/encode/starlette) | ⭐ 9k+ | The little ASGI framework that shines. | The underlying engine that actually manages the middleware stack for FastAPI. |
 | [getsentry/sentry-python](https://github.com/getsentry/sentry-python) | ⭐ 2k+ | Sentry SDK for Python. | A prime example of complex, production-grade middleware used for error tracking. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| CORS Specificity | Never use `allow_origins=["*"]` in production code unless building a truly public API. | FDE compliance strictly forbids wildcard CORS, which opens the API to cross-origin attacks. |
+| Middleware Performance | Keep middleware logic extremely lightweight and fast (e.g., header injection, timing). | Middleware runs on every single request; heavy operations here will cripple API throughput. |
+| Order of Operations | Add CORS middleware before custom authentication or logging middlewares. | Preflight `OPTIONS` requests need to pass CORS before auth logic is triggered. |
+| State Mutation | Do not heavily mutate the request body inside middleware. | Mutating request bodies at the middleware level causes unpredictable bugs in endpoint routing and validation. |

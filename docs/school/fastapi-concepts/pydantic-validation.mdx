@@ -26,6 +26,9 @@ Worse, another bug allowed users to register with the email `not_an_email_at_all
 
 You need a bouncer at the front door of your API. A tool that looks at the incoming JSON, verifies that `price` is a float (or can be safely coerced into one), ensures `email` is structurally valid, and confirms `age` is over 18—all before your core business logic ever runs. That tool is Pydantic.
 
+
+**FDE Scenario:** You are consuming a data feed from a client's legacy CRM that is notoriously dirty. Sometimes the "age" field is an integer, sometimes it's a string like "25", and sometimes it's completely missing. If this bad data hits your core logic, the system crashes. By forcing all incoming data through strict Pydantic models at the API boundary, you sanitize, coerce, and validate the chaotic legacy data into clean Python objects. The chaos stops at the front door.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict passport control officer (Pydantic) inspecting documents. If a date of birth is written as "yesterday" (invalid type) instead of a standard date, the officer instantly rejects it before the passenger enters the country. */}
@@ -221,3 +224,14 @@ In highly sensitive applications (like banking APIs), Pydantic's default "coerci
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 18k+ | Data validation using Python type hints. | The library being discussed. |
 | [pydantic/pydantic-core](https://github.com/pydantic/pydantic-core) | ⭐ 2k+ | Core validation logic for pydantic V2 written in Rust. | Explains the massive performance gains in modern Python APIs. |
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI framework. | The primary consumer of Pydantic. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Strict Types | Use strict Pydantic types (e.g., `EmailStr`, `PositiveInt`) instead of generic strings or ints. | Validates complex data at the edge, preventing malformed data from reaching the database. |
+| Default Values | Only use `Optional[...] = None` if the field is truly optional. Avoid assigning default values just to suppress errors. | Suppressing missing data errors leads to silent corruption of business logic. |
+| Extra Forbid | Use `model_config = ConfigDict(extra='forbid')` for strict endpoint payloads. | Prevents clients from injecting arbitrary undocumented fields into the system. |
+| Field Validators | Use `@field_validator` for complex custom business logic (like checking domain names in emails). | Ensures business rules are enforced universally before the endpoint executes. |

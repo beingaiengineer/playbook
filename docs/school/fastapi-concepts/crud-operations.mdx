@@ -24,6 +24,9 @@ You're a junior engineer assigned to build the backend for an inventory manageme
 
 You've reinvented the wheel, and it's a square. You didn't realize that the software industry solved this problem decades ago. By strictly adhering to standard CRUD operations mapped to RESTful HTTP methods (`POST`, `GET`, `PUT/PATCH`, `DELETE`), you get predictable behavior, standard error codes, and a shared vocabulary with every other engineer in the building. You refactor the code to standard CRUD, and the Jira tickets disappear.
 
+
+**FDE Scenario:** You are deployed to integrate a modern dashboard with a client's legacy mainframe proxy. Their old system uses `POST` for everything and encodes the action in the payload (`{"action": "delete"}`). This makes it impossible to cache read requests at the API Gateway or set up strict WAF (Web Application Firewall) rules. You have to write an adapter layer that translates standard RESTful CRUD operations from your dashboard into their chaotic legacy format, ensuring that your modern system remains predictable and cacheable.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A highly organized warehouse where a clerk performs four basic actions on boxes: Creating a new label, Reading a label, Updating a label, and Destroying a box. */}
@@ -260,3 +263,14 @@ A common mistake in beginner APIs is writing a `GET /users` endpoint that simply
 | [tiangolo/full-stack-fastapi-postgresql](https://github.com/tiangolo/full-stack-fastapi-postgresql) | ⭐ 12k+ | Official FastAPI boilerplate. | Contains production-ready CRUD implementations using SQLAlchemy. |
 | [sqlalchemy/sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) | ⭐ 8k+ | Python SQL Toolkit and ORM. | The standard way to translate Python CRUD logic into database queries. |
 | [encode/databases](https://github.com/encode/databases) | ⭐ 3k+ | Async database support for Python. | Perfect for high-performance async CRUD operations in FastAPI. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Method Mapping | Strictly map Create to `POST`, Read to `GET`, Update to `PUT/PATCH`, and Delete to `DELETE`. | Deviating from standards breaks API gateway caching and confuses client integrations. |
+| Idempotency | Ensure `PUT` and `DELETE` endpoints are fully idempotent. | In flaky client networks, requests will be retried. Repeated deletions should not throw 500 errors. |
+| Safe Methods | Never mutate database state in a `GET` request. | Security scanners and web crawlers will randomly hit `GET` endpoints, leading to accidental data corruption. |
+| Status Codes | Return standard HTTP status codes: 201 for Created, 204 for No Content on Delete, 404 if resource is missing. | Clients rely on status codes for logic flow, not just the JSON payload. |

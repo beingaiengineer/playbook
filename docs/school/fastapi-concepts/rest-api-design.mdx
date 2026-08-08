@@ -24,6 +24,9 @@ You're a backend engineer at a rapidly scaling SaaS company. Your team built an 
 
 The system isn't scaling, and developer velocity has ground to a halt because nobody knows how to interact with the system without reading the backend source code. You need a universal grammar. You need to refactor the entire system to use REST (Representational State Transfer). By standardizing on nouns for resources and standard HTTP methods for actions, you can make the API intuitive, leverage network-level caching, and decouple the client from the server's internal chaos.
 
+
+**FDE Scenario:** You are integrating your product with a massive government agency. Their internal developers rely on predictable, standard interfaces because they use automated API generation tools. If your API uses random verbs like `/getTheUsersNow` or `/deleteUserAction`, their automation tools break, and the integration project stalls for months. By strictly adhering to RESTful noun-based resource paths and standard HTTP verbs, your API acts as a universal adapter that plugs seamlessly into their rigid enterprise architecture.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A well-organized library where books are organized by clear resource paths (Aisle/Shelf/Book) rather than having complex action verbs attached to them. */}
@@ -233,3 +236,14 @@ If a `POST` request triggers a 5-minute video encoding job, do not make the HTTP
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI framework. | Built from the ground up to respect REST and HTTP standards out of the box. |
 | [swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui) | ⭐ 25k+ | Visual representation of REST APIs. | The standard way to document REST API contracts for consumers. |
 | [strapi/strapi](https://github.com/strapi/strapi) | ⭐ 60k+ | Open source Node.js Headless CMS. | Automatically generates a flawless REST API based on your database schema. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Naming Conventions | Always use plural nouns for endpoints (e.g., `/users`, not `/user` or `/getUsers`). | Standardizes the API surface, making it predictable for enterprise integrations. |
+| Nesting Limit | Do not nest resources more than two levels deep (e.g., `/users/{id}/posts` is fine, `/users/{id}/posts/{pid}/comments/{cid}` is too deep). | Deep nesting creates brittle URLs and complex routing that breaks easily in production. |
+| Query Params | Use query parameters for filtering, sorting, and pagination, not URL paths. | Keeps the resource path clean and leverages standard web caching mechanisms. |
+| Status Consistency | Always use standard HTTP status codes (2xx, 4xx, 5xx) consistently across all endpoints. | Custom error schemes confuse third-party developers and break automated retry logic. |

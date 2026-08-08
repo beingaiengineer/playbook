@@ -26,6 +26,9 @@ You investigate and find the problem: User A logs in, and Server 1 stores their 
 
 You need a way for the user to prove who they are to *any* server, instantly, without the server needing to look up their session in a database. You need a self-contained digital ID card. You implement JSON Web Tokens (JWT). Now, the server simply looks at the token, mathematically verifies the signature, and instantly knows the user's identity.
 
+
+**FDE Scenario:** You are deployed to a massive legacy enterprise client. Their internal identity provider is a clunky 20-year-old on-prem system that takes 5 seconds to respond. Your modern microservices cannot wait for this system on every request. By issuing a short-lived JWT after the initial slow login, your APIs can mathematically verify user claims autonomously, completely bypassing the legacy system for subsequent requests while adhering to strict corporate compliance standards.
+
 ### 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict security guard at a luxury society apartment building in India. He checks a digitally signed visitor pass (JWT) that contains the visitor's name and allowed flat number, verifying the building manager's signature without needing to call the manager. */}
@@ -235,3 +238,14 @@ Because Access Tokens cannot be revoked, they must expire quickly. But logging u
 | [jpadilla/pyjwt](https://github.com/jpadilla/pyjwt) | ⭐ 4k+ | JSON Web Token implementation in Python. | The standard library for handling JWTs in Python environments. |
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI Framework. | Has built-in, excellent support for OAuth2 and JWT header extraction. |
 | [auth0/node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) | ⭐ 20k+ | JsonWebToken implementation for node.js. | A good reference for understanding JWT mechanics, managed by Auth0. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Payload Security | Never put passwords, social security numbers, or sensitive PII inside a JWT payload. | JWTs are base64 encoded, not encrypted. Client environments are hostile, and tokens can be decoded by anyone. |
+| Expiration | Always enforce a short `exp` (expiration) claim in the JWT. | FDE deployments cannot risk infinite-life tokens if a client device is compromised. |
+| Verification | Always use a robust library like `PyJWT` to verify the signature and `exp` automatically. | Manual signature verification is error-prone and leads to critical security bypasses in production. |
+| Secret Management | Never hardcode the JWT signing secret in source code. Always read it from secure environment variables. | Leaked secrets compromise the entire identity layer of the client's infrastructure. |
