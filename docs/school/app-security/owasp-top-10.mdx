@@ -227,7 +227,7 @@ Furthermore, Bug Bounty programs (run on platforms like HackerOne or Bugcrowd) h
 - [Authorization & RBAC](./authorization-rbac-abac.mdx)
 - Content Security Policy (CSP)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -236,3 +236,16 @@ Furthermore, Bug Bounty programs (run on platforms like HackerOne or Bugcrowd) h
 | [bkimminich/juice-shop](https://github.com/bkimminich/juice-shop) | ⭐ 10k+ | The most modern and sophisticated insecure web application. | Another fantastic training ground for finding and exploiting OWASP vulnerabilities in a modern SPA architecture. |
 | [sqlmapproject/sqlmap](https://github.com/sqlmapproject/sqlmap) | ⭐ 30k+ | Automatic SQL injection and database takeover tool. | Shows how easily A03 (Injection) can be exploited using automated tools, proving why mitigations are critical. |
 | [dependabot/dependabot-core](https://github.com/dependabot/dependabot-core) | ⭐ 4k+ | Automated dependency updates engine. | The core engine behind GitHub's built-in defense against A06 (Vulnerable Components). |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Parameterized Queries | Use ORMs or prepared statements for all database interactions. Never concatenate strings into SQL queries. | Prevents SQL Injection, consistently a top vulnerability in web applications. |
+| Contextual Encoding | Properly encode user input when rendering it in a browser, based on the context (HTML, JS, CSS). | Mitigates Cross-Site Scripting (XSS) attacks by treating user input as data, not code. |
+| Secure Configuration | Harden all server, framework, and cloud configurations. Disable unused features and default accounts. | Security Misconfiguration is common and allows trivial exploitation of otherwise secure code. |
+| Monitor and Log | Log all authentication events, authorization failures, and critical transactions securely. | Insufficient Logging and Monitoring prevents timely detection and response during an active attack. |

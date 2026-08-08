@@ -230,7 +230,7 @@ Instead of building robust password reset flows, MFA SMS integration, and OAuth 
 - [Authorization & RBAC](./authorization-rbac-abac.mdx)
 - [Secrets Management](./secrets-management.mdx)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -239,3 +239,16 @@ Instead of building robust password reset flows, MFA SMS integration, and OAuth 
 | [auth0/node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) | ⭐ 21k+ | JSON Web Token implementation for Node.js. | The standard, heavily audited library for creating and verifying JWT signatures. |
 | [ory/kratos](https://github.com/ory/kratos) | ⭐ 10k+ | Cloud Native Identity and User Management. | A robust, open-source, API-first alternative to commercial identity providers like Okta. |
 | [dexidp/dex](https://github.com/dexidp/dex) | ⭐ 9k+ | OIDC Identity Provider with Pluggable Connectors. | Great for federating authentication across multiple different systems and legacy Active Directories. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Secure Password Hashing | Use robust hashing algorithms like Argon2, bcrypt, or PBKDF2 with unique salts. Never store plaintext passwords. | Weak hashing or plaintext storage results in severe data breaches if the database is compromised. |
+| Multi-Factor Authentication | Prompt for MFA on all sensitive actions and privileged accounts. | MFA provides a critical secondary layer of defense if primary credentials are stolen. |
+| Token Expiration | Use short-lived Access Tokens and long-lived Refresh Tokens. Never use non-expiring tokens. | Reduces the window of opportunity for an attacker using a stolen token. |
+| Secure Transport | All authentication requests must strictly be performed over TLS/HTTPS. | Prevents MITM (Man-in-the-Middle) attacks from intercepting plaintext credentials over the network. |

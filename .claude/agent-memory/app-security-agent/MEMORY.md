@@ -52,16 +52,16 @@ Improvements completed.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-097] | Retrofit FDE + Section 18: `api-security.mdx`
-- [ ] [BAE-FDE-098] | Retrofit FDE + Section 18: `authentication-deep-dive.mdx`
-- [ ] [BAE-FDE-099] | Retrofit FDE + Section 18: `authorization-rbac-abac.mdx`
-- [ ] [BAE-FDE-100] | Retrofit FDE + Section 18: `data-protection.mdx`
-- [ ] [BAE-FDE-101] | Retrofit FDE + Section 18: `dependency-security.mdx`
-- [ ] [BAE-FDE-102] | Retrofit FDE + Section 18: `owasp-top-10.mdx`
-- [ ] [BAE-FDE-103] | Retrofit FDE + Section 18: `secrets-management.mdx`
-- [ ] [BAE-FDE-104] | Retrofit FDE + Section 18: `security-in-cicd.mdx`
-- [ ] [BAE-FDE-105] | Retrofit FDE + Section 18: `security-mindset.mdx`
-- [ ] [BAE-FDE-106] | Retrofit FDE + Section 18: `threat-modeling.mdx`
+- [x] [BAE-FDE-097] | Retrofit FDE + Section 18: `api-security.mdx`
+- [x] [BAE-FDE-098] | Retrofit FDE + Section 18: `authentication-deep-dive.mdx`
+- [x] [BAE-FDE-099] | Retrofit FDE + Section 18: `authorization-rbac-abac.mdx`
+- [x] [BAE-FDE-100] | Retrofit FDE + Section 18: `data-protection.mdx`
+- [x] [BAE-FDE-101] | Retrofit FDE + Section 18: `dependency-security.mdx`
+- [x] [BAE-FDE-102] | Retrofit FDE + Section 18: `owasp-top-10.mdx`
+- [x] [BAE-FDE-103] | Retrofit FDE + Section 18: `secrets-management.mdx`
+- [x] [BAE-FDE-104] | Retrofit FDE + Section 18: `security-in-cicd.mdx`
+- [x] [BAE-FDE-105] | Retrofit FDE + Section 18: `security-mindset.mdx`
+- [x] [BAE-FDE-106] | Retrofit FDE + Section 18: `threat-modeling.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -142,13 +142,13 @@ End-of-day autonomous review complete:
 - Replaced incorrect `## 17. Top GitHub Repos` heading with `## 17. Top GitHub Repositories` in `data-protection.mdx` to follow CONTENT.md conventions.
 
 ### Next Task
-- [ ] [BAE-FDE-097] | Retrofit FDE + Section 18: `api-security.mdx`
-- [ ] [BAE-FDE-098] | Retrofit FDE + Section 18: `authentication-deep-dive.mdx`
-- [ ] [BAE-FDE-099] | Retrofit FDE + Section 18: `authorization-rbac-abac.mdx`
-- [ ] [BAE-FDE-100] | Retrofit FDE + Section 18: `data-protection.mdx`
-- [ ] [BAE-FDE-101] | Retrofit FDE + Section 18: `dependency-security.mdx`
-- [ ] [BAE-FDE-102] | Retrofit FDE + Section 18: `owasp-top-10.mdx`
-- [ ] [BAE-FDE-103] | Retrofit FDE + Section 18: `secrets-management.mdx`
-- [ ] [BAE-FDE-104] | Retrofit FDE + Section 18: `security-in-cicd.mdx`
-- [ ] [BAE-FDE-105] | Retrofit FDE + Section 18: `security-mindset.mdx`
-- [ ] [BAE-FDE-106] | Retrofit FDE + Section 18: `threat-modeling.mdx`
+- [x] [BAE-FDE-097] | Retrofit FDE + Section 18: `api-security.mdx`
+- [x] [BAE-FDE-098] | Retrofit FDE + Section 18: `authentication-deep-dive.mdx`
+- [x] [BAE-FDE-099] | Retrofit FDE + Section 18: `authorization-rbac-abac.mdx`
+- [x] [BAE-FDE-100] | Retrofit FDE + Section 18: `data-protection.mdx`
+- [x] [BAE-FDE-101] | Retrofit FDE + Section 18: `dependency-security.mdx`
+- [x] [BAE-FDE-102] | Retrofit FDE + Section 18: `owasp-top-10.mdx`
+- [x] [BAE-FDE-103] | Retrofit FDE + Section 18: `secrets-management.mdx`
+- [x] [BAE-FDE-104] | Retrofit FDE + Section 18: `security-in-cicd.mdx`
+- [x] [BAE-FDE-105] | Retrofit FDE + Section 18: `security-mindset.mdx`
+- [x] [BAE-FDE-106] | Retrofit FDE + Section 18: `threat-modeling.mdx`
