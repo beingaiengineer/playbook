@@ -225,7 +225,7 @@ Companies like **Stripe** and **Twilio**, whose entire product is an API, treat 
 - [Authorization & RBAC](./authorization-rbac-abac.mdx)
 - [Threat Modeling](./threat-modeling.mdx)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -233,3 +233,16 @@ Companies like **Stripe** and **Twilio**, whose entire product is an API, treat 
 | [colinhacks/zod](https://github.com/colinhacks/zod) | ⭐ 31k+ | TypeScript-first schema validation with static type inference. | The modern standard for validating API input payloads safely and effectively. |
 | [TykTechnologies/tyk](https://github.com/TykTechnologies/tyk) | ⭐ 9.5k+ | An open source API Gateway. | Shows how rate limiting, quota enforcement, and token validation are handled at the gateway level. |
 | [stripe/stripe-node](https://github.com/stripe/stripe-node) | ⭐ 4k+ | Stripe Node.js Library. | Read their code to see how world-class API SDKs implement idempotency and secure retries. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Input Validation | Always validate external inputs explicitly against a schema before processing them. | Prevents malicious or malformed payloads from crashing the API or injecting code. |
+| Rate Limiting | Implement global and route-specific rate limiting on all endpoints. | Protects APIs against brute force attempts and DoS attacks by restricting excessive requests. |
+| Error Responses | Return standard HTTP status codes with generic error messages. Never expose stack traces or internal implementation details. | Information leakage helps attackers map backend infrastructure and identify specific vulnerabilities. |
+| Method Strictness | Strictly bind route handlers to required HTTP methods (e.g., POST only for state changes). | Improper use of HTTP methods allows Cross-Site Request Forgery (CSRF) and other attacks. |
