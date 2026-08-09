@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Not a Git command, but a platform feature. Network dependent. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** Your client's engineering team complains that PRs take forever to merge. You discover they are opening massive 3,000-line PRs spanning multiple weeks of work. You need to implement a strategy for small, atomic PRs.
+
 
 Bro, think of a Pull Request (PR) like submitting a draft of an article to your editor.
 
@@ -168,7 +170,7 @@ At companies like Spotify or Airbnb, nobody merges to `main` locally via CLI. Ev
 - conventional-commits
 - branching-strategies
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -176,3 +178,12 @@ At companies like Spotify or Airbnb, nobody merges to `main` locally via CLI. Ev
 | [reviewdog/reviewdog](https://github.com/reviewdog/reviewdog) | ⭐ 6k+ | Automated code review tool | Posts linter errors directly as comments on your PRs automatically. |
 | [danger/danger](https://github.com/danger/danger) | ⭐ 6k+ | Automates PR chores | Can automatically fail a PR if the description is empty or if it's too large. |
 | [pullreminders/pull-reminders](https://github.com/pullreminders) | N/A | Slack integration for PRs | Real-world tooling to ping developers in Slack when a PR needs review. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| PR Scope | Keep Pull Requests small, atomic, and focused on a single feature or bug fix. Aim for under 400 lines of change. | Massive PRs are impossible to review effectively and are prone to hiding critical bugs. |
+| Descriptions | Always provide a comprehensive PR description detailing the *why*, *what*, and *how to test* the changes. | Reviewers need context to evaluate the business logic, not just the syntax. |
+| Title Formatting | Use Conventional Commits formatting for the PR title to ensure clean squash-and-merge history on `main`. | PR titles often become the single commit message on `main`; they must be semantic and clear. |

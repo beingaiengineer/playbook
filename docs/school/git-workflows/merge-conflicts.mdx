@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Fast, but completely blocked by human intervention. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** Two teams at a client site refactored the exact same core routing file simultaneously. They are deadlocked on a massive 500-line merge conflict and you need to untangle the mess without breaking either feature.
+
 
 Bro, think of a merge conflict like two people trying to edit the exact same paragraph in a shared Google Doc at the exact same time, but offline.
 
@@ -176,7 +178,7 @@ In large teams working on monorepos (like at Meta or Google), merge conflicts ar
 - git-rebase-vs-merge
 - pull-requests
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -184,3 +186,12 @@ In large teams working on monorepos (like at Meta or Google), merge conflicts ar
 | [extrawurst/gitui](https://github.com/extrawurst/gitui) | ⭐ 15k+ | Blazing fast terminal-ui for git | Offers great visual diffs for resolving conflicts without leaving the terminal. |
 | [sindresorhus/merge-conflict-cli](https://github.com/sindresorhus/merge-conflict-cli) | N/A | Find merge conflicts in your repo | A tiny CLI tool to ensure you didn't accidentally commit conflict markers. |
 | [microsoft/vscode](https://github.com/microsoft/vscode) | ⭐ 150k+ | Visual Studio Code | The built-in 3-way merge editor is the industry standard for resolving conflicts today. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Conflict Markers | Never commit code containing unresolved Git conflict markers (e.g., `<<<<<<< HEAD`). | Conflict markers break the build and cause immediate runtime crashes. |
+| Resolution Strategy | When resolving conflicts, carefully evaluate both sides (`HEAD` vs `incoming`). Do not arbitrarily choose one without understanding the logical impact. | Blindly accepting 'incoming' changes can silently revert critical fixes made by others. |
+| Verification | After resolving a conflict, always run the local build and test suite before completing the merge or rebase. | Code might compile after conflict resolution but still fail logical tests. |

@@ -52,16 +52,6 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-129] | Retrofit FDE + Section 18: `branching-strategies.mdx`
-- [ ] [BAE-FDE-130] | Retrofit FDE + Section 18: `code-review-culture.mdx`
-- [ ] [BAE-FDE-131] | Retrofit FDE + Section 18: `conventional-commits.mdx`
-- [ ] [BAE-FDE-132] | Retrofit FDE + Section 18: `git-advanced-operations.mdx`
-- [ ] [BAE-FDE-133] | Retrofit FDE + Section 18: `git-fundamentals.mdx`
-- [ ] [BAE-FDE-134] | Retrofit FDE + Section 18: `git-hooks-and-automation.mdx`
-- [ ] [BAE-FDE-135] | Retrofit FDE + Section 18: `git-rebase-vs-merge.mdx`
-- [ ] [BAE-FDE-136] | Retrofit FDE + Section 18: `merge-conflicts.mdx`
-- [ ] [BAE-FDE-137] | Retrofit FDE + Section 18: `monorepo-vs-polyrepo.mdx`
-- [ ] [BAE-FDE-138] | Retrofit FDE + Section 18: `pull-requests.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -70,6 +60,16 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-129] | Retrofit FDE + Section 18: `branching-strategies.mdx`
+- [x] [BAE-FDE-130] | Retrofit FDE + Section 18: `code-review-culture.mdx`
+- [x] [BAE-FDE-131] | Retrofit FDE + Section 18: `conventional-commits.mdx`
+- [x] [BAE-FDE-132] | Retrofit FDE + Section 18: `git-advanced-operations.mdx`
+- [x] [BAE-FDE-133] | Retrofit FDE + Section 18: `git-fundamentals.mdx`
+- [x] [BAE-FDE-134] | Retrofit FDE + Section 18: `git-hooks-and-automation.mdx`
+- [x] [BAE-FDE-135] | Retrofit FDE + Section 18: `git-rebase-vs-merge.mdx`
+- [x] [BAE-FDE-136] | Retrofit FDE + Section 18: `merge-conflicts.mdx`
+- [x] [BAE-FDE-137] | Retrofit FDE + Section 18: `monorepo-vs-polyrepo.mdx`
+- [x] [BAE-FDE-138] | Retrofit FDE + Section 18: `pull-requests.mdx`
 - [x] [BAE-GIT-001] | Create `git-fundamentals.mdx`
 - [x] [BAE-GIT-002] | Create `branching-strategies.mdx`
 - [x] [BAE-GIT-003] | Create `pull-requests.mdx`
@@ -140,13 +140,4 @@ _Empty_
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-129] | Retrofit FDE + Section 18: `branching-strategies.mdx`
-- [ ] [BAE-FDE-130] | Retrofit FDE + Section 18: `code-review-culture.mdx`
-- [ ] [BAE-FDE-131] | Retrofit FDE + Section 18: `conventional-commits.mdx`
-- [ ] [BAE-FDE-132] | Retrofit FDE + Section 18: `git-advanced-operations.mdx`
-- [ ] [BAE-FDE-133] | Retrofit FDE + Section 18: `git-fundamentals.mdx`
-- [ ] [BAE-FDE-134] | Retrofit FDE + Section 18: `git-hooks-and-automation.mdx`
-- [ ] [BAE-FDE-135] | Retrofit FDE + Section 18: `git-rebase-vs-merge.mdx`
-- [ ] [BAE-FDE-136] | Retrofit FDE + Section 18: `merge-conflicts.mdx`
-- [ ] [BAE-FDE-137] | Retrofit FDE + Section 18: `monorepo-vs-polyrepo.mdx`
-- [ ] [BAE-FDE-138] | Retrofit FDE + Section 18: `pull-requests.mdx`
+_Empty_

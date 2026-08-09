@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | O(1) for creating branches, as they are just pointers. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** You are deployed to a client operating a legacy monolith where 50 developers push directly to `main`, causing daily outages. Your job is to introduce a safe branching strategy without completely halting their release velocity.
+
 
 Bro, think of a branching strategy like managing a restaurant kitchen during a busy dinner service.
 
@@ -171,7 +173,7 @@ Companies operating massive SaaS platforms (like Stripe or Facebook) generally a
 - merge-conflicts
 - git-rebase-vs-merge
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -180,3 +182,12 @@ Companies operating massive SaaS platforms (like Stripe or Facebook) generally a
 | [agilechamps/git-flow-cheatsheet](https://github.com/danielkummer/git-flow-cheatsheet) | ⭐ 12k+ | A quick reference for GitFlow operations. | Essential for teams using the strict GitFlow strategy. |
 | [conventional-changelog/standard-version](https://github.com/conventional-changelog/standard-version) | ⭐ 9k+ | Automates versioning and CHANGELOG generation. | Links branch merging strategies with automated release tagging. |
 | [semantic-release/semantic-release](https://github.com/semantic-release/semantic-release) | ⭐ 19k+ | Fully automated version management and package publishing. | The ultimate tool for CI/CD branching strategies where `main` is always deployed. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Branch Creation | Always create a new branch from the latest `main` before applying code changes unless explicitly told to work on an existing branch. | Prevents polluting `main` and avoids merge conflicts with parallel work streams. |
+| Branch Naming | Prefix branch names with `feat/`, `fix/`, `docs/`, or `refactor/` followed by a concise description (e.g., `feat/login-page`). | Enforces conventional naming, making it easier to track intent and automate CI/CD triggers. |
+| Local Cleanup | Automatically delete local feature branches after they have been merged to remote `main`. | Prevents stale branch accumulation which can degrade repository performance and clutter local space. |

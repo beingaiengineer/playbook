@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | O(1) for most local operations (commits, branches). |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** You are onboarding a team of data scientists at a client site who have only ever used Dropbox to share scripts. You need to teach them Git fundamentals so they stop overwriting each other's models.
+
 
 Bro, think of Git like taking a series of snapshots of your house while you renovate it.
 
@@ -176,7 +178,7 @@ Companies like Netflix and Uber rely on Git for everything. Their CI/CD pipeline
 - pull-requests
 - conventional-commits
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -185,3 +187,12 @@ Companies like Netflix and Uber rely on Git for everything. Their CI/CD pipeline
 | [k88hudson/git-flight-rules](https://github.com/k88hudson/git-flight-rules) | ⭐ 45k+ | A guide about what to do when things go wrong in Git | Essential survival manual for fixing common and complex Git mistakes. |
 | [progit/progit2](https://github.com/progit/progit2) | ⭐ 12k+ | The source for the Pro Git book | The definitive open-source book on Git internals and usage. |
 | [tiimgreen/github-cheat-sheet](https://github.com/tiimgreen/github-cheat-sheet) | ⭐ 42k+ | A list of cool features of Git and GitHub | Quick reference for advanced commands and hidden features. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Staging | Always review changes using `git diff` before adding them to the staging area with `git add`. | Prevents accidentally committing secrets or unrelated debugging code. |
+| Atomic Commits | Group related changes into single, atomic commits. Do not bundle UI changes with database schema updates in one commit. | Atomic commits make `git revert` or `cherry-pick` clean and predictable. |
+| Push Safety | Ensure `git pull` or `git fetch` is run frequently to stay synchronized with the remote before pushing. | Minimizes the risk of encountering complex merge conflicts upon pushing. |

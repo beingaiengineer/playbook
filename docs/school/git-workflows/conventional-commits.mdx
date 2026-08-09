@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Not a code feature, but saves massive hours of manual release notes. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** You need to automate versioning and changelog generation for a client's CI/CD pipeline, but their current commit history looks like 'fix stuff', 'updates', and 'wip'. You must enforce Conventional Commits.
+
 
 Bro, think of Conventional Commits like putting standard category stickers on moving boxes.
 
@@ -159,7 +161,7 @@ The Angular team at Google actually invented this standard (originally called th
 - pull-requests
 - branching-strategies
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -167,3 +169,12 @@ The Angular team at Google actually invented this standard (originally called th
 | [semantic-release/semantic-release](https://github.com/semantic-release/semantic-release) | ⭐ 19k+ | Fully automated version management and package publishing | The most popular CI tool for acting on conventional commits. |
 | [conventional-changelog/commitlint](https://github.com/conventional-changelog/commitlint) | ⭐ 14k+ | Lint commit messages | The standard tool used in git hooks to enforce the format. |
 | [commitizen/cz-cli](https://github.com/commitizen/cz-cli) | ⭐ 15k+ | The commitizen command line utility | Provides an interactive terminal prompt to help devs format messages correctly. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Commit Formatting | Always use the Conventional Commits format (`type(scope): description`) for all generated commit messages. | Enables automated semantic versioning and changelog generation in CI/CD pipelines. |
+| Type Selection | Strictly use `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, or `chore`. Do not invent new types. | Non-standard types break parsing scripts in release automation. |
+| Breaking Changes | Append a `!` after the type/scope (e.g., `feat(api)!: remove v1 endpoints`) if the commit introduces breaking changes. | Crucial for correctly triggering major version bumps in SemVer. |

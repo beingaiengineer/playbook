@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Polyrepos are fast to clone. Monorepos require advanced tooling (Bazel, Nx) to remain fast. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** A client has 40 microservices, each in its own repo (polyrepo). Changing a shared authentication library requires 40 separate PRs. You are tasked with migrating them to a monorepo structure to streamline dependency management.
+
 
 Bro, think of storing your company's code like storing spices in a kitchen.
 
@@ -153,7 +155,7 @@ Google runs the largest Monorepo in the world (billions of lines of code). To ma
 - pull-requests
 - git-advanced-operations
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -162,3 +164,12 @@ Google runs the largest Monorepo in the world (billions of lines of code). To ma
 | [lerna/lerna](https://github.com/lerna/lerna) | ⭐ 35k+ | Tool for managing JS projects with multiple packages | The original tool for JS monorepos (now maintained by Nx). |
 | [bazelbuild/bazel](https://github.com/bazelbuild/bazel) | ⭐ 21k+ | a fast, scalable, multi-language and extensible build system | Originally developed at Google, the heavy-duty solution for massive multi-language monorepos. |
 | [microsoft/rushstack](https://github.com/microsoft/rushstack) | ⭐ 4k+ | Tools for managing large-scale monorepos | Microsoft's internal solution for web monorepos. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Dependency Boundaries | Respect project boundaries within a monorepo. Do not create circular dependencies between distinct packages. | Circular dependencies break build caching systems (like Nx or Turborepo) and cause build failures. |
+| Targeted Builds | When working in a monorepo, only run builds and tests for the specific packages affected by your changes. | Running the entire monorepo build for a small change wastes CI resources and time. |
+| Path Referencing | Use workspace-defined aliases (e.g., `@packages/shared`) instead of fragile relative paths (e.g., `../../../shared`) when importing across packages. | Relative paths break when files or packages are moved within the monorepo structure. |

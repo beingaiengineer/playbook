@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Merge is O(1) metadata creation. Rebase rewrites history (O(N) commits). |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** A client's repository history looks like a plate of spaghetti because 100 engineers use `git merge` constantly. You need to teach the team to use `git rebase` for local feature branches to keep the history linear.
+
 
 Bro, think of integrating code like writing a book with a co-author.
 
@@ -161,7 +163,7 @@ Many open-source projects (like the Linux Kernel) explicitly ban `git merge` fro
 - pull-requests
 - conventional-commits
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -169,3 +171,12 @@ Many open-source projects (like the Linux Kernel) explicitly ban `git merge` fro
 | [thoughtbot/guides](https://github.com/thoughtbot/guides) | ⭐ 8k+ | Thoughtbot's guidelines | Contains excellent real-world advice advocating for a rebase-heavy workflow. |
 | [ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh) | ⭐ 165k+ | Zsh framework | Provides amazing aliases like `gup` (`git pull --rebase`) to make rebasing a default habit. |
 | [edx/edx-platform](https://github.com/openedx/edx-platform) | ⭐ 7k+ | Open edX platform | A large open-source repo that heavily utilizes rebase/squash workflows for clean history. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Local Integration | Use `git rebase main` to update local feature branches instead of `git merge main` to keep history linear. | Merging `main` into a feature branch creates unnecessary merge commits that clutter the project history. |
+| Public Branches | Never rebase commits that have already been pushed to a shared remote branch (e.g., `main` or a shared feature branch). | Rebasing public history forces all other collaborators to deal with broken local states. |
+| Conflict Resolution | During a rebase, resolve conflicts incrementally per commit, testing the code before `git rebase --continue`. | Prevents accumulating errors that break the build mid-rebase. |

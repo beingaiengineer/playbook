@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Depends entirely on the scripts you run. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** Your client's `main` branch breaks daily because engineers keep pushing code that fails tests or contains syntax errors. You must implement pre-commit hooks to block bad code from leaving their local machines.
+
 
 Bro, think of a Git Hook like the security scanner at an airport.
 
@@ -172,7 +174,7 @@ In almost all modern Web and Python stacks, developers do not trust humans to fo
 - conventional-commits
 - code-quality-gates (from CI/CD course)
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -180,3 +182,12 @@ In almost all modern Web and Python stacks, developers do not trust humans to fo
 | [okonet/lint-staged](https://github.com/okonet/lint-staged) | ⭐ 12k+ | Run linters on git staged files | Essential companion to Husky for fast hook execution. |
 | [pre-commit/pre-commit](https://github.com/pre-commit/pre-commit) | ⭐ 11k+ | A framework for managing and maintaining multi-language pre-commit hooks | The industry standard for Python and multi-language repositories. |
 | [commitizen/cz-cli](https://github.com/commitizen/cz-cli) | ⭐ 15k+ | The commitizen command line utility | Often used with `prepare-commit-msg` to enforce standard commit formats via a CLI prompt. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Hook Bypassing | Do not append `--no-verify` to commit commands unless explicitly instructed for emergency hotfixes. | Bypassing hooks allows broken code or linting errors to leak into the shared repository. |
+| Hook Configuration | When setting up hooks, ensure the `.husky` or `.git/hooks` directory is committed to source control for team synchronization. | Hooks must run consistently across all developers' machines to be effective. |
+| Performance | Keep pre-commit hooks fast (e.g., linting, typechecking). Push heavy integration tests to CI pipelines. | Slow pre-commit hooks degrade the developer experience and encourage bypassing. |
