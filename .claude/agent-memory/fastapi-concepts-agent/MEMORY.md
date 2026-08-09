@@ -63,8 +63,8 @@ Ready for next planning phase.
 - [x] [BAE-FDE-124] | Retrofit FDE + Section 18: `rate-limiting.mdx`
 - [x] [BAE-FDE-125] | Retrofit FDE + Section 18: `request-response-models.mdx`
 - [x] [BAE-FDE-126] | Retrofit FDE + Section 18: `rest-api-design.mdx`
-- [ ] [BAE-FDE-127] | Retrofit FDE + Section 18: `websockets.mdx`
-- [ ] [BAE-FDE-128] | Retrofit FDE + Section 18: `what-is-an-api.mdx`
+- [x] [BAE-FDE-127] | Retrofit FDE + Section 18: `websockets.mdx`
+- [x] [BAE-FDE-128] | Retrofit FDE + Section 18: `what-is-an-api.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -146,5 +146,4 @@ No reusable insights recorded yet.
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-127] | Retrofit FDE + Section 18: `websockets.mdx`
-- [ ] [BAE-FDE-128] | Retrofit FDE + Section 18: `what-is-an-api.mdx`
+_Empty_

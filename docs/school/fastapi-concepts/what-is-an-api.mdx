@@ -24,9 +24,11 @@ Imagine you've just joined a fast-growing e-commerce startup. The frontend team 
 
 You need a middleman. A standardized, secure way for the React app to say, "Give me the top 10 shoes," and for the backend to respond with exactly that data—without the frontend knowing *how* the data was retrieved. This is the core problem APIs solve. They create a deliberate, controlled boundary between systems, turning complex internal logic into simple, predictable requests and responses. If you get this boundary right, your teams can scale independently. If you get it wrong, you create a tangled web of dependencies that brings development to a halt.
 
+**FDE Scenario:** As a Field Deployed Engineer (FDE), you will often encounter legacy client systems that cannot cleanly consume modern REST APIs. They might drop connections prematurely, send mangled JSON, or lack proper routing. Establishing a strict API contract with strong validation at the gateway is crucial to prevent these messy integrations from bringing down your backend database.
+
 ### 3. Real-World Analogy
 
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A highly organized Swiggy/Zomato delivery kitchen where a waiter (API) takes orders from customers (Frontend) and brings them to the chefs (Backend), ensuring the customers never enter the kitchen. */}
+{/* TODO: [BAE-ILLUSTRATION] `docs/school/fastapi-concepts/assets/what-is-an-api.png` | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae as a waiter in a Swiggy/Zomato cloud kitchen: taking customer order slips at the dining counter (Frontend), passing them through the pass window to master chefs (Backend), and returning with food without customers entering the kitchen. Rich cloud kitchen pass, order tickets, serving trays, and chef stations in clean line art on pure white background. */}
 
 Think of a bustling Swiggy or Zomato partner restaurant.
 
@@ -246,3 +248,17 @@ When designing APIs, beware of "chatty" client behavior. If a client fetches a l
 | [kong/kong](https://github.com/Kong/kong) | ⭐ 40k+ | Cloud-Native API Gateway. | A leading open-source tool for managing, securing, and routing API traffic. |
 | [postmanlabs/httpbin](https://github.com/postmanlabs/httpbin) | ⭐ 20k+ | HTTP Request & Response Service. | An invaluable tool for testing API clients by echoing back requests. |
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI framework, high performance, easy to learn, fast to code, ready for production. | The modern framework we will use to build APIs. |
+
+
+### 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| HTTP Methods | Strictly use GET for reads, POST for creation, PUT for full updates, PATCH for partial updates, and DELETE for removals. | Violating standard semantics breaks caching and client assumptions. |
+| Status Codes | Never return `200 OK` for errors. Use proper 4xx and 5xx status codes. | Clients rely on status codes for retry logic and error handling. |
+| Timeout Handling | Always set explicit timeouts on all outbound API requests. Never rely on the default timeout. | Unbounded requests hang the application thread indefinitely when upstream APIs fail. |
+| Rate Limiting | Implement exponential backoff when calling APIs and handle 429 status codes gracefully. | Aggressive retries overwhelm the upstream service and lead to IP bans. |

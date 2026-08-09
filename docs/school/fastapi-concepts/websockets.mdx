@@ -24,9 +24,11 @@ You are working at a fast-growing stock trading platform. Initially, the dashboa
 
 You realize HTTP is the wrong tool for real-time streams. You rewrite the live-ticker service to use WebSockets. Now, a client connects to the server *once*. The connection stays open indefinitely. When a stock price changes, the server instantly pushes the update down the open connection without the client having to ask. The 50,000 requests per second drop to near zero, and the prices on the dashboard update in milliseconds instead of seconds. The servers breathe a sigh of relief.
 
+**FDE Scenario:** As a Field Deployed Engineer (FDE), you will often deploy real-time applications into strict corporate environments where firewalls aggressively terminate long-lived TCP connections. If you don't implement robust client-side reconnection logic and server-side heartbeats (ping/pong) over your WebSockets, your application will silently disconnect, leaving users staring at stale data without knowing it.
+
 ### 3. Real-World Analogy
 
-{/* TODO: [BAE-ILLUSTRATION] docs/school/fastapi-concepts/assets/websockets.png | A highly relatable Indian real-world scenario explaining WebSockets. */}
+{/* TODO: [BAE-ILLUSTRATION] `docs/school/fastapi-concepts/assets/websockets.png` | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae operating a two-way walkie-talkie link (WebSocket full-duplex connection) between ground control and an airborne drone, streaming real-time bidirectional messages without re-establishing connections. Rich control room, walkie-talkie handsets, drone monitors, and signal antennas in clean line art on pure white background. */}
 
 Imagine ordering food at a busy local *dhaba* (roadside restaurant) during peak hours.
 
@@ -197,3 +199,17 @@ Unlike stateless HTTP REST APIs, WebSockets are stateful. This means they break 
 | [miguelgrinberg/python-socketio](https://github.com/miguelgrinberg/python-socketio) | ⭐ 3.5k+ | Socket.IO Server | An alternative to raw WebSockets that provides automatic fallbacks and reconnections. |
 | [redis/redis-py](https://github.com/redis/redis-py) | ⭐ 12k+ | Redis Python Client | Crucial for scaling WebSockets across multiple FastAPI workers using Pub/Sub. |
 | [centrifugal/centrifugo](https://github.com/centrifugal/centrifugo) | ⭐ 7k+ | Real-time Messaging Server | Often used alongside APIs to handle massive WebSocket scaling externally. |
+
+
+### 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Connection Management | Always implement ping/pong heartbeats for WebSocket connections. | Idle connections are silently dropped by load balancers, leading to ghost clients. |
+| Error Handling | Wrap all WebSocket send and receive operations in try/except blocks to catch disconnection errors. | Unhandled `WebSocketDisconnect` exceptions crash the entire application loop. |
+| Resource Cleanup | Always use a connection manager and remove disconnected clients from the active set immediately. | Stale client references cause severe memory leaks over time. |
+| Authentication | Validate auth tokens during the WebSocket handshake, not after the connection is established. | Accepting connections before auth wastes resources on unauthorized clients. |
