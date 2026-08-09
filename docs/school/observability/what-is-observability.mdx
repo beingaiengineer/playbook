@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, your code will run in client environments you do not control. Observability is not optional—it is the only way you can answer 'why did this fail?' when a client reports a production issue in their black-box infrastructure.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is checking a car's dashboard warning lights */}
 
 Think of a car, bro. Monitoring is like the "Check Engine" light coming on—it tells you *something* is broken. Observability is like plugging the diagnostic scanner into the OBD-II port under the steering wheel. It tells you *exactly* which sensor is failing, what the engine temperature was when it failed, and how the fuel mixture was reacting. You can't fix a complex engine by just looking at a red warning light.
@@ -185,3 +188,13 @@ When creating metrics, never use unbounded values as labels. For example, if you
 | [grafana/grafana](https://github.com/grafana/grafana) | ⭐ 57k+ | Open and composable observability and data visualization | The defacto tool for visualizing metrics and building dashboards. |
 | [jaegertracing/jaeger](https://github.com/jaegertracing/jaeger) | ⭐ 18k+ | Open source, end-to-end distributed tracing | Essential for understanding request flows in microservice architectures. |
 | [elastic/elasticsearch](https://github.com/elastic/elasticsearch) | ⭐ 65k+ | Free and Open, Distributed, RESTful Search Engine | Often the heavy-lifting storage engine behind centralized logging systems. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

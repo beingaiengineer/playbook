@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you cannot predict which observability backend a new client might use (Datadog, New Relic, Splunk). OpenTelemetry allows you to instrument your code once in a vendor-neutral way and easily export telemetry data to whatever tool the client has already purchased.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is holding a universal translator translating many languages into one */}
 
 Think of traveling the world, bro. If you go to France, you need a French dictionary. In Japan, a Japanese dictionary. In the past, observability was like this. If you wanted to use Datadog, you had to install Datadog's proprietary code in your app. If you switched to New Relic a year later, you had to rewrite all your code!
@@ -206,3 +209,13 @@ If you put an API Gateway, Load Balancer, or Nginx proxy in front of your micros
 | [open-telemetry/opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js) | ⭐ 4k+ | OpenTelemetry JavaScript Client. | Essential for Node.js and frontend developers. |
 | [open-telemetry/opentelemetry-go](https://github.com/open-telemetry/opentelemetry-go) | ⭐ 5k+ | OpenTelemetry Go API and SDK. | Essential for Go developers, widely used in cloud-native tools. |
 | [open-telemetry/opentelemetry-specification](https://github.com/open-telemetry/opentelemetry-specification) | ⭐ 4k+ | Specifications for OpenTelemetry. | The actual written standard that defines how traces, metrics, and logs should behave universally. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

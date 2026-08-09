@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you will integrate with legacy client systems that can silently fail. Properly configured alerting rules are your first line of defense to detect failures before the client even notices, allowing you to proactively investigate the issue.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is monitoring a fire alarm system with different zones */}
 
 Think of a smoke detector in your house, bro.
@@ -181,3 +184,13 @@ If your application completely crashes, it might stop emitting metrics entirely.
 | [samber/awesome-prometheus-alerts](https://github.com/samber/awesome-prometheus-alerts) | ⭐ 11k+ | Collection of Prometheus alerting rules. | A massive cheat sheet of perfectly written PromQL alerts for Postgres, Redis, Kubernetes, etc. |
 | [PagerDuty/pagerduty](https://github.com/PagerDuty) | (Vendor) | The industry standard SaaS for on-call scheduling and phone paging. | What Alertmanager ultimately talks to when it's time to wake someone up. |
 | [grafana/grafana](https://github.com/grafana/grafana) | ⭐ 57k+ | The open and composable observability and data visualization platform. | Grafana also has a built-in alerting engine if you prefer UI-based alerting over YAML. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

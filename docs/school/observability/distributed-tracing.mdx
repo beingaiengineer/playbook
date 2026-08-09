@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, debugging latency issues in a client's convoluted, multi-hop architecture is impossible without distributed tracing. It allows you to visualize exactly where a request stalled in the client's system, saving you days of random guessing.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is tracking a BlueDart courier package hop-by-hop */}
 
 Think of ordering a package online, bro.
@@ -208,3 +211,13 @@ Trace data is massive. If you have 20 microservices, a single user request gener
 | [openzipkin/zipkin](https://github.com/openzipkin/zipkin) | ⭐ 16k+ | A distributed tracing system. | The original pioneer of tracing, created by Twitter. Still widely used. |
 | [open-telemetry/opentelemetry-python](https://github.com/open-telemetry/opentelemetry-python) | ⭐ 3k+ | OpenTelemetry Python API and SDK. | The modern, vendor-neutral way to generate traces in Python. |
 | [signoz/signoz](https://github.com/signoz/signoz) | ⭐ 15k+ | Open-source observability platform alternative to Datadog. | A modern all-in-one tool that provides an excellent UI for traces over ClickHouse. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |
