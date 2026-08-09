@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you often deploy into opaque client infrastructure where you cannot simply SSH into machines to view logs. Centralized logging ensures you have a single pane of glass to trace requests across the client's distributed microservices without needing direct access to their servers.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is running a central security desk collecting visitor logs */}
 
 Think of a massive corporate office building, bro. Every department on every floor has a clipboard where visitors sign in (local logs). If a laptop gets stolen, you can't have security guards running up and down 50 floors checking 50 different clipboards. That would take forever.
@@ -192,3 +195,13 @@ Commercial centralized logging platforms (like Datadog or Splunk) charge based o
 | [elastic/logstash](https://github.com/elastic/logstash) | ⭐ 14k+ | Logstash - transport and process your logs | The 'L' in the ELK stack, a powerful (but heavy) log processing pipeline. |
 | [grafana/loki](https://github.com/grafana/loki) | ⭐ 22k+ | Like Prometheus, but for logs | A modern, highly cost-effective centralized logging system that only indexes metadata, not the full text. |
 | [timberio/vector](https://github.com/timberio/vector) | ⭐ 16k+ | A high-performance observability data pipeline | A rapidly growing Rust-based log shipper known for incredible speed and low memory usage. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

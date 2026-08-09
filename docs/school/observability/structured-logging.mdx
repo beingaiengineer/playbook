@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you will frequently need to query millions of log lines to debug complex production issues on client sites. Emitting structured logs (like JSON) allows log aggregation tools to easily parse and filter logs, turning a painful text search into a fast database query.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is reading a patient's detailed medical chart */}
 
 Think of keeping records at a hospital, bro. Unstructured logging is like a doctor hastily scribbling "Patient felt dizzy at 3 PM after taking meds" on a blank sheet of paper. Good luck searching through a million of those to find everyone who had a reaction to aspirin.
@@ -201,3 +204,13 @@ If Team A uses `userId`, Team B uses `user_id`, and Team C uses `uid`, your obse
 | [sirupsen/logrus](https://github.com/sirupsen/logrus) | ⭐ 24k+ | Structured, pluggable logging for Go | A foundational (though now in maintenance mode) library that shaped Go structured logging. |
 | [rs/zerolog](https://github.com/rs/zerolog) | ⭐ 9k+ | Zero Allocation JSON Logger for Go | The modern standard for hyper-fast, low-overhead structured logging in Go. |
 | [trentm/node-bunyan](https://github.com/trentm/node-bunyan) | ⭐ 7k+ | A simple and fast JSON logging module for Node.js | One of the earliest pioneers of enforcing JSON-only logs in the Node ecosystem. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

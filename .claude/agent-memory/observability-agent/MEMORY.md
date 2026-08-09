@@ -70,6 +70,16 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-148] | Retrofit FDE + Section 18: `alerting-rules.mdx`
+- [x] [BAE-FDE-149] | Retrofit FDE + Section 18: `centralized-logging.mdx`
+- [x] [BAE-FDE-150] | Retrofit FDE + Section 18: `distributed-tracing.mdx`
+- [x] [BAE-FDE-151] | Retrofit FDE + Section 18: `golden-signals.mdx`
+- [x] [BAE-FDE-152] | Retrofit FDE + Section 18: `health-checks.mdx`
+- [x] [BAE-FDE-153] | Retrofit FDE + Section 18: `metrics-and-dashboards.mdx`
+- [x] [BAE-FDE-154] | Retrofit FDE + Section 18: `opentelemetry.mdx`
+- [x] [BAE-FDE-155] | Retrofit FDE + Section 18: `prometheus-grafana.mdx`
+- [x] [BAE-FDE-156] | Retrofit FDE + Section 18: `structured-logging.mdx`
+- [x] [BAE-FDE-157] | Retrofit FDE + Section 18: `what-is-observability.mdx`
 - [x] [BAE-OBS-001] | Create `what-is-observability.mdx`
 - [x] [BAE-OBS-002] | Create `structured-logging.mdx`
 - [x] [BAE-OBS-003] | Create `centralized-logging.mdx`
@@ -120,6 +130,7 @@ _Empty_
 | BAE ID | What's Done (High Level) |
 |---|---|
 | `[BAE-OBS-001]` through `[BAE-OBS-010]` | Created observability introduction batch including what is observability, logging strategies, metrics, tracing, prometheus, grafana, open telemetry, alerting, health checks, and golden signals. |
+| BAE-FDE-148 through BAE-FDE-157 | Retrofitted observability pages with FDE scenarios and Section 18. |
 
 ---
 
@@ -140,13 +151,4 @@ _Empty_
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-148] | Retrofit FDE + Section 18: `alerting-rules.mdx`
-- [ ] [BAE-FDE-149] | Retrofit FDE + Section 18: `centralized-logging.mdx`
-- [ ] [BAE-FDE-150] | Retrofit FDE + Section 18: `distributed-tracing.mdx`
-- [ ] [BAE-FDE-151] | Retrofit FDE + Section 18: `golden-signals.mdx`
-- [ ] [BAE-FDE-152] | Retrofit FDE + Section 18: `health-checks.mdx`
-- [ ] [BAE-FDE-153] | Retrofit FDE + Section 18: `metrics-and-dashboards.mdx`
-- [ ] [BAE-FDE-154] | Retrofit FDE + Section 18: `opentelemetry.mdx`
-- [ ] [BAE-FDE-155] | Retrofit FDE + Section 18: `prometheus-grafana.mdx`
-- [ ] [BAE-FDE-156] | Retrofit FDE + Section 18: `structured-logging.mdx`
-- [ ] [BAE-FDE-157] | Retrofit FDE + Section 18: `what-is-observability.mdx`
+_Empty_

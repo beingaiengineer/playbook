@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you may deploy into air-gapped or on-premise client environments where cloud-based observability tools are prohibited. The open-source Prometheus and Grafana stack allows you to build powerful, localized monitoring without relying on external SaaS vendors.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is observing a CCTV control room */}
 
 Think of a massive casino, bro.
@@ -175,3 +178,13 @@ By default, Prometheus only stores data on local disk for 15 days. Do not treat 
 | [prometheus/alertmanager](https://github.com/prometheus/alertmanager) | ⭐ 7k+ | Prometheus Alertmanager. | The critical component that turns PromQL queries into actual PagerDuty calls. |
 | [thanos-io/thanos](https://github.com/thanos-io/thanos) | ⭐ 12k+ | Highly available Prometheus setup with long term storage capabilities. | What you use when a single Prometheus server isn't enough anymore. |
 | [prometheus/node_exporter](https://github.com/prometheus/node_exporter) | ⭐ 9k+ | Exporter for machine metrics. | The agent you install on Linux boxes to scrape CPU, RAM, and Disk metrics into Prometheus. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

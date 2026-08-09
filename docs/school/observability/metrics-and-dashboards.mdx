@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you need to prove to the client that your newly deployed service is performing better than their legacy system. Proper metrics and dashboards provide the objective, undeniable data required to win the client's trust and sign off on the integration.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is looking at a power grid control room dashboard */}
 
 Think of flying a commercial airplane, bro. The pilot doesn't read a text log of every single drop of fuel entering the engine. That would be impossible to process.
@@ -217,3 +220,13 @@ Never rely on the `average` (mean) for latency in production. The average hides 
 | [influxdata/influxdb](https://github.com/influxdata/influxdb) | ⭐ 26k+ | Scalable datastore for metrics, events, and real-time analytics. | A very popular alternative push-based TSDB. |
 | [VictoriaMetrics/VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics) | ⭐ 10k+ | Fast, cost-effective and scalable TSDB. | A highly optimized drop-in replacement for Prometheus when you need massive scale. |
 | [statsd/statsd](https://github.com/statsd/statsd) | ⭐ 16k+ | Daemon for easy but powerful stats aggregation. | The classic Etsy project that popularized simple push-based UDP metrics. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

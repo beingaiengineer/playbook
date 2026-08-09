@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you are often dropped into unfamiliar client systems during active outages. Monitoring the Four Golden Signals (Latency, Traffic, Errors, and Saturation) gives you an immediate, high-level understanding of system health without needing to know the deep implementation details of their architecture.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is checking patient vital signs (pulse, temperature, BP, breathing) as a doctor */}
 
 Think of a doctor performing triage in an emergency room, bro.
@@ -160,3 +163,13 @@ Saturation isn't always CPU or RAM. In many modern Python/Django apps, the most 
 | [GoogleCloudPlatform/microservices-demo](https://github.com/GoogleCloudPlatform/microservices-demo) | ⭐ 15k+ | Sample cloud-native application with 10 microservices. | The perfect repo to practice building Golden Signal dashboards across multiple services. |
 | [prometheus/blackbox_exporter](https://github.com/prometheus/blackbox_exporter) | ⭐ 4k+ | Blackbox prober for endpoints over HTTP, HTTPS, DNS, TCP. | Essential for getting Latency and Error signals from the *outside* of your network, mimicking a real user. |
 | [weaveworks/common](https://github.com/weaveworks/common) | ⭐ 1k+ | Common libraries for Go microservices. | Contains great examples of implementing the RED (Rate, Errors, Duration) method in code. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |

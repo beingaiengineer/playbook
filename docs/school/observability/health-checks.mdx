@@ -19,6 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, deploying services into unreliable client environments means you need robust automated health checks to prevent load balancers from routing traffic to dead instances, ensuring high availability even when the underlying infrastructure is flaky.
+
+
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: Modern black and white illustration, clean ink or vector style. Pure white background. Strictly grayscale, no colors. Minimal text. The main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae the baby elephant is doing regular checkups as a doctor on patients */}
 
 Think of a doctor checking on patients in a hospital ward, bro.
@@ -193,3 +196,13 @@ A health check is called constantly (often every 5 or 10 seconds per pod). If yo
 | [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) | ⭐ 100k+ | Production-Grade Container Scheduling and Management | The engine that popularized and executes these probes in modern cloud environments. |
 | [grpc-ecosystem/grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe) | ⭐ 3k+ | A command-line tool for health-checking gRPC applications in Kubernetes | Essential because Kubernetes natively understands HTTP probes, but needs this tool for gRPC probes. |
 | [infracloudio/botkube](https://github.com/infracloudio/botkube) | ⭐ 2k+ | App that helps you monitor your Kubernetes cluster | Good for alerting Slack when a pod continually fails its health checks and enters a CrashLoopBackOff. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Observability Configuration | Always include structured logging, metrics, and tracing instrumentation when generating new services or APIs. | FDEs deploy into unfamiliar client environments where lack of observability causes prolonged outages. |
+| Error Handling | Ensure all caught exceptions are logged with contextual data (e.g., request IDs, user IDs) using structured JSON formats. | Plain text stack traces are difficult to search in centralized logging tools, hindering rapid incident response. |
