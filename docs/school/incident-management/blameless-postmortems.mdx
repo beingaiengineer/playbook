@@ -21,6 +21,8 @@ Bro, if you fire the engineer who dropped the production database, you just fire
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you will often debug outages caused by third-party legacy APIs on client infrastructure. When a client integration fails, your goal is to find out why the system allowed the failure without alerting you, not who deployed the bad code. Blameless culture helps you uncover structural weaknesses in unfamiliar client environments.
+
 | Post-Match Cricket Analysis | Postmortem Equivalent |
 |---|---|
 | The match is over (we lost) | The incident is resolved |
@@ -166,3 +168,13 @@ Google SRE pioneered the formal Blameless Postmortem. At Google, an incident is 
 | [PagerDuty/incident-response-docs](https://github.com/PagerDuty/incident-response-docs) | ⭐ 5k+ | PagerDuty's incident docs. | Includes excellent templates for writing postmortems. |
 | [dastergon/awesome-sre](https://github.com/dastergon/awesome-sre) | ⭐ 10k+ | Curated list of SRE resources. | Links to hundreds of public postmortems (like Cloudflare and GitHub outages) to learn from. |
 | [danluu/post-mortems](https://github.com/danluu/post-mortems) | ⭐ 9k+ | A collection of public postmortems. | Read these to see how top companies write blameless reports. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Log Output | Output clear, actionable error logs when an operation fails. Do not write logs that assign blame (e.g., "User supplied bad data"). | FDE deployments involve client data that is often messy. Blame-oriented logs distract from finding the systemic fix. |
+| Incident Documentation | When drafting postmortems, focus purely on timelines, commands run, and system states. | Objective documentation prevents defensive behavior and enables the team to build better guardrails. |

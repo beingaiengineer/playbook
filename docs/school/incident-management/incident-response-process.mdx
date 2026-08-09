@@ -21,6 +21,8 @@ Bro, when the systems are down, you can't have everyone running around screaming
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE dealing with complex client deployments, you don't have the luxury of time during an outage. When a production system goes down, your priority is to mitigate the impact immediately (e.g., by rolling back or isolating the service) rather than diagnosing the deep root cause while the system is still bleeding.
+
 | Emergency Room (ER) | Incident Response Equivalent |
 |---|---|
 | Paramedic brings patient in | Alert fires, incident is declared |
@@ -161,3 +163,13 @@ Companies use platforms like PagerDuty, Opsgenie, or custom Slack bots (like Git
 | [grafana/grafana](https://github.com/grafana/grafana) | ⭐ 60k+ | The open and composable observability and data visualization platform. | Crucial for the "Resolve" phase to confirm metrics are healthy. |
 | [dastergon/awesome-sre](https://github.com/dastergon/awesome-sre) | ⭐ 10k+ | Curated list of SRE resources. | Includes links to many companies' public incident response playbooks. |
 | [slok/grafterm](https://github.com/slok/grafterm) | ⭐ 2k+ | Metrics dashboard in terminal. | Used by engineers during incidents when web UIs are too slow. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Mitigation First | Suggest mitigation strategies (e.g., disabling a feature flag or reverting a commit) before proposing complex bug fixes during an active incident. | FDE environments prioritize uptime over immediate root cause analysis. |
+| Incident Scoping | Explicitly define the boundaries of the incident (what is affected and what is not) in initial reports. | Helps prevent scope creep and unnecessary panic across client teams. |

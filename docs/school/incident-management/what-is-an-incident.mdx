@@ -21,6 +21,8 @@ Bro, before we even talk about how to fix things, we need to know what we are ac
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE deployed to a client, distinguishing between a bug and an incident is vital. A bug is an unexpected behavior that needs a fix during regular sprints. An incident is a disruption of service that breaks your Service Level Agreement (SLA) with the client and requires immediate, drop-everything attention.
+
 | Fire Emergency | Incident Equivalent |
 |---|---|
 | A burnt toast in the kitchen | A single 500 error in a background job |
@@ -164,3 +166,13 @@ Companies like Netflix and Uber have dedicated Site Reliability Engineering (SRE
 | [Netflix/chaosmonkey](https://github.com/Netflix/chaosmonkey) | ⭐ 14k+ | A resiliency tool that helps applications tolerate random instance failures. | Creating controlled incidents to ensure systems survive uncontrolled ones. |
 | [grafana/grafana](https://github.com/grafana/grafana) | ⭐ 60k+ | The open and composable observability and data visualization platform. | Core tool used to detect the anomalies that become incidents. |
 | [prometheus/prometheus](https://github.com/prometheus/prometheus) | ⭐ 52k+ | The Prometheus monitoring system and time series database. | The standard for firing the alerts that trigger incidents. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Incident Declaration | Provide explicit criteria in configuration files for when automated systems should declare an incident versus logging an error. | Ambiguity in automated incident creation causes unnecessary panic for FDE teams. |
+| Business Impact | Structure monitoring dashboards to highlight business-level impact (e.g., failed transactions) rather than just technical metrics (e.g., CPU load). | Incidents are defined by customer pain, not internal system metrics. |

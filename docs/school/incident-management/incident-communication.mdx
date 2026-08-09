@@ -21,6 +21,8 @@ Bro, fixing the database is only half the job. If the CEO thinks the company is 
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, transparent communication is your lifeline. When integrating with legacy client systems, things will break. Your clients don't expect perfection, but they demand communication. Keeping stakeholders updated during an outage builds trust, whereas silence destroys it.
+
 | Delayed Train | Incident Equivalent |
 |---|---|
 | The train breaks down | The production database goes down |
@@ -153,3 +155,13 @@ Companies like GitHub and Cloudflare are famous for their excellent incident com
 | [Atlassian/statuspage](https://github.com/Atlassian) | N/A | Atlassian Statuspage (Commercial, but standard). | The de facto tool most companies use to communicate externally. |
 | [dastergon/awesome-sre](https://github.com/dastergon/awesome-sre) | ⭐ 10k+ | Curated list of SRE resources. | Links to blogs discussing the psychology of incident communication. |
 | [google/sre-book](https://github.com/google/sre-book) | ⭐ 8k+ | The Google SRE book. | Detailed chapters on managing communications during a crisis. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Status Messages | Generate objective, concise status updates focusing on impact and mitigation steps. | Ambiguous or overly technical updates confuse non-technical client stakeholders during an incident. |
+| Timeframes | Avoid hardcoding exact resolution times in templates; use relative updates (e.g., "Next update in 30 minutes"). | Committing to strict deadlines during unpredictable client outages leads to broken promises. |

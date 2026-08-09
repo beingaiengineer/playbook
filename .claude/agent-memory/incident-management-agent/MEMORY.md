@@ -51,15 +51,8 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-139] | Retrofit FDE + Section 18: `blameless-postmortems.mdx`
-- [ ] [BAE-FDE-140] | Retrofit FDE + Section 18: `incident-commander-role.mdx`
-- [ ] [BAE-FDE-141] | Retrofit FDE + Section 18: `incident-communication.mdx`
-- [ ] [BAE-FDE-142] | Retrofit FDE + Section 18: `incident-response-process.mdx`
-- [ ] [BAE-FDE-143] | Retrofit FDE + Section 18: `incident-tools.mdx`
-- [ ] [BAE-FDE-144] | Retrofit FDE + Section 18: `on-call-culture.mdx`
-- [ ] [BAE-FDE-145] | Retrofit FDE + Section 18: `runbooks.mdx`
-- [ ] [BAE-FDE-146] | Retrofit FDE + Section 18: `severity-levels.mdx`
-- [ ] [BAE-FDE-147] | Retrofit FDE + Section 18: `what-is-an-incident.mdx`
+_Empty_
+
 
 ### IN PROGRESS
 _Empty_
@@ -68,6 +61,15 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-139] | Retrofit FDE + Section 18: `blameless-postmortems.mdx`
+- [x] [BAE-FDE-140] | Retrofit FDE + Section 18: `incident-commander-role.mdx`
+- [x] [BAE-FDE-141] | Retrofit FDE + Section 18: `incident-communication.mdx`
+- [x] [BAE-FDE-142] | Retrofit FDE + Section 18: `incident-response-process.mdx`
+- [x] [BAE-FDE-143] | Retrofit FDE + Section 18: `incident-tools.mdx`
+- [x] [BAE-FDE-144] | Retrofit FDE + Section 18: `on-call-culture.mdx`
+- [x] [BAE-FDE-145] | Retrofit FDE + Section 18: `runbooks.mdx`
+- [x] [BAE-FDE-146] | Retrofit FDE + Section 18: `severity-levels.mdx`
+- [x] [BAE-FDE-147] | Retrofit FDE + Section 18: `what-is-an-incident.mdx`
 - [x] [BAE-INC-001] | Create `what-is-an-incident.mdx`
 - [x] [BAE-INC-002] | Create `severity-levels.mdx`
 - [x] [BAE-INC-003] | Create `on-call-culture.mdx`
@@ -117,6 +119,7 @@ _Empty_
 | BAE ID | What's Done (High Level) |
 |---|---|
 | `[BAE-INC-1]` | Created 9 incident management core topic pages |
+| BAE-FDE-139 through BAE-FDE-147 | Retrofit FDE scenarios and Section 18 into incident management topics |
 
 ---
 
@@ -137,12 +140,4 @@ _Empty_
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-139] | Retrofit FDE + Section 18: `blameless-postmortems.mdx`
-- [ ] [BAE-FDE-140] | Retrofit FDE + Section 18: `incident-commander-role.mdx`
-- [ ] [BAE-FDE-141] | Retrofit FDE + Section 18: `incident-communication.mdx`
-- [ ] [BAE-FDE-142] | Retrofit FDE + Section 18: `incident-response-process.mdx`
-- [ ] [BAE-FDE-143] | Retrofit FDE + Section 18: `incident-tools.mdx`
-- [ ] [BAE-FDE-144] | Retrofit FDE + Section 18: `on-call-culture.mdx`
-- [ ] [BAE-FDE-145] | Retrofit FDE + Section 18: `runbooks.mdx`
-- [ ] [BAE-FDE-146] | Retrofit FDE + Section 18: `severity-levels.mdx`
-- [ ] [BAE-FDE-147] | Retrofit FDE + Section 18: `what-is-an-incident.mdx`
+_Empty_
