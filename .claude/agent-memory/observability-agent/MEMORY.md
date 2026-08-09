@@ -52,16 +52,7 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-148] | Retrofit FDE + Section 18: `alerting-rules.mdx`
-- [ ] [BAE-FDE-149] | Retrofit FDE + Section 18: `centralized-logging.mdx`
-- [ ] [BAE-FDE-150] | Retrofit FDE + Section 18: `distributed-tracing.mdx`
-- [ ] [BAE-FDE-151] | Retrofit FDE + Section 18: `golden-signals.mdx`
-- [ ] [BAE-FDE-152] | Retrofit FDE + Section 18: `health-checks.mdx`
-- [ ] [BAE-FDE-153] | Retrofit FDE + Section 18: `metrics-and-dashboards.mdx`
-- [ ] [BAE-FDE-154] | Retrofit FDE + Section 18: `opentelemetry.mdx`
-- [ ] [BAE-FDE-155] | Retrofit FDE + Section 18: `prometheus-grafana.mdx`
-- [ ] [BAE-FDE-156] | Retrofit FDE + Section 18: `structured-logging.mdx`
-- [ ] [BAE-FDE-157] | Retrofit FDE + Section 18: `what-is-observability.mdx`
+_Empty_
 
 ### IN PROGRESS
 _Empty_
@@ -116,7 +107,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 10
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 10
+- Open Tasks: 0
 
 ---
 

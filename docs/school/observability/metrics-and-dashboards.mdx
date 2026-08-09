@@ -206,12 +206,12 @@ Never rely on the `average` (mean) for latency in production. The average hides 
 | Using Gauges for countable events | If you want to know "how many times did X happen", use a Counter. Gauges are for current state. | **Bad:** Using a Gauge and doing `Gauge.set(Gauge.get() + 1)`.<br/>**Good:** Using `Counter.inc()`. |
 | Alerting on every spike | Add a duration threshold to alerts. | **Bad:** Alert if CPU > 90%. (It might just be a 2-second garbage collection pause).<br/>**Good:** Alert if CPU > 90% *for more than 5 minutes*. |
 
-## 15. Related Topics
+## 16. Related Topics
 
 - [Prometheus & Grafana](./prometheus-grafana.mdx)
 - [Golden Signals](./golden-signals.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

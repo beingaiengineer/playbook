@@ -195,12 +195,12 @@ If you put an API Gateway, Load Balancer, or Nginx proxy in front of your micros
 | Initializing SDK multiple times | Only initialize the SDK once at the very entry point of your app. | **Bad:** Calling `trace.set_tracer_provider()` inside a request handler. |
 | Mixing proprietary SDKs | Stick purely to OTel libraries. | **Bad:** Using `dd-trace` (Datadog) and `opentelemetry` in the same project. They will fight over context propagation. |
 
-## 15. Related Topics
+## 16. Related Topics
 
 - [Distributed Tracing](./distributed-tracing.mdx)
 - [Centralized Logging](./centralized-logging.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
