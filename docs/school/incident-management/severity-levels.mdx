@@ -21,6 +21,8 @@ Bro, not all fires are the same. A candle falling over in the living room is bad
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, correctly identifying severity levels is critical when working with clients. A SEV-1 means waking up their entire executive team, while a SEV-4 can wait until Monday. Misclassifying incidents destroys your credibility and causes alert fatigue across the client's engineering organization.
+
 | Medical Triage | Tech SEV Equivalent |
 |---|---|
 | Cardiac Arrest (Immediate life threat) | **SEV-1**: Core systems down, massive revenue loss |
@@ -176,3 +178,13 @@ Companies like Stripe and Shopify have incredibly strict definitions for SEV lev
 | [linkedin/oncall-handbook](https://github.com/linkedin/oncall-handbook) | ⭐ 2k+ | A guide to surviving on-call. | Practical advice on handling different severities of pages. |
 | [dastergon/awesome-sre](https://github.com/dastergon/awesome-sre) | ⭐ 10k+ | A curated list of Site Reliability resources. | Contains links to many companies' public incident management frameworks. |
 | [etsy/morgue](https://github.com/etsy/morgue) | ⭐ 1.5k+ | A tool for managing postmortems. | Postmortems are heavily dictated by the severity of the incident they review. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Severity Mapping | Ensure all generated alerts and error logs include an explicit severity level that maps to business impact. | Inconsistent severity tagging leads to delayed responses for critical client issues. |
+| Escalation Logic | Generate automated routing rules that strictly differentiate between critical pages (SEV-1/2) and low-priority tickets (SEV-3/4). | Prevents off-hours paging for non-urgent issues, preserving on-call health. |

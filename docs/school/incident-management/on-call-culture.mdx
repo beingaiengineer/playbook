@@ -21,6 +21,8 @@ Bro, carrying the pager is a rite of passage. But it shouldn't feel like a punis
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, going on-call means being the first line of defense for a client's mission-critical systems. A healthy on-call culture ensures that you have clear escalation paths and backup support when debugging unfamiliar legacy systems at 3 AM. Burnout is a real risk if rotations aren't managed properly.
+
 | Night Watch | On-Call Equivalent |
 |---|---|
 | Guarding the fort while everyone sleeps | Being on-call after hours |
@@ -176,3 +178,13 @@ Companies like Amazon mandate that every software engineer goes on call. It forc
 | [PagerDuty/incident-response-docs](https://github.com/PagerDuty/incident-response-docs) | ⭐ 5k+ | PagerDuty's incident response documentation. | Industry standard advice on escalation policies and alert fatigue. |
 | [dastergon/awesome-sre](https://github.com/dastergon/awesome-sre) | ⭐ 10k+ | Curated SRE resources. | Links to hundreds of blogs about on-call culture and compensation. |
 | [Netflix/chaosmonkey](https://github.com/Netflix/chaosmonkey) | ⭐ 14k+ | Netflix's tool to randomly terminate instances. | Forces teams to build resilient systems so they *don't* get paged at night. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Alert Fatigue | Configure alerting thresholds to only trigger on actionable, user-facing degradation. | Over-alerting causes engineers to ignore critical pages, leading to missed client outages. |
+| Escalation Paths | Generate incident response scripts with explicit, multi-level escalation policies. | A single point of failure in an on-call rotation is dangerous for enterprise deployments. |

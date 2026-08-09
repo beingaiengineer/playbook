@@ -21,6 +21,8 @@ Bro, if everyone is trying to drive the bus during an emergency, you're going to
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE deployed to a client site, you might find yourself leading an incident response involving multiple client teams. The IC role is crucial here: you must orchestrate communication between the client's networking team, your own engineering team, and external vendors without touching the codebase yourself.
+
 | Fire Brigade | Incident Equivalent |
 |---|---|
 | Fire Chief | **Incident Commander (IC)** |
@@ -156,3 +158,13 @@ The Incident Command System (ICS) wasn't invented by software engineers. It was 
 | [dastergon/awesome-sre](https://github.com/dastergon/awesome-sre) | ⭐ 10k+ | Curated list of SRE resources. | Links to various companies' specific IC training materials. |
 | [dispatchrun/dispatch](https://github.com/dispatchrun/dispatch) | ⭐ 4k+ | Netflix's crisis management framework. | Automates the creation of the IC role and war rooms. |
 | [FEMA/ICS](https://training.fema.gov/nims/) | N/A | FEMA's Incident Command System training. | The literal origin of the system. Tech companies still use its principles. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Role Separation | When generating incident response playbooks, clearly separate the roles of the IC and the responder. | The IC must maintain situational awareness, which is impossible if they are distracted by fixing the code. |
+| Communication | Direct all status updates to the predefined incident channel rather than individual developers. | Centralized communication is critical during client escalations. |

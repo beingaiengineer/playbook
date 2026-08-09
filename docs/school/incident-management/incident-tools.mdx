@@ -21,6 +21,8 @@ Bro, you can't put out a fire with your bare hands. You need hoses, axes, and la
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you'll frequently integrate your stack with a client's existing incident tooling, such as legacy alerting systems or custom ticketing platforms. A fragmented toolchain causes missed alerts. Ensuring seamless integration between monitoring, paging, and communication tools is non-negotiable for stable client deployments.
+
 | Fire Department Tools | Incident Tool Equivalent |
 |---|---|
 | Smoke Detector | **Observability / Metrics Platform** (e.g., Datadog) |
@@ -170,3 +172,13 @@ Almost every unicorn tech company uses some variation of the "Holy Trinity": Dat
 | [dispatchrun/dispatch](https://github.com/dispatchrun/dispatch) | ⭐ 4k+ | Netflix's crisis management orchestration. | An open-source tool that glues together Slack, Jira, and PagerDuty. |
 | [slackapi/bolt-python](https://github.com/slackapi/bolt-python) | ⭐ 2k+ | A framework to build Slack apps in Python. | Used to build custom ChatOps bots for incident management. |
 | [PagerDuty/incident-response-docs](https://github.com/PagerDuty/incident-response-docs) | ⭐ 5k+ | PagerDuty's incident response documentation. | Best practices on how to configure these tools effectively. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Tool Integration | Generate configuration scripts that strictly validate the connection between monitoring and alerting systems (e.g., Datadog to PagerDuty). | Silent failures in alerting pipelines are catastrophic in FDE environments. |
+| Alert Context | Ensure all generated alert payloads include a link to the relevant dashboard and runbook. | Contextless alerts waste precious time during high-stress client incidents. |

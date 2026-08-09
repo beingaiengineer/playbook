@@ -21,6 +21,8 @@ Bro, at 3 AM your brain doesn't work. If you have to invent a solution while the
 
 ## 2. Real-World Analogy
 
+**FDE Scenario:** As an FDE, you often hand over systems to client engineering teams. Runbooks are the operational contracts you leave behind. A good runbook provides clear, step-by-step commands to mitigate issues in high-stress situations, ensuring that any engineer can restore service without needing your direct involvement.
+
 | Medical Emergency | Incident Equivalent |
 |---|---|
 | Paramedic arrives at the scene | Engineer receives a page at 3 AM |
@@ -180,3 +182,13 @@ Companies like Netflix and Amazon rely heavily on automated runbooks. They use t
 | [ansible/ansible](https://github.com/ansible/ansible) | ⭐ 60k+ | A radically simple IT automation platform. | Often used to turn manual markdown runbooks into executable code. |
 | [rundeck/rundeck](https://github.com/rundeck/rundeck) | ⭐ 5k+ | Job Scheduler and Runbook Automation. | A popular open-source tool for executing runbooks safely. |
 | [PagerDuty/incident-response-docs](https://github.com/PagerDuty/incident-response-docs) | ⭐ 5k+ | PagerDuty's incident response documentation. | Discusses the philosophy of runbook creation. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Executable Steps | Write runbook commands as explicit, copy-pasteable snippets. Avoid ambiguous descriptions like "check the database". | During a 3 AM client outage, engineers need exact commands, not vague suggestions. |
+| Prerequisite Checks | Include validation commands to confirm system state before executing destructive actions. | Running mitigation scripts blindly can cause secondary outages on client infrastructure. |
