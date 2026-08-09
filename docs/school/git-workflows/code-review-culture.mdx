@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Human bottleneck. Poor culture leads to weeks of PR stagnation. |
 
 ## 2. Real-World Analogy
+**FDE Scenario:** Your client's engineering team is paralyzed because PRs take 3 weeks to review. Senior engineers leave 50-comment threads nitpicking whitespace instead of checking business logic. You must reset their code review culture.
+
 
 Bro, think of a Code Review like an architectural inspection before building a house.
 
@@ -149,7 +151,7 @@ Google has one of the strictest code review cultures in the world. They enforce 
 - pull-requests
 - code-quality-gates (from CI/CD course)
 
-## Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -157,3 +159,12 @@ Google has one of the strictest code review cultures in the world. They enforce 
 | [thoughtbot/guides](https://github.com/thoughtbot/guides) | ⭐ 8k+ | Thoughtbot's guidelines for reviewing code | Excellent practical advice on empathy in engineering. |
 | [golang/go](https://github.com/golang/go/wiki/CodeReviewComments) | ⭐ 115k+ | Go language code review comments | A famous list of common mistakes caught during Go code reviews. |
 | [prettier/prettier](https://github.com/prettier/prettier) | ⭐ 47k+ | Opinionated Code Formatter | The tool that ended formatting arguments in code reviews forever. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Review Focus | When reviewing PRs, focus on logic bugs, security risks, and performance bottlenecks over stylistic nitpicks. | Stylistic issues should be caught by automated linters, not human/AI review time. |
+| Actionable Feedback | Always provide exact code suggestions when leaving a review comment requesting a change. | Vague feedback slows down resolution; explicit suggestions allow one-click fixes. |
+| Tone | Maintain a professional, constructive tone in all review comments. | Prevents defensive reactions and fosters a collaborative engineering culture. |
