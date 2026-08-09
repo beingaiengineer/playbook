@@ -198,12 +198,12 @@ Trace data is massive. If you have 20 microservices, a single user request gener
 | Missing DB Traces | Instrument your database drivers. | **Fix:** Use `opentelemetry.instrumentation.sqlalchemy` to automatically generate spans for every SQL query. |
 | Too many manual spans | Let the framework handle HTTP/DB spans. Only manually wrap critical complex business logic. | **Bad:** Writing a `with tracer.start_as_current_span()` around a basic `a + b` math function. |
 
-## 15. Related Topics
+## 16. Related Topics
 
 - [What is Observability?](./what-is-observability.mdx)
 - [OpenTelemetry](./opentelemetry.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

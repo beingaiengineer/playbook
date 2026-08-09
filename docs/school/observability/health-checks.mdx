@@ -184,12 +184,12 @@ A health check is called constantly (often every 5 or 10 seconds per pod). If yo
 | Using Liveness for everything | Only use liveness if restarting the pod actually fixes the problem (like deadlocks). | **Bad:** Liveness probe fails because a file is missing. Restarting the pod won't magically create the file! |
 | Zombie Connections | If checking a DB in a readiness probe, clean up connections. | **Fix:** Use a connection pool. Don't open a new connection every 5 seconds just for a health check and leave it open. |
 
-## 15. Related Topics
+## 16. Related Topics
 
 - [Metrics & Dashboards](./metrics-and-dashboards.mdx)
 - [Centralized Logging](./centralized-logging.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

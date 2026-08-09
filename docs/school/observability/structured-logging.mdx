@@ -190,12 +190,12 @@ If Team A uses `userId`, Team B uses `user_id`, and Team C uses `uid`, your obse
 | Logging deep, massive objects | Only log the necessary identifiers to avoid blowing up log size. | **Bad:** `logger.info("order_created", order=entire_order_object_with_100_fields)`<br/>**Good:** `logger.info("order_created", order_id=order.id)` |
 | Inconsistent Data Types | Always cast values to their agreed schema type. | **Bad:** `logger.info("login", user_id="123")` (String)<br/>**Good:** `logger.info("login", user_id=123)` (Integer) |
 
-## 15. Related Topics
+## 16. Related Topics
 
 - [What is Observability?](./what-is-observability.mdx)
 - [Centralized Logging](./centralized-logging.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

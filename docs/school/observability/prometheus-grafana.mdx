@@ -164,12 +164,12 @@ By default, Prometheus only stores data on local disk for 15 days. Do not treat 
 | Alerting on every instance | Group alerts. | **Bad:** Paging the team 50 times because 50 pods lost DB connection.<br/>**Good:** Alertmanager grouping: "50 pods are failing to connect to the DB". |
 | Hardcoding Grafana queries | Use Grafana variables. | **Bad:** `http_requests{region="us-east-1"}`<br/>**Good:** `http_requests{region="$region"}` |
 
-## 15. Related Topics
+## 16. Related Topics
 
 - [Metrics & Dashboards](./metrics-and-dashboards.mdx)
 - [Alerting Rules](./alerting-rules.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
