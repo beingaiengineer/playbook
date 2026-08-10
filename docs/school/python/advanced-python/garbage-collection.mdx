@@ -12,7 +12,7 @@ Bro, Garbage Collection (GC) is Python's background cleanup crew. While Referenc
 
 ## 2. Engineering Story
 
-Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding garbage collection, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
+**FDE Scenario:** Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding garbage collection, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
 
 ## 3. Real-World Analogy
 Imagine two friends holding each other's hands and refusing to let go. The normal hotel staff (Reference Counting) can't kick them out because they claim they are still "with someone." The Garbage Collector is the specialized security team that periodically sweeps the hotel, identifies these stubborn, isolated groups holding hands in an empty hallway, and throws them out together to free up space.
@@ -172,8 +172,19 @@ If you are debugging a memory leak in a production server, the first thing to ch
 - **Classes and Objects:** Where `__del__` magic methods are defined.
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The official Python implementation | It shows how Garbage Collection is implemented under the hood in C. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Memory Leaks | Avoid global mutable state and circular references. | Prevents OOM kills in memory-constrained FDE environments. |

@@ -12,7 +12,7 @@ Bro, if an Object is an instance of a Class, then a Class is an instance of a **
 Metaclasses allow you to intercept the creation of *classes themselves*. You use them when you want to enforce rules, automatically add methods, or modify the behavior of a class before it even exists in memory.
 
 ## 2. Engineering Story
-Bro, imagine you are building a strict API framework. You want to enforce that every single API view class developers create *must* define a `handle_request` method. If they forget, you want the application to crash on startup, not when a user actually hits the endpoint. To enforce class-level rules before an object is even instantiated, you need metaclasses—the classes that create classes.
+**FDE Scenario:** Bro, imagine you are building a strict API framework. You want to enforce that every single API view class developers create *must* define a `handle_request` method. If they forget, you want the application to crash on startup, not when a user actually hits the endpoint. To enforce class-level rules before an object is even instantiated, you need metaclasses—the classes that create classes.
 
 ## 3. Real-World Analogy
 - An **Object** is a car.
@@ -164,8 +164,19 @@ Metaclasses run at *import time*. If you put a heavy network call or complex alg
 - **Python Internals:** How `type` and `object` form the core of Python's memory system.
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Description | Link |
 |---|---|---|
 | SQLAlchemy | Uses metaclasses for declarative base mapping. | [Explore](https://github.com/sqlalchemy/sqlalchemy) |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Class Creation | Avoid metaclasses unless enforcing strict API contracts. | Keeps the codebase maintainable for junior engineers on the client team. |

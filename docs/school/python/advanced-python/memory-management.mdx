@@ -12,7 +12,7 @@ Bro, memory management in Python is how the interpreter handles the allocation (
 
 ## 2. Engineering Story
 
-Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding memory management, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
+**FDE Scenario:** Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding memory management, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
 
 ## 3. Real-World Analogy
 Think of Python memory like a giant hotel. The Python Memory Manager is the front desk clerk.
@@ -153,8 +153,19 @@ In containerized environments (like Docker in Kubernetes), if your Python app us
 - **Mutability:** Why changing a list affects all references, but changing a string doesn't.
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The official Python implementation | It shows how Memory Management is implemented under the hood in C. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Object Allocation | Reuse objects and use generators instead of large lists. | Reduces memory fragmentation and GC pauses in high-throughput systems. |

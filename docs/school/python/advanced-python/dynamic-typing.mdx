@@ -20,7 +20,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
-Bro, we had a pipeline parsing JSON payloads from 10 different mobile clients. Some sent user IDs as strings, others as integers. In Java, this would require strict deserialization classes and crash on mismatch. In Python, our function just took the `id`, checked if it responded to `isdigit()`, and processed it. This flexibility is the power of dynamic typing, but it's also why our runtime crashed a week later when someone sent a list instead.
+**FDE Scenario:** Bro, we had a pipeline parsing JSON payloads from 10 different mobile clients. Some sent user IDs as strings, others as integers. In Java, this would require strict deserialization classes and crash on mismatch. In Python, our function just took the `id`, checked if it responded to `isdigit()`, and processed it. This flexibility is the power of dynamic typing, but it's also why our runtime crashed a week later when someone sent a list instead.
 
 ## 3. Real-World Analogy
 
@@ -229,8 +229,19 @@ print(add("5", "10"))  # "510"
 - Python Internals
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Description | Link |
 |---|---|---|
 | Pydantic | Provides data validation and settings management using Python type hints. | [Explore](https://github.com/pydantic/pydantic) |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Type Hints | Always use type hints (`typing` module) in public APIs. | Prevents silent type coercion bugs when integrating with legacy systems. |

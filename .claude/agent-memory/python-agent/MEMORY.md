@@ -44,16 +44,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-167] | Retrofit FDE + Section 18: `advanced-python/context-managers.mdx`
-- [ ] [BAE-FDE-168] | Retrofit FDE + Section 18: `advanced-python/descriptors.mdx`
-- [ ] [BAE-FDE-169] | Retrofit FDE + Section 18: `advanced-python/dynamic-typing.mdx`
-- [ ] [BAE-FDE-170] | Retrofit FDE + Section 18: `advanced-python/garbage-collection.mdx`
-- [ ] [BAE-FDE-171] | Retrofit FDE + Section 18: `advanced-python/memory-management.mdx`
-- [ ] [BAE-FDE-172] | Retrofit FDE + Section 18: `advanced-python/metaclasses.mdx`
-- [ ] [BAE-FDE-173] | Retrofit FDE + Section 18: `advanced-python/monkey-patching.mdx`
-- [ ] [BAE-FDE-174] | Retrofit FDE + Section 18: `advanced-python/mutability.mdx`
-- [ ] [BAE-FDE-175] | Retrofit FDE + Section 18: `advanced-python/python-internals.mdx`
-- [ ] [BAE-FDE-176] | Retrofit FDE + Section 18: `advanced-python/shallow-vs-deep-copy.mdx`
 - [ ] [BAE-FDE-177] | Retrofit FDE + Section 18: `ai-engineering/ai-agents.mdx`
 - [ ] [BAE-FDE-178] | Retrofit FDE + Section 18: `ai-engineering/ai-observability.mdx`
 - [ ] [BAE-FDE-179] | Retrofit FDE + Section 18: `ai-engineering/async-ai-workflows.mdx`
@@ -195,6 +185,16 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-167] | Retrofit FDE + Section 18: `advanced-python/context-managers.mdx`
+- [x] [BAE-FDE-168] | Retrofit FDE + Section 18: `advanced-python/descriptors.mdx`
+- [x] [BAE-FDE-169] | Retrofit FDE + Section 18: `advanced-python/dynamic-typing.mdx`
+- [x] [BAE-FDE-170] | Retrofit FDE + Section 18: `advanced-python/garbage-collection.mdx`
+- [x] [BAE-FDE-171] | Retrofit FDE + Section 18: `advanced-python/memory-management.mdx`
+- [x] [BAE-FDE-172] | Retrofit FDE + Section 18: `advanced-python/metaclasses.mdx`
+- [x] [BAE-FDE-173] | Retrofit FDE + Section 18: `advanced-python/monkey-patching.mdx`
+- [x] [BAE-FDE-174] | Retrofit FDE + Section 18: `advanced-python/mutability.mdx`
+- [x] [BAE-FDE-175] | Retrofit FDE + Section 18: `advanced-python/python-internals.mdx`
+- [x] [BAE-FDE-176] | Retrofit FDE + Section 18: `advanced-python/shallow-vs-deep-copy.mdx`
 - [x] [BAE-REVIEW-011] | Audit `control-flow/if-else.mdx`
 - [x] [BAE-REVIEW-012] | Audit `control-flow/nested-conditions.mdx`
 - [x] [BAE-REVIEW-013] | Audit `control-flow/loops.mdx`
@@ -381,29 +381,6 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-- [x] [BAE-REVIEW-113] | Audit `performance/numpy-performance.mdx`
-- [x] [BAE-REVIEW-114] | Audit `performance/performance-best-practices.mdx`
-- [x] [BAE-REVIEW-115] | Audit `system-design/python-architecture.mdx`
-- [x] [BAE-REVIEW-116] | Audit `system-design/scalable-python.mdx`
-- [x] [BAE-REVIEW-117] | Audit `system-design/event-driven-systems.mdx`
-- [x] [BAE-REVIEW-118] | Audit `system-design/queue-systems.mdx`
-- [x] [BAE-REVIEW-119] | Audit `system-design/distributed-systems.mdx`
-- [x] [BAE-REVIEW-120] | Audit `system-design/microservices.mdx`
-- [x] [BAE-REVIEW-121] | Audit `system-design/production-patterns.mdx`
-- [x] [BAE-REVIEW-122] | Audit `ai-engineering/python-for-ai.mdx`
-
-- [ ] [BAE-FDE-167] | Retrofit FDE + Section 18: `advanced-python/context-managers.mdx`
-- [ ] [BAE-FDE-168] | Retrofit FDE + Section 18: `advanced-python/descriptors.mdx`
-- [ ] [BAE-FDE-169] | Retrofit FDE + Section 18: `advanced-python/dynamic-typing.mdx`
-- [ ] [BAE-FDE-170] | Retrofit FDE + Section 18: `advanced-python/garbage-collection.mdx`
-- [ ] [BAE-FDE-171] | Retrofit FDE + Section 18: `advanced-python/memory-management.mdx`
-- [ ] [BAE-FDE-172] | Retrofit FDE + Section 18: `advanced-python/metaclasses.mdx`
-- [ ] [BAE-FDE-173] | Retrofit FDE + Section 18: `advanced-python/monkey-patching.mdx`
-- [ ] [BAE-FDE-174] | Retrofit FDE + Section 18: `advanced-python/mutability.mdx`
-- [ ] [BAE-FDE-175] | Retrofit FDE + Section 18: `advanced-python/python-internals.mdx`
-- [ ] [BAE-FDE-176] | Retrofit FDE + Section 18: `advanced-python/shallow-vs-deep-copy.mdx`
-
-
 ## Backlog
 - [x] [BAE-REVIEW-021] | Audit `functions/recursion.mdx`
 - [x] [BAE-REVIEW-022] | Audit `functions/decorators.mdx`
@@ -535,6 +512,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-167 through BAE-FDE-176 | Retrofitted 10 Advanced Python topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | [BAE-REVIEW-133] through [BAE-REVIEW-143] | Audited 11 Python topics (Interview Prep & Best Practices), fixed heading numbering, injected Engineering Story, added distinct Illustration placeholders, and added unique GitHub Repositories. |
 | [BAE-REVIEW-123] through [BAE-REVIEW-132] | Audited 10 AI Engineering and Interview Prep topics, fixed heading numbering, injected Engineering Story, added distinct Illustration placeholders, and added unique GitHub Repositories. |
 | [BAE-REVIEW-113] through [BAE-REVIEW-122] | Audited 10 advanced Python topics, fixed heading numbering, injected Engineering Story, added distinct Illustration placeholders, and added unique GitHub Repositories. |
