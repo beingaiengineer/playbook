@@ -51,16 +51,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-310] | Retrofit FDE + Section 18: `blue-green-deployment.mdx`
-- [ ] [BAE-FDE-311] | Retrofit FDE + Section 18: `canary-deployment.mdx`
-- [ ] [BAE-FDE-312] | Retrofit FDE + Section 18: `deployment-fundamentals.mdx`
-- [ ] [BAE-FDE-313] | Retrofit FDE + Section 18: `deployment-strategies.mdx`
-- [ ] [BAE-FDE-314] | Retrofit FDE + Section 18: `environments-dev-staging-prod.mdx`
-- [ ] [BAE-FDE-315] | Retrofit FDE + Section 18: `feature-flags.mdx`
-- [ ] [BAE-FDE-316] | Retrofit FDE + Section 18: `infrastructure-as-code.mdx`
-- [ ] [BAE-FDE-317] | Retrofit FDE + Section 18: `release-management.mdx`
-- [ ] [BAE-FDE-318] | Retrofit FDE + Section 18: `rollback-strategies.mdx`
-- [ ] [BAE-FDE-319] | Retrofit FDE + Section 18: `terraform-basics.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -69,8 +59,17 @@ _Empty_
 _Empty_
 
 ### DONE
-_Empty_
 
+- [x] [BAE-FDE-310] | Retrofit FDE + Section 18: `blue-green-deployment.mdx`
+- [x] [BAE-FDE-311] | Retrofit FDE + Section 18: `canary-deployment.mdx`
+- [x] [BAE-FDE-312] | Retrofit FDE + Section 18: `deployment-fundamentals.mdx`
+- [x] [BAE-FDE-313] | Retrofit FDE + Section 18: `deployment-strategies.mdx`
+- [x] [BAE-FDE-314] | Retrofit FDE + Section 18: `environments-dev-staging-prod.mdx`
+- [x] [BAE-FDE-315] | Retrofit FDE + Section 18: `feature-flags.mdx`
+- [x] [BAE-FDE-316] | Retrofit FDE + Section 18: `infrastructure-as-code.mdx`
+- [x] [BAE-FDE-317] | Retrofit FDE + Section 18: `release-management.mdx`
+- [x] [BAE-FDE-318] | Retrofit FDE + Section 18: `rollback-strategies.mdx`
+- [x] [BAE-FDE-319] | Retrofit FDE + Section 18: `terraform-basics.mdx`
 ---
 
 ## Dependencies
@@ -118,6 +117,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-310 through BAE-FDE-319 | Retrofitted release deployment pages with FDE scenarios and Section 18. |
 
 ---
 
@@ -138,13 +138,4 @@ No reusable insights recorded yet.
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-310] | Retrofit FDE + Section 18: `blue-green-deployment.mdx`
-- [ ] [BAE-FDE-311] | Retrofit FDE + Section 18: `canary-deployment.mdx`
-- [ ] [BAE-FDE-312] | Retrofit FDE + Section 18: `deployment-fundamentals.mdx`
-- [ ] [BAE-FDE-313] | Retrofit FDE + Section 18: `deployment-strategies.mdx`
-- [ ] [BAE-FDE-314] | Retrofit FDE + Section 18: `environments-dev-staging-prod.mdx`
-- [ ] [BAE-FDE-315] | Retrofit FDE + Section 18: `feature-flags.mdx`
-- [ ] [BAE-FDE-316] | Retrofit FDE + Section 18: `infrastructure-as-code.mdx`
-- [ ] [BAE-FDE-317] | Retrofit FDE + Section 18: `release-management.mdx`
-- [ ] [BAE-FDE-318] | Retrofit FDE + Section 18: `rollback-strategies.mdx`
-- [ ] [BAE-FDE-319] | Retrofit FDE + Section 18: `terraform-basics.mdx`
+_Empty_
