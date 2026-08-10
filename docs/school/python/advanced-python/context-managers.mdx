@@ -11,7 +11,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, Context Managers are the clean, professional way to handle resources in Python. Whenever you need to "setup" something, do some work, and guarantee it gets "torn down" (even if an error happens), you use a Context Manager. The most common way you see this is the `with` statement.
 
 ## 2. Engineering Story
-Bro, imagine a production service that writes logs to a file 5,000 times a second. One day, the service crashes under load because it hit the 'Too many open files' OS limit. Why? A junior engineer forgot to call `.close()` after an exception was thrown. To fix this, you need a bulletproof mechanism that guarantees resources are released exactly when you're done with them, no matter if the code succeeds or blows up. That's why context managers exist.
+**FDE Scenario:** Bro, imagine a production service that writes logs to a file 5,000 times a second. One day, the service crashes under load because it hit the 'Too many open files' OS limit. Why? A junior engineer forgot to call `.close()` after an exception was thrown. To fix this, you need a bulletproof mechanism that guarantees resources are released exactly when you're done with them, no matter if the code succeeds or blows up. That's why context managers exist.
 
 ## 3. Real-World Analogy
 Think of a Context Manager like renting a car.
@@ -176,8 +176,19 @@ In Async Python (FastAPI/Asyncio), you must use **Async Context Managers**. They
 - **Decorators:** How `@contextmanager` modifies a simple generator.
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Description | Link |
 |---|---|---|
 | Python Contextlib Examples | Real-world usage of Python's contextlib. | [Explore](https://github.com/dabeaz/concurrency) |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Resource Management | Always use `with` statements for file handling and network connections. | Prevents resource leaks in long-running FDE deployments. |

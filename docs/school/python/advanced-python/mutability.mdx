@@ -12,7 +12,7 @@ Bro, mutability simply means "can this object be changed after it is created?" I
 
 ## 2. Engineering Story
 
-Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding mutability, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
+**FDE Scenario:** Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding mutability, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
 
 ## 3. Real-World Analogy
 - **Mutable (A Whiteboard):** You can draw a picture, erase part of it, and draw something else. The whiteboard itself stays in the exact same spot on the wall, but its contents change.
@@ -161,8 +161,19 @@ In functional programming patterns (which are heavily used in data pipelines lik
 - **Shallow vs Deep Copy:** The techniques required to safely duplicate mutable objects.
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The official Python implementation | It shows how Mutability is implemented under the hood in C. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Data Modification | Use immutable data structures (tuples, frozensets) for shared state. | Eliminates race conditions in concurrent FDE deployments. |
