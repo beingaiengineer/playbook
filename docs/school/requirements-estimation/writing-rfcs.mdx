@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, a team at my company decided to migrate our entire logging system from ELK to Datadog. The lead engineer just started writing the terraform scripts. Three weeks in, the DevOps team noticed and stopped the deployment. They pointed out that our compliance requirements strictly forbade sending certain PII data to third-party SaaS vendors. The entire three weeks of work had to be scrapped. If the lead had written an RFC (Request for Comments) first, the Security and DevOps teams would have read the proposal on day one, flagged the compliance issue in the comments, and saved thousands of dollars in wasted engineering time. RFCs are cheap; rewriting architecture is expensive.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Writing RFCs. For instance, a classic Indian kitchen spice box (Masala Dabba) organization. */}
@@ -159,3 +161,10 @@ An approved RFC is a blueprint, but reality often differs. If you discover a maj
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess technologies. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| RFC Adherence | Strictly follow technical directions outlined in approved RFCs. | Diverging from RFCs causes architectural drift and integration failures. |
+| Alternatives Analysis | Ensure RFCs include a thorough analysis of discarded alternatives. | Prevents revisiting closed discussions with client stakeholders. |

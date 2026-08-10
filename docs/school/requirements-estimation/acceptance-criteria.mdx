@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, I once picked up a ticket to "Add a CSV upload feature". I built it, tested it with a 10-row file, and shipped it. The next day, production crashed. A user tried to upload a 2GB CSV file with 15 million rows. The PM yelled at me. I yelled back, "The ticket didn't say there was a file size limit!" It was a mess. That's when I learned the hard way about Acceptance Criteria (AC). AC are the exact, testable boundaries of a feature. If the AC had said, "Given a CSV file larger than 5MB, Then reject it with an error message," the outage would have never happened. AC is the armor that protects engineers from moving goalposts.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Acceptance Criteria. For instance, taking a high-interest loan from a local moneylender and the compounding pressure. */}
@@ -165,3 +167,10 @@ If an AC is not testable, it will break in production. If the AC says "Handle hi
 | [behave/behave](https://github.com/behave/behave) | ⭐ 3k+ | BDD for Python | Shows how AC maps to Python test execution. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Explicit Constraints | When writing tests from AC, ensure boundary values (e.g., file sizes, limits) are explicitly mocked. | FDE deployments often hit edge cases that crash if bounds aren't strictly checked. |
+| Negative Scenarios | Always generate error-handling code corresponding to negative ACs. | Missing error states lead to silent failures in client integrations. |

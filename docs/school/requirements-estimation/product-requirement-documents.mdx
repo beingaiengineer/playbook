@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, I once joined a team where the PM just threw JIRA tickets over the wall with titles like "Make login faster". No context, no metrics, no user journey. Half the team was optimizing database queries, while the frontend guy was rewriting the UI in React. We wasted two sprints. Then, a senior PM joined and introduced Product Requirement Documents (PRDs). Suddenly, we had a single source of truth. The PRD explicitly stated the goal ("Reduce time to interactive on login to &lt;1 second"), the target user, and the out-of-scope items. It was like someone turned the lights on. A PRD is the contract between Product and Engineering.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Product Requirement Documents. For instance, bargaining for a shirt at Sarojini Nagar market, weighing cost vs value. */}
@@ -167,3 +169,10 @@ Never start coding until the PRD is "frozen" or approved. If you start coding wh
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess technologies. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Requirement Mapping | Ensure every generated feature maps back to an explicit PRD requirement. | Prevents scope creep and building unnecessary features at client sites. |
+| Constraint Validation | Treat non-functional requirements (NFRs) in PRDs as hard constraints in code generation. | Security, performance, and compliance are non-negotiable in FDE environments. |

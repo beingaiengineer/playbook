@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, early in my career, the VP of Engineering asked me how long it would take to integrate a new payment provider. I looked at their API docs, saw it was just a REST call, and proudly declared: "Two days max." I forgot about error handling, database migrations, security reviews, QA testing, and the fact that their staging environment was down for a week. It took three weeks. The VP was furious. I learned that estimation is not about guessing how fast you can type code; it's about evaluating the total complexity of delivering value to production. If you don't use proper estimation techniques, you are setting yourself up to fail.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Estimation Techniques. For instance, a chaotic Indian wedding planner adjusting to sudden 500 extra guests. */}
@@ -163,3 +165,10 @@ Estimates must include the time it takes to write tests, pass code review, deplo
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess technologies. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Complexity Analysis | When estimating task complexity, factor in integration points with legacy systems. | FDE tasks are rarely greenfield; legacy integrations dramatically increase effort. |
+| Buffering | Always recommend adding buffer time for unknown unknowns in client environments. | Unexpected client infrastructure issues are the norm, not the exception. |

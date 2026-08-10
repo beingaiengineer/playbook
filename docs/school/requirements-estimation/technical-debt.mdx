@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, we had a startup client who needed a checkout system built in two weeks for Black Friday. Doing it the "right" way with microservices and proper queues would take two months. So, we hardcoded the tax rates, skipped the caching layer, and jammed it all into one monolithic function. We launched. It held up. They made a million dollars. That was intentional technical debt. However, six months later, the company expanded to Europe. The hardcoded taxes broke everything. Every new feature took weeks because the code was a fragile mess. We had taken out a loan to survive Black Friday, but the interest payments were now bankrupting our engineering velocity.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Technical Debt. For instance, cricket captain MS Dhoni setting the field for a specific batsman. */}
@@ -164,3 +166,10 @@ Unmanaged technical debt eventually manifests as a production outage. When spagh
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess technologies. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Debt Tracking | When implementing workarounds, explicitly tag them with `TODO: TECH-DEBT` and a description. | Untracked debt becomes permanent legacy code in client repositories. |
+| Refactoring Priority | Prioritize refactoring debt that impacts system stability or security. | Debt in critical paths causes severe FDE deployment outages. |
