@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You are building a game engine. You start with a base `GameObject`. Then you need a character, so you create `Player` which inherits from `GameObject`. Then you need enemies, so you create `Enemy` (inherits `GameObject`). Now you need a boss enemy that can cast spells, so you make `MagicEnemy`. But wait, you also want a `MagicPlayer`. Do you create a `MagicEntity` base class? What if you want an enemy that can fly but not cast spells, and a player that can cast spells but not fly?
 
 Your inheritance tree becomes a massive, tangled nightmare. Every time you change the base `GameObject`, you break 50 subclasses.
@@ -204,7 +206,7 @@ Code written with Composition is exponentially easier to unit test. If a `UserCo
 - SOLID Principles
 - Design Patterns (Strategy Pattern)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -212,3 +214,13 @@ Code written with Composition is exponentially easier to unit test. If a `UserCo
 | [bevyengine/bevy](https://github.com/bevyengine/bevy) | ⭐ 30k+ | ECS game engine in Rust | Pure composition-based architecture (Entity-Component-System). |
 | [go-gitea/gitea](https://github.com/go-gitea/gitea) | ⭐ 40k+ | Git with a cup of tea | Written in Go, a language that intentionally omitted classical inheritance to force composition. |
 | [google/guice](https://github.com/google/guice) | ⭐ 11k+ | Lightweight dependency injection | Facilitates composing Java objects together efficiently. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Favor Composition | Prefer composition over inheritance to achieve code reuse. | Inheritance creates rigid, deep hierarchies that are brittle to change. Composition allows flexible behavior assembly. |
+| Liskov Substitution | If using inheritance, subclasses must be substitutable for their base classes without breaking correctness. | Violating LSP leads to unexpected runtime errors when polymorphism is utilized by client code. |

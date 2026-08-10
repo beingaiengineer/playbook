@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You are maintaining an inventory system. The business logic is riddled with `db.execute('SELECT * FROM products WHERE id = ?')`. One day, the CTO mandates a migration from MySQL to MongoDB for scalability.
 
 Because SQL is hardcoded into 200 different files, the migration takes 6 months of painful find-and-replace, and hundreds of bugs are introduced because developers missed some queries.
@@ -218,7 +220,7 @@ The Repository pattern is perfect for adding caching. You can create a `CachedUs
 - Clean Architecture
 - Dependency Injection
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -226,3 +228,13 @@ The Repository pattern is perfect for adding caching. You can create a `CachedUs
 | [typeorm/typeorm](https://github.com/typeorm/typeorm) | ⭐ 33k+ | ORM for TypeScript | Natively supports and encourages the Repository pattern via `connection.getRepository()`. |
 | [dotnet/eShop](https://github.com/dotnet/eShop) | ⭐ 24k+ | .NET Microservices Architecture | A Microsoft reference app heavily utilizing strict Repositories. |
 | [mikro-orm/mikro-orm](https://github.com/mikro-orm/mikro-orm) | ⭐ 7k+ | Node.js ORM | A modern ORM built strictly around the Data Mapper and Repository patterns. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Abstraction Layer | The Repository must completely hide data access details (SQL, ORM, APIs) from the domain. | Allows the domain logic to remain pure and agnostic to the underlying storage mechanism. |
+| Aggregate Roots | Repositories should only return and persist Aggregate Roots, not individual child entities. | Enforces consistency boundaries and ensures child entities are always valid within their aggregate. |

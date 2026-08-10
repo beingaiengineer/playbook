@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You join a fast-growing startup to help them scale their backend. Currently, they have a monolithic application written mostly in massive, 2000-line procedural files. Every time the marketing team wants to add a new "Discount Type," the engineering team has to add five different `if-else` blocks in three different files. The code is fragile; fixing a bug in one place breaks it in another.
 
 To solve this, the lead engineer decides to refactor the payment and discount logic using Object-Oriented Programming (OOP). By encapsulating behavior into well-defined classes, they create a system where a new discount type can be added simply by creating a new class that adheres to a common interface, touching absolutely zero existing logic. This is why OOP was invented—to manage complexity at scale.
@@ -211,7 +213,7 @@ In long-running backend processes, a common issue is object memory leaks. If you
 - SOLID Principles
 - Dependency Injection
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -220,3 +222,13 @@ In long-running backend processes, a common issue is object memory leaks. If you
 | [microsoft/TypeScript](https://github.com/microsoft/TypeScript) | ⭐ 95k+ | A superset of JavaScript | Introduces strong classical OOP typings to the JS ecosystem. |
 | [pallets/flask](https://github.com/pallets/flask) | ⭐ 65k+ | Python micro framework | A great example of clean OOP design in Python. |
 | [spring-projects/spring-boot](https://github.com/spring-projects/spring-boot) | ⭐ 70k+ | Spring Boot | The enterprise standard for OOP-heavy, dependency-injected backend frameworks. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Defensive Copying | Return defensive copies of internal collections, not direct references. | Prevents external callers from accidentally or maliciously modifying the object's internal state. |
+| Meaningful Exceptions | Throw custom, domain-specific exceptions instead of generic errors. | Enables precise error handling and better observability in production environments. |

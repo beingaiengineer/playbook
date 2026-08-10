@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You are building a logistics platform for an e-commerce giant. Initially, there is only one shipping calculation: Standard Shipping. The code works fine. Then, they add Express Shipping. You add an `if-else`. Then they add Same-Day Delivery, Drone Delivery, and International Freight. Your `calculate_shipping_cost()` function is now a 500-line monstrosity of nested conditionals.
 
 Every time a new logistics partner is onboarded, someone has to touch this massive function, inevitably breaking another shipping method.
@@ -224,7 +226,7 @@ Do not prematurely optimize with the Strategy pattern. If you have an `if(user.i
 - Dependency Injection
 - Service Layer Pattern
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -232,3 +234,13 @@ Do not prematurely optimize with the Strategy pattern. If you have an `if(user.i
 | [iluwatar/java-design-patterns](https://github.com/iluwatar/java-design-patterns) | ⭐ 85k+ | Java Design Patterns | Contains a pristine implementation of Strategy. |
 | [spring-projects/spring-security](https://github.com/spring-projects/spring-security) | ⭐ 10k+ | Spring Security | Heavily uses strategies for authentication mechanisms. |
 | [RefactoringGuru/design-patterns-cpp](https://github.com/RefactoringGuru/design-patterns-cpp) | ⭐ 5k+ | Patterns in C++ | Excellent reference for how to implement Strategy safely in memory-managed languages. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Strategy Pattern | Define a family of algorithms, encapsulate each, and make them interchangeable via an interface. | Avoids massive if/else or switch statements in core logic, making the system open for extension. |
+| Context Independence | The Context class must not know the concrete implementation details of the Strategies. | Preserves loose coupling and allows new strategies to be added without modifying existing code. |

@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 Your team built an e-commerce checkout service. Initially, the `CheckoutService` class verified the cart, processed the credit card, sent a confirmation email, and updated the inventory. It was 3,000 lines long.
 
 Six months later, marketing wants to add PayPal support and SMS notifications. To add PayPal, you have to modify the core `CheckoutService`. In doing so, someone accidentally breaks the inventory update logic, causing the company to sell products they don't have.
@@ -203,7 +205,7 @@ SOLID creates more files. A 1000-line monolithic file might turn into ten 100-li
 - Dependency Injection
 - Design Patterns (Strategy Pattern)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -211,3 +213,13 @@ SOLID creates more files. A 1000-line monolithic file might turn into ten 100-li
 | [nestjs/nest](https://github.com/nestjs/nest) | ⭐ 65k+ | A progressive Node.js framework | A perfect, modern example of heavily enforced SOLID architecture. |
 | [angular/angular](https://github.com/angular/angular) | ⭐ 95k+ | Web framework | Enforces Dependency Inversion directly in the frontend. |
 | [dotnet/aspnetcore](https://github.com/dotnet/aspnetcore) | ⭐ 35k+ | ASP.NET Core framework | Shows how Microsoft implements SOLID in their massive web framework. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Open/Closed Principle | Classes should be open for extension but closed for modification. | Modifying existing code introduces regression risks. Extension ensures stability of tested components. |
+| Dependency Inversion | High-level modules should not depend on low-level modules. Both should depend on abstractions. | Decouples policy from detail, making the system modular and testable. |
