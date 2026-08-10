@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ### 2. Engineering Story
 
+**FDE Scenario:** As a Forward Deployed Engineer (FDE), bro, you often face legacy systems with complex deployments. You need strategies to release safely, test efficiently, and roll back quickly without breaking client environments. These tools keep your deployments clean and predictable.
+
+
 Bro, the team just spent six months rewriting the entire recommendation engine. In Staging, it passed every test. But Staging only simulates 100 users. Production has 5 million. You cannot use a Blue-Green deployment here, because flipping 5 million users to a completely unproven, massive rewrite is a recipe for a catastrophic database meltdown.
 
 Instead, you deploy the new engine and configure the load balancer to send exactly 1% of live user traffic to it. The other 99% stay on the old engine. You sit back and watch the dashboards. The 1% acts as your early warning system. If the new engine starts throwing 500 errors or latency spikes to 10 seconds, you immediately route that 1% back to safety. If it looks healthy after an hour, you increase it to 5%, then 25%, and finally 100%. You just deployed a massive risk with zero widespread impact.
@@ -196,3 +199,13 @@ If your application only gets 10 requests per minute, a 1% Canary gets 0.1 reque
 | [Netflix/kayenta](https://github.com/spinnaker/kayenta) | ⭐ 1k+ | Automated Canary Analysis (ACA) | The brain behind Netflix's Canary evaluation system |
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: An engineer nervously watching a small, high-tech robotic yellow bird (canary) flying into a massive, dark server room, while holding a remote control ready to hit the "Recall" button. */}
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Deployment Automation | Always use scripts or IAC for deployments. Never deploy manually. | Manual deployments cause errors and inconsistencies across client environments. |
+| Release Safety | Always implement automated rollbacks or feature flags for new releases. | Allows rapid recovery if a release causes unexpected issues in production. |
+| Environment Consistency | Treat all environments (dev, staging, prod) as identically as possible, configuring via variables. | Drift between environments leads to bugs that only manifest in production. |

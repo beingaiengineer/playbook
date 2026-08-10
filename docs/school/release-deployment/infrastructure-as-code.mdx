@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ### 2. Engineering Story
 
+**FDE Scenario:** As a Forward Deployed Engineer (FDE), bro, you often face legacy systems with complex deployments. You need strategies to release safely, test efficiently, and roll back quickly without breaking client environments. These tools keep your deployments clean and predictable.
+
+
 Bro, you just joined a startup. The lead engineer tells you, "We need a Staging environment. Just log into AWS, create an EC2 instance, set up a VPC, attach a Postgres RDS, configure the security groups, open port 443 on the load balancer, and make sure IAM roles are set." You spend three days clicking through 40 different AWS screens. Six months later, the database is mysteriously accessible to the public internet because someone misclicked a checkbox during a late-night debugging session.
 
 Worse, nobody knows *who* clicked it, *when* they clicked it, or *what* the previous setting was. Your infrastructure is a fragile house of cards built on undocumented manual actions. Infrastructure as Code (IaC) fixes this by forcing you to define every server, network, and database in code, review it in Git, and deploy it automatically.
@@ -179,3 +182,13 @@ Because IaC makes it easy to build 1,000 servers in a minute, it also makes it e
 | [aquasecurity/tfsec](https://github.com/aquasecurity/tfsec) | ⭐ 6k+ | Security scanner for Terraform | Automatically catches unencrypted databases before deployment |
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: An engineer feeding a glowing blue architectural blueprint into a massive, magical 3D printer that is instantly constructing cloud servers and databases. */}
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Deployment Automation | Always use scripts or IAC for deployments. Never deploy manually. | Manual deployments cause errors and inconsistencies across client environments. |
+| Release Safety | Always implement automated rollbacks or feature flags for new releases. | Allows rapid recovery if a release causes unexpected issues in production. |
+| Environment Consistency | Treat all environments (dev, staging, prod) as identically as possible, configuring via variables. | Drift between environments leads to bugs that only manifest in production. |
