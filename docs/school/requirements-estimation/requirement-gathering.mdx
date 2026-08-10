@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, my first month as an engineer I was assigned a ticket that just said, "Export report to CSV". I thought it was a 2-hour task. I pulled the database records, formatted them, and added an export button. When I showed it to the PM, he said, "Wait, where is the date range filter? And what about the admin view? Also, this needs to handle 5 million rows." I spent the next 3 weeks rewriting it. The problem wasn't my code, bro; the problem was I started coding without knowing what the actual requirement was. Requirement Gathering is the art of extracting the real, hidden truth from business users before a single line of code is written. It prevents you from building the wrong thing efficiently.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Requirement Gathering. For instance, a strict Udupi restaurant waiter meticulously noting down 15 customized dosa orders while ignoring confusing customers. */}
@@ -171,3 +173,10 @@ Always consider failure modes during Requirement Gathering. If you require a 3rd
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess which technologies to use for new requirements. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements gathering for massive scale apps. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict non-functional requirements. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Ambiguity Detection | Flag vague or conflicting requirements before generating code. | Code built on ambiguous requirements will need to be rewritten after client review. |
+| Clarification Prompts | Generate specific questions to clarify ambiguous requirements. | Proactive clarification prevents integration blockages. |

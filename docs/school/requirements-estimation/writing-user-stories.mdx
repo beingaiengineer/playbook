@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, I used to hate JIRA. Every ticket was just a technical command: "Add database index on user_id" or "Create a REST endpoint for carts". One day, the PM asked, "Why did you build the cart endpoint to return all historical items?" I replied, "Because the ticket didn't say otherwise." The team switched to User Stories. The next ticket read: "As a returning customer, I want to see my current active cart items, so I can complete my checkout quickly." Suddenly, I understood the *context*. I didn't return historical items because the user wanted a quick checkout. User stories force engineers to build features for humans, not for machines.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Writing User Stories. For instance, a Mumbai Dabbawala organizing thousands of lunchboxes accurately. */}
@@ -161,3 +163,10 @@ A user story is not done until it delivers value to the user in production. Merg
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess technologies. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| User-Centricity | Ensure user stories focus on the value delivered to the end-user, not technical tasks. | FDE work must always tie back to tangible client value. |
+| INVEST Criteria | Validate user stories against INVEST principles (Independent, Negotiable, Valuable, Estimable, Small, Testable). | Poorly structured stories lead to integration deadlocks. |

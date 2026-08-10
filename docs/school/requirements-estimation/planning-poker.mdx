@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, I remember my first sprint planning session. The PM read a ticket about upgrading a database version. The Tech Lead immediately said, "Oh, that's easy, maybe a 2." The rest of us juniors just nodded in agreement. Why argue with the lead, right? Well, two days later, we realized the new DB version broke our ORM. It took two weeks to fix. The Tech Lead didn't know because he hadn't touched the ORM code in a year, but the juniors were too scared to speak up. That's why Planning Poker exists. It forces everyone to estimate in secret, preventing the loudest or most senior voice from biasing the entire team.
 
+
+> **FDE Scenario:** As a Forward Deployed Engineer (FDSE), you will often face ambiguity at client sites. Clear requirements and acceptance criteria, rigorous PRDs, and decisive ADRs protect you from scope creep and moving goalposts during integration. You must push back on vague client demands using structured formats.
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A vibrant, chaotic Indian scenario illustrating Planning Poker. For instance, the IRCTC train ticket reservation queue opening at exactly 10 AM. */}
@@ -169,3 +171,10 @@ Planning poker is useless if the Acceptance Criteria is missing. If nobody knows
 | [thoughtworks/build-your-own-radar](https://github.com/thoughtworks/build-your-own-radar) | ⭐ 1k+ | Tech radar builder | Helps teams assess technologies. |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 220k+ | Learn how to design large-scale systems | High-level requirements. |
 | [microsoft/api-guidelines](https://github.com/microsoft/api-guidelines) | ⭐ 20k+ | Microsoft REST API Guidelines | Excellent example of strict guidelines. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Relative Sizing | Use relative sizing (story points) instead of absolute time when discussing effort. | Time estimates vary by engineer; relative complexity remains constant. |
+| Consensus Building | Highlight differing assumptions if estimates diverge significantly. | Divergence indicates hidden complexity or misunderstood requirements in client discussions. |

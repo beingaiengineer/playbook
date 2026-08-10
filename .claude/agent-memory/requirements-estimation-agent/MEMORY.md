@@ -51,16 +51,7 @@ Completed the 10 requirements and estimation topics.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-320] | Retrofit FDE + Section 18: `acceptance-criteria.mdx`
-- [ ] [BAE-FDE-321] | Retrofit FDE + Section 18: `architecture-decision-records.mdx`
-- [ ] [BAE-FDE-322] | Retrofit FDE + Section 18: `estimation-techniques.mdx`
-- [ ] [BAE-FDE-323] | Retrofit FDE + Section 18: `planning-poker.mdx`
-- [ ] [BAE-FDE-324] | Retrofit FDE + Section 18: `product-requirement-documents.mdx`
-- [ ] [BAE-FDE-325] | Retrofit FDE + Section 18: `requirement-gathering.mdx`
-- [ ] [BAE-FDE-326] | Retrofit FDE + Section 18: `technical-debt.mdx`
-- [ ] [BAE-FDE-327] | Retrofit FDE + Section 18: `velocity-and-burndown.mdx`
-- [ ] [BAE-FDE-328] | Retrofit FDE + Section 18: `writing-rfcs.mdx`
-- [ ] [BAE-FDE-329] | Retrofit FDE + Section 18: `writing-user-stories.mdx`
+_Empty_
 
 ### IN PROGRESS
 _Empty_
@@ -69,7 +60,16 @@ _Empty_
 _Empty_
 
 ### DONE
-_Empty_
+- [x] [BAE-FDE-320] | Retrofit FDE + Section 18: `acceptance-criteria.mdx`
+- [x] [BAE-FDE-321] | Retrofit FDE + Section 18: `architecture-decision-records.mdx`
+- [x] [BAE-FDE-322] | Retrofit FDE + Section 18: `estimation-techniques.mdx`
+- [x] [BAE-FDE-323] | Retrofit FDE + Section 18: `planning-poker.mdx`
+- [x] [BAE-FDE-324] | Retrofit FDE + Section 18: `product-requirement-documents.mdx`
+- [x] [BAE-FDE-325] | Retrofit FDE + Section 18: `requirement-gathering.mdx`
+- [x] [BAE-FDE-326] | Retrofit FDE + Section 18: `technical-debt.mdx`
+- [x] [BAE-FDE-327] | Retrofit FDE + Section 18: `velocity-and-burndown.mdx`
+- [x] [BAE-FDE-328] | Retrofit FDE + Section 18: `writing-rfcs.mdx`
+- [x] [BAE-FDE-329] | Retrofit FDE + Section 18: `writing-user-stories.mdx`
 
 ---
 
@@ -96,7 +96,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 10
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 10
+- Open Tasks: 0
 
 ---
 
@@ -119,6 +119,7 @@ No reusable insights recorded yet.
 | BAE ID | What's Done (High Level) |
 |---|---|
 | `[BAE-REQ-001] through [BAE-REQ-010]` | Created all 10 initial requirements and estimation topics with 16-section structure. |
+| `BAE-FDE-320 through BAE-FDE-329` | Retrofitted FDE scenarios and Section 18 into 10 requirements estimation MDX files. |
 
 ---
 
@@ -139,13 +140,4 @@ No reusable insights recorded yet.
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-320] | Retrofit FDE + Section 18: `acceptance-criteria.mdx`
-- [ ] [BAE-FDE-321] | Retrofit FDE + Section 18: `architecture-decision-records.mdx`
-- [ ] [BAE-FDE-322] | Retrofit FDE + Section 18: `estimation-techniques.mdx`
-- [ ] [BAE-FDE-323] | Retrofit FDE + Section 18: `planning-poker.mdx`
-- [ ] [BAE-FDE-324] | Retrofit FDE + Section 18: `product-requirement-documents.mdx`
-- [ ] [BAE-FDE-325] | Retrofit FDE + Section 18: `requirement-gathering.mdx`
-- [ ] [BAE-FDE-326] | Retrofit FDE + Section 18: `technical-debt.mdx`
-- [ ] [BAE-FDE-327] | Retrofit FDE + Section 18: `velocity-and-burndown.mdx`
-- [ ] [BAE-FDE-328] | Retrofit FDE + Section 18: `writing-rfcs.mdx`
-- [ ] [BAE-FDE-329] | Retrofit FDE + Section 18: `writing-user-stories.mdx`
+_Empty_
