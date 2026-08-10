@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:** A client team keeps shipping features that 'work on my machine' but crash in production, lack tests, and have no documentation. The PM considers it done, but ops is on fire. You need to implement a strict Definition of Done (DoD) to stop the bleeding and enforce engineering standards.
+
 A junior engineer says 'My ticket is done, it works on my machine.' The Scrum Master smiles, the ticket is moved to 'Done' on the board. Then it gets deployed. It breaks production instantly because there were no database migrations, it has zero unit tests so future changes will break it silently, and the API documentation is entirely missing.
 
 Bro, that is not 'Done.' That is 'I typed some code and got bored.' The Definition of Done (DoD) is the ultimate checklist that every single ticket must pass before it can be considered complete. It is the agreed-upon standard of quality for the entire engineering organization. DoD is how you maintain quality at scale; without it, you are just accumulating massive technical debt with every commit.
@@ -173,7 +175,7 @@ A weak Definition of Done is the #1 cause of legacy code nightmares. If your DoD
 - Continuous Integration
 - Code Review Culture
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -182,3 +184,11 @@ A weak Definition of Done is the #1 cause of legacy code nightmares. If your DoD
 | [scrumalliance/resources](https://github.com/scrumalliance/resources) | ⭐ 2k+ | Official Scrum resources | The canonical source for DoD rules. |
 | [snyk/snyk](https://github.com/snyk/snyk) | ⭐ 1k+ | Security scanning | Often a mandatory step in an enterprise DoD. |
 | [linear/linear-method](https://github.com/linear/linear-method) | ⭐ 8k+ | The Linear way | How modern teams handle issue states and completeness. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| DoD Enforcement | Never mark a feature complete unless tests, docs, and linting are included. | Prevents agents from generating partial, non-production code. |
+| Test Coverage | Assume tests are always required for any functional change. | Enforces a strong DoD mechanically. |

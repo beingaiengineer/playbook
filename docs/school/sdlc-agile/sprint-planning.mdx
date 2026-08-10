@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:** At a client site, sprint planning takes 4 hours, results in unrealistic commitments, and engineers burn out trying to deliver. You step in to facilitate a planning session that actually respects team capacity, accounts for technical debt, and sets achievable goals.
+
 You're entering a 2-week Sprint. The Product Manager wants 15 new features. If you say yes to all of them, the team works weekends, writes terrible code, introduces bugs, and burns out. If you say no to everything, the company makes no money.
 
 Sprint Planning is the art of negotiation. It's the critical ceremony where engineering pushes back against unrealistic product demands, using data (Story Points and past Velocity) to say, 'Bro, we can only safely deliver exactly *this* much value this sprint.' It's about setting realistic expectations, designing a technical approach, and committing to a shared goal as a team.
@@ -166,7 +168,7 @@ Treating Story Points as "Hours" (e.g., 1 point = 1 day) completely destroys the
 - Definition of Done
 - Requirements Gathering
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -175,3 +177,11 @@ Treating Story Points as "Hours" (e.g., 1 point = 1 day) completely destroys the
 | [plan-poker/plan-poker](https://github.com/plan-poker/plan-poker) | ⭐ 1k+ | Open source planning poker | A tool for relative estimation. |
 | [linear/linear-method](https://github.com/linear/linear-method) | ⭐ 8k+ | The Linear way | How to plan cycles without the heavy overhead. |
 | [github/project-boards](https://github.com/github/project-boards) | ⭐ 10k+ | GitHub's native tools | Managing sprint backlogs natively in git. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Capacity Awareness | When breaking down tasks, always account for testing and review overhead. | Prevents agents from estimating only the happy-path coding time. |
+| Tech Debt Allocation | When asked to plan a milestone, allocate 20% of effort to tech debt. | Reflects realistic engineering planning. |
