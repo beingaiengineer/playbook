@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You are writing unit tests for your new `PaymentService`. Inside the `PaymentService` constructor, you wrote `this.db = new MySQLDatabase()`. When you run your test suite, it tries to connect to the production database and fails because the CI server doesn't have the database credentials.
 
 To fix this, you have to spin up a Docker database just to run a simple 2-millisecond unit test. The test suite now takes 15 minutes to run. Developers stop running tests. Bugs slip into production.
@@ -210,7 +212,7 @@ If you heavily use Field Injection (`@Inject`) directly inside your domain model
 - Clean Architecture
 - Service Layer Pattern
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -218,3 +220,13 @@ If you heavily use Field Injection (`@Inject`) directly inside your domain model
 | [microsoft/tsyringe](https://github.com/microsoft/tsyringe) | ⭐ 4k+ | Lightweight DI container for TypeScript | Shows how DI works in modern JavaScript ecosystems via decorators. |
 | [inversify/InversifyJS](https://github.com/inversify/InversifyJS) | ⭐ 10k+ | IoC container for TS/JS | A robust, highly configurable DI container for Node. |
 | [google/wire](https://github.com/google/wire) | ⭐ 12k+ | Compile-time DI for Go | Demonstrates how to achieve DI without reflection overhead by generating code at compile time. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Inversion of Control | Pass dependencies via constructors. Never instantiate dependencies inside a class. | Hardcoded dependencies make classes untestable and tightly coupled to specific implementations. |
+| Interface Segregation | Inject interfaces, not concrete implementations. | Allows seamless swapping of dependencies (e.g., Mocks for tests, different DB providers) without changing client code. |

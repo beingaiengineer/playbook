@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You inherit a massive legacy Django application. The business logic is deeply intertwined with Django's ORM and HTTP request parsing inside massive `views.py` files.
 
 The company decides they want to launch a mobile app and need a GraphQL API instead of the existing REST API. Furthermore, they are migrating away from Postgres to MongoDB. Because the core business logic (calculating taxes, applying discounts) is hardcoded against Django's SQL ORM and REST request objects, the team has to rewrite the entire application from scratch. It takes two years.
@@ -211,7 +213,7 @@ Clean Architecture requires mapping data between layers (e.g., DB Row -> ORM Obj
 - Repository Pattern
 - Dependency Injection
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -219,3 +221,13 @@ Clean Architecture requires mapping data between layers (e.g., DB Row -> ORM Obj
 | [android/architecture-samples](https://github.com/android/architecture-samples) | ⭐ 43k+ | Android Architecture Blueprints | Google's official guide to structuring mobile apps using domain separation. |
 | [ardalis/CleanArchitecture](https://github.com/ardalis/CleanArchitecture) | ⭐ 14k+ | .NET Clean Architecture template | A highly regarded starting point for enterprise C# applications. |
 | [mattia-battiston/clean-architecture-example](https://github.com/mattia-battiston/clean-architecture-example) | ⭐ 5k+ | Java Clean Architecture | A pristine, textbook implementation in Java. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Dependency Inversion | Domain layers must NOT import from infrastructure layers (e.g., DB or UI). | Couples core business logic to volatile external systems, preventing independent testing and scaling. |
+| Use Case Interactors | Expose business capabilities via strict Use Case classes, not raw model methods. | Ensures business rules are centralized and not scattered across UI or controller layers. |

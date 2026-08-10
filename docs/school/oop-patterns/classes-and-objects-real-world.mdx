@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You are building a ride-sharing backend system. In the early days, you stored everything in simple database rows or dictionaries: `driver_123 = \{"name": "Rahul", "car": "Swift", "status": "offline"\}`.
 
 When a driver went online, you wrote a loose function `set_driver_online(driver_dict)`. But as the team grew, another engineer wrote `make_driver_active(driver_dict)`, and a third wrote `update_driver_status(driver_dict)`. Soon, the codebase was a mess of disconnected functions modifying loose data structures, leading to inconsistent states (a driver could be "online" but also "suspended").
@@ -209,7 +211,7 @@ Be extremely careful with `static` (class-level) variables in multi-threaded env
 - Inheritance vs Composition
 - SOLID Principles
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -218,3 +220,13 @@ Be extremely careful with `static` (class-level) variables in multi-threaded env
 | [doctrine/orm](https://github.com/doctrine/orm) | ⭐ 10k+ | PHP Object-Relational Mapper | Maps database structures strictly to OOP classes and objects. |
 | [typeorm/typeorm](https://github.com/typeorm/typeorm) | ⭐ 33k+ | ORM for TypeScript | Shows how classes map exactly to SQL tables in modern TS. |
 | [Automattic/mongoose](https://github.com/Automattic/mongoose) | ⭐ 26k+ | MongoDB object modeling | Implements schemas and models as classes for NoSQL data. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Object State | Encapsulate mutable state within the class. Avoid public setters where possible. | Direct state mutation by external clients breaks invariants and causes hard-to-trace bugs. |
+| Single Responsibility | Ensure a class models exactly one concept from the domain. | Bloated classes become 'God Objects' that are impossible to test or maintain in production. |

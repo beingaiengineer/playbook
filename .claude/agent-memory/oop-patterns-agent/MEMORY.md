@@ -51,16 +51,7 @@ Waiting for future improvements.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-158] | Retrofit FDE + Section 18: `classes-and-objects-real-world.mdx`
-- [ ] [BAE-FDE-159] | Retrofit FDE + Section 18: `clean-architecture.mdx`
-- [ ] [BAE-FDE-160] | Retrofit FDE + Section 18: `dependency-injection.mdx`
-- [ ] [BAE-FDE-161] | Retrofit FDE + Section 18: `design-patterns-strategy.mdx`
-- [ ] [BAE-FDE-162] | Retrofit FDE + Section 18: `inheritance-vs-composition.mdx`
-- [ ] [BAE-FDE-163] | Retrofit FDE + Section 18: `oop-in-production.mdx`
-- [ ] [BAE-FDE-164] | Retrofit FDE + Section 18: `repository-pattern.mdx`
-- [ ] [BAE-FDE-165] | Retrofit FDE + Section 18: `service-layer-pattern.mdx`
-- [ ] [BAE-FDE-166] | Retrofit FDE + Section 18: `solid-principles.mdx`
-
+_Empty_
 ### IN PROGRESS
 _Empty_
 
@@ -68,6 +59,15 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-158] | Retrofit FDE + Section 18: `classes-and-objects-real-world.mdx`
+- [x] [BAE-FDE-159] | Retrofit FDE + Section 18: `clean-architecture.mdx`
+- [x] [BAE-FDE-160] | Retrofit FDE + Section 18: `dependency-injection.mdx`
+- [x] [BAE-FDE-161] | Retrofit FDE + Section 18: `design-patterns-strategy.mdx`
+- [x] [BAE-FDE-162] | Retrofit FDE + Section 18: `inheritance-vs-composition.mdx`
+- [x] [BAE-FDE-163] | Retrofit FDE + Section 18: `oop-in-production.mdx`
+- [x] [BAE-FDE-164] | Retrofit FDE + Section 18: `repository-pattern.mdx`
+- [x] [BAE-FDE-165] | Retrofit FDE + Section 18: `service-layer-pattern.mdx`
+- [x] [BAE-FDE-166] | Retrofit FDE + Section 18: `solid-principles.mdx`
 - [x] [BAE-OOP-001] | Create `oop-in-production.mdx`
 - [x] [BAE-OOP-002] | Create `classes-and-objects-real-world.mdx`
 - [x] [BAE-OOP-003] | Create `inheritance-vs-composition.mdx`
@@ -148,12 +148,4 @@ _Empty_
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-158] | Retrofit FDE + Section 18: `classes-and-objects-real-world.mdx`
-- [ ] [BAE-FDE-159] | Retrofit FDE + Section 18: `clean-architecture.mdx`
-- [ ] [BAE-FDE-160] | Retrofit FDE + Section 18: `dependency-injection.mdx`
-- [ ] [BAE-FDE-161] | Retrofit FDE + Section 18: `design-patterns-strategy.mdx`
-- [ ] [BAE-FDE-162] | Retrofit FDE + Section 18: `inheritance-vs-composition.mdx`
-- [ ] [BAE-FDE-163] | Retrofit FDE + Section 18: `oop-in-production.mdx`
-- [ ] [BAE-FDE-164] | Retrofit FDE + Section 18: `repository-pattern.mdx`
-- [ ] [BAE-FDE-165] | Retrofit FDE + Section 18: `service-layer-pattern.mdx`
-- [ ] [BAE-FDE-166] | Retrofit FDE + Section 18: `solid-principles.mdx`
+_Empty_

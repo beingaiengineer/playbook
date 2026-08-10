@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:**
+
 You are building a fintech app. Initially, when a user transfers money, the code to check their balance, deduct funds, add funds to the receiver, and send a notification email is all dumped directly into the Express.js HTTP Router (`app.post('/transfer', ...)`).
 
 A month later, the mobile team wants to trigger transfers via a gRPC endpoint instead of HTTP. Another team wants to trigger a transfer automatically via a cron job every month.
@@ -206,7 +208,7 @@ If `UserService` injects `OrderService`, and `OrderService` injects `UserService
 - Dependency Injection
 - Clean Architecture
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -214,3 +216,13 @@ If `UserService` injects `OrderService`, and `OrderService` injects `UserService
 | [spring-projects/spring-framework](https://github.com/spring-projects/spring-framework) | ⭐ 55k+ | Java Spring | The pioneer of the enterprise Service layer via `@Service`. |
 | [jhipster/generator-jhipster](https://github.com/jhipster/generator-jhipster) | ⭐ 21k+ | App generator | Automatically scaffolds perfect Service/Repository layers. |
 | [microsoft/eShopOnContainers](https://github.com/microsoft/eShopOnContainers) | ⭐ 24k+ | .NET microservices | Demonstrates complex Service orchestration in C#. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Transaction Boundaries | The Service Layer is responsible for managing database transactions, not the domain or controllers. | Ensures operations either complete entirely or rollback, maintaining data integrity. |
+| Anemic Domain Model | Avoid putting business logic in the Service Layer. It should orchestrate, while the Domain model contains the rules. | Prevents the Service Layer from becoming a bloated procedural script, preserving OOP principles. |
