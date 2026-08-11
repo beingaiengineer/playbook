@@ -21,6 +21,8 @@ import Admonition from '@theme/Admonition';
 
 A major Indian e-commerce platform went down during the Big Billion Days sale. The database team claimed 99.9% uptime because their servers were responding to pings, but the checkout service was failing for 50% of users due to a misconfigured load balancer. Without clear metrics tied to user journeys, 'uptime' was a meaningless vanity metric. They needed a way to measure the actual user experience.
 
+**FDE Scenario:** Bro, imagine you are deployed to a client where the executives, the SREs, and the legal team are all arguing over a recent outage because no one understands what was actually breached. You have to clearly define the difference between the technical metric (SLI), the internal goal (SLO), and the legal contract (SLA).
+
 ## 3. Real-World Analogy
 
 Ordering a 30-minute pizza delivery. The delivery boy tracking his time is the SLI. The promise to deliver 99% of pizzas under 30 minutes is the SLO. The refund if it's late is the SLA.
@@ -174,3 +176,15 @@ Always remember that reliability is not a binary state. A system is never just '
 Furthermore, integrating these practices into your CI/CD pipelines ensures that reliability is treated as a first-class citizen, rather than an afterthought. Automated deployment checks based on current system health can prevent catastrophic rollouts and minimize the blast radius of inevitable bugs.
 
 Continuous learning and iteration are key. What works for a startup with thousands of users will fail spectacularly for an enterprise with millions. Adapt your strategies as your scale dictates, always keeping the end-user experience as your north star.
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Metric Distinction | Strictly separate the definition of the metric (SLI) from the target goal (SLO). | Confusing the measurement with the goal leads to flawed monitoring configurations. |
+| External vs Internal | Never expose internal SLOs as external SLAs to clients without a safety buffer. | SLAs carry financial penalties; internal SLOs must be stricter to catch issues before the SLA breaches. |
+| Contractual Awareness | Ensure alerting thresholds trigger well before any SLA violation occurs. | The engineering team needs time to fix the issue before the company owes the client money. |

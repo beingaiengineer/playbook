@@ -50,15 +50,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-340] | Retrofit FDE + Section 18: `burn-rate-alerts.mdx`
-- [ ] [BAE-FDE-341] | Retrofit FDE + Section 18: `capacity-planning.mdx`
-- [ ] [BAE-FDE-342] | Retrofit FDE + Section 18: `chaos-engineering.mdx`
-- [ ] [BAE-FDE-343] | Retrofit FDE + Section 18: `defining-slis.mdx`
-- [ ] [BAE-FDE-344] | Retrofit FDE + Section 18: `error-budgets.mdx`
-- [ ] [BAE-FDE-345] | Retrofit FDE + Section 18: `reliability-engineering.mdx`
-- [ ] [BAE-FDE-346] | Retrofit FDE + Section 18: `setting-slos.mdx`
-- [ ] [BAE-FDE-347] | Retrofit FDE + Section 18: `sli-slo-sla-explained.mdx`
-- [ ] [BAE-FDE-348] | Retrofit FDE + Section 18: `toil-reduction.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -67,7 +58,15 @@ _Empty_
 _Empty_
 
 ### DONE
-_Empty_
+- [x] [BAE-FDE-340] | Retrofit FDE + Section 18: `burn-rate-alerts.mdx`
+- [x] [BAE-FDE-341] | Retrofit FDE + Section 18: `capacity-planning.mdx`
+- [x] [BAE-FDE-342] | Retrofit FDE + Section 18: `chaos-engineering.mdx`
+- [x] [BAE-FDE-343] | Retrofit FDE + Section 18: `defining-slis.mdx`
+- [x] [BAE-FDE-344] | Retrofit FDE + Section 18: `error-budgets.mdx`
+- [x] [BAE-FDE-345] | Retrofit FDE + Section 18: `reliability-engineering.mdx`
+- [x] [BAE-FDE-346] | Retrofit FDE + Section 18: `setting-slos.mdx`
+- [x] [BAE-FDE-347] | Retrofit FDE + Section 18: `sli-slo-sla-explained.mdx`
+- [x] [BAE-FDE-348] | Retrofit FDE + Section 18: `toil-reduction.mdx`
 
 ---
 
@@ -116,6 +115,8 @@ No reusable insights recorded yet.
 | BAE ID | What's Done (High Level) |
 |---|---|
 | `[BAE-SLI-001]` through `[BAE-SLI-009]` | Created all 9 modules for SLIs & SLOs course following BAE rules. |
+| BAE-FDE-340 through BAE-FDE-348 | Retrofit FDE Scenario and Section 18 into 9 sli-slo MDX files |
+
 
 ---
 
@@ -136,12 +137,3 @@ No reusable insights recorded yet.
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-340] | Retrofit FDE + Section 18: `burn-rate-alerts.mdx`
-- [ ] [BAE-FDE-341] | Retrofit FDE + Section 18: `capacity-planning.mdx`
-- [ ] [BAE-FDE-342] | Retrofit FDE + Section 18: `chaos-engineering.mdx`
-- [ ] [BAE-FDE-343] | Retrofit FDE + Section 18: `defining-slis.mdx`
-- [ ] [BAE-FDE-344] | Retrofit FDE + Section 18: `error-budgets.mdx`
-- [ ] [BAE-FDE-345] | Retrofit FDE + Section 18: `reliability-engineering.mdx`
-- [ ] [BAE-FDE-346] | Retrofit FDE + Section 18: `setting-slos.mdx`
-- [ ] [BAE-FDE-347] | Retrofit FDE + Section 18: `sli-slo-sla-explained.mdx`
-- [ ] [BAE-FDE-348] | Retrofit FDE + Section 18: `toil-reduction.mdx`

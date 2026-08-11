@@ -21,6 +21,8 @@ import Admonition from '@theme/Admonition';
 
 A development team kept deploying broken code every Friday afternoon, ruining the weekend for the on-call SREs. The SRE team implemented an error budget policy. Once the budget was blown for the month, all feature deployments were automatically frozen until reliability improved and the budget reset. It forced the devs to care about quality.
 
+**FDE Scenario:** Bro, imagine you are deployed to a client where the product team pushes untested code daily, causing the site to crash, but they still demand new features. You have to implement an error budget to create a mathematical agreement: if stability drops too low, feature development stops until reliability is restored.
+
 ## 3. Real-World Analogy
 
 Having a monthly pocket money allowance. If you spend it all in the first week on video games, you can't buy anything for the rest of the month. You have to wait for the budget to reset.
@@ -174,3 +176,15 @@ When everyone agrees on the math, debates about 'when to release' disappear.
 Understanding how these components interact in a distributed system is critical for building resilient architectures. While basic principles apply across all scales, the complexity of implementing these systems grows exponentially with the size of your infrastructure.
 
 Furthermore, integrating these practices into your CI/CD pipelines ensures that reliability is treated as a first-class citizen, rather than an afterthought. Automated deployment checks based on current system health can prevent catastrophic rollouts and minimize the blast radius of inevitable bugs.
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Budget Enforcement | Automate deployment blocks (e.g., CI/CD gates) when the error budget is exhausted. | Manual enforcement is easily bypassed by product teams prioritizing speed over stability. |
+| Policy Exceptions | Implement an explicit, documented override process for critical security patches. | Security fixes must bypass error budget freezes to prevent severe vulnerabilities. |
+| Alignment | Ensure the error budget directly correlates to the agreed-upon SLO. | If the SLO is 99.9%, the error budget must be exactly the remaining 0.1%. |
