@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, the team spent six months building an incredible microservice. They wrote 2,000 tests. But they treated test code like a garbage dump. They copy-pasted setup logic everywhere, hardcoded database IDs, and wrote 15 assertions per test function. Fast forward a year: a junior developer adds a new required field to a database table. Suddenly, 800 tests fail. It takes three weeks just to fix the tests because every single test manually constructed the old database object. The entire engineering department grinds to a halt. If they had followed testing best practices—using factories, isolating state, and writing single-purpose tests—updating the tests would have taken five minutes.
 
+
+
+Bro, an FDE scenario often involves inheriting a chaotic client codebase. Enforcing testing best practices is the only way to stabilize their system without introducing new bugs.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A master mechanic maintaining a pristine toolbox where every tool is perfectly labeled and separated. */}
@@ -179,7 +183,7 @@ Tech giants maintain strict linters specifically for tests. They enforce rules t
 - Integration Testing
 - Code Coverage
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -187,3 +191,13 @@ Tech giants maintain strict linters specifically for tests. They enforce rules t
 | [Faker/faker](https://github.com/joke2k/faker) | ⭐ 16k+ | Generate fake data | Essential for generating realistic names, emails, and addresses for tests. |
 | [spulec/freezegun](https://github.com/spulec/freezegun) | ⭐ 3k+ | Time mocking | The best practice tool for dealing with date/time in tests. |
 | [pytest-dev/pytest-randomly](https://github.com/pytest-dev/pytest-randomly) | ⭐ 1k+ | Randomize test order | Forces you to write isolated tests by randomly changing the execution order. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Test Independence | Every test must run independently and not rely on the execution order of other tests. | Order-dependent tests cause intermittent CI failures which block FDE deployments. |
+| Descriptive Names | Name test functions descriptively, e.g., `test_function_behavior_context`. | When a test fails in a client's CI, the name should explain exactly what broke. |

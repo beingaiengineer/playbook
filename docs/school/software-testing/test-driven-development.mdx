@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, imagine being assigned a complex ticket: "Calculate prorated subscription refunds across multiple time zones with leap year adjustments." You stare at a blank IDE for an hour. You start writing a massive function, but halfway through, you realize you forgot about daylight savings. You rewrite it. It takes two days, and you are terrified to deploy it. Now imagine a different approach. You start by writing one simple test: "If a user cancels on day 15 of a 30-day month, refund 50%." It fails (because the code doesn't exist). You write just enough code to make it pass. Then you write the next test for leap years. It fails. You adjust the code. You build the complex logic step-by-step, guided entirely by failing tests. By the end, you have 100% confidence, a clean architecture, and zero fear of deployment. That is TDD.
 
+
+
+Bro, in an FDE scenario, writing tests first forces you to understand the client's vague requirements before you write the wrong feature. TDD ensures you build exactly what is needed.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A tailor drawing precise chalk outlines on a piece of cloth before making a single cut with the scissors. */}
@@ -164,10 +168,20 @@ Many extreme programming (XP) teams and financial institutions use strict TDD. W
 - Mocking and Patching
 - Code Coverage
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [CleanCode/UncleBob](https://github.com/unclebob) | N/A | Robert C. Martin's concepts | The pioneer of modern TDD principles. |
 | [pytest-dev/pytest-watch](https://github.com/joeyespo/pytest-watch) | ⭐ 1k+ | Auto-runner | Automatically runs tests on file save; essential for fast TDD loops. |
 | [Textualize/textual](https://github.com/Textualize/textual) | ⭐ 20k+ | Python TUI | A massive project that heavily utilizes testing for complex logic. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Red-Green-Refactor | When modifying code, write a failing test first, then implement the fix. | FDE regressions are prevented by proving the test can catch the specific failure mode. |
+| Minimum Code | Write only the minimum amount of code necessary to make the failing test pass. | Over-engineering leads to complex, hard-to-maintain systems for clients. |

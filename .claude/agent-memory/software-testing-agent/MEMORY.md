@@ -51,16 +51,6 @@ Course complete. Reviewing backlog if any.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-349] | Retrofit FDE + Section 18: `api-testing.mdx`
-- [ ] [BAE-FDE-350] | Retrofit FDE + Section 18: `code-coverage.mdx`
-- [ ] [BAE-FDE-351] | Retrofit FDE + Section 18: `integration-testing.mdx`
-- [ ] [BAE-FDE-352] | Retrofit FDE + Section 18: `load-testing.mdx`
-- [ ] [BAE-FDE-353] | Retrofit FDE + Section 18: `mocking-and-patching.mdx`
-- [ ] [BAE-FDE-354] | Retrofit FDE + Section 18: `pytest-fixtures-and-parametrize.mdx`
-- [ ] [BAE-FDE-355] | Retrofit FDE + Section 18: `test-driven-development.mdx`
-- [ ] [BAE-FDE-356] | Retrofit FDE + Section 18: `testing-best-practices.mdx`
-- [ ] [BAE-FDE-357] | Retrofit FDE + Section 18: `testing-pyramid.mdx`
-- [ ] [BAE-FDE-358] | Retrofit FDE + Section 18: `unit-testing-with-pytest.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -69,6 +59,16 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-349] | Retrofit FDE + Section 18: `api-testing.mdx`
+- [x] [BAE-FDE-350] | Retrofit FDE + Section 18: `code-coverage.mdx`
+- [x] [BAE-FDE-351] | Retrofit FDE + Section 18: `integration-testing.mdx`
+- [x] [BAE-FDE-352] | Retrofit FDE + Section 18: `load-testing.mdx`
+- [x] [BAE-FDE-353] | Retrofit FDE + Section 18: `mocking-and-patching.mdx`
+- [x] [BAE-FDE-354] | Retrofit FDE + Section 18: `pytest-fixtures-and-parametrize.mdx`
+- [x] [BAE-FDE-355] | Retrofit FDE + Section 18: `test-driven-development.mdx`
+- [x] [BAE-FDE-356] | Retrofit FDE + Section 18: `testing-best-practices.mdx`
+- [x] [BAE-FDE-357] | Retrofit FDE + Section 18: `testing-pyramid.mdx`
+- [x] [BAE-FDE-358] | Retrofit FDE + Section 18: `unit-testing-with-pytest.mdx`
 - [x] [BAE-SOF-001] | Create `testing-pyramid.mdx`
 - [x] [BAE-SOF-002] | Create `unit-testing-with-pytest.mdx`
 - [x] [BAE-SOF-003] | Create `pytest-fixtures-and-parametrize.mdx`
@@ -127,6 +127,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| `BAE-FDE-349` through `BAE-FDE-358` | Retrofitted FDE Scenarios and Section 18 into Software Testing modules. |
 | `[BAE-SOF-001]` through `[BAE-SOF-010]` | Created 10 topics for Software Testing course including testing pyramid, pytest, mocking, tdd, and load testing. |
 
 ---
@@ -148,13 +149,4 @@ No reusable insights recorded yet.
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-349] | Retrofit FDE + Section 18: `api-testing.mdx`
-- [ ] [BAE-FDE-350] | Retrofit FDE + Section 18: `code-coverage.mdx`
-- [ ] [BAE-FDE-351] | Retrofit FDE + Section 18: `integration-testing.mdx`
-- [ ] [BAE-FDE-352] | Retrofit FDE + Section 18: `load-testing.mdx`
-- [ ] [BAE-FDE-353] | Retrofit FDE + Section 18: `mocking-and-patching.mdx`
-- [ ] [BAE-FDE-354] | Retrofit FDE + Section 18: `pytest-fixtures-and-parametrize.mdx`
-- [ ] [BAE-FDE-355] | Retrofit FDE + Section 18: `test-driven-development.mdx`
-- [ ] [BAE-FDE-356] | Retrofit FDE + Section 18: `testing-best-practices.mdx`
-- [ ] [BAE-FDE-357] | Retrofit FDE + Section 18: `testing-pyramid.mdx`
-- [ ] [BAE-FDE-358] | Retrofit FDE + Section 18: `unit-testing-with-pytest.mdx`
+_Empty_

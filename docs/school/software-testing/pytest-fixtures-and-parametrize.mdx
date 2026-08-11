@@ -22,6 +22,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, imagine you are writing tests for an e-commerce cart. For every single test, you need a dummy user, an active session, a mock database connection, and a pre-filled cart. If you copy-paste the database connection code into 50 different test files, what happens when the DB credentials change? You have to update 50 files. What if the setup takes 2 seconds? Your test suite now takes 100 seconds just to connect to the database.
 This is why Pytest Fixtures exist. They allow you to define a single, modular setup function, inject it automatically into any test that needs it, and cache the result so the 2-second DB connection only happens once per session. Combine this with Parametrize to run the same test logic over hundreds of data variants, and you have a bulletproof testing strategy.
 
+
+
+Bro, an FDE scenario might require testing your function against 50 different client configurations. Parametrized fixtures let you run the same test against all variations effortlessly.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A massive Indian wedding catering kitchen automatically serving 100 identical perfectly arranged thalis using a single master template. */}
@@ -168,7 +172,7 @@ Companies using complex microservices heavily rely on `conftest.py` files to def
 - Unit Testing with Pytest
 - Integration Testing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -177,3 +181,13 @@ Companies using complex microservices heavily rely on `conftest.py` files to def
 | [pytest-dev/pytest-asyncio](https://github.com/pytest-dev/pytest-asyncio) | ⭐ 1k+ | Async fixtures | Essential for testing async/await code. |
 | [testcontainers/testcontainers-python](https://github.com/testcontainers/testcontainers-python) | ⭐ 1k+ | Docker for tests | Perfect for module-scoped DB fixtures. |
 | [FactoryBoy/factory_boy](https://github.com/FactoryBoy/factory_boy) | ⭐ 3k+ | Test data generation | Use this inside fixtures to generate data. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Fixture Scope | Use `session` or `module` scope for expensive setups (like DB connections) and `function` scope for stateful data. | Incorrect scoping causes slow CI pipelines or test pollution in FDE environments. |
+| Parametrization | Use `@pytest.mark.parametrize` for data-driven testing instead of loops inside tests. | Loops obscure which specific input caused a failure; parametrization provides distinct test reports. |

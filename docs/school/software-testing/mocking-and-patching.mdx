@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, imagine writing a test for a function that charges a user's credit card via the Stripe API. You run the test suite, and it passes. Great! But the next day, finance calls you in a panic: your automated CI pipeline just charged a real customer's credit card 5,000 times during the nightly build. This is a catastrophic failure of test isolation. Your unit tests must NEVER touch real external APIs, send real emails, or modify production databases. We need a way to intercept these calls and pretend they happened successfully. This is exactly what Mocking and Patching do: they create fake objects that mimic the behavior of the real dependencies, allowing us to test our internal logic safely and instantly.
 
+
+
+Bro, in an FDE scenario, the client's external API might be down or rate-limited during your CI run. Mocking allows you to test your error handling logic predictably.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A candidate practicing for an IAS interview with strict actors pretending to be government officials in a mock room. */}
@@ -167,7 +171,7 @@ In production, teams use mocking to test devastating failure modes that are impo
 - Pytest Fixtures and Parametrize
 - API Testing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -176,3 +180,13 @@ In production, teams use mocking to test devastating failure modes that are impo
 | [kevin1024/vcrpy](https://github.com/kevin1024/vcrpy) | ⭐ 5k+ | Record and replay HTTP | Records real API calls to cassette files for playback. |
 | [spulec/freezegun](https://github.com/spulec/freezegun) | ⭐ 3k+ | Time mocking | Essential for testing code dependent on current time. |
 | [spulec/moto](https://github.com/getmoto/moto) | ⭐ 8k+ | Mocking AWS SDK | The industry standard for mocking boto3. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Selective Mocking | Only mock external dependencies or slow I/O. Do not mock internal business logic. | Over-mocking leads to tests that pass even when the actual system is broken. |
+| Mock Signatures | Always use `autospec=True` or equivalent when patching objects. | FDE issues occur when mock objects accept arguments that the real object would reject. |
