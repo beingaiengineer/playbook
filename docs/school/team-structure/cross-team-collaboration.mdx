@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 You are building the frontend for a new checkout flow. You need the Backend Cart team to add a `discount_code` field to their response. You ping their engineer on Slack, they say "Sure, I'll add it tomorrow," and you build your entire UI assuming it will be there. Tomorrow comes. The field isn't there. You ping them again. They say, "Sorry, my EM pulled me onto a high-priority bug." Now your sprint is blocked, your PM is angry, and you look incompetent. Bro, this is why cross-team collaboration is the hardest part of software engineering at scale. It is not about writing code; it is about negotiating priorities, defining strict contracts, and managing dependencies before you write a single line of logic.
 
+> **FDE Scenario:** You are deployed to a rapidly scaling startup. They have split into 5 different product squads, but they still share a single monolithic database. Every time one squad deploys, they break another squad's feature. You need to implement an API gateway and define strict service contracts between these squads. The challenge is that each squad has its own PM with conflicting priorities, and nobody wants to slow down their feature delivery to work on 'infrastructure.' You must negotiate the contracts and align the teams without having any direct managerial authority over them.
+
 ## 3. Real-World Analogy
 Think of cross-team collaboration like navigating a busy Indian street market.
 
@@ -155,7 +157,7 @@ When production goes down because of a cross-team integration failure, do not po
 - Engineering Manager Role
 - Remote Work Engineering
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [OAI/OpenAPI-Specification](https://github.com/OAI/OpenAPI-Specification) | ⭐ 30k+ | The OpenAPI Spec | The industry standard for defining cross-team API contracts |
@@ -163,3 +165,14 @@ When production goes down because of a cross-team integration failure, do not po
 | [grpc/grpc](https://github.com/grpc/grpc) | ⭐ 40k+ | gRPC | A framework that uses Protobufs to enforce strict cross-team communication |
 | [postmanlabs/newman](https://github.com/postmanlabs/newman) | ⭐ 6k+ | Postman CLI | Used to run cross-team API tests in pipelines |
 | [thoughtbot/guides](https://github.com/thoughtbot/guides) | ⭐ 10k+ | Thoughtbot guidelines | Excellent sections on how teams should collaborate on code |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Contract First | Never generate implementation code that depends on another team's service until a formal API contract (e.g., OpenAPI spec) is defined and agreed upon. | Assuming API shapes leads to massive integration failures and blocked sprints late in the cycle. |
+| Defensive Integration | When calling external team APIs, always implement robust error handling, timeouts, and fallbacks. Never assume the other team's service will be highly available. | Internal services fail frequently; cascading failures across teams must be prevented. |
+| Explicit Dependencies | Always clearly document cross-team dependencies in PRs and architecture docs, including exact version numbers and contact points. | Hidden dependencies cause deployment gridlock and broken builds. |

@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 You have been a Mid-Level engineer for two years. You write the most code on the team, you close the most Jira tickets, and you are always the first to fix a bug. Review time comes around, and you expect the promotion to Senior Engineer. Instead, your EM tells you, "You are a great coder, but you need to show more cross-team impact and mentorship before we can promote you." Bro, you are furious. You think the system is rigged. But the reality is, you misunderstood the rules of the game. The engineering ladder is not a linear scale of "writes code faster." At every level, the definition of the job fundamentally changes. What got you to Mid-Level will not get you to Senior. You have to change how you operate.
 
+> **FDE Scenario:** You are deployed to a client whose engineering organization has grown from 20 to 200 engineers in a year. Their job titles and responsibilities are completely chaotic. 'Senior' engineers are just people who have been there the longest, and 'Tech Leads' are just the loudest people in the room. This is causing massive attrition among their best talent. Your mandate is to help their leadership define clear, objective engineering levels (the 'ladder') and transition their team to this new structure while keeping morale high and delivering on a critical Q4 product launch.
+
 ## 3. Real-World Analogy
 Think of the engineering ladder like the progression of a cricket player.
 
@@ -140,7 +142,7 @@ Do not become an Engineering Manager just because you think it is the only way t
 - Engineering Manager Role
 - Engineering Org Structure
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [jorgef/engineeringladders](https://github.com/jorgef/engineeringladders) | ⭐ 5k+ | A framework for Engineering Managers | Extremely useful for seeing exactly how you are evaluated across 4 axes (Tech, System, People, Process) |
@@ -148,3 +150,14 @@ Do not become an Engineering Manager just because you think it is the only way t
 | [staffeng/staffeng](https://github.com/staffeng/staffeng) | ⭐ 2k+ | Companion to the StaffEng book | Essential reading for anyone aiming above the Senior level |
 | [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap) | ⭐ 280k+ | Tech roadmaps | Shows the technical breadth needed as you climb |
 | [raywenderlich/swift-style-guide](https://github.com/raywenderlich/swift-style-guide) | ⭐ 12k+ | Swift style guide | Understanding standards is key to moving from Mid to Senior |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Level-Appropriate Scope | When proposing solutions, explicitly state whether the solution addresses a local team problem (Mid-Level scope) or an org-wide systemic issue (Staff scope). | Misunderstanding the scope of a problem leads to either over-engineering or band-aid fixes. |
+| Mentorship Through Code | Generate code review comments that explain the 'Why' behind a requested change, not just the 'What', to actively mentor junior developers. | Gatekeeping knowledge stunts team growth; code reviews are a primary teaching tool. |
+| Impact Measurement | Ensure all architectural proposals include specific, measurable metrics (e.g., latency reduction, cost savings) to demonstrate impact at a senior level. | 'It's better code' is not a valid justification for senior-level engineering work. |

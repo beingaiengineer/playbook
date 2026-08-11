@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 You have been working on a critical feature for two weeks. It's code complete, tested, and ready to deploy. But wait, another team's API has changed, breaking your integration. You message the developer on that team, but they say they don't have the bandwidth to fix it this sprint. Who do you escalate to? Your Tech Lead? Your Engineering Manager? Their Engineering Manager? The Product Manager? Bro, if you don't understand the engineering org structure, you will waste days in bureaucratic limbo. Knowing the structure isn't just about corporate politics; it is about efficient technical execution. It dictates how dependencies are resolved, how technical debt is prioritized against product features, and who actually signs off on that major architecture refactor you want to do.
 
+> **FDE Scenario:** You are deployed to a massive legacy enterprise that recently went through a chaotic merger. The engineering organization is a mess: three different CTOs, overlapping team responsibilities, and no clear decision-making authority. You need to push a critical security patch across 50 different microservices, but nobody knows who actually owns which service. You must map out the informal org structure, identify the key decision-makers (the 'hidden nodes' in the org chart), and drive the security patch through a maze of bureaucracy.
+
 ## 3. Real-World Analogy
 Think of a tech org structure like a traditional Indian joint family.
 
@@ -144,7 +146,7 @@ If your API architecture looks like a mess of tangled dependencies, look at your
 - Engineering Manager Role
 - Tech Lead vs Staff Engineer
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [raywenderlich/swift-style-guide](https://github.com/raywenderlich/swift-style-guide) | ⭐ 12k+ | Official Swift style guide | Shows how large orgs enforce consistency across teams |
@@ -152,3 +154,14 @@ If your API architecture looks like a mess of tangled dependencies, look at your
 | [google/eng-practices](https://github.com/google/eng-practices) | ⭐ 35k+ | Google's Engineering Practices | The gold standard for how a massive org handles code reviews and standards |
 | [github/gitignore](https://github.com/github/gitignore) | ⭐ 150k+ | A collection of useful .gitignore templates | A highly collaborative repo showing cross-functional contribution |
 | [basecamp/handbook](https://github.com/basecamp/handbook) | ⭐ 5k+ | Basecamp's employee handbook | A great read on alternative, flat organizational structures |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Conway's Law Compliance | When proposing service boundaries or microservice splits, ensure the technical architecture mirrors the communication structures of the engineering org. | Fighting Conway's law leads to high-friction API designs and constant cross-team blockers. |
+| Dependency Mapping | Always map out the organizational owners (teams and individuals) for every technical dependency when proposing a new feature. | Technical dependencies are actually organizational dependencies; knowing who to talk to is critical. |
+| Escalation Paths | Clearly define escalation paths in technical specs for when cross-team dependencies fail or priorities conflict. | Unresolved conflicts stall projects indefinitely if there is no clear path to leadership. |

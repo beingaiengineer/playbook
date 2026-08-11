@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 A critical payment service went down for 45 minutes on a Friday afternoon. You fixed it quickly by reverting a bad database migration. When the Director of Engineering asked what happened in the incident channel, you typed: *"The v4 migration script had a missing foreign key constraint on the `user_uuid` which caused a cascade failure in the Postgres query planner, resulting in a table lock."* The Director stared at the screen, completely lost, and asked, "So... are customer payments working or not?" Bro, you answered the technical question perfectly, but you failed the communication test. You provided deep implementation details to an audience that only cared about business impact.
 
+> **FDE Scenario:** You are deployed to a traditional enterprise client. The stakeholders only understand 'business value' and the internal engineering teams only speak in deeply technical implementation details. There is a massive disconnect. A critical production deployment just failed, causing a brief outage. The client's business leadership is demanding a root cause analysis, while the engineers are arguing over stack traces. Your job is to bridge this gap, communicate the technical failure in business terms, and establish a clear incident reporting protocol without assigning blame.
+
 ## 3. Real-World Analogy
 Think of technical communication like giving directions in a busy Indian city.
 
@@ -146,7 +148,7 @@ During an incident post-mortem document review, communication must be strictly b
 - Remote Work Engineering
 - Tech Lead vs Staff Engineer
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [google/eng-practices](https://github.com/google/eng-practices) | ⭐ 35k+ | Google's Engineering Practices | The definitive guide on how to communicate during code reviews |
@@ -154,3 +156,14 @@ During an incident post-mortem document review, communication must be strictly b
 | [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap) | ⭐ 280k+ | Tech roadmaps | Shows how to visually communicate complex learning paths |
 | [joelparkerhenderson/architecture-decision-record](https://github.com/joelparkerhenderson/architecture-decision-record) | ⭐ 9k+ | ADR templates | Standard templates for communicating architectural choices |
 | [dgerrells/awesome-engineering-management](https://github.com/dgerrells/awesome-engineering-management) | ⭐ 1k+ | Management resources | Contains deep sections on communication strategies for leaders |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Audience Analysis | When generating documentation, comments, or PR descriptions, strictly adjust the vocabulary based on the intended reader. Use business terms for PMs/Stakeholders, and technical terms for Engineers. | Failing to tailor communication leads to massive misalignment and rejected proposals in client environments. |
+| Incident Reporting | When writing post-mortem text or incident reports, focus strictly on impact, root cause, and remediation steps. Never use blaming language. | Blaming language creates toxic environments and hides systemic failures. |
+| BLUF Principle | Always use 'Bottom Line Up Front' for PR descriptions and architectural proposals. State the impact and conclusion in the first two sentences before diving into technical details. | Stakeholders and senior engineers have limited attention spans; buried ledes lead to ignored PRs. |

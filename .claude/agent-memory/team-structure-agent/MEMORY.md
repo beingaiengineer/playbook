@@ -50,15 +50,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-359] | Retrofit FDE + Section 18: `communication-in-engineering.mdx`
-- [ ] [BAE-FDE-360] | Retrofit FDE + Section 18: `cross-team-collaboration.mdx`
-- [ ] [BAE-FDE-361] | Retrofit FDE + Section 18: `engineering-ladder.mdx`
-- [ ] [BAE-FDE-362] | Retrofit FDE + Section 18: `engineering-manager-role.mdx`
-- [ ] [BAE-FDE-363] | Retrofit FDE + Section 18: `engineering-org-structure.mdx`
-- [ ] [BAE-FDE-364] | Retrofit FDE + Section 18: `product-manager-role.mdx`
-- [ ] [BAE-FDE-365] | Retrofit FDE + Section 18: `remote-work-engineering.mdx`
-- [ ] [BAE-FDE-366] | Retrofit FDE + Section 18: `tech-lead-vs-staff-engineer.mdx`
-- [ ] [BAE-FDE-367] | Retrofit FDE + Section 18: `your-first-day.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -67,7 +58,15 @@ _Empty_
 _Empty_
 
 ### DONE
-_Empty_
+- [x] [BAE-FDE-359] | Retrofit FDE + Section 18: `communication-in-engineering.mdx`
+- [x] [BAE-FDE-360] | Retrofit FDE + Section 18: `cross-team-collaboration.mdx`
+- [x] [BAE-FDE-361] | Retrofit FDE + Section 18: `engineering-ladder.mdx`
+- [x] [BAE-FDE-362] | Retrofit FDE + Section 18: `engineering-manager-role.mdx`
+- [x] [BAE-FDE-363] | Retrofit FDE + Section 18: `engineering-org-structure.mdx`
+- [x] [BAE-FDE-364] | Retrofit FDE + Section 18: `product-manager-role.mdx`
+- [x] [BAE-FDE-365] | Retrofit FDE + Section 18: `remote-work-engineering.mdx`
+- [x] [BAE-FDE-366] | Retrofit FDE + Section 18: `tech-lead-vs-staff-engineer.mdx`
+- [x] [BAE-FDE-367] | Retrofit FDE + Section 18: `your-first-day.mdx`
 
 ---
 
@@ -94,7 +93,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 9
 - Lessons Remaining: 0
 - Completion %: 100.0%
-- Open Tasks: 9
+- Open Tasks: 0
 
 ---
 
@@ -119,6 +118,7 @@ _Empty_
 | BAE ID | What's Done (High Level) |
 |---|---|
 | `[BAE-TEA-001] through [BAE-TEA-009]` | Created 9 topics covering team structure, roles, and collaboration for the course. |
+| `BAE-FDE-359 through BAE-FDE-367` | Retrofitted FDE Scenario into Section 2 and added Section 18 Agent Instructions for all 9 topics in the Team Structure course. |
 
 ---
 
@@ -139,12 +139,4 @@ _Empty_
 No automation history yet.
 
 ### Next Task
-- [ ] [BAE-FDE-359] | Retrofit FDE + Section 18: `communication-in-engineering.mdx`
-- [ ] [BAE-FDE-360] | Retrofit FDE + Section 18: `cross-team-collaboration.mdx`
-- [ ] [BAE-FDE-361] | Retrofit FDE + Section 18: `engineering-ladder.mdx`
-- [ ] [BAE-FDE-362] | Retrofit FDE + Section 18: `engineering-manager-role.mdx`
-- [ ] [BAE-FDE-363] | Retrofit FDE + Section 18: `engineering-org-structure.mdx`
-- [ ] [BAE-FDE-364] | Retrofit FDE + Section 18: `product-manager-role.mdx`
-- [ ] [BAE-FDE-365] | Retrofit FDE + Section 18: `remote-work-engineering.mdx`
-- [ ] [BAE-FDE-366] | Retrofit FDE + Section 18: `tech-lead-vs-staff-engineer.mdx`
-- [ ] [BAE-FDE-367] | Retrofit FDE + Section 18: `your-first-day.mdx`
+_Empty_
