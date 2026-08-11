@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 You land your first fully remote job. For the first two weeks, it is amazing. No commute, you wear pajamas all day, and you write code from your couch. But by month three, you realize you haven't spoken to your manager in two weeks. Your PRs sit in the queue for days because your team is in a different timezone. When performance review time comes, your manager gives you a mediocre rating, stating you "lack visibility and impact." Bro, you wrote more code than anyone else on the team, but because you didn't manage your remote presence, you became a ghost. Remote work isn't just doing office work at home; it requires a completely different operating system for communication, visibility, and boundary setting.
 
+> **FDE Scenario:** You are deployed to a client who recently transitioned to a fully remote workforce. Productivity has plummeted. Engineers are feeling isolated, PRs are sitting unreviewed for days due to timezone mismatches, and 'quick questions' have turned into hour-long Zoom calls. You need to implement an asynchronous communication culture. Your challenge is to transition the team from a 'presence-based' culture (being online on Slack) to an 'output-based' culture (writing good documentation and async specs) without making them feel micromanaged.
+
 ## 3. Real-World Analogy
 Think of remote work like ordering from a Swiggy/Zomato dark kitchen vs eating at a sit-down restaurant.
 
@@ -141,7 +143,7 @@ When your office is your bedroom, it is very easy to work 12 hours a day. Close 
 - Cross-Team Collaboration
 - Your First Day
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [lukasz-madon/awesome-remote-job](https://github.com/lukasz-madon/awesome-remote-job) | ⭐ 26k+ | A curated list of awesome remote jobs and resources | Essential for finding companies that actually support remote work well |
@@ -149,3 +151,14 @@ When your office is your bedroom, it is very easy to work 12 hours a day. Close 
 | [gitpod-io/gitpod](https://github.com/gitpod-io/gitpod) | ⭐ 12k+ | Cloud development environments | Shows how tools are evolving to support remote engineers anywhere |
 | [jessicapigza/awesome-remote-work](https://github.com/jessicapigza/awesome-remote-work) | ⭐ 1k+ | Tools and tips for remote work | Great resource for optimizing your home setup and async workflows |
 | [basecamp/handbook](https://github.com/basecamp/handbook) | ⭐ 5k+ | Basecamp's employee handbook | Written by the pioneers of remote work, excellent for understanding the culture |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Async-First | Always generate documentation, architectural decisions (ADRs), and PR descriptions with the assumption that the reader is in a different timezone and cannot ask clarifying questions. | Synchronous dependencies paralyze remote teams and block global execution. |
+| Extreme Visibility | Ensure all technical decisions, even minor ones, are logged in public channels or shared documents rather than private direct messages. | Hidden knowledge silos destroy remote team cohesion and make onboarding impossible. |
+| Output Over Presence | Focus all generated metrics and tracking tools on measuring shipped code, resolved bugs, and merged PRs, rather than hours online or meetings attended. | Measuring presence in a remote environment incentivizes performative work over actual engineering. |

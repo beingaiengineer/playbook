@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 Your team is migrating from a monolithic database to microservices. Your Tech Lead (TL) is heavily involved, reviewing every PR, writing the core interfaces, and ensuring the team hits the sprint goals. But halfway through, a Staff Engineer drops into your Slack channel. They point out that your team's new microservice is using a message broker that the rest of the company is trying to deprecate. The TL was focused on getting the team's project done; the Staff Engineer was focused on the company's 3-year technical strategy. Bro, if you don't understand the difference between these two roles, you will be confused when a Staff Engineer overrides your TL's architectural decision.
 
+> **FDE Scenario:** You are deployed to a mid-sized client that has just hired its first 'Staff Engineer.' The existing Tech Leads are feeling threatened and confused. The Tech Leads are focused on hitting their sprint goals, while the Staff Engineer is trying to completely rewrite the core architecture to support the next 5 years of growth. The conflict is paralyzing the engineering org. You need to mediate this conflict, clearly define the boundaries between the 'local sprint focus' of a TL and the 'global architecture focus' of a Staff Engineer, and get them working together on a unified roadmap.
+
 ## 3. Real-World Analogy
 Think of this like a professional cricket team.
 
@@ -145,7 +147,7 @@ A bad Staff Engineer suffers from the "Ivory Tower" syndrome: they write massive
 - Engineering Org Structure
 - Engineering Ladder
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [staffeng/staffeng](https://github.com/staffeng/staffeng) | ⭐ 2k+ | Companion repo to the StaffEng book | The definitive guide on what it means to be a Staff Engineer |
@@ -153,3 +155,14 @@ A bad Staff Engineer suffers from the "Ivory Tower" syndrome: they write massive
 | [joelparkerhenderson/architecture-decision-record](https://github.com/joelparkerhenderson/architecture-decision-record) | ⭐ 9k+ | ADR templates | ADRs are the primary output of Staff Engineers |
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | ⭐ 260k+ | System Design | Core knowledge required to lead cross-team architecture |
 | [kelseyhightower/nocode](https://github.com/kelseyhightower/nocode) | ⭐ 65k+ | No Code | A joke repo, but highlights a Staff principle: the best code is no code |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Horizon Alignment | Ensure technical proposals clearly state whether they are optimizing for the current sprint (TL focus) or the 2-year architectural roadmap (Staff focus). | Confusing short-term delivery with long-term architecture leads to strategic paralysis. |
+| Blast Radius | When evaluating a technical change, explicitly calculate and document its 'blast radius' across the entire engineering organization, not just the local team. | Local optimizations often cause global failures at the Staff engineering level. |
+| Consensus Building | Generate RFCs (Request for Comments) that actively solicit feedback from multiple teams before finalizing any cross-cutting architectural decision. | Imposing architecture top-down without consensus leads to organizational rejection. |

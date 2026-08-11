@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 You are frustrated. The sprint has been a disaster. The PM keeps adding tickets, the CI/CD pipeline is broken, and a critical bug in production just wiped out your weekend. You sit down for your 1-on-1 with your Engineering Manager (EM), expecting them to dive into the codebase and fix the CI/CD pipeline with you. Instead, the EM asks, "How are you feeling about your workload?" Bro, you might think your EM is technically out of touch, but they are doing exactly what their job requires. An EM's primary job is not to write code; it is to build the team that writes the code. They are managing the system of people. If the CI/CD pipeline is broken, the EM's failure wasn't in not fixing it; their failure was in not allocating sprint capacity for a DevOps engineer to fix it.
 
+> **FDE Scenario:** You are deployed to a client where the engineering managers are completely burnt out. They are trying to be the lead architects, the senior coders, and the people managers all at once. As a result, code reviews are bottlenecked, 1-on-1s are skipped, and the team's velocity has tanked. You need to coach these managers to step back from the codebase, delegate technical decisions to their senior engineers, and focus on unblocking their teams and managing upward to stakeholders. You must do this while ensuring a massive data migration project stays on track.
+
 ## 3. Real-World Analogy
 Think of an Engineering Manager like the human shield in an Indian corporate office.
 
@@ -141,7 +143,7 @@ Many orgs promote their best engineers into management. This often results in lo
 - Tech Lead vs Staff Engineer
 - Engineering Org Structure
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [ryanburgess/engineer-manager](https://github.com/ryanburgess/engineer-manager) | ⭐ 3k+ | A list of engineering manager resources | Great reading material for understanding what EMs are studying |
@@ -149,3 +151,14 @@ Many orgs promote their best engineers into management. This often results in lo
 | [LappleApple/awesome-leading-and-managing](https://github.com/LappleApple/awesome-leading-and-managing) | ⭐ 4k+ | Awesome list for leading people | Gives insights into the tools and frameworks EMs use |
 | [kdeldycke/awesome-engineering-team-management](https://github.com/kdeldycke/awesome-engineering-team-management) | ⭐ 2k+ | How to transition from dev to manager | Excellent for ICs thinking about the management track |
 | [jorgef/engineeringladders](https://github.com/jorgef/engineeringladders) | ⭐ 5k+ | Engineering career ladders | Shows the explicit expectations EMs have for your promotions |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Delegation Over Execution | When proposing team workflows, default to delegating technical execution to senior engineers and focusing management tasks on unblocking and resourcing. | EMs who try to be the lead coder become massive bottlenecks for the entire team. |
+| Visibility Generation | Ensure that generated project trackers and sprint boards automatically surface blockers and risks to stakeholders without requiring manual status updates. | Manual status reporting wastes EM time that should be spent on people management. |
+| Psychological Safety | When generating feedback templates or 1-on-1 agendas, prioritize open-ended questions that uncover hidden blockers and team sentiment. | Unspoken issues are the silent killers of engineering teams. |

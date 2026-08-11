@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 So you’ve passed the interviews, negotiated the offer, and now you’re here. It’s 9 AM on your first day as a Software Engineer. The excitement is high, but as soon as you get your laptop, the reality sets in. You are handed a massive 10-year-old monolithic codebase, a Jira board filled with acronyms you don’t understand, and a setup guide that’s three years out of date. Bro, this is the exact moment many new engineers panic, thinking they made a mistake or that they aren't smart enough. The truth is, your first day—and often your first month—is not about writing code. It’s about building a mental map of the organization, understanding the deployment pipeline, figuring out who the key decision-makers are, and getting your local environment running. Surviving the first day is an exercise in asking the right questions rather than providing the right answers.
 
+> **FDE Scenario:** You are deployed to a high-security client environment on day one. You are handed a locked-down laptop, a massive, undocumented monolithic codebase, and a Jira board full of urgent bugs. You have no system access, no mentor, and the team is too busy putting out fires to onboard you. Your objective is not to write a single line of code today. Your objective is to map the deployment pipeline, identify the key gatekeepers for system access, and figure out the exact path a line of code takes from a developer's machine to production.
+
 ## 3. Real-World Analogy
 Think of joining a new engineering team like attending an Indian wedding where you only know the groom.
 
@@ -143,7 +145,7 @@ Never test out admin commands or run database scripts on your first day unless y
 - Cross-Team Collaboration
 - Communication in Engineering
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap) | ⭐ 280k+ | Roadmaps for becoming a developer | Gives you a high-level view of what you might need to learn |
@@ -151,3 +153,14 @@ Never test out admin commands or run database scripts on your first day unless y
 | [trimstray/the-book-of-secret-knowledge](https://github.com/trimstray/the-book-of-secret-knowledge) | ⭐ 130k+ | CLI tools, scripts, and tricks | Extremely useful for setting up your local dev environment efficiently |
 | [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) | ⭐ 320k+ | Freely available programming books | Great for deep-diving into the specific tech stack your new company uses |
 | [danistefanovic/build-your-own-x](https://github.com/danistefanovic/build-your-own-x) | ⭐ 270k+ | Build your own technology from scratch | Helps you understand the internal workings of the tools your company relies on |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Information Gathering | Prioritize reading and mapping the build/deploy pipeline over reading application logic during initial repository exploration. | Understanding how code gets to production is more critical than understanding what the code does on day one. |
+| Read-Only State | When generating scripts or actions for a new environment, default to 'dry-run' or read-only modes to prevent accidental destructive actions. | Accidental production mutations on day one are catastrophic career events. |
+| Documentation Audit | Actively log every outdated wiki page, broken setup script, and missing permission you encounter to fix the onboarding process for the next engineer. | Leaving the onboarding process broken is a failure of engineering citizenship. |

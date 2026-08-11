@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ## 2. Engineering Story
 You and your team spent three months building the most beautiful, highly-scalable, event-driven microservice architecture to support a new reporting dashboard. The code is flawless. You deploy it to production, and... nobody uses it. The users actually just wanted a button to export their current view to a CSV. Bro, you just wasted a quarter of engineering time because there was a disconnect between what the engineers wanted to build (cool tech) and what the users actually needed (a simple solution). This is exactly why the Product Manager role exists. They are the bridge between the market, the business, and the engineering team. Without a good PM, engineers build solutions looking for problems.
 
+> **FDE Scenario:** You are deployed to a client whose engineering team is brilliant but deeply frustrated. They have spent 6 months building a highly complex, technically perfect feature that zero customers are using. The PMs are non-technical and constantly throw vague 'market requirements' over the wall without understanding the technical debt they are creating. You need to bridge this gap, teach the engineers how to push back with data, and establish a framework where PMs and engineers co-create product specs rather than working in silos.
+
 ## 3. Real-World Analogy
 Think of building a software product like making a Bollywood blockbuster.
 
@@ -142,7 +144,7 @@ A common trap is the "Minimum Viable Product" (MVP) that never gets iterated on.
 - Engineering Org Structure
 - Cross-Team Collaboration
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [PostHog/posthog](https://github.com/PostHog/posthog) | ⭐ 18k+ | Open-source product analytics | Shows how PMs and engineers track feature usage in the real world |
@@ -150,3 +152,14 @@ A common trap is the "Minimum Viable Product" (MVP) that never gets iterated on.
 | [toddmotto/public-apis](https://github.com/public-apis/public-apis) | ⭐ 280k+ | A collective list of free APIs | Often used by PMs and devs to quickly validate product ideas |
 | [mattermost/mattermost](https://github.com/mattermost/mattermost) | ⭐ 30k+ | Open-source Slack alternative | A great example of a highly product-driven open-source project |
 | [calcom/cal.com](https://github.com/calcom/cal.com) | ⭐ 30k+ | Open-source Calendly alternative | Demonstrates excellent PM/Eng alignment in a public repo |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Pushback Framework | When receiving a vague or technically unfeasible requirement, generate responses that push back with data (e.g., latency costs, engineering hours) rather than simple refusals. | PMs need data to understand technical trade-offs; 'No' is not an acceptable engineering answer. |
+| Spec Co-Creation | Never start generating code until the technical constraints and the business requirements have been explicitly reconciled in a written document. | Coding before alignment leads to built-but-unused features and massive technical debt. |
+| MVP Focus | When proposing a technical architecture for a new feature, always present the simplest possible MVP first, explicitly listing what is deferred to v2. | Over-engineering an unproven product feature is a massive waste of engineering resources. |
