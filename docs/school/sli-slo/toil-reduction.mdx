@@ -21,6 +21,8 @@ import Admonition from '@theme/Admonition';
 
 A team of senior engineers was spending 10 hours a week manually renewing SSL certificates and resizing database volumes. After writing a robust Python script and using tools like Certbot and Terraform, this toil was reduced to zero, freeing them up to build actual product features.
 
+**FDE Scenario:** Bro, imagine you are deployed to a client where the engineering team spends 80% of their day manually approving database migrations, restarting stuck services, and copying logs into spreadsheets. You have to ruthlessly automate this repetitive toil so they can actually focus on engineering work.
+
 ## 3. Real-World Analogy
 
 Washing a massive pile of clothes by hand every single day vs buying a washing machine. The machine does the repetitive, low-value work so you can do something more productive.
@@ -168,3 +170,15 @@ Always remember that not all work is toil. Engineering is not toil. Strategic pl
 Understanding how these components interact in a distributed system is critical for building resilient architectures. While basic principles apply across all scales, the complexity of implementing these systems grows exponentially with the size of your infrastructure.
 
 Continuous learning and iteration are key. What works for a startup with thousands of users will fail spectacularly for an enterprise with millions. Adapt your strategies as your scale dictates, always keeping the end-user experience as your north star.
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Automation Priority | Prioritize automating tasks that are frequent, manual, and require no engineering judgment. | Engineers should spend time solving complex problems, not acting as human cron jobs. |
+| Script Idempotency | Ensure all automation scripts are idempotent (can be run multiple times safely). | Flaky automation that fails halfway through creates more toil than the original manual process. |
+| Toil Tracking | Instrument ticketing systems to categorize and measure time spent on operational toil. | You cannot effectively reduce toil if you cannot measure where the team is spending their time. |

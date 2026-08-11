@@ -21,6 +21,8 @@ import Admonition from '@theme/Admonition';
 
 A junior engineer configured an alert for 'error rate > 5% for 5 minutes'. It triggered constantly on low-traffic nights when a single error skewed the percentage, causing severe alert fatigue. They switched to burn rate alerts to only page the on-call engineer when the error budget was rapidly depleting, saving their sleep.
 
+**FDE Scenario:** Bro, imagine you are deployed to a legacy bank client. They set a strict error budget but the client systems fail silently in the middle of the night. You can't rely on generic thresholds because a single batch job failure looks like a 100% error rate on a Sunday. You need burn rate alerts to differentiate between a slow bleed and an actual outage.
+
 ## 3. Real-World Analogy
 
 Your phone battery dropping 1% an hour is normal. Dropping 1% every minute is an emergency that needs immediate attention before the phone dies completely. Burn rate measures that speed.
@@ -172,3 +174,15 @@ This is advanced SRE practice, but it's essential for any team that wants to sle
 Understanding how these components interact in a distributed system is critical for building resilient architectures. While basic principles apply across all scales, the complexity of implementing these systems grows exponentially with the size of your infrastructure.
 
 Continuous learning and iteration are key. What works for a startup with thousands of users will fail spectacularly for an enterprise with millions. Adapt your strategies as your scale dictates, always keeping the end-user experience as your north star.
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Alert Logic | Avoid hardcoded thresholds; generate alerting rules based on dynamic burn rates. | Fixed thresholds cause alert fatigue during low-traffic periods. |
+| Time Windows | Always use multiple sliding windows (e.g., 1h, 6h, 3d) when evaluating burn rate. | Single time windows miss slow bleeds and over-alert on momentary spikes. |
+| Budget Linking | Ensure burn rate queries directly reference the defined error budget metric. | Disconnected alerts trigger pagers without actually threatening the SLO. |

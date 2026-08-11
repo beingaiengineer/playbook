@@ -21,6 +21,8 @@ import Admonition from '@theme/Admonition';
 
 A company migrated from a monolith to microservices, but a single failing recommendation service cascaded and took down the entire checkout flow. They started using tools like Chaos Monkey to randomly terminate instances in production to force engineers to build resilient, fault-tolerant architectures.
 
+**FDE Scenario:** Bro, imagine you are deployed to a telecom client whose network goes down every Tuesday. You can't just hope for the best. You need to intentionally inject faults into a controlled replica of their environment to discover the hidden single points of failure before a real outage happens on their production floor.
+
 ## 3. Real-World Analogy
 
 Conducting a surprise fire drill in a large office building. You practice the emergency procedures so that everyone is prepared and knows exactly what to do when a real fire happens.
@@ -174,3 +176,15 @@ Chaos Engineering is a paradigm shift. It acknowledges that in complex distribut
 Understanding how these components interact in a distributed system is critical for building resilient architectures. While basic principles apply across all scales, the complexity of implementing these systems grows exponentially with the size of your infrastructure.
 
 Furthermore, integrating these practices into your CI/CD pipelines ensures that reliability is treated as a first-class citizen, rather than an afterthought. Automated deployment checks based on current system health can prevent catastrophic rollouts and minimize the blast radius of inevitable bugs.
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Blast Radius | Start chaos experiments with the smallest possible blast radius (e.g., a single test node). | Uncontrolled experiments can accidentally take down the entire client production environment. |
+| Rollback Triggers | Always configure automated rollback mechanisms or 'kill switches' for chaos scripts. | If an experiment causes unexpected cascading failures, it must be aborted instantly. |
+| Hypothesis Testing | Require a documented hypothesis of expected system behavior before running any experiment. | Randomly breaking things without a hypothesis is vandalism, not engineering. |
