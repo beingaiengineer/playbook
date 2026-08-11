@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, you just finished writing a brilliant new machine learning microservice. You tested the internal python functions, they work perfectly. You deploy to staging, and the frontend team immediately messages you: "The API is broken." You check the logs. Your code expects a POST request with `{"user_id": 5}`, but the API router is strictly requiring `{"user_id": "5"}` (a string), returning a 422 Validation Error. Because you only wrote unit tests for the core logic and skipped API testing, you completely missed the boundary validation layer. API tests catch these exact contract failures, ensuring that the outside world can actually communicate with your system.
 
+
+
+Bro, an FDE scenario happens when a client deployment fails because their infrastructure sends legacy headers. API tests catch these exact contract failures, ensuring that the outside world can actually communicate with your system.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A postman aggressively stuffing 100 different oddly shaped packages into a small local post box to see if it breaks. */}
@@ -173,7 +177,7 @@ At scale, companies like Stripe or Twilio treat their APIs as their primary prod
 - Test-Driven Development
 - Unit Testing with Pytest
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -181,3 +185,13 @@ At scale, companies like Stripe or Twilio treat their APIs as their primary prod
 | [schemathesis/schemathesis](https://github.com/schemathesis/schemathesis) | ⭐ 2k+ | API Fuzzing | Automatically tests your API using your OpenAPI schema. |
 | [tavern-testing/tavern](https://github.com/tavern-testing/tavern) | ⭐ 1k+ | YAML-based API tests | Great for writing API tests without writing pure Python code. |
 | [postmanlabs/newman](https://github.com/postmanlabs/newman) | ⭐ 6k+ | Postman CLI | Essential if your QA team writes tests in Postman. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Contract Testing | Always write API tests that assert the HTTP status code and response body shape (e.g., specific keys). | FDE client integrations fail if the JSON contract changes unexpectedly. |
+| Status Codes | Explicitly test error pathways (400, 422, 401) using a `TestClient`. | Missing error boundary tests mask production issues where bad client input crashes the backend. |

@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, the engineering manager just proudly announced to the CTO that the new payment service has "100% Code Coverage." Everyone applauds. Two days later, a customer tries to buy an item with a negative price, and the system happily issues them a refund instead of charging them. How did this happen with 100% coverage? The developer wrote a test that executed the payment function, but they forgot to add any `assert` statements. The code was executed (covered), but the logic was never actually verified. This is the great illusion of Code Coverage. It is a fantastic tool for finding untested code, but it is a terrible metric for measuring code quality.
 
+
+
+Bro, in an FDE scenario, pushing code with less than 80% coverage to a client's environment often leads to undetected regressions during their UAT phase. Code coverage tools help ensure you aren't flying blind.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A security guard sweeping a flashlight across a massive dark warehouse trying to illuminate every hidden corner. */}
@@ -155,10 +159,20 @@ Companies use platforms like Codecov or SonarQube integrated into GitHub Actions
 - Test-Driven Development
 - Integration Testing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [nedbat/coveragepy](https://github.com/nedbat/coveragepy) | ⭐ 3k+ | Code coverage tool | The underlying engine for Python coverage. |
 | [pytest-dev/pytest-cov](https://github.com/pytest-dev/pytest-cov) | ⭐ 1k+ | Pytest plugin | The easiest way to run coverage inside pytest. |
 | [codecov/codecov-python](https://github.com/codecov/codecov-python) | ⭐ 1k+ | Codecov uploader | Tool for uploading XML reports to the Codecov dashboard. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Coverage Baseline | Ensure all newly generated logic achieves at least 80% line and branch coverage. | Uncovered code introduced into FDE environments introduces unacceptable risk of silent failures. |
+| Branch Coverage | Always enable branch coverage measuring, not just line coverage. | Logic errors hide in unexecuted conditional branches. |

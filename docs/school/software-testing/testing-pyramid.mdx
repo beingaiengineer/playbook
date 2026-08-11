@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, imagine being the lead engineer on a major e-commerce platform during Black Friday. You push a small change to the checkout button styling, and suddenly, the entire payment gateway stops working. The team scrambles for three hours to find the bug, losing thousands of dollars in the process. Why wasn't this caught? Because the team relied entirely on slow, flaky end-to-end (E2E) tests that were skipped by developers to "save time." This is a classic production nightmare. We need a structured approach to testing. We need fast feedback for simple logic and comprehensive checks for the entire system, layered correctly so developers can move fast without breaking things.
 
+
+
+Bro, in an FDE scenario, a client might rely entirely on slow, flaky UI tests. The testing pyramid teaches them to push validation down to fast, reliable unit tests.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A meticulous structural engineer building a massive 3-tier pyramid using tiny precise bricks at the bottom and large fragile blocks at the top. */}
@@ -154,7 +158,7 @@ Their CI/CD pipelines run thousands of unit tests on every commit within seconds
 - Test-Driven Development
 - Integration Testing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -163,3 +167,13 @@ Their CI/CD pipelines run thousands of unit tests on every commit within seconds
 | [SeleniumHQ/selenium](https://github.com/SeleniumHQ/selenium) | ⭐ 30k+ | Browser automation | The classic tool for UI testing. |
 | [testcontainers/testcontainers-python](https://github.com/testcontainers/testcontainers-python) | ⭐ 1k+ | Docker for tests | Perfect for the integration testing layer. |
 | [pact-foundation/pact-python](https://github.com/pact-foundation/pact-python) | ⭐ 500+ | Contract testing | Essential for microservice integration testing. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Test Distribution | Ensure the codebase maintains a pyramid shape: many unit tests, fewer integration tests, and very few E2E tests. | Top-heavy test suites slow down FDE delivery pipelines and are expensive to maintain. |
+| Fast Feedback | Focus heavily on unit tests for core logic to provide immediate feedback during development. | Slow feedback loops kill developer productivity. |

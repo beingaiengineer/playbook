@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, imagine you build a ticket booking app for a massive concert. Your unit tests pass, integration tests pass, and API tests are flawless. You launch the app. At exactly 10:00 AM, 50,000 users hit the "Buy Ticket" button simultaneously. The database connection pool is instantly exhausted, the CPU spikes to 100%, and the servers crash. The site is down for an hour, and the company is humiliated on Twitter. You tested the logic perfectly, but you never tested the *scale*. This is why Load Testing is non-negotiable for high-traffic systems. It answers the question: "Does the code still work when a stadium full of people try to use it at the exact same second?"
 
+
+
+Bro, an FDE scenario occurs when the client runs a massive marketing campaign, and your service crashes under the 100x traffic spike. Load testing simulates this before it happens.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A Mumbai local train completely overflowing with passengers as engineers push more people inside to see if the doors hold. */}
@@ -169,7 +173,7 @@ Companies like Netflix and Amazon run constant, automated load tests. When they 
 - SLIs and SLOs
 - Observability and Monitoring
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -177,3 +181,13 @@ Companies like Netflix and Amazon run constant, automated load tests. When they 
 | [grafana/k6](https://github.com/grafana/k6) | ⭐ 20k+ | JS load testing | Incredible performance, writes test in modern JavaScript. |
 | [artilleryio/artillery](https://github.com/artilleryio/artillery) | ⭐ 6k+ | Cloud-native load testing | Excellent for serverless and CI/CD pipelines. |
 | [wg/wrk](https://github.com/wg/wrk) | ⭐ 35k+ | HTTP benchmarking | Raw, brute-force CLI tool to benchmark HTTP APIs. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Concurrent Users | Always design load tests to simulate realistic concurrent user behavior, not just raw RPS. | FDE systems often fail due to thread exhaustion or connection pool limits, not CPU. |
+| Threshold Assertions | Set explicit passing thresholds (e.g., 95th percentile latency < 200ms) in load test scripts. | Without thresholds, performance regressions slip into production silently. |

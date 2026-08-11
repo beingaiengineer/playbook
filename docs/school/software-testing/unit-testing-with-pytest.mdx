@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, imagine deploying a new data processing pipeline that is supposed to handle millions of records. You tested it manually, and it seemed fine. But in production, a specific edge case—a null value in an obscure field—causes the entire pipeline to crash, halting operations for hours. If you had written unit tests, you could have simulated every possible input variant (including nulls, negatives, and malformed strings) in milliseconds before the code ever left your laptop. Pytest is the engine that runs these tiny, crucial checks. It ensures that the smallest building blocks of your software are rock solid, so you don't discover fundamental logic flaws during a midnight production outage.
 
+
+
+Bro, an FDE scenario requires verifying that your pure Python functions work flawlessly before deploying them to a chaotic client environment. Unit tests give you that confidence.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] A strict chai stall owner meticulously tasting a single spoonful of tea for the perfect sugar balance before serving it. */}
@@ -169,7 +173,7 @@ In massive Python monoliths like Instagram's backend or Dropbox's infrastructure
 - Mocking and Patching
 - Code Coverage
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -178,3 +182,13 @@ In massive Python monoliths like Instagram's backend or Dropbox's infrastructure
 | [pytest-dev/pytest-cov](https://github.com/pytest-dev/pytest-cov) | ⭐ 1k+ | Coverage reporting | Connects Pytest with Coverage.py. |
 | [spulec/freezegun](https://github.com/spulec/freezegun) | ⭐ 3k+ | Mocking time | Crucial for deterministic date/time testing. |
 | [FactoryBoy/factory_boy](https://github.com/FactoryBoy/factory_boy) | ⭐ 3k+ | Test data generation | Helps build complex test objects cleanly. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Pure Functions | Write unit tests primarily for pure functions and isolated business logic. | Unit tests should be blazing fast and deterministic. |
+| Assertion Types | Use standard `assert` statements and avoid complex testing framework matchers when possible. | `pytest`'s assertion rewriting is powerful enough; keep tests readable for FDE teams. |

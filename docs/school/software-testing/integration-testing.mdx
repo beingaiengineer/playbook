@@ -21,6 +21,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, two teams at your company spent a month building microservices. Team A built the User Service, and Team B built the Email Service. Both teams wrote 100% unit test coverage, mocking out the other team's API. They deploy to production on Friday afternoon. Immediately, the system crashes. Why? Team A sent the user ID as an integer, but Team B expected a string. The unit tests passed because the mocks were wrong. This is the classic "two units work perfectly, but the system fails" scenario. Integration tests prevent this by wiring the actual, real components together (like a real database, or a real API contract) to ensure they can actually communicate in reality, not just in theory.
 
+
+
+Bro, imagine an FDE scenario where the client's custom database schema doesn't match your mock objects. Integration tests verify that your code actually works with real external dependencies.
+
 ## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Multiple independent chaotic Swiggy delivery fleets connecting at a busy traffic junction without crashing into each other. */}
@@ -174,10 +178,20 @@ At companies like Uber, integration tests are crucial for verifying that complex
 - Testing Pyramid
 - API Testing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [testcontainers/testcontainers-python](https://github.com/testcontainers/testcontainers-python) | ⭐ 1k+ | Docker for tests | The absolute best way to manage real databases for tests. |
 | [pytest-dev/pytest-django](https://github.com/pytest-dev/pytest-django) | ⭐ 1k+ | Django testing | Provides native DB transaction rollback fixtures for Django. |
 | [pact-foundation/pact-python](https://github.com/pact-foundation/pact-python) | ⭐ 500+ | Contract testing | Essential for testing integrations between microservices without spinning them all up. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Real Dependencies | Write integration tests using real infrastructure (e.g., test databases, test queues) rather than mocks. | Mocks hide integration failures that only manifest in FDE deployments. |
+| State Isolation | Always clean up or rollback database state after an integration test runs. | Leaking state causes flaky tests which destroy CI pipeline reliability. |
