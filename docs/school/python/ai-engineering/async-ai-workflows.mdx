@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-An AI summarization service was crashing under heavy load because it was processing one long document at a time, making the entire web server block while waiting for the LLM API to respond. By rewriting their pipeline using Python's `asyncio`, the server could handle thousands of concurrent requests. While waiting for OpenAI to return a summary for Document A, the server immediately started processing Document B, drastically increasing throughput.
+An AI summarization service was crashing under heavy load because it was processing one long document at a time, making the entire web server block while waiting for the LLM API to respond. By rewriting their pipeline using Python's `asyncio`, the server could handle thousands of concurrent requests. While waiting for OpenAI to return a summary for Document A, the server immediately started processing Document B, drastically increasing throughput. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact concurrent processing system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -288,3 +290,15 @@ Where is async AI used?
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI framework, high performance | The go-to modern framework for building high-performance, async API endpoints for AI models. |
 | [aio-libs/aiohttp](https://github.com/aio-libs/aiohttp) | ⭐ 14k+ | Asynchronous HTTP client/server framework | Crucial for making non-blocking API calls to external LLM providers. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Concurrency | Use `asyncio.gather` for parallel LLM API calls. | Maximizes throughput and minimizes wait time for client users. |
+| Rate Limiting | Implement token bucket or semaphore rate limiting for async requests. | Prevents client IPs from being blocked by external LLM providers. |
+| Timeout | Always set a timeout for `async` network requests. | Prevents hanging connections from exhausting server resources. |
+| Error Isolation | Ensure failure of one async task does not crash the entire event loop. | Maintains stability in multi-tenant FDE deployments. |

@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A logistics company struggled with delayed shipments because human dispatchers had to manually cross-reference weather APIs, truck GPS data, and inventory systems. They replaced this manual process with an autonomous AI Agent. Armed with custom tools, the Agent could independently check the weather, query the database, reason about the fastest alternative route, and automatically send rerouting instructions to drivers via API—all without human intervention.
+A logistics company struggled with delayed shipments because human dispatchers had to manually cross-reference weather APIs, truck GPS data, and inventory systems. They replaced this manual process with an autonomous AI Agent. Armed with custom tools, the Agent could independently check the weather, query the database, reason about the fastest alternative route, and automatically send rerouting instructions to drivers via API—all without human intervention. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact autonomous reasoning system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -271,3 +273,15 @@ Where are AI Agents actually used?
 |---|---|---|---|
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | A programming framework for agentic AI | Microsoft's premier framework for building multi-agent conversational systems. |
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Framework for orchestrating role-playing autonomous AI agents | Excellent for assigning distinct roles to agents to collaborate on complex tasks. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Tool Selection | Restrict agents to specific allowed tools with defined input schemas. | Prevents agents from executing arbitrary or destructive actions on client infrastructure. |
+| Error Handling | Always wrap tool executions in try-catch blocks and feed the error back to the LLM. | Allows the agent to self-correct rather than crashing the client application. |
+| Loop Limits | Set a strict maximum number of thought/action iterations. | Prevents infinite looping that consumes excessive API credits and spikes client costs. |
+| Logging | Trace every thought and action payload. | Essential for debugging complex agent failures in FDE environments. |

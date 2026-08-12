@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A streaming platform wanted to improve its 'Similar Movies' recommendation feature. Traditional SQL databases could only match exact genres or tags, missing the nuanced 'vibe' of a film. By converting movie descriptions into mathematical vectors (embeddings) and storing them in a Vector Database, they could instantly perform similarity searches across millions of titles, surfacing films that 'felt' similar even if their metadata tags completely differed.
+A streaming platform wanted to improve its 'Similar Movies' recommendation feature. Traditional SQL databases could only match exact genres or tags, missing the nuanced 'vibe' of a film. By converting movie descriptions into mathematical vectors (embeddings) and storing them in a Vector Database, they could instantly perform similarity searches across millions of titles, surfacing films that 'felt' similar even if their metadata tags completely differed. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact similarity search system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -266,3 +268,15 @@ Also, embeddings models update. If you change your embedding model (e.g., upgrad
 |---|---|---|---|
 | [milvus-io/milvus](https://github.com/milvus-io/milvus) | ⭐ 25k+ | A cloud-native vector database | Open-source, highly scalable vector database built for massive AI workloads. |
 | [qdrant/qdrant](https://github.com/qdrant/qdrant) | ⭐ 17k+ | Vector Database for the next generation of AI | High-performance vector search engine written in Rust. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Indexing | Choose the appropriate index type (e.g., HNSW) for the specific use case. | Balances search speed and accuracy based on client requirements. |
+| Dimensionality | Ensure embedding dimensions match the configured vector database schema. | Prevents insertion errors during pipeline execution. |
+| Metadata | Store relevant business metadata alongside the vector. | Enables complex pre-filtering during similarity searches. |
+| Distance Metric | Select the correct distance metric (Cosine, L2, Inner Product) for the chosen embedding model. | Ensures accurate similarity matching for the client application. |

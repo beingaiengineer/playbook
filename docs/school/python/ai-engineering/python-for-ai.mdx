@@ -21,7 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, when we built our first recommendation engine, we just wrote it as a massive Python script that loaded a 10GB model into memory every time a request came in. The server crashed instantly. We had to completely rethink our approach to AI engineering: separating model training from inference, keeping the model loaded in a dedicated service, and passing requests via gRPC. It was a stark reminder that AI code needs serious production engineering.
+Bro, when we built our first recommendation engine, we just wrote it as a massive Python script that loaded a 10GB model into memory every time a request came in. The server crashed instantly. We had to completely rethink our approach to AI engineering: separating model training from inference, keeping the model loaded in a dedicated service, and passing requests via gRPC. It was a stark reminder that AI code needs serious production engineering. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact AI infrastructure system to meet strict enterprise compliance and scale requirements.
+
 
 ---
 
@@ -221,3 +222,15 @@ The biggest pain point in AI Engineering isn't writing the model; it's dependenc
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [huggingface/transformers](https://github.com/huggingface/transformers) | ⭐ 120k+ | State-of-the-art Machine Learning | Defacto standard for AI engineering |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Environment | Always pin library versions in `requirements.txt` or `pyproject.toml`. | Ensures reproducible builds across client environments. |
+| Type Hinting | Use comprehensive type hints for all functions and classes. | Improves maintainability and reduces runtime errors in critical paths. |
+| Separation | Keep ML model inference code separate from web server routing code. | Allows FDEs to scale components independently. |
+| Serialization | Use robust serialization methods for moving data between services. | Prevents data corruption across client microservices. |

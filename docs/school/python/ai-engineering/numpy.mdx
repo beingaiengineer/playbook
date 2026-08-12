@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-At a major quantitative trading firm, engineers initially used standard Python lists to calculate moving averages across millions of stock price points. The system took several minutes to process a single trading hour's data, meaning they were reacting to market shifts too slowly. By migrating their data structures to NumPy arrays and utilizing vectorized operations, they reduced calculation time to milliseconds, allowing their algorithms to trade in real-time.
+At a major quantitative trading firm, engineers initially used standard Python lists to calculate moving averages across millions of stock price points. The system took several minutes to process a single trading hour's data, meaning they were reacting to market shifts too slowly. By migrating their data structures to NumPy arrays and utilizing vectorized operations, they reduced calculation time to milliseconds, allowing their algorithms to trade in real-time. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact vectorized computation system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -224,3 +226,15 @@ If you need to build an array dynamically (e.g., reading lines from a file and a
 |---|---|---|---|
 | [numpy/numpy](https://github.com/numpy/numpy) | ⭐ 25k+ | The fundamental package for scientific computing with Python | It is the official source code for NumPy. |
 | [rougier/numpy-100](https://github.com/rougier/numpy-100) | ⭐ 11k+ | 100 numpy exercises | The best place to practice and master NumPy operations. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Vectorization | Replace standard Python loops with NumPy array operations. | Dramatically improves performance on large client datasets. |
+| Data Types | Explicitly define `dtype` when creating arrays. | Optimizes memory usage on constrained FDE infrastructure. |
+| In-Place Ops | Use in-place operations (e.g., `+=`) when possible. | Reduces unnecessary memory allocation during heavy calculations. |
+| Copy vs View | Be explicitly aware of whether an operation returns a copy or a view. | Prevents accidental mutation of shared client data. |
