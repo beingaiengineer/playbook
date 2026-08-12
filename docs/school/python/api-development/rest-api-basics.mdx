@@ -22,7 +22,7 @@ Bro, REST (Representational State Transfer) is not a strict protocol; it's an ar
 
 ## 2. Engineering Story
 
-We designed a standard RESTful interface for a chaotic set of internal microservices, enabling teams to communicate consistently.
+Bro, imagine you are a senior engineer dealing with a chaotic integration failure where front-end teams cannot consume a new backend service because every endpoint uses wildly inconsistent verbs and custom URL structures. Integrations are blocked, bugs are rampant, and the junior developers are constantly asking for documentation. You sit down, calmly look at the routing table, and realize the problem requires strict adherence to REST API principles. By refactoring the endpoints to use standard HTTP verbs and resource-based nouns, you create an intuitive, self-documenting interface that accelerates development and turns a mess into a masterclass on API design.
 
 ## 3. Real-World Analogy
 
@@ -211,8 +211,17 @@ An operation is **idempotent** if doing it once has the same effect as doing it 
 - Rate Limiting
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 10k+ | FastAPI framework | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Standard Verbs | Strictly adhere to standard HTTP verbs (`GET` for read, `POST` for create, `PUT/PATCH` for update, `DELETE`). | Non-standard verb usage breaks proxy caching and confuses API consumers. |
+| Plural Nouns | Use plural nouns for resource URLs (e.g., `/users/123`, not `/getUser/123`). | It provides a predictable, standard interface across the entire API surface. |
+| Statelessness | Design endpoints to be completely stateless; do not rely on server-side session memory between requests. | Stateless APIs can be horizontally scaled infinitely behind load balancers. |

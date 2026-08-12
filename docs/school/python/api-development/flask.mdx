@@ -22,7 +22,7 @@ Bro, Flask is the grandfather of modern Python micro-frameworks. If Django gives
 
 ## 2. Engineering Story
 
-We rapidly prototyped a microservice using Flask due to its simplicity and extensibility, getting to production in a week.
+Bro, imagine you are a senior engineer dealing with a chaotic microservice architecture where teams are paralyzed by over-engineered, heavy frameworks just to serve a simple endpoint. Velocity is dead, deadlines are missed, and the junior developers are paralyzed by boilerplate. You sit down, calmly look at the requirements, and realize the problem requires the minimalist, rapid prototyping power of Flask. By deploying a clean, blueprint-driven Flask app in hours, you unblock the product team, streamline the deployments, and turn a stalled project into a masterclass on pragmatic engineering.
 
 ## 3. Real-World Analogy
 
@@ -228,8 +228,17 @@ Command to run in prod: `gunicorn -w 4 'app:app'` (4 worker processes).
 - Authentication
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [pallets/flask](https://github.com/pallets/flask) | ⭐ 10k+ | The Python micro framework for building web applications. | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Blueprints | Always use Blueprints to organize routes by domain, instead of dumping everything in `app.py`. | Monolithic routing files become unmanageable in large codebases. |
+| App Context | Understand the difference between application context and request context; use `g` for request-scoped data. | Incorrect context usage can lead to data leaking across concurrent requests. |
+| WSGI Server | Never use the built-in Flask development server in production; always deploy with Gunicorn or uWSGI. | The built-in server cannot handle concurrent requests safely or efficiently. |

@@ -22,7 +22,7 @@ Bro, the `requests` library is the standard way to talk to other servers in Pyth
 
 ## 2. Engineering Story
 
-We replaced verbose `urllib` code with the clean `requests` library to reliably consume an external weather API without boilerplate.
+Bro, imagine you are a senior engineer dealing with a critical outage where a backend service is hanging indefinitely because an external 3rd-party API went down silently. Thread pools are exhausted, the app is frozen, and the junior developers are blaming the network. You sit down, calmly look at the HTTP client code, and realize the problem requires a deep understanding of standard `requests` library configuration. By explicitly enforcing connection timeouts and `raise_for_status()`, you make the system fail fast, restore internal stability, and turn a cascading failure into a masterclass on resilient external integrations.
 
 ## 3. Real-World Analogy
 
@@ -231,8 +231,17 @@ with open("huge.zip", "wb") as f:
 - Python Error Handling
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [psf/requests](https://github.com/psf/requests) | ⭐ 10k+ | A simple, yet elegant, HTTP library. | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Always Set Timeouts | Every `requests.get()` or `.post()` call MUST have a `timeout` argument specified. | Without a timeout, a hanging remote server will cause your application to freeze indefinitely. |
+| Check for Errors | Always use `response.raise_for_status()` to catch 4xx and 5xx HTTP errors immediately. | Silently ignoring failed status codes leads to cascading failures parsing empty or unexpected data. |
+| Session Objects | Use `requests.Session()` when making multiple requests to the same host to reuse TCP connections. | Connection pooling significantly reduces latency by avoiding repeated SSL handshakes. |

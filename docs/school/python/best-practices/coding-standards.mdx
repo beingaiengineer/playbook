@@ -21,8 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine you are a senior engineer dealing with enforcing strict formatting across a massive open-source project.
-The system is failing, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the architecture, and realize the problem requires a deep understanding of these core principles. By applying these standards, you stabilize the system, save the company thousands of dollars, and turn a disaster into a masterclass on robust engineering.
+Bro, imagine you are a senior engineer taking over a large, distributed team where every pull request devolves into a multi-day argument about formatting, quotes, and indentation. Feature delivery has ground to a halt, morale is low, and the junior developers are frustrated by nitpicking. You sit down, calmly look at the lack of consistency, and realize the problem requires strict, automated Coding Standards. By enforcing PEP-8 and integrating Black/Ruff into the CI pipeline, you eliminate style debates completely, accelerate code reviews, and turn a toxic workflow into a masterclass on engineering discipline.
 
 ## 3. Real-World Analogy
 
@@ -244,8 +243,17 @@ How do major teams handle this?
 - Engineering Principles
 - Type Hinting
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [psf/black](https://github.com/psf/black) | ⭐ 50k+ | The uncompromising Python code formatter | Highly relevant to understanding coding standards in production. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| PEP 8 Compliance | Strictly follow PEP 8 style guidelines for all Python code. | Standardized formatting reduces friction during code reviews and onboarding. |
+| Automated Formatters | Use Black or Ruff for automated code formatting before committing. | It eliminates debates over syntax style and ensures consistency across the codebase. |
+| Type Hinting | Always use type hints (`def process(data: list[str]) -> int:`) for function signatures. | Type hints enable static analysis (mypy), improve IDE autocomplete, and catch bugs before runtime. |

@@ -25,7 +25,7 @@ API Versioning solves this by creating parallel realities of your API.
 
 ## 2. Engineering Story
 
-Bro, imagine you have a successful mobile app with 1M users. You decide to completely redesign the database and the JSON response format for a new feature. You deploy the backend, and instantly your support inbox catches fire. The old mobile apps, which users haven't updated yet, are expecting the old data format and are crashing entirely. This is why we need to properly architect API Versioning. Without it, a successful backend update turns into a massive outage for legacy clients.
+Bro, imagine you are a senior engineer dealing with a critical production issue where an unversioned API update accidentally bricked 1 million legacy iOS clients. The system is failing, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the routing architecture, and realize the problem requires a robust API versioning strategy. By deploying a backwards-compatible `/v1` adapter, you stabilize the legacy clients, save the company's reputation, and turn a disaster into a masterclass on non-breaking API evolution.
 
 ## 3. Real-World Analogy
 
@@ -214,9 +214,18 @@ If you want to turn off V1, you can't just delete it.
 
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [stripe/stripe-python](https://github.com/stripe/stripe-python) | ⭐ 3k+ | Stripe API client | Shows how world-class versioning is handled in SDKs |
 | [fastapi/fastapi](https://github.com/fastapi/fastapi) | ⭐ 65k+ | FastAPI Framework | Modern framework for building versioned APIs |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| URI Versioning | Prefer URI versioning (e.g., `/v1/`) over headers or query parameters for caching and simplicity. | Caching proxies handle URL paths more predictably than varying query parameters or headers. |
+| Break Avoidance | Avoid bumping API versions unless there is an unavoidable breaking change. | Maintaining multiple API versions simultaneously is expensive and increases testing burden. |
+| Deprecation Timeline | Implement deprecation HTTP headers (`Sunset`, `Deprecation`) on old versions and communicate timelines. | Hard removal of APIs causes client apps to crash completely. |
