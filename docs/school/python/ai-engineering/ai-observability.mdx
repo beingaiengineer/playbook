@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A fintech company deployed a chatbot to help users navigate their accounts, but customer satisfaction tanked. The engineering team had no idea *why* the bot was failing because they were only tracking standard metrics like CPU usage and API latency. Once they integrated AI Observability tools, they could trace exact conversational paths, monitor hallucination rates, and discover that the bot was confidently giving outdated interest rates due to an old embedding in their vector store.
+A fintech company deployed a chatbot to help users navigate their accounts, but customer satisfaction tanked. The engineering team had no idea *why* the bot was failing because they were only tracking standard metrics like CPU usage and API latency. Once they integrated AI Observability tools, they could trace exact conversational paths, monitor hallucination rates, and discover that the bot was confidently giving outdated interest rates due to an old embedding in their vector store. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact tracing and observability system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -273,3 +275,15 @@ Where is AI Observability critical?
 |---|---|---|---|
 | [langfuse/langfuse](https://github.com/langfuse/langfuse) | ⭐ 5k+ | Open source LLM engineering platform | Leading open-source tool for tracing, monitoring, and evaluating LLM applications. |
 | [truera/trulens](https://github.com/truera/trulens) | ⭐ 3k+ | Evaluation and Tracking for LLM Apps | Excellent for setting up guardrails and evaluating the quality of RAG outputs. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Trace Injection | Always pass trace IDs between LLM calls and traditional API calls. | Enables end-to-end debugging across microservices in client systems. |
+| Data Masking | Scrub PII from prompts before logging them to observability platforms. | Required to maintain client compliance (GDPR/HIPAA). |
+| Cost Tracking | Log token counts and model versions for every request. | Allows FDEs to monitor and optimize API expenditure for the client. |
+| Latency Alerts | Set timeouts and track latency per LLM call. | Prevents cascading failures in synchronous client applications. |

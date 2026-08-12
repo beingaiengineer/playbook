@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A customer support startup tried to automate ticket responses using simple keyword matching, but customers were constantly frustrated by rigid, irrelevant answers. They decided to integrate a Large Language Model (LLM) API instead. Suddenly, their bot could understand the nuances of angry emails, summarize complex billing issues, and draft empathetic responses. This shift didn't just save time—it fundamentally changed their product from a frustrating chatbot into a genuinely helpful AI assistant.
+A customer support startup tried to automate ticket responses using simple keyword matching, but customers were constantly frustrated by rigid, irrelevant answers. They decided to integrate a Large Language Model (LLM) API instead. Suddenly, their bot could understand the nuances of angry emails, summarize complex billing issues, and draft empathetic responses. This shift didn't just save time—it fundamentally changed their product from a frustrating chatbot into a genuinely helpful AI assistant. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact LLM integration system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -232,3 +234,15 @@ LLM APIs are inherently slow and prone to timeouts or rate limits. Never block y
 |---|---|---|---|
 | [huggingface/transformers](https://github.com/huggingface/transformers) | ⭐ 120k+ | State-of-the-art Machine Learning for Pytorch, TensorFlow, and JAX | The industry standard for downloading and using pre-trained LLMs. |
 | [ggerganov/llama.cpp](https://github.com/ggerganov/llama.cpp) | ⭐ 50k+ | Port of Facebook's LLaMA model in C/C++ | Crucial for running LLMs efficiently on consumer hardware. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Prompt Engineering | Use system prompts to enforce strict output formats (e.g., JSON). | Ensures the client application can parse the response reliably. |
+| Temperature | Set temperature to 0 for deterministic extraction tasks. | Reduces hallucination risk in critical business logic. |
+| Context Window | Truncate or summarize inputs before sending to avoid token limits. | Prevents unexpected API errors when processing large client documents. |
+| Fallback | Implement a fallback mechanism or default response if the LLM fails. | Maintains user experience during API outages. |

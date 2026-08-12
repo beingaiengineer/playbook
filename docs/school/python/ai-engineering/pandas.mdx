@@ -21,7 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-An e-commerce giant needed to merge daily transaction logs with customer demographics to generate personalized recommendations. Initially, they wrote custom Python scripts with nested dictionaries, which quickly ran out of memory and took hours to run. When a senior data engineer introduced Pandas, the team was able to load, join, and clean the multi-gigabyte datasets in just a few lines of code, slashing processing time by 90%.
+An e-commerce giant needed to merge daily transaction logs with customer demographics to generate personalized recommendations. Initially, they wrote custom Python scripts with nested dictionaries, which quickly ran out of memory and took hours to run. When a senior data engineer introduced Pandas, the team was able to load, join, and clean the multi-gigabyte datasets in just a few lines of code, slashing processing time by 90%. During an intense client deployment, a Forward Deployed Engineer (FDE) had to overhaul this exact data manipulation system to meet strict enterprise compliance and scale requirements.
+
+
 
 ## 3. Real-World Analogy
 
@@ -224,3 +226,15 @@ Pandas loads the entire dataset into RAM. If your CSV is 10GB, Pandas might use 
 |---|---|---|---|
 | [pandas-dev/pandas](https://github.com/pandas-dev/pandas) | ⭐ 41k+ | Flexible and powerful data analysis / manipulation library | The official repository for Pandas development. |
 | [guipsamora/pandas_exercises](https://github.com/guipsamora/pandas_exercises) | ⭐ 8k+ | Practice your pandas skills! | Great repository for mastering data manipulation through practical examples. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Vectorization | Avoid `iterrows()`. Use vectorized operations or `apply`. | Essential for processing large data exports efficiently. |
+| Memory Management | Downcast numeric types to save memory. | Prevents Out-Of-Memory (OOM) errors on FDE data pipelines. |
+| Chaining | Use method chaining for clean, readable transformations. | Improves maintainability of complex data engineering scripts. |
+| Missing Data | Handle `NaN` values explicitly before processing. | Prevents downstream errors in client reporting systems. |

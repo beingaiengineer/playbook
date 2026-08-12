@@ -44,25 +44,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-177] | Retrofit FDE + Section 18: `ai-engineering/ai-agents.mdx`
-- [ ] [BAE-FDE-178] | Retrofit FDE + Section 18: `ai-engineering/ai-observability.mdx`
-- [ ] [BAE-FDE-179] | Retrofit FDE + Section 18: `ai-engineering/async-ai-workflows.mdx`
-- [ ] [BAE-FDE-180] | Retrofit FDE + Section 18: `ai-engineering/llm-basics.mdx`
-- [ ] [BAE-FDE-181] | Retrofit FDE + Section 18: `ai-engineering/numpy.mdx`
-- [ ] [BAE-FDE-182] | Retrofit FDE + Section 18: `ai-engineering/pandas.mdx`
-- [ ] [BAE-FDE-183] | Retrofit FDE + Section 18: `ai-engineering/python-for-ai.mdx`
-- [ ] [BAE-FDE-184] | Retrofit FDE + Section 18: `ai-engineering/rag-pipelines.mdx`
-- [ ] [BAE-FDE-185] | Retrofit FDE + Section 18: `ai-engineering/vector-databases.mdx`
-- [ ] [BAE-FDE-186] | Retrofit FDE + Section 18: `api-development/api-versioning.mdx`
-- [ ] [BAE-FDE-187] | Retrofit FDE + Section 18: `api-development/authentication.mdx`
-- [ ] [BAE-FDE-188] | Retrofit FDE + Section 18: `api-development/fastapi.mdx`
-- [ ] [BAE-FDE-189] | Retrofit FDE + Section 18: `api-development/flask.mdx`
-- [ ] [BAE-FDE-190] | Retrofit FDE + Section 18: `api-development/middleware.mdx`
-- [ ] [BAE-FDE-191] | Retrofit FDE + Section 18: `api-development/rate-limiting.mdx`
-- [ ] [BAE-FDE-192] | Retrofit FDE + Section 18: `api-development/requests-library.mdx`
-- [ ] [BAE-FDE-193] | Retrofit FDE + Section 18: `api-development/rest-api-basics.mdx`
-- [ ] [BAE-FDE-194] | Retrofit FDE + Section 18: `best-practices/clean-code.mdx`
-- [ ] [BAE-FDE-195] | Retrofit FDE + Section 18: `best-practices/coding-standards.mdx`
 - [ ] [BAE-FDE-196] | Retrofit FDE + Section 18: `best-practices/engineering-principles.mdx`
 - [ ] [BAE-FDE-197] | Retrofit FDE + Section 18: `best-practices/production-checklists.mdx`
 - [ ] [BAE-FDE-198] | Retrofit FDE + Section 18: `best-practices/project-structure.mdx`
@@ -177,7 +158,6 @@ Ready for next planning phase.
 - [ ] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
 - [ ] [BAE-FDE-308] | Retrofit FDE + Section 18: `testing/test-best-practices.mdx`
 - [ ] [BAE-FDE-309] | Retrofit FDE + Section 18: `testing/unit-testing.mdx`
-
 ### IN PROGRESS
 _Empty_
 
@@ -350,6 +330,15 @@ _Empty_
 - [x] Engineering Principles (best-practices/engineering-principles.mdx)
 
 ---
+- [x] [BAE-FDE-177] | Retrofit FDE + Section 18: `ai-engineering/ai-agents.mdx`
+- [x] [BAE-FDE-178] | Retrofit FDE + Section 18: `ai-engineering/ai-observability.mdx`
+- [x] [BAE-FDE-179] | Retrofit FDE + Section 18: `ai-engineering/async-ai-workflows.mdx`
+- [x] [BAE-FDE-180] | Retrofit FDE + Section 18: `ai-engineering/llm-basics.mdx`
+- [x] [BAE-FDE-181] | Retrofit FDE + Section 18: `ai-engineering/numpy.mdx`
+- [x] [BAE-FDE-182] | Retrofit FDE + Section 18: `ai-engineering/pandas.mdx`
+- [x] [BAE-FDE-183] | Retrofit FDE + Section 18: `ai-engineering/python-for-ai.mdx`
+- [x] [BAE-FDE-184] | Retrofit FDE + Section 18: `ai-engineering/rag-pipelines.mdx`
+- [x] [BAE-FDE-185] | Retrofit FDE + Section 18: `ai-engineering/vector-databases.mdx`
 
 ## Dependencies
 
@@ -381,137 +370,22 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-## Backlog
-- [x] [BAE-REVIEW-021] | Audit `functions/recursion.mdx`
-- [x] [BAE-REVIEW-022] | Audit `functions/decorators.mdx`
-- [x] [BAE-REVIEW-023] | Audit `functions/generators.mdx`
-- [x] [BAE-REVIEW-024] | Audit `functions/iterators.mdx`
-- [x] [BAE-REVIEW-025] | Audit `functions/closures.mdx`
-- [x] [BAE-REVIEW-026] | Audit `collections/lists.mdx`
-- [x] [BAE-REVIEW-027] | Audit `collections/tuples.mdx`
-- [x] [BAE-REVIEW-028] | Audit `collections/sets.mdx`
-- [x] [BAE-REVIEW-029] | Audit `collections/dictionaries.mdx`
-- [x] [BAE-REVIEW-030] | Audit `collections/list-comprehension.mdx`
-- [x] [BAE-REVIEW-031] | Audit `collections/dictionary-comprehension.mdx`
-- [x] [BAE-REVIEW-032] | Audit `collections/collections-module.mdx`
-- [x] [BAE-REVIEW-033] | Audit `collections/deque.mdx`
-- [x] [BAE-REVIEW-034] | Audit `collections/counter.mdx`
-- [x] [BAE-REVIEW-035] | Audit `collections/defaultdict.mdx`
-- [x] [BAE-REVIEW-036] | Audit `strings/string-basics.mdx`
-- [x] [BAE-REVIEW-037] | Audit `strings/string-methods.mdx`
-- [x] [BAE-REVIEW-038] | Audit `strings/string-formatting.mdx`
-- [x] [BAE-REVIEW-039] | Audit `strings/regex.mdx`
-- [x] [BAE-REVIEW-040] | Audit `strings/unicode.mdx`
-- [x] [BAE-REVIEW-041] | Audit `strings/f-strings.mdx`
-- [x] [BAE-REVIEW-042] | Audit `oops/classes-objects.mdx`
-- [x] [BAE-REVIEW-043] | Audit `oops/constructors.mdx`
-- [x] [BAE-REVIEW-044] | Audit `oops/inheritance.mdx`
-- [x] [BAE-REVIEW-045] | Audit `oops/polymorphism.mdx`
-- [x] [BAE-REVIEW-046] | Audit `oops/encapsulation.mdx`
-- [x] [BAE-REVIEW-047] | Audit `oops/abstraction.mdx`
-- [x] [BAE-REVIEW-048] | Audit `oops/magic-methods.mdx`
-- [x] [BAE-REVIEW-049] | Audit `oops/dataclasses.mdx`
-- [x] [BAE-REVIEW-050] | Audit `oops/solid-principles.mdx`
-- [x] [BAE-REVIEW-051] | Audit `oops/composition-vs-inheritance.mdx`
-- [x] [BAE-REVIEW-052] | Audit `error-handling/exceptions.mdx`
-- [x] [BAE-REVIEW-053] | Audit `error-handling/custom-exceptions.mdx`
-- [x] [BAE-REVIEW-054] | Audit `error-handling/logging.mdx`
-- [x] [BAE-REVIEW-055] | Audit `error-handling/debugging.mdx`
-- [x] [BAE-REVIEW-056] | Audit `error-handling/production-debugging.mdx`
-- [x] [BAE-REVIEW-057] | Audit `file-handling/reading-files.mdx`
-- [x] [BAE-REVIEW-058] | Audit `file-handling/writing-files.mdx`
-- [x] [BAE-REVIEW-059] | Audit `file-handling/csv-files.mdx`
-- [x] [BAE-REVIEW-060] | Audit `file-handling/json-files.mdx`
-- [x] [BAE-REVIEW-061] | Audit `file-handling/pathlib.mdx`
-- [x] [BAE-REVIEW-062] | Audit `file-handling/file-best-practices.mdx`
-- [x] [BAE-REVIEW-063] | Audit `modules-packages/modules.mdx`
-- [x] [BAE-REVIEW-064] | Audit `modules-packages/packages.mdx`
-- [x] [BAE-REVIEW-065] | Audit `modules-packages/virtual-environments.mdx`
-- [x] [BAE-REVIEW-066] | Audit `modules-packages/pip.mdx`
-- [x] [BAE-REVIEW-067] | Audit `modules-packages/pyproject-toml.mdx`
-- [x] [BAE-REVIEW-068] | Audit `modules-packages/dependency-management.mdx`
-- [x] [BAE-REVIEW-069] | Audit `advanced-python/memory-management.mdx`
-- [x] [BAE-REVIEW-070] | Audit `advanced-python/garbage-collection.mdx`
-- [x] [BAE-REVIEW-071] | Audit `advanced-python/shallow-vs-deep-copy.mdx`
-- [x] [BAE-REVIEW-072] | Audit `advanced-python/mutability.mdx`
-- [x] [BAE-REVIEW-073] | Audit `advanced-python/context-managers.mdx`
-- [x] [BAE-REVIEW-074] | Audit `advanced-python/descriptors.mdx`
-- [x] [BAE-REVIEW-075] | Audit `advanced-python/metaclasses.mdx`
-- [x] [BAE-REVIEW-076] | Audit `advanced-python/monkey-patching.mdx`
-- [x] [BAE-REVIEW-077] | Audit `advanced-python/dynamic-typing.mdx`
-- [x] [BAE-REVIEW-078] | Audit `advanced-python/python-internals.mdx`
-- [x] [BAE-REVIEW-079] | Audit `concurrency/threading.mdx`
-- [x] [BAE-REVIEW-080] | Audit `concurrency/multiprocessing.mdx`
-- [x] [BAE-REVIEW-081] | Audit `concurrency/asyncio.mdx`
-- [x] [BAE-REVIEW-082] | Audit `concurrency/async-await.mdx`
-- [x] [BAE-REVIEW-083] | Audit `concurrency/race-conditions.mdx`
-- [x] [BAE-REVIEW-084] | Audit `concurrency/queues.mdx`
-- [x] [BAE-REVIEW-085] | Audit `concurrency/locks-semaphores.mdx`
-- [x] [BAE-REVIEW-086] | Audit `concurrency/gil.mdx`
-- [x] [BAE-REVIEW-087] | Audit `api-development/requests-library.mdx`
-- [x] [BAE-REVIEW-088] | Audit `api-development/rest-api-basics.mdx`
-- [x] [BAE-REVIEW-089] | Audit `api-development/fastapi.mdx`
-- [x] [BAE-REVIEW-090] | Audit `api-development/flask.mdx`
-- [x] [BAE-REVIEW-091] | Audit `api-development/authentication.mdx`
-- [x] [BAE-REVIEW-092] | Audit `api-development/middleware.mdx`
-- [x] [BAE-REVIEW-093] | Audit `api-development/api-versioning.mdx`
-- [x] [BAE-REVIEW-094] | Audit `api-development/rate-limiting.mdx`
-- [x] [BAE-REVIEW-095] | Audit `databases/sqlite.mdx`
-- [x] [BAE-REVIEW-096] | Audit `databases/postgresql.mdx`
-- [x] [BAE-REVIEW-097] | Audit `databases/sqlalchemy.mdx`
-- [x] [BAE-REVIEW-098] | Audit `databases/orm-vs-raw-sql.mdx`
-- [x] [BAE-REVIEW-099] | Audit `databases/transactions.mdx`
-- [x] [BAE-REVIEW-100] | Audit `databases/indexing.mdx`
-- [x] [BAE-REVIEW-101] | Audit `databases/connection-pooling.mdx`
-- [x] [BAE-REVIEW-102] | Audit `testing/pytest.mdx`
-- [x] [BAE-REVIEW-103] | Audit `testing/unit-testing.mdx`
-- [x] [BAE-REVIEW-104] | Audit `testing/mocking.mdx`
-- [x] [BAE-REVIEW-105] | Audit `testing/integration-testing.mdx`
-- [x] [BAE-REVIEW-106] | Audit `testing/load-testing.mdx`
-- [x] [BAE-REVIEW-107] | Audit `testing/test-best-practices.mdx`
-- [x] [BAE-REVIEW-108] | Audit `performance/profiling.mdx`
-- [x] [BAE-REVIEW-109] | Audit `performance/memory-optimization.mdx`
-- [x] [BAE-REVIEW-110] | Audit `performance/caching.mdx`
-- [x] [BAE-REVIEW-111] | Audit `performance/lazy-loading.mdx`
-- [x] [BAE-REVIEW-112] | Audit `performance/vectorization.mdx`
-- [x] [BAE-REVIEW-113] | Audit `performance/numpy-performance.mdx`
-- [x] [BAE-REVIEW-114] | Audit `performance/performance-best-practices.mdx`
-- [x] [BAE-REVIEW-115] | Audit `system-design/python-architecture.mdx`
-- [x] [BAE-REVIEW-116] | Audit `system-design/scalable-python.mdx`
-- [x] [BAE-REVIEW-117] | Audit `system-design/event-driven-systems.mdx`
-- [x] [BAE-REVIEW-118] | Audit `system-design/queue-systems.mdx`
-- [x] [BAE-REVIEW-119] | Audit `system-design/distributed-systems.mdx`
-- [x] [BAE-REVIEW-120] | Audit `system-design/microservices.mdx`
-- [x] [BAE-REVIEW-121] | Audit `system-design/production-patterns.mdx`
-- [x] [BAE-REVIEW-122] | Audit `ai-engineering/python-for-ai.mdx`
-- [x] [BAE-REVIEW-123] | Audit `ai-engineering/numpy.mdx`
-- [x] [BAE-REVIEW-124] | Audit `ai-engineering/pandas.mdx`
-- [x] [BAE-REVIEW-125] | Audit `ai-engineering/llm-basics.mdx`
-- [x] [BAE-REVIEW-126] | Audit `ai-engineering/rag-pipelines.mdx`
-- [x] [BAE-REVIEW-127] | Audit `ai-engineering/vector-databases.mdx`
-- [x] [BAE-REVIEW-128] | Audit `ai-engineering/ai-agents.mdx`
-- [x] [BAE-REVIEW-129] | Audit `ai-engineering/async-ai-workflows.mdx`
-- [x] [BAE-REVIEW-130] | Audit `ai-engineering/ai-observability.mdx`
-- [x] [BAE-REVIEW-131] | Audit `interview-prep/top-python-interview-questions.mdx`
-- [x] [BAE-REVIEW-132] | Audit `interview-prep/tricky-python-questions.mdx`
-- [x] [BAE-REVIEW-133] | Audit `interview-prep/debugging-rounds.mdx`
-- [x] [BAE-REVIEW-134] | Audit `interview-prep/coding-round-patterns.mdx`
-- [x] [BAE-REVIEW-135] | Audit `interview-prep/system-design-rounds.mdx`
-- [x] [BAE-REVIEW-136] | Audit `interview-prep/senior-python-questions.mdx`
-- [x] [BAE-REVIEW-137] | Audit `best-practices/clean-code.mdx`
-- [x] [BAE-REVIEW-138] | Audit `best-practices/project-structure.mdx`
-- [x] [BAE-REVIEW-139] | Audit `best-practices/coding-standards.mdx`
-- [x] [BAE-REVIEW-140] | Audit `best-practices/security-best-practices.mdx`
-- [x] [BAE-REVIEW-141] | Audit `best-practices/production-checklists.mdx`
-- [x] [BAE-REVIEW-142] | Audit `best-practices/scalability-guidelines.mdx`
-- [x] [BAE-REVIEW-143] | Audit `best-practices/engineering-principles.mdx`
-
----
+- [ ] [BAE-FDE-186] | Retrofit FDE + Section 18: `api-development/api-versioning.mdx`
+- [ ] [BAE-FDE-187] | Retrofit FDE + Section 18: `api-development/authentication.mdx`
+- [ ] [BAE-FDE-188] | Retrofit FDE + Section 18: `api-development/fastapi.mdx`
+- [ ] [BAE-FDE-189] | Retrofit FDE + Section 18: `api-development/flask.mdx`
+- [ ] [BAE-FDE-190] | Retrofit FDE + Section 18: `api-development/middleware.mdx`
+- [ ] [BAE-FDE-191] | Retrofit FDE + Section 18: `api-development/rate-limiting.mdx`
+- [ ] [BAE-FDE-192] | Retrofit FDE + Section 18: `api-development/requests-library.mdx`
+- [ ] [BAE-FDE-193] | Retrofit FDE + Section 18: `api-development/rest-api-basics.mdx`
+- [ ] [BAE-FDE-194] | Retrofit FDE + Section 18: `best-practices/clean-code.mdx`
+- [ ] [BAE-FDE-195] | Retrofit FDE + Section 18: `best-practices/coding-standards.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-177 through BAE-FDE-185 | Retrofitted 9 AI Engineering topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-167 through BAE-FDE-176 | Retrofitted 10 Advanced Python topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | [BAE-REVIEW-133] through [BAE-REVIEW-143] | Audited 11 Python topics (Interview Prep & Best Practices), fixed heading numbering, injected Engineering Story, added distinct Illustration placeholders, and added unique GitHub Repositories. |
 | [BAE-REVIEW-123] through [BAE-REVIEW-132] | Audited 10 AI Engineering and Interview Prep topics, fixed heading numbering, injected Engineering Story, added distinct Illustration placeholders, and added unique GitHub Repositories. |
