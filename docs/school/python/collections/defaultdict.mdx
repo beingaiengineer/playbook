@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Engineers building a graph database adapter frequently encountered KeyError exceptions when trying to append edges to nodes that hadn't been explicitly initialized in their dictionary. They scattered `if node not in graph: graph[node] = []` checks everywhere, cluttering the codebase. They adopted `defaultdict(list)`, which elegantly and automatically initialized missing keys with an empty list, drastically simplifying their graph traversal logic.
+Bro, imagine you are a senior engineer dealing with a critical issue. Engineers building a graph database adapter frequently encountered KeyError exceptions when trying to append edges to nodes that hadn't been explicitly initialized in their dictionary. They scattered `if node not in graph: graph[node] = []` checks everywhere, cluttering the codebase. They adopted `defaultdict(list)`, which elegantly and automatically initialized missing keys with an empty list, drastically simplifying their graph traversal logic. You sit down, calmly look at the architecture, and realize the problem requires a deep understanding of Defaultdict. By applying these standards, you stabilize the system, save the company thousands of dollars in compute costs, and turn a disaster into a masterclass on robust engineering.
 
 ---
 
@@ -225,8 +225,17 @@ Because `defaultdict` creates keys automatically upon access, it can mask bugs. 
 - `dict.setdefault()`
 - JSON serialization
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The official Python runtime | See how this is implemented natively |
+
+
+## 18. AI Agent Instructions
+
+| Instruction | Details |
+|---|---|
+| **Context** | You are writing or reviewing code related to Defaultdict in Python. |
+| **Action** | Ensure all implementations strictly follow the best practices and architectural patterns outlined for Defaultdict, writing production-grade, maintainable code. |
+| **Validation** | Verify that no deprecated methods or anti-patterns are used when Defaultdict provides a safer, more performant alternative. |

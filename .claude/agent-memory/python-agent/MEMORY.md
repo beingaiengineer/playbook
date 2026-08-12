@@ -340,6 +340,16 @@ _Empty_
 - [x] [BAE-FDE-193] | Retrofit FDE + Section 18: `api-development/rest-api-basics.mdx`
 - [x] [BAE-FDE-194] | Retrofit FDE + Section 18: `best-practices/clean-code.mdx`
 - [x] [BAE-FDE-195] | Retrofit FDE + Section 18: `best-practices/coding-standards.mdx`
+- [x] [BAE-FDE-196] | Retrofit FDE + Section 18: `best-practices/engineering-principles.mdx`
+- [x] [BAE-FDE-197] | Retrofit FDE + Section 18: `best-practices/production-checklists.mdx`
+- [x] [BAE-FDE-198] | Retrofit FDE + Section 18: `best-practices/project-structure.mdx`
+- [x] [BAE-FDE-199] | Retrofit FDE + Section 18: `best-practices/scalability-guidelines.mdx`
+- [x] [BAE-FDE-200] | Retrofit FDE + Section 18: `best-practices/security-best-practices.mdx`
+- [x] [BAE-FDE-201] | Retrofit FDE + Section 18: `collections/collections-module.mdx`
+- [x] [BAE-FDE-202] | Retrofit FDE + Section 18: `collections/counter.mdx`
+- [x] [BAE-FDE-203] | Retrofit FDE + Section 18: `collections/defaultdict.mdx`
+- [x] [BAE-FDE-204] | Retrofit FDE + Section 18: `collections/deque.mdx`
+- [x] [BAE-FDE-205] | Retrofit FDE + Section 18: `collections/dictionaries.mdx`
 
 ## Dependencies
 
@@ -357,36 +367,41 @@ No active blockers.
 
 - When fixing broken Docusaurus image links across multiple subdirectories, verify the exact relative path required (e.g., `../assets/` vs `../../assets/`). Use `npm run build` after fixing paths to strictly ensure no broken images remain before committing.
 
+
+- When checking off tasks in MEMORY.md, always remove them from the `### Next Task` section and append them to the `### DONE` section to maintain queue cleanliness, and promote the next batch of uncompleted tasks from the backlog if necessary.
+- When injecting new FDE scenarios and Section 18 to older MDX files, be sure to gracefully handle cases where Section 2 ("Engineering Story") or Section 17 ("Top GitHub Repositories") might be named differently or missing.
+
 No reusable insights recorded yet.
 
 ---
 
 ## Metrics
 
-- Lessons Completed: 174
-- Lessons Remaining: 112
-- Completion %: 60.8%
-- Open Tasks: 143
+- Lessons Completed: 184
+- Lessons Remaining: 102
+- Completion %: 64.3%
+- Open Tasks: 133
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-196] | Retrofit FDE + Section 18: `best-practices/engineering-principles.mdx`
-- [ ] [BAE-FDE-197] | Retrofit FDE + Section 18: `best-practices/production-checklists.mdx`
-- [ ] [BAE-FDE-198] | Retrofit FDE + Section 18: `best-practices/project-structure.mdx`
-- [ ] [BAE-FDE-199] | Retrofit FDE + Section 18: `best-practices/scalability-guidelines.mdx`
-- [ ] [BAE-FDE-200] | Retrofit FDE + Section 18: `best-practices/security-best-practices.mdx`
-- [ ] [BAE-FDE-201] | Retrofit FDE + Section 18: `collections/collections-module.mdx`
-- [ ] [BAE-FDE-202] | Retrofit FDE + Section 18: `collections/counter.mdx`
-- [ ] [BAE-FDE-203] | Retrofit FDE + Section 18: `collections/defaultdict.mdx`
-- [ ] [BAE-FDE-204] | Retrofit FDE + Section 18: `collections/deque.mdx`
-- [ ] [BAE-FDE-205] | Retrofit FDE + Section 18: `collections/dictionaries.mdx`
+- [ ] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
+- [ ] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
+- [ ] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
+- [ ] [BAE-FDE-209] | Retrofit FDE + Section 18: `collections/sets.mdx`
+- [ ] [BAE-FDE-210] | Retrofit FDE + Section 18: `collections/tuples.mdx`
+- [ ] [BAE-FDE-211] | Retrofit FDE + Section 18: `concurrency/asyncio.mdx`
+- [ ] [BAE-FDE-212] | Retrofit FDE + Section 18: `concurrency/concurrency-vs-parallelism.mdx`
+- [ ] [BAE-FDE-213] | Retrofit FDE + Section 18: `concurrency/gil.mdx`
+- [ ] [BAE-FDE-214] | Retrofit FDE + Section 18: `concurrency/multiprocessing.mdx`
+- [ ] [BAE-FDE-215] | Retrofit FDE + Section 18: `concurrency/threading.mdx`
 
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-196 through BAE-FDE-205 | Retrofitted 10 Python topics (Best Practices & Collections) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-186 through BAE-FDE-195 | Retrofitted 10 Python topics (API Development & Best Practices) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-177 through BAE-FDE-185 | Retrofitted 9 AI Engineering topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-167 through BAE-FDE-176 | Retrofitted 10 Advanced Python topics with FDE scenarios and Section 18 AI Agent Instructions. |
