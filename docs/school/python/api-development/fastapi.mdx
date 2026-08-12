@@ -22,7 +22,7 @@ Bro, FastAPI is the modern rockstar of Python web frameworks. It took the best p
 
 ## 2. Engineering Story
 
-Migrating a slow, synchronous API to FastAPI unlocked high-performance async capabilities and gave us automatic swagger docs.
+Bro, imagine you are a senior engineer dealing with a critical production bottleneck where a legacy synchronous API is struggling to handle a massive spike in concurrent requests. The servers are thrashing, latency alerts are firing, and the junior developers are panicking. You sit down, calmly look at the I/O bound bottlenecks, and realize the problem requires the extreme async performance of FastAPI. By rewriting the core critical path with `async def` and Pydantic models, you reduce response times to single milliseconds, save thousands on infrastructure, and turn a disaster into a masterclass on modern Python scaling.
 
 ## 3. Real-World Analogy
 
@@ -232,8 +232,17 @@ FastAPI will treat `user_id` as a string, and it won't be documented properly. A
 - Middleware
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 10k+ | FastAPI framework | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Pydantic Models | Always define Pydantic models for request validation and response serialization. | Pydantic ensures data integrity, fast parsing, and automatically generates OpenAPI docs. |
+| Async/Await usage | Only use `async def` for I/O bound operations (DB, network calls). Use regular `def` for CPU bound tasks. | Misusing `async def` with blocking code starves the event loop, causing severe latency. |
+| Dependency Injection | Use FastAPI's `Depends` for authentication, database sessions, and reusable logic. | It promotes clean code, easy testing, and centralized logic execution. |

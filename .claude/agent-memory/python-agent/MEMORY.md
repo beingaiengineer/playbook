@@ -44,16 +44,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-196] | Retrofit FDE + Section 18: `best-practices/engineering-principles.mdx`
-- [ ] [BAE-FDE-197] | Retrofit FDE + Section 18: `best-practices/production-checklists.mdx`
-- [ ] [BAE-FDE-198] | Retrofit FDE + Section 18: `best-practices/project-structure.mdx`
-- [ ] [BAE-FDE-199] | Retrofit FDE + Section 18: `best-practices/scalability-guidelines.mdx`
-- [ ] [BAE-FDE-200] | Retrofit FDE + Section 18: `best-practices/security-best-practices.mdx`
-- [ ] [BAE-FDE-201] | Retrofit FDE + Section 18: `collections/collections-module.mdx`
-- [ ] [BAE-FDE-202] | Retrofit FDE + Section 18: `collections/counter.mdx`
-- [ ] [BAE-FDE-203] | Retrofit FDE + Section 18: `collections/defaultdict.mdx`
-- [ ] [BAE-FDE-204] | Retrofit FDE + Section 18: `collections/deque.mdx`
-- [ ] [BAE-FDE-205] | Retrofit FDE + Section 18: `collections/dictionaries.mdx`
 - [ ] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
 - [ ] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
 - [ ] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
@@ -340,6 +330,17 @@ _Empty_
 - [x] [BAE-FDE-184] | Retrofit FDE + Section 18: `ai-engineering/rag-pipelines.mdx`
 - [x] [BAE-FDE-185] | Retrofit FDE + Section 18: `ai-engineering/vector-databases.mdx`
 
+- [x] [BAE-FDE-186] | Retrofit FDE + Section 18: `api-development/api-versioning.mdx`
+- [x] [BAE-FDE-187] | Retrofit FDE + Section 18: `api-development/authentication.mdx`
+- [x] [BAE-FDE-188] | Retrofit FDE + Section 18: `api-development/fastapi.mdx`
+- [x] [BAE-FDE-189] | Retrofit FDE + Section 18: `api-development/flask.mdx`
+- [x] [BAE-FDE-190] | Retrofit FDE + Section 18: `api-development/middleware.mdx`
+- [x] [BAE-FDE-191] | Retrofit FDE + Section 18: `api-development/rate-limiting.mdx`
+- [x] [BAE-FDE-192] | Retrofit FDE + Section 18: `api-development/requests-library.mdx`
+- [x] [BAE-FDE-193] | Retrofit FDE + Section 18: `api-development/rest-api-basics.mdx`
+- [x] [BAE-FDE-194] | Retrofit FDE + Section 18: `best-practices/clean-code.mdx`
+- [x] [BAE-FDE-195] | Retrofit FDE + Section 18: `best-practices/coding-standards.mdx`
+
 ## Dependencies
 
 No active dependencies.
@@ -370,21 +371,23 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-186] | Retrofit FDE + Section 18: `api-development/api-versioning.mdx`
-- [ ] [BAE-FDE-187] | Retrofit FDE + Section 18: `api-development/authentication.mdx`
-- [ ] [BAE-FDE-188] | Retrofit FDE + Section 18: `api-development/fastapi.mdx`
-- [ ] [BAE-FDE-189] | Retrofit FDE + Section 18: `api-development/flask.mdx`
-- [ ] [BAE-FDE-190] | Retrofit FDE + Section 18: `api-development/middleware.mdx`
-- [ ] [BAE-FDE-191] | Retrofit FDE + Section 18: `api-development/rate-limiting.mdx`
-- [ ] [BAE-FDE-192] | Retrofit FDE + Section 18: `api-development/requests-library.mdx`
-- [ ] [BAE-FDE-193] | Retrofit FDE + Section 18: `api-development/rest-api-basics.mdx`
-- [ ] [BAE-FDE-194] | Retrofit FDE + Section 18: `best-practices/clean-code.mdx`
-- [ ] [BAE-FDE-195] | Retrofit FDE + Section 18: `best-practices/coding-standards.mdx`
+- [ ] [BAE-FDE-196] | Retrofit FDE + Section 18: `best-practices/engineering-principles.mdx`
+- [ ] [BAE-FDE-197] | Retrofit FDE + Section 18: `best-practices/production-checklists.mdx`
+- [ ] [BAE-FDE-198] | Retrofit FDE + Section 18: `best-practices/project-structure.mdx`
+- [ ] [BAE-FDE-199] | Retrofit FDE + Section 18: `best-practices/scalability-guidelines.mdx`
+- [ ] [BAE-FDE-200] | Retrofit FDE + Section 18: `best-practices/security-best-practices.mdx`
+- [ ] [BAE-FDE-201] | Retrofit FDE + Section 18: `collections/collections-module.mdx`
+- [ ] [BAE-FDE-202] | Retrofit FDE + Section 18: `collections/counter.mdx`
+- [ ] [BAE-FDE-203] | Retrofit FDE + Section 18: `collections/defaultdict.mdx`
+- [ ] [BAE-FDE-204] | Retrofit FDE + Section 18: `collections/deque.mdx`
+- [ ] [BAE-FDE-205] | Retrofit FDE + Section 18: `collections/dictionaries.mdx`
+
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-186 through BAE-FDE-195 | Retrofitted 10 Python topics (API Development & Best Practices) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-177 through BAE-FDE-185 | Retrofitted 9 AI Engineering topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-167 through BAE-FDE-176 | Retrofitted 10 Advanced Python topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | [BAE-REVIEW-133] through [BAE-REVIEW-143] | Audited 11 Python topics (Interview Prep & Best Practices), fixed heading numbering, injected Engineering Story, added distinct Illustration placeholders, and added unique GitHub Repositories. |

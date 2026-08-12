@@ -21,8 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine you are a senior engineer dealing with inheriting a completely unreadable legacy billing system.
-The system is failing, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the architecture, and realize the problem requires a deep understanding of these core principles. By applying these standards, you stabilize the system, save the company thousands of dollars, and turn a disaster into a masterclass on robust engineering.
+Bro, imagine you are a senior engineer inheriting a monolithic, legacy codebase where a critical bug is hidden inside a 2,000-line God function with single-letter variables. The system is producing incorrect billing calculations, the business is losing money, and the junior developers are afraid to touch the code. You sit down, calmly look at the chaotic logic, and realize the problem requires a relentless application of Clean Code principles. By breaking the logic into small, single-responsibility functions with domain-specific naming, you expose the subtle logic error, fix the bug safely, and turn an unmaintainable nightmare into a masterclass on software craftsmanship.
 
 ## 3. Real-World Analogy
 
@@ -263,8 +262,17 @@ Where is clean code enforced?
 - Solid Principles
 - Refactoring
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [zedr/clean-code-python](https://github.com/zedr/clean-code-python) | ⭐ 50k+ | Clean Code concepts adapted for Python | Highly relevant to understanding clean code in production. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Naming Conventions | Use descriptive, domain-specific variable and function names. Avoid single-letter variables outside small loops. | Code is read far more often than it is written; clear names reduce cognitive load. |
+| Single Responsibility | Ensure functions and classes do exactly one thing. If a function contains 'and' in its name, split it. | Highly coupled, multi-purpose functions are difficult to test and prone to bugs when modified. |
+| Limit Nesting | Keep nesting levels to a maximum of 2 or 3 by using early returns and guard clauses. | Deeply nested code (arrow code) is notoriously difficult to follow and debug. |

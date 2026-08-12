@@ -24,7 +24,7 @@ Never confuse the two. You can be authenticated but not authorized.
 
 ## 2. Engineering Story
 
-We secured an open API by implementing JWT-based authentication to prevent unauthorized access and trace user actions.
+Bro, imagine you are a senior engineer dealing with a critical security incident where bad actors bypass an in-house bespoke login system. The system is compromised, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the authorization flow, and realize the problem requires a deep understanding of industry-standard authentication like OAuth2 and JWTs. By replacing the custom crypto with a robust, token-based standard, you lock down the endpoints, secure user data, and turn a disaster into a masterclass on zero-trust architecture.
 
 ## 3. Real-World Analogy
 
@@ -221,8 +221,17 @@ Bro, JWTs are signed, **NOT ENCRYPTED**. Anyone can decode the payload on `jwt.i
 - Rate Limiting
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [jpadilla/pyjwt](https://github.com/jpadilla/pyjwt) | ⭐ 10k+ | JSON Web Token implementation in Python | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Use Established Specs | Rely on standard authentication mechanisms (JWT, OAuth2) instead of building custom crypto. | Custom authentication is notoriously hard to secure and often contains subtle vulnerabilities. |
+| Token Expiration | Ensure JWTs have a strict and short expiration time (e.g., 15 minutes) and use refresh tokens. | A compromised long-lived token gives an attacker extended access. |
+| Secure Storage | Store tokens in HTTP-only, secure cookies, not in LocalStorage if dealing with web clients. | LocalStorage is vulnerable to Cross-Site Scripting (XSS) attacks. |
