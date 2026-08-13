@@ -22,7 +22,7 @@ Bro, your code needs to make decisions. `if-else` is how you tell Python to do o
 
 ## 2. Engineering Story
 
-In a robust backend system, such as a payment processor, every request cannot take the exact same execution path. When a transaction request hits your API, you must verify if the user's account is active, if there are sufficient funds, and if the transaction isn't flagged by the anti-fraud system. Without a way to branch our logic dynamically, every request would proceed blindly, leading to catastrophic system failures or massive security breaches. We need a way to route execution based on real-time data states.
+Bro, imagine you are an FDE writing custom integration logic for a client. They have 5 different tiers of users, each requiring a completely different API payload format. You need to safely route each user to the correct processing function based on their tier.  In a robust backend system, such as a payment processor, every request cannot take the exact same execution path. When a transaction request hits your API, you must verify if the user's account is active, if there are sufficient funds, and if the transaction isn't flagged by the anti-fraud system. Without a way to branch our logic dynamically, every request would proceed blindly, leading to catastrophic system failures or massive security breaches. We need a way to route execution based on real-time data states.
 
 
 ## 3. Real-World Analogy
@@ -196,3 +196,11 @@ If you see an `if` inside an `if` inside an `if`, refactor your code. Extract th
 - Booleans (Data Types)
 - Match Case
 - Functions
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Guard Clauses | Use early returns (guard clauses) instead of deeply nested `if-else` blocks whenever possible. | Deeply nested conditions ("Arrow Code") are extremely difficult to read, test, and debug in complex production systems. |
+| Explicit Checks | Use explicit checks for `None` (e.g., `if x is not None:`) rather than implicit truthiness (e.g., `if x:`) when zero or empty strings are valid values. | Implicit truthiness checks lead to insidious bugs when falsy values (like `0` or `""`) are incorrectly treated as missing data. |

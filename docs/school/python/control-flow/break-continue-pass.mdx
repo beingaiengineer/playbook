@@ -22,7 +22,7 @@ Bro, sometimes a loop needs to stop early, or skip a bad item, or you just need 
 
 ## 2. Engineering Story
 
-When processing a massive batch of database records asynchronously, not all records will be perfectly valid. Some might have missing email fields, while others might trigger a critical database corruption alert that requires halting the entire batch immediately. Engineers need fine-grained control over loop execution. We need to skip malformed records cleanly without crashing the loop, and we need the ability to bail out completely if a fatal error condition is detected.
+Bro, you are an FDE writing a script to parse a client's massive, messy CSV file. Some rows are completely empty, and some trigger specific parsing errors. You need a way to skip the bad rows immediately without wrapping the entire logic in a massive if-statement.  When processing a massive batch of database records asynchronously, not all records will be perfectly valid. Some might have missing email fields, while others might trigger a critical database corruption alert that requires halting the entire batch immediately. Engineers need fine-grained control over loop execution. We need to skip malformed records cleanly without crashing the loop, and we need the ability to bail out completely if a fatal error condition is detected.
 
 
 ## 3. Real-World Analogy
@@ -199,3 +199,11 @@ Instead of wrapping your whole loop in an `if data_is_good:`, just check `if not
 - If Else
 - Functions Basics
 - Exceptions (Custom Exceptions often use `pass`)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Usage of Pass | Use `pass` only as a temporary placeholder during development or in empty exception blocks where explicitly intended. Remove it before final commit if unused. | Unnecessary `pass` statements clutter the code and confuse future maintainers about the developer's intent. |
+| Loop Control | Prefer `continue` for early loop iteration termination (guard clauses) over deeply nested `if` statements. | `continue` reduces indentation levels, making complex loop logic significantly easier to read and maintain. |

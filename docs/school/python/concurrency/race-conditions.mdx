@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-When debugging a critical concurrency bug in a payment processing service, we found race conditions causing intermittent duplicate charges. We had to implement strict locking mechanisms.
+Bro, imagine you are an FDE debugging a critical issue where a client occasionally gets charged twice for the same transaction. You realize multiple concurrent requests are checking the user's balance and deducting funds simultaneously before the database updates.  When debugging a critical concurrency bug in a payment processing service, we found race conditions causing intermittent duplicate charges. We had to implement strict locking mechanisms.
 
 ## 3. Real-World Analogy
 
@@ -242,3 +242,11 @@ def add_items():
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 10k+ | The Python programming language | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Atomic Operations | Never assume operations like `x += 1` or dictionary updates are fully atomic in Python. Always use locks for shared counters. | While some operations are atomic due to the GIL, complex operations are not, and relying on implicit atomicity leads to subtle data corruption. |
+| Testing | Write specific concurrency tests using multiple threads or `asyncio.gather` to intentionally trigger race conditions and verify lock logic. | Race conditions are notoriously difficult to reproduce in production; aggressive concurrent testing is the only way to ensure safety. |

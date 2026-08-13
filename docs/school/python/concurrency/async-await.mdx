@@ -20,7 +20,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
-Bro, before `async/await`, writing asynchronous Python meant chaining confusing callbacks and generators using `yield from`. When the new syntax dropped, our backend code suddenly looked exactly like synchronous, readable code, but ran asynchronously under the hood. It standardized how we define coroutines and wait for I/O operations without blocking the main thread.
+Bro, imagine you are an FDE writing an API gateway to aggregate data from 5 different client microservices. You need to fetch them all concurrently, but using callbacks or threads makes the code an unreadable mess.  Before `async/await`, writing asynchronous Python meant chaining confusing callbacks and generators using `yield from`. When the new syntax dropped, our backend code suddenly looked exactly like synchronous, readable code, but ran asynchronously under the hood. It standardized how we define coroutines and wait for I/O operations without blocking the main thread.
 
 ## 3. Real-World Analogy
 
@@ -239,3 +239,11 @@ asyncio.run(main())
 | Repository | Description | Link |
 |---|---|---|
 | FastAPI | A modern, fast web framework based on async/await. | [Explore](https://github.com/tiangolo/fastapi) |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Syntax Correctness | Ensure every call to an `async def` function is prefixed with `await`. | Calling an async function without `await` returns a coroutine object instead of executing it, leading to silent logical failures. |
+| Mixed Paradigms | Avoid mixing async/await with synchronous blocking code unless explicitly using thread executors or specialized bridging functions. | Mixing paradigms often leads to deadlocks or completely negates the performance benefits of asynchronous programming. |

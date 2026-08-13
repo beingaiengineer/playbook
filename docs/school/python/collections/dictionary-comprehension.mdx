@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-In a large-scale data processing pipeline, engineers often need to map identifiers to complex objects quickly. Using standard loops can be slow and verbose. They needed a way to transform and filter key-value pairs inline, without creating intermediate state or taking up multiple lines of code, leading to cleaner, more efficient data pipelines.
+Bro, imagine you are a Field Deployed Engineer (FDE) integrating a client's legacy CRM system. Their API returns massive JSON arrays of objects, but your platform needs instant lookups by user ID. You need to transform that array into a hash map efficiently.  In a large-scale data processing pipeline, engineers often need to map identifiers to complex objects quickly. Using standard loops can be slow and verbose. They needed a way to transform and filter key-value pairs inline, without creating intermediate state or taking up multiple lines of code, leading to cleaner, more efficient data pipelines.
 
 ---
 
@@ -207,3 +207,11 @@ If you are processing hundreds of megabytes of configuration or JSON files, dict
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The official Python runtime | See how this is implemented natively |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Readability | Prefer standard loops if dictionary comprehension becomes too nested or hard to read. | Nested comprehensions are notoriously difficult to debug and maintain in production. |
+| Memory Management | Avoid dictionary comprehensions for very large datasets (e.g., millions of records) if memory is constrained. | Comprehensions load the entire resulting dictionary into RAM at once, risking OOM errors on limited FDE hardware. |

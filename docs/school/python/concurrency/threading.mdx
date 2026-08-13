@@ -20,7 +20,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
-Bro, our web scraper was fetching 1,000 URLs sequentially and taking an hour to complete. Since 99% of the time was just waiting for the network to respond, the CPU was sitting idle. By wrapping the network calls in threads, we could initiate 50 requests simultaneously while waiting for the others. The script dropped from 60 minutes to 2 minutes. That's the power of I/O-bound concurrency.
+Bro, you are an FDE scraping 500 different paginated endpoints from a client's internal legacy API to migrate their data. Doing it sequentially takes 3 hours. You need a way to fire off multiple HTTP requests simultaneously while waiting for responses.  Our web scraper was fetching 1,000 URLs sequentially and taking an hour to complete. Since 99% of the time was just waiting for the network to respond, the CPU was sitting idle. By wrapping the network calls in threads, we could initiate 50 requests simultaneously while waiting for the others. The script dropped from 60 minutes to 2 minutes. That's the power of I/O-bound concurrency.
 
 ## 3. Real-World Analogy
 
@@ -274,3 +274,11 @@ print(counter) # Is it 1,000,000?
 | Repository | Description | Link |
 |---|---|---|
 | Requests-Futures | Asynchronous Python HTTP Requests using threads. | [Explore](https://github.com/ross/requests-futures) |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Thread Safety | Always use `threading.Lock` when multiple threads access or modify shared mutable data (like lists or dictionaries). | Concurrent modification of shared data without locks leads to race conditions, corrupted data, and unpredictable bugs. |
+| Deadlocks | Avoid nested locks (acquiring one lock while holding another) to prevent deadlocks. If necessary, acquire locks in a strict, consistent order. | Deadlocks cause threads to freeze indefinitely, requiring a full application restart to resolve. |

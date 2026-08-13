@@ -22,8 +22,7 @@ Bro, writing the same code 10 times is terrible. Loops let you write the code on
 
 ## 2. Engineering Story
 
-Imagine writing a background worker that processes millions of event logs from a high-traffic web server. We need to parse each line, extract the IP address, and insert it into a database. Hardcoding the logic for every single log line is physically impossible. Engineers need a language construct that can repeatedly execute the same block of processing logic over a dynamically sized collection of data until the task queue is empty, ensuring efficient CPU utilization.
-
+Bro, you are an FDE tasked with paginating through a client's API to download all historical order data. The API returns 100 records at a time and a 'next_page' token. You need a way to keep fetching data until that token is empty.  Writing a background worker that processes millions of event logs from a high-traffic web server. We need to parse each line, extract the IP address, and insert it into a database. Hardcoding the logic for every single log line is physically impossible. Engineers need a language construct that can repeatedly execute the same block of processing logic over a dynamically sized collection of data until the task queue is empty, ensuring efficient CPU utilization.
 
 ## 3. Real-World Analogy
 
@@ -207,3 +206,11 @@ If you have a list of 10,000 users and a list of 10,000 orders, and you do a nes
 - Range Function
 - Iterators and Generators
 - List Comprehension
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Infinite Loops | When using `while` loops, always ensure there is a clear, guaranteed exit condition (e.g., a counter or state change) to prevent infinite loops. | Infinite loops freeze application threads, spike CPU usage to 100%, and require manual restarts of production servers. |
+| Nested Loops | Avoid deeply nested loops over large datasets. Consider using hash maps (dictionaries) for `O(1)` lookups instead of `O(n^2)` nested iteration. | Nested loops over large datasets cause severe performance degradation and timeouts in API endpoints. |

@@ -19,7 +19,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are an FDE building a temporary buffer for streaming event data from a client's IoT devices. You need an ordered collection that you can easily append to and process sequentially before flushing to the database.
+
+## 3. Real-World Analogy
 
 Think of a Python list like an Indian restaurant waiter carrying food orders in sequence, bro.
 
@@ -27,7 +31,7 @@ The order matters (Table 1's naan goes first, then Table 2's biryani). If someon
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A list in Python is an ordered, mutable sequence of elements.
 - **Ordered:** The items stay in the exact order you put them in.
@@ -38,7 +42,7 @@ Lists are your go-to data structure when you need an array-like collection that 
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -51,7 +55,7 @@ Lists are your go-to data structure when you need an array-like collection that 
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at a simple shopping list.
 
@@ -75,7 +79,7 @@ Bro, notice how easily we can modify the list after making it.
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, lists are often used as temporary queues to batch data before saving it to a database.
 
@@ -98,7 +102,7 @@ process_event({"user": 1, "action": "click"})
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   diagram={{
@@ -123,7 +127,7 @@ But when the underlying array gets completely full, Python has to create a brand
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Time Complexity | Why? |
 |---|---|---|
@@ -137,7 +141,7 @@ Bro, never use `.insert(0, val)` or `.pop(0)` in a `while` loop with thousands o
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -148,7 +152,7 @@ Bro, never use `.insert(0, val)` or `.pop(0)` in a `while` loop with thousands o
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Look at this mutability trap, bro.
 
@@ -166,7 +170,7 @@ Wait, why did `list_a` change?! Because `list_b = list_a` does NOT copy the list
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Where do companies actually use Lists?
 - **Batching:** Collecting rows of data to insert into SQL databases.
@@ -175,7 +179,7 @@ Where do companies actually use Lists?
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -184,14 +188,14 @@ Where do companies actually use Lists?
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, large Python lists take up significantly more memory than you might expect because they store object pointers, not raw C-types. If you need to store 10 million integers in production, a Python List will crush your RAM. Use `array.array` or `numpy.array` instead.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Modifying while iterating:** Doing `for x in my_list: if condition: my_list.remove(x)`. This completely breaks the internal iterator logic and skips items. Iterate over a copy instead: `for x in my_list[:]:`.
 - **Default arguments:** `def my_func(items=[])`. The list is created once at compile time. Successive calls to the function will share the same list! Always use `items=None`.
@@ -211,3 +215,10 @@ Bro, large Python lists take up significantly more memory than you might expect 
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The Python language reference implementation | Review `Objects/listobject.c` to see how dynamic arrays are implemented in C. |
 | [numpy/numpy](https://github.com/numpy/numpy) | ⭐ 25k+ | Fundamental package for array computing in Python | An alternative to lists when dealing with massive numerical arrays requiring contiguous memory. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Mutation | When modifying a list while iterating over it, always iterate over a copy of the list (e.g., `for item in my_list[:]:`). | Modifying a list during iteration causes items to be skipped or infinite loops, leading to unpredictable bugs. |
+| Copying | Use `copy.deepcopy()` if you need an independent copy of a list containing mutable objects (like nested lists or dicts). | Standard assignment or shallow copying (`list.copy()`) shares references to nested objects, causing unintended side effects. |

@@ -22,7 +22,7 @@ Bro, nested conditions are just `if` statements inside `if` statements. They hel
 
 ## 2. Engineering Story
 
-In modern microservices, authorizing an API request isn't a flat process. First, you verify if the JWT token is valid. But that's not enough—if valid, you then inspect if the token contains the required scope for the specific endpoint. And if it does, you still need to check if the user has exceeded their API rate limit. This hierarchical validation, where one check only makes sense if the previous check passed, is an everyday production scenario that requires multi-level decision making.
+Bro, you are an FDE implementing a complex access control matrix for a client. A user can only access a resource if they are active, and if they are an admin, or if they own the resource and the resource is not locked.  In modern microservices, authorizing an API request isn't a flat process. First, you verify if the JWT token is valid. But that's not enough—if valid, you then inspect if the token contains the required scope for the specific endpoint. And if it does, you still need to check if the user has exceeded their API rate limit. This hierarchical validation, where one check only makes sense if the previous check passed, is an everyday production scenario that requires multi-level decision making.
 
 
 ## 3. Real-World Analogy
@@ -206,3 +206,11 @@ Notice how much easier this is to read? Bro, this is how you write production co
 - Operators (specifically `and` / `or`)
 - Functions (Early Returns)
 - Exceptions (Alternative to returning error strings)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Refactoring | Actively refactor nested conditions into separate functions or use dictionary lookups (dispatch tables) if nesting exceeds 3 levels. | Excessive nesting creates unmaintainable code and exponentially increases the difficulty of writing comprehensive unit tests. |
+| Logic Simplification | Use boolean operators (`and`, `or`) to combine conditions rather than nesting `if` statements if the logic permits. | Flattening logic improves readability and reduces the cognitive load on engineers reading the code. |
