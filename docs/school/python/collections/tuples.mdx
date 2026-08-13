@@ -19,7 +19,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are an FDE configuring a critical connection script for a client's database cluster. The hostnames and ports must never be accidentally modified by other parts of the script during execution. You need a read-only data structure.
+
+## 3. Real-World Analogy
 
 Think of a Python list like a digital whiteboard where you can add, remove, or erase items. Think of a **Python tuple** like a printed receipt from a store, bro.
 
@@ -27,7 +31,7 @@ Once the receipt is printed, you can look at it in order, but you cannot change 
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A tuple in Python is an ordered collection of elements, just like a list, but it is **immutable**.
 - **Ordered:** The items stay in the exact order you put them in.
@@ -38,7 +42,7 @@ Because tuples can't be changed, Python can optimize them behind the scenes, mak
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -49,7 +53,7 @@ Because tuples can't be changed, Python can optimize them behind the scenes, mak
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 ```python
 # Creating a tuple of configuration settings
@@ -87,7 +91,7 @@ Bro, remember that single-item tuples need a trailing comma: `(5,)`. Without the
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In backend systems, we often use tuples to return multiple values from a function or to represent records returned from a database query, because the shape of that data shouldn't change accidentally.
 
@@ -108,7 +112,7 @@ if is_active:
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 Python tuples are implemented internally as arrays of pointers, just like lists. However, because their size is fixed upon creation, Python doesn't need to allocate extra space for future appends (unlike lists which over-allocate).
 
@@ -116,7 +120,7 @@ When Python creates small tuples (size 1 to 20), it keeps an internal "free list
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -127,7 +131,7 @@ When Python creates small tuples (size 1 to 20), it keeps an internal "free list
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -139,7 +143,7 @@ When Python creates small tuples (size 1 to 20), it keeps an internal "free list
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 This is a classic trap, bro. Watch out for mutable elements *inside* an immutable tuple.
 
@@ -159,7 +163,7 @@ Why? The tuple holds a *reference* to the list. That reference cannot change (it
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Database Rows:** Libraries like `psycopg2` or `sqlite3` often return database rows as tuples by default.
 - **Function Returns:** Returning multiple values from a function implicitly creates a tuple.
@@ -168,7 +172,7 @@ Why? The tuple holds a *reference* to the list. That reference cannot change (it
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -178,14 +182,14 @@ Why? The tuple holds a *reference* to the list. That reference cannot change (it
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 If you are passing around large lists of constants that never change throughout the lifecycle of your application, consider converting them to tuples. This slight optimization can reduce memory overhead in high-throughput worker processes (like Celery workers). Also, if your tuple starts getting too large and you rely on indexes (e.g., `user[7]`), upgrade to a `NamedTuple` or a `dataclass` for readability.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting the comma:** Writing `t = (5)` instead of `t = (5,)`. Python will treat `(5)` as an integer wrapped in math parentheses.
 - **Trying to sort a tuple in place:** Tuples don't have a `.sort()` method because they can't be changed. You must use the built-in `sorted(t)` function, which returns a *new list*, not a tuple.
@@ -207,3 +211,11 @@ If you are passing around large lists of constants that never change throughout 
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The Python language reference implementation | Review `Objects/tupleobject.c` to see how immutable arrays are managed efficiently in C. |
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 17k+ | Data validation using Python type hints | Uses tuples extensively for schema configurations that shouldn't change. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Immutability | Use tuples instead of lists for data that should not change during execution, such as configuration values or fixed mappings. | Tuples prevent accidental modification of critical data and signal to other engineers that the data is constant. |
+| Dictionary Keys | Use tuples as dictionary keys when you need compound keys (e.g., `{(x, y): value}`). | Lists cannot be used as dictionary keys because they are unhashable. |

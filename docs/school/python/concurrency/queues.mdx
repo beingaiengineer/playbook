@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-To prevent data loss during high traffic, we implemented a thread-safe task queue to buffer incoming requests before processing.
+Bro, you are an FDE building a real-time ingestion pipeline. One thread continuously reads logs from a file, and three other threads parse those logs and send them to your platform. You need a safe way to hand off the data between these threads.  To prevent data loss during high traffic, we implemented a thread-safe task queue to buffer incoming requests before processing.
 
 ## 3. Real-World Analogy
 
@@ -265,3 +265,11 @@ q.join()
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [celery/celery](https://github.com/celery/celery) | ⭐ 10k+ | Distributed Task Queue | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Queue Selection | Use `queue.Queue` for thread communication and `multiprocessing.Queue` for process communication. Never mix them up. | Using the wrong queue type leads to deadlocks or `PicklingError` exceptions during inter-process communication. |
+| Timeout Handling | Always handle `queue.Empty` or `queue.Full` exceptions gracefully when using `.get(timeout=...)` or `.put(timeout=...)`. | Failing to handle these exceptions will crash the thread or process, dropping critical tasks. |

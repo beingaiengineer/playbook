@@ -20,7 +20,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
-Bro, we were building a chat application that needed to hold 10,000 simultaneous websocket connections open. Creating 10,000 threads would have crashed the server due to memory overhead and context-switching limits. We needed a single thread to rapidly juggle all the connections, pausing only when waiting for data. That event loop architecture is what Asyncio provides.
+Bro, you are an FDE deploying a proxy server that handles thousands of slow, concurrent webhook connections from a client's external payment gateway. Spawning a thread for each connection will instantly crash the server due to memory exhaustion.  We were building a chat application that needed to hold 10,000 simultaneous websocket connections open. Creating 10,000 threads would have crashed the server due to memory overhead and context-switching limits. We needed a single thread to rapidly juggle all the connections, pausing only when waiting for data. That event loop architecture is what Asyncio provides.
 
 ## 3. Real-World Analogy
 
@@ -262,3 +262,11 @@ async def main():
 | Repository | Description | Link |
 |---|---|---|
 | AIOHTTP | Asynchronous HTTP client/server framework. | [Explore](https://github.com/aio-libs/aiohttp) |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Blocking Calls | Never use blocking I/O calls (like `time.sleep()`, `requests.get()`) inside an `async def` function. Use their async equivalents or run them in an executor. | Blocking calls freeze the entire asyncio event loop, bringing all concurrent operations to a halt and causing severe latency. |
+| Exception Handling | Always handle exceptions gracefully within `asyncio.gather()` or individual tasks to prevent one failed task from crashing the entire application. | Unhandled exceptions in background tasks can cause silent failures or terminate the event loop entirely. |

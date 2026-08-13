@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-We used semaphores to limit concurrent database connections, preventing our server from crashing under sudden load spikes.
+Bro, imagine you are an FDE writing a threaded background worker that updates a shared counter of processed records. You notice that under heavy load, the final count is mysteriously lower than it should be due to simultaneous writes.  We used semaphores to limit concurrent database connections, preventing our server from crashing under sudden load spikes.
 
 ## 3. Real-World Analogy
 
@@ -237,3 +237,11 @@ t2 = threading.Thread(target=task_2); t2.start()
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [aio-libs/aioredis](https://github.com/aio-libs/aioredis) | ⭐ 10k+ | asyncio (PEP 3156) Redis support | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Context Managers | Always use the `with lock:` syntax (context managers) instead of manual `.acquire()` and `.release()`. | Context managers guarantee the lock is released even if an exception occurs, preventing deadlocks. |
+| Granularity | Keep the critical section (the code inside the lock) as small and fast as possible. Do not put network calls inside a lock. | Holding a lock for a long time reduces concurrency and severely impacts application throughput. |

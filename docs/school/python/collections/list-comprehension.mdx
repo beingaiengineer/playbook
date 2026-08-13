@@ -19,7 +19,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, you are an FDE writing a data extraction script that runs on a client's constrained edge server. You need to filter out thousands of corrupted log entries and extract only error codes. Doing this with standard loops takes too much memory and code.
+
+## 3. Real-World Analogy
 
 Think of a standard `for` loop like an assembly line worker manually taking one piece of fruit from a basket, washing it, and putting it in a new box, bro. It's step-by-step and takes a lot of instructions.
 
@@ -27,7 +31,7 @@ Think of **List Comprehension** like a specialized machine. You tell the machine
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 List comprehension is an elegant, highly Pythonic way to create a new list from an existing iterable (like another list, a range, or a dictionary).
 
@@ -35,7 +39,7 @@ It allows you to combine a `for` loop, a condition (`if`), and an expression int
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Concept | Structure | Example |
 |---|---|---|
@@ -45,7 +49,7 @@ It allows you to combine a `for` loop, a condition (`if`), and an expression int
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's say we have a list of numbers and we want a new list containing only the squares of the even numbers.
 
@@ -92,7 +96,7 @@ Bro, notice how the comprehension reads exactly like English: "Give me `n square
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In web backends, we frequently get complex JSON objects from APIs or databases, and we only need a specific piece of data from them.
 
@@ -115,7 +119,7 @@ This one-liner replaces a 4-line `for` loop and is instantly recognizable to any
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you write a normal `for` loop and use `.append()`, Python has to look up the `.append` method on the list object *every single iteration*. This causes massive overhead.
 
@@ -123,7 +127,7 @@ List comprehensions skip this lookup. Under the hood, Python recognizes the synt
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Code Type | Speed | Reason |
 |---|---|---|
@@ -133,7 +137,7 @@ List comprehensions skip this lookup. Under the hood, Python recognizes the synt
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -144,7 +148,7 @@ List comprehensions skip this lookup. Under the hood, Python recognizes the synt
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Pay close attention to where you put the `if` and `else`, bro. It changes everything.
 
@@ -166,7 +170,7 @@ If you try to put an `else` at the end of a comprehension, Python will throw a `
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Data Cleaning:** Stripping whitespace from a list of strings: `[s.strip() for s in raw_strings]`.
 - **API Payloads:** Extracting IDs or specific fields from a list of dictionaries.
@@ -175,7 +179,7 @@ If you try to put an `else` at the end of a comprehension, Python will throw a `
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -185,14 +189,14 @@ If you try to put an `else` at the end of a comprehension, Python will throw a `
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 List comprehensions evaluate completely in memory. If your input iterable `items` has 10 million rows from a database, `[x for x in items]` will attempt to allocate memory for all 10 million rows at once, potentially causing an Out Of Memory (OOM) crash in production. In high-data situations, always switch the brackets from `[]` to `()` to create a **Generator Expression**, which yields items one at a time without consuming RAM.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Readability Nightmare:** Forcing a massive 5-condition `for` loop into a one-liner just to "look smart". Senior engineers hate unreadable code. Use a normal loop if it's complex.
 - **Syntax Error with Else:** Writing `[x for x in nums if x > 0 else 0]`. The `if/else` must be at the *front* of the comprehension.
@@ -213,3 +217,10 @@ List comprehensions evaluate completely in memory. If your input iterable `items
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 65k+ | FastAPI framework | Uses list comprehensions extensively for input/output model transformations. |
 | [psf/black](https://github.com/psf/black) | ⭐ 35k+ | The uncompromising Python code formatter | Shows how production code uses comprehensions elegantly across large codebases. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Complexity | Break down complex list comprehensions into standard `for` loops if they span multiple lines or require complex `if/else` logic. | Complex comprehensions are hard to read and debug. Code maintainability is more important than brevity. |
+| Type Safety | Ensure the resulting list contains uniform types if possible, especially when returning to strictly typed downstream services. | FDE clients expect consistent JSON arrays. Mixed-type arrays cause deserialization failures. |

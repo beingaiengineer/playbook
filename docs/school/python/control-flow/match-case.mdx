@@ -22,7 +22,7 @@ Bro, Python didn't have a `switch` statement for 30 years. In Python 3.10, they 
 
 ## 2. Engineering Story
 
-In event-driven architectures, backend services constantly consume varying events from message brokers like Kafka or RabbitMQ. A 'UserSignup' event payload looks entirely different from a 'PaymentFailed' event. Using deeply nested if-else blocks to inspect event types and safely extract fields becomes unreadable and brittle. Engineers need a declarative, structural way to pattern-match incoming payloads against expected data shapes and reliably unpack their contents.
+Bro, imagine you are an FDE parsing incoming webhook payloads from a client's system. The payload structure wildly changes depending on the event type (e.g., 'user_created' vs 'payment_failed'). You need a clean, structured way to extract different fields based on the shape of the dictionary.  In event-driven architectures, backend services constantly consume varying events from message brokers like Kafka or RabbitMQ. A 'UserSignup' event payload looks entirely different from a 'PaymentFailed' event. Using deeply nested if-else blocks to inspect event types and safely extract fields becomes unreadable and brittle. Engineers need a declarative, structural way to pattern-match incoming payloads against expected data shapes and reliably unpack their contents.
 
 
 ## 3. Real-World Analogy
@@ -198,3 +198,11 @@ If you write `match-case` code and deploy it to an AWS Lambda or a Docker contai
 - Dictionaries
 - Lists
 - Exceptions (for handling unknown cases)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Fallback Case | Always include a default `case _:` block to handle unexpected data formats or unknown types. | Failing to handle unknown cases can lead to silent data dropping or unhandled exceptions when clients send malformed data. |
+| Type Checking | Use `match-case` for structural pattern matching (checking dictionary shapes or object attributes) rather than simple value equality checks. | `match-case` is designed for complex data unpacking; using it for simple equality is overkill and less readable than a standard `if` statement. |

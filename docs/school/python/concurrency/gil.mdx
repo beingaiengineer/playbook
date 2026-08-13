@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-While trying to scale CPU-bound tasks with threads, we discovered the limitations of the Global Interpreter Lock, forcing us to switch to multiprocessing.
+Bro, you are an FDE optimizing a machine learning inference script on a client's 32-core server. You tried using multithreading to process multiple images at once, but the CPU usage never goes above 1 core, and the performance is terrible.  While trying to scale CPU-bound tasks with threads, we discovered the limitations of the Global Interpreter Lock, forcing us to switch to multiprocessing.
 
 ## 3. Real-World Analogy
 
@@ -233,3 +233,11 @@ t1.start(); t2.start()
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [joblib/joblib](https://github.com/joblib/joblib) | ⭐ 10k+ | Computing with Python functions. | Relevant to this topic |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| CPU-Bound Tasks | Do not use multithreading for CPU-heavy tasks (e.g., heavy math, image processing) in CPython. Use multiprocessing instead. | The GIL prevents multiple threads from executing Python bytecodes simultaneously, so multithreading offers no performance gain for CPU-bound work. |
+| I/O-Bound Tasks | Prefer multithreading or asyncio for I/O-bound tasks (e.g., network requests, file reading) over multiprocessing to save memory. | Multiprocessing has a high memory overhead compared to threading, making it inefficient for tasks that spend most of their time waiting. |

@@ -20,7 +20,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
-Bro, we wrote a script to resize 100,000 high-res images. We tried threading, but it didn't speed up at all because Python's Global Interpreter Lock (GIL) only allows one thread to execute Python bytecode at a time. Image processing is CPU-bound. To actually utilize all 16 cores on our server, we had to spawn completely separate processes, bypassing the GIL entirely.
+Bro, imagine you are an FDE processing a multi-gigabyte dataset of client financial records. You need to perform complex aggregations on the data, and you absolutely must use all 16 cores available on the server to finish the job overnight.  We wrote a script to resize 100,000 high-res images. We tried threading, but it didn't speed up at all because Python's Global Interpreter Lock (GIL) only allows one thread to execute Python bytecode at a time. Image processing is CPU-bound. To actually utilize all 16 cores on our server, we had to spawn completely separate processes, bypassing the GIL entirely.
 
 ## 3. Real-World Analogy
 
@@ -253,3 +253,11 @@ Main program: []
 | Repository | Description | Link |
 |---|---|---|
 | Celery | Distributed task queue leveraging multiprocessing. | [Explore](https://github.com/celery/celery) |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Process Management | Always ensure processes are properly joined (`.join()`) or terminated to avoid creating zombie processes. | Zombie processes consume system resources (like RAM and process IDs) and can eventually crash the host machine. |
+| State Sharing | Minimize shared state between processes. When necessary, use `multiprocessing.Queue` or `multiprocessing.Manager` with extreme caution. | Sharing state across processes is complex, slow, and prone to race conditions if not properly synchronized. |

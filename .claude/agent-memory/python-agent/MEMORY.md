@@ -44,35 +44,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
-- [ ] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
-- [ ] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
-- [ ] [BAE-FDE-209] | Retrofit FDE + Section 18: `collections/sets.mdx`
-- [ ] [BAE-FDE-210] | Retrofit FDE + Section 18: `collections/tuples.mdx`
-- [ ] [BAE-FDE-211] | Retrofit FDE + Section 18: `concurrency/async-await.mdx`
-- [ ] [BAE-FDE-212] | Retrofit FDE + Section 18: `concurrency/asyncio.mdx`
-- [ ] [BAE-FDE-213] | Retrofit FDE + Section 18: `concurrency/gil.mdx`
-- [ ] [BAE-FDE-214] | Retrofit FDE + Section 18: `concurrency/locks-semaphores.mdx`
-- [ ] [BAE-FDE-215] | Retrofit FDE + Section 18: `concurrency/multiprocessing.mdx`
-- [ ] [BAE-FDE-216] | Retrofit FDE + Section 18: `concurrency/queues.mdx`
-- [ ] [BAE-FDE-217] | Retrofit FDE + Section 18: `concurrency/race-conditions.mdx`
-- [ ] [BAE-FDE-218] | Retrofit FDE + Section 18: `concurrency/threading.mdx`
-- [ ] [BAE-FDE-219] | Retrofit FDE + Section 18: `control-flow/break-continue-pass.mdx`
-- [ ] [BAE-FDE-220] | Retrofit FDE + Section 18: `control-flow/if-else.mdx`
-- [ ] [BAE-FDE-221] | Retrofit FDE + Section 18: `control-flow/loops.mdx`
-- [ ] [BAE-FDE-222] | Retrofit FDE + Section 18: `control-flow/match-case.mdx`
-- [ ] [BAE-FDE-223] | Retrofit FDE + Section 18: `control-flow/nested-conditions.mdx`
-- [ ] [BAE-FDE-224] | Retrofit FDE + Section 18: `control-flow/pattern-programs.mdx`
-- [ ] [BAE-FDE-225] | Retrofit FDE + Section 18: `databases/connection-pooling.mdx`
-- [ ] [BAE-FDE-226] | Retrofit FDE + Section 18: `databases/indexing.mdx`
-- [ ] [BAE-FDE-227] | Retrofit FDE + Section 18: `databases/orm-vs-raw-sql.mdx`
-- [ ] [BAE-FDE-228] | Retrofit FDE + Section 18: `databases/postgresql.mdx`
-- [ ] [BAE-FDE-229] | Retrofit FDE + Section 18: `databases/sqlalchemy.mdx`
-- [ ] [BAE-FDE-230] | Retrofit FDE + Section 18: `databases/sqlite.mdx`
-- [ ] [BAE-FDE-231] | Retrofit FDE + Section 18: `databases/transactions.mdx`
-- [ ] [BAE-FDE-232] | Retrofit FDE + Section 18: `error-handling/custom-exceptions.mdx`
-- [ ] [BAE-FDE-233] | Retrofit FDE + Section 18: `error-handling/debugging.mdx`
-- [ ] [BAE-FDE-234] | Retrofit FDE + Section 18: `error-handling/exceptions.mdx`
 - [ ] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
 - [ ] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
 - [ ] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
@@ -155,6 +126,25 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
+- [x] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
+- [x] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
+- [x] [BAE-FDE-209] | Retrofit FDE + Section 18: `collections/sets.mdx`
+- [x] [BAE-FDE-210] | Retrofit FDE + Section 18: `collections/tuples.mdx`
+- [x] [BAE-FDE-211] | Retrofit FDE + Section 18: `concurrency/async-await.mdx`
+- [x] [BAE-FDE-212] | Retrofit FDE + Section 18: `concurrency/asyncio.mdx`
+- [x] [BAE-FDE-213] | Retrofit FDE + Section 18: `concurrency/gil.mdx`
+- [x] [BAE-FDE-214] | Retrofit FDE + Section 18: `concurrency/locks-semaphores.mdx`
+- [x] [BAE-FDE-215] | Retrofit FDE + Section 18: `concurrency/multiprocessing.mdx`
+- [x] [BAE-FDE-216] | Retrofit FDE + Section 18: `concurrency/queues.mdx`
+- [x] [BAE-FDE-217] | Retrofit FDE + Section 18: `concurrency/race-conditions.mdx`
+- [x] [BAE-FDE-218] | Retrofit FDE + Section 18: `concurrency/threading.mdx`
+- [x] [BAE-FDE-219] | Retrofit FDE + Section 18: `control-flow/break-continue-pass.mdx`
+- [x] [BAE-FDE-220] | Retrofit FDE + Section 18: `control-flow/if-else.mdx`
+- [x] [BAE-FDE-221] | Retrofit FDE + Section 18: `control-flow/loops.mdx`
+- [x] [BAE-FDE-222] | Retrofit FDE + Section 18: `control-flow/match-case.mdx`
+- [x] [BAE-FDE-223] | Retrofit FDE + Section 18: `control-flow/nested-conditions.mdx`
+- [x] [BAE-FDE-224] | Retrofit FDE + Section 18: `control-flow/pattern-programs.mdx`
 - [x] [BAE-FDE-167] | Retrofit FDE + Section 18: `advanced-python/context-managers.mdx`
 - [x] [BAE-FDE-168] | Retrofit FDE + Section 18: `advanced-python/descriptors.mdx`
 - [x] [BAE-FDE-169] | Retrofit FDE + Section 18: `advanced-python/dynamic-typing.mdx`
@@ -385,22 +375,23 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
-- [ ] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
-- [ ] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
-- [ ] [BAE-FDE-209] | Retrofit FDE + Section 18: `collections/sets.mdx`
-- [ ] [BAE-FDE-210] | Retrofit FDE + Section 18: `collections/tuples.mdx`
-- [ ] [BAE-FDE-211] | Retrofit FDE + Section 18: `concurrency/asyncio.mdx`
-- [ ] [BAE-FDE-212] | Retrofit FDE + Section 18: `concurrency/concurrency-vs-parallelism.mdx`
-- [ ] [BAE-FDE-213] | Retrofit FDE + Section 18: `concurrency/gil.mdx`
-- [ ] [BAE-FDE-214] | Retrofit FDE + Section 18: `concurrency/multiprocessing.mdx`
-- [ ] [BAE-FDE-215] | Retrofit FDE + Section 18: `concurrency/threading.mdx`
+- [ ] [BAE-FDE-225] | Retrofit FDE + Section 18: `databases/connection-pooling.mdx`
+- [ ] [BAE-FDE-226] | Retrofit FDE + Section 18: `databases/indexing.mdx`
+- [ ] [BAE-FDE-227] | Retrofit FDE + Section 18: `databases/orm-vs-raw-sql.mdx`
+- [ ] [BAE-FDE-228] | Retrofit FDE + Section 18: `databases/postgresql.mdx`
+- [ ] [BAE-FDE-229] | Retrofit FDE + Section 18: `databases/sqlalchemy.mdx`
+- [ ] [BAE-FDE-230] | Retrofit FDE + Section 18: `databases/sqlite.mdx`
+- [ ] [BAE-FDE-231] | Retrofit FDE + Section 18: `databases/transactions.mdx`
+- [ ] [BAE-FDE-232] | Retrofit FDE + Section 18: `error-handling/custom-exceptions.mdx`
+- [ ] [BAE-FDE-233] | Retrofit FDE + Section 18: `error-handling/debugging.mdx`
+- [ ] [BAE-FDE-234] | Retrofit FDE + Section 18: `error-handling/exceptions.mdx`
 
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-206 through BAE-FDE-224 | Retrofitted 19 Python topics (Collections, Concurrency, Control Flow) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-196 through BAE-FDE-205 | Retrofitted 10 Python topics (Best Practices & Collections) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-186 through BAE-FDE-195 | Retrofitted 10 Python topics (API Development & Best Practices) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-177 through BAE-FDE-185 | Retrofitted 9 AI Engineering topics with FDE scenarios and Section 18 AI Agent Instructions. |
