@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:** *Imagine you are a senior engineer dealing with a monolithic healthcare application heavily reliant on complex ORM mappings, facing silent performance bottlenecks and memory leaks during massive batch processing.*
+
 Bro, imagine you have built a massive application using raw SQL strings scattered across 500 files. One day, the security team finds a SQL injection vulnerability. You frantically try to fix it, but realize you have to manually update thousands of queries. The system was perfectly fine for a prototype, but fails miserably at scale and security. This is exactly why we need to properly architect with SQLAlchemy. Without it, maintaining your database code turns into a nightmare.
 
 ## 3. Real-World Analogy
@@ -230,3 +232,15 @@ Bro, in a high-traffic production system, your database connections are the bigg
 |---|---|---|---|
 | [sqlalchemy/sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) | ⭐ 8k+ | SQLAlchemy Official Repo | The standard Python SQL toolkit and ORM |
 | [tiangolo/sqlmodel](https://github.com/tiangolo/sqlmodel) | ⭐ 11k+ | SQLModel | Modern SQLAlchemy wrapper using Pydantic |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Session Management | Always use scoped sessions or context managers (`with Session() as session:`) to manage database sessions. Never leave sessions open globally. | Leaked sessions consume connection pool resources and can cause application-wide deadlocks. |
+| Batch Operations | Use bulk operations (`insert().values()`, `update()`) instead of iterating through objects for large datasets. | Processing thousands of ORM objects individually consumes massive memory and stalls the application. |
+| Lazy Loading | Be explicit about relationship loading strategies (`lazy='select'`, `lazy='joined'`). Defaulting to lazy loading can cause unexpected N+1 queries. | Unintended lazy loads during serialization or API responses cripple performance. |
+| Model Definitions | Ensure all models explicitly define constraints, indexes, and appropriate string lengths. | Relying on database defaults without explicit ORM definitions leads to schema drift and optimization blind spots. |

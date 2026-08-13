@@ -310,6 +310,11 @@ _Empty_
 - [x] Engineering Principles (best-practices/engineering-principles.mdx)
 
 ---
+- [x] [BAE-FDE-225] | Retrofit FDE + Section 18: python/databases/connection-pooling.mdx
+- [x] [BAE-FDE-226] | Retrofit FDE + Section 18: python/databases/indexing.mdx
+- [x] [BAE-FDE-227] | Retrofit FDE + Section 18: python/databases/orm-vs-raw-sql.mdx
+- [x] [BAE-FDE-228] | Retrofit FDE + Section 18: python/databases/postgresql.mdx
+- [x] [BAE-FDE-229] | Retrofit FDE + Section 18: python/databases/sqlalchemy.mdx
 - [x] [BAE-FDE-177] | Retrofit FDE + Section 18: `ai-engineering/ai-agents.mdx`
 - [x] [BAE-FDE-178] | Retrofit FDE + Section 18: `ai-engineering/ai-observability.mdx`
 - [x] [BAE-FDE-179] | Retrofit FDE + Section 18: `ai-engineering/async-ai-workflows.mdx`
@@ -367,19 +372,14 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 184
-- Lessons Remaining: 102
-- Completion %: 64.3%
-- Open Tasks: 133
+- Lessons Completed: 189
+- Lessons Remaining: 97
+- Completion %: 66.0%
+- Open Tasks: 128
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-225] | Retrofit FDE + Section 18: `databases/connection-pooling.mdx`
-- [ ] [BAE-FDE-226] | Retrofit FDE + Section 18: `databases/indexing.mdx`
-- [ ] [BAE-FDE-227] | Retrofit FDE + Section 18: `databases/orm-vs-raw-sql.mdx`
-- [ ] [BAE-FDE-228] | Retrofit FDE + Section 18: `databases/postgresql.mdx`
-- [ ] [BAE-FDE-229] | Retrofit FDE + Section 18: `databases/sqlalchemy.mdx`
 - [ ] [BAE-FDE-230] | Retrofit FDE + Section 18: `databases/sqlite.mdx`
 - [ ] [BAE-FDE-231] | Retrofit FDE + Section 18: `databases/transactions.mdx`
 - [ ] [BAE-FDE-232] | Retrofit FDE + Section 18: `error-handling/custom-exceptions.mdx`
@@ -391,6 +391,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-225 through BAE-FDE-229 | Retrofitted 5 Python topics (Databases) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-206 through BAE-FDE-224 | Retrofitted 19 Python topics (Collections, Concurrency, Control Flow) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-196 through BAE-FDE-205 | Retrofitted 10 Python topics (Best Practices & Collections) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-186 through BAE-FDE-195 | Retrofitted 10 Python topics (API Development & Best Practices) with FDE scenarios and Section 18 AI Agent Instructions. |
