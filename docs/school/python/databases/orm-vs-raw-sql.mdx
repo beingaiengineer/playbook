@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:** *Imagine you are a senior engineer dealing with an enterprise ERP system where the ORM generates thousand-line, unoptimized N+1 SQL queries that completely stall the database under load.*
+
 Bro, imagine you are building a reporting dashboard. You use an ORM for everything because it's easy. But when the user tries to load a report aggregating a million rows, the server crashes with an Out Of Memory error. You frantically check the logs and realize the ORM generated a massively inefficient query and loaded every single object into memory. The system was perfectly designed for simple CRUD, but fails miserably for analytics. This is exactly why we need to properly understand ORM vs Raw SQL. Without it, a simple report turns into a massive outage.
 
 ## 3. Real-World Analogy
@@ -215,3 +217,15 @@ Bro, one of the biggest production incidents happens when developers deploy an O
 |---|---|---|---|
 | [coleifer/peewee](https://github.com/coleifer/peewee) | ⭐ 10k+ | Peewee ORM | A small, expressive ORM |
 | [edgedb/edgedb](https://github.com/edgedb/edgedb) | ⭐ 8k+ | EdgeDB | A modern alternative to SQL and ORMs |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Query Choice | Use ORMs for basic CRUD operations and simple relationships. Use Raw SQL (or query builders) for complex aggregations, reporting, and bulk operations. | ORMs excel at developer productivity but often generate inefficient queries for complex data transformations. |
+| N+1 Problem Prevention | When generating ORM code fetching related objects, explicitly use eager loading (e.g., `joinedload` or `selectinload` in SQLAlchemy). | Lazy loading inside loops causes the N+1 query problem, exponentially degrading performance. |
+| SQL Injection | When writing raw SQL, ALWAYS use parameterized queries or prepared statements. Never use string formatting (`f-strings` or `.format()`) for user inputs in SQL. | String concatenation in SQL queries leads directly to SQL injection vulnerabilities. |
+| Abstraction Leakage | Be cautious when relying on ORM-specific edge cases; encapsulate complex DB logic behind repository patterns if portability is needed. | Heavily coupled ORM logic makes future migrations or performance tuning extremely difficult. |

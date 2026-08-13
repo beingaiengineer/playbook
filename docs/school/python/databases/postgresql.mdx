@@ -23,6 +23,8 @@ Bro, PostgreSQL (often just called Postgres) is the gold standard for relational
 
 ## 2. Engineering Story
 
+**FDE Scenario:** *Imagine you are a senior engineer dealing with a rapidly scaling financial platform where you need to implement strict data consistency and complex JSONB querying on legacy data structures without dropping connections.*
+
 Bro, imagine it is Big Billion Day. You deployed a basic database to handle your e-commerce traffic. Suddenly, traffic spikes 100x. Your database locks up because too many people are trying to buy the same phone simultaneously. You frantically check the logs and realize the system was perfectly designed for 10 users, but fails miserably at handling complex concurrent transactions. You are losing money every second. This is exactly why we need to properly architect with PostgreSQL. Without it, a successful sale turns into a massive outage.
 
 ## 3. Real-World Analogy
@@ -251,3 +253,15 @@ Bro, even if the value is an integer, you STILL use `%s`. Do not use `%d`. `psyc
 |---|---|---|---|
 | [postgres/postgres](https://github.com/postgres/postgres) | ⭐ 12k+ | PostgreSQL Official Repo | The C source code of the database |
 | [MagicStack/asyncpg](https://github.com/MagicStack/asyncpg) | ⭐ 6k+ | Fast PostgreSQL client | The fastest async driver for Postgres in Python |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| JSONB Usage | Prefer `JSONB` over `JSON` for storing semi-structured data in PostgreSQL when querying or indexing is required. | `JSONB` is stored in a decomposed binary format, making indexing and querying significantly faster than raw `JSON`. |
+| Concurrency Control | Use appropriate locking mechanisms (e.g., `SELECT ... FOR UPDATE`) when handling concurrent transactions that modify the same rows. | Prevents race conditions and lost updates in high-concurrency environments. |
+| Connection Limits | Be aware of PostgreSQL's relatively low default `max_connections` limit; always assume a connection pooler (like PgBouncer) might be in use or required. | Exhausting max connections causes the DB to reject new connections entirely. |
+| Data Types | Use precise PostgreSQL data types (`UUID`, `TIMESTAMP WITH TIME ZONE`, `NUMERIC`) instead of generic text or float types where applicable. | Precise types ensure data integrity and improve query performance and accuracy. |

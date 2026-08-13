@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:** *Imagine you are a senior engineer dealing with a legacy banking API that forcefully terminates connections after 60 seconds of inactivity, while your traffic is incredibly bursty.*
+
 Bro, imagine it is Friday night. You deploy your highly scalable web app. Traffic spikes. Suddenly, your database rejects all new connections with a 'Too many connections' error. Your web servers are fine, but the app is dead. You frantically check the database and realize that every single HTTP request is opening and closing a brand new database connection, exhausting the limits. The system was perfectly designed for low traffic, but fails miserably at scale. This is exactly why we need to properly architect Connection Pooling. Without it, a traffic spike turns into a massive outage.
 
 ## 3. Real-World Analogy
@@ -224,3 +226,15 @@ Bro, databases have a hard limit on connections because every connection takes u
 |---|---|---|---|
 | [pgbouncer/pgbouncer](https://github.com/pgbouncer/pgbouncer) | ⭐ 5k+ | PgBouncer | The industry standard connection pooler for Postgres |
 | [benoitc/gunicorn](https://github.com/benoitc/gunicorn) | ⭐ 9k+ | Gunicorn | Shows how worker processes handle connections |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Pool Configuration | Always configure a reasonable `pool_size` and `max_overflow` when setting up connection pooling. Never use unbounded pools. | Unbounded pools can exhaust database connections during traffic spikes, leading to system outages. |
+| Connection Liveness | Ensure connection pools use a liveness check (e.g., `pool_pre_ping=True` in SQLAlchemy) to verify connections before use. | Reusing stale or dropped connections causes random query failures, especially with aggressive firewalls or legacy DBs. |
+| Timeouts | Explicitly set connection timeouts and recycle times (`pool_recycle`). | Prevents the application from hanging indefinitely on stalled connections. |
+| Graceful Shutdown | Always close and dispose of the connection pool cleanly during application shutdown. | Prevents connection leaks and dangling transactions on the database server. |

@@ -22,6 +22,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+**FDE Scenario:** *Imagine you are a senior engineer deployed to optimize a read-heavy analytics dashboard on a massive database where aggressive indexing causes severe write locks during data ingestion, paralyzing the system.*
+
 Bro, imagine your app is growing. Users start complaining that the search page takes 10 seconds to load. You look at the database and realize you have 10 million rows, and the database is scanning every single one of them for every search query. Your CPU is at 100%. You frantically try to add more servers, but realize the system fails miserably because the queries are just too slow. This is exactly why we need to properly architect Database Indexing. Without it, a successful app grinds to an absolute halt.
 
 ## 3. Real-World Analogy
@@ -218,3 +220,15 @@ Bro, creating an index on a massive table in production locks the table by defau
 |---|---|---|---|
 | [elastic/elasticsearch](https://github.com/elastic/elasticsearch) | ⭐ 64k+ | Elasticsearch | Shows how inverted indexes work at scale |
 | [postgres/postgres](https://github.com/postgres/postgres) | ⭐ 12k+ | PostgreSQL | B-Tree index implementation in C |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Index Selection | Only create indexes for columns heavily used in `WHERE`, `JOIN`, or `ORDER BY` clauses. Do not blindly index every column. | Unnecessary indexes severely degrade write performance and consume excessive memory and disk space. |
+| Composite Indexes | When generating queries filtering on multiple columns, suggest composite indexes matching the query pattern. | Individual indexes on multiple columns are rarely used efficiently by the database planner compared to a well-designed composite index. |
+| Index Types | Use the correct index type (B-tree by default, GiST/GIN for text or JSONB, Hash for exact matches). | Incorrect index types waste space and do not speed up the targeted queries. |
+| Explain Analyze | When optimizing slow queries, always instruct the user to run `EXPLAIN ANALYZE` to verify if the index is actually being used. | The database query planner makes dynamic decisions; assuming an index is used without verification leads to false confidence. |
