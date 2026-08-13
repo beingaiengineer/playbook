@@ -192,3 +192,19 @@ In large codebases, never raise raw `Exception("message")`. Always use custom ex
 - Exceptions (try/except)
 - Logging
 - Object-Oriented Programming (Inheritance)
+
+
+## 17. Top GitHub Repositories
+
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The Python reference implementation | See how standard exceptions are implemented in C and Python. |
+| [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 19k+ | Data validation using Python type hints | Uses custom `ValidationError` extensively. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Inheritance Base | Always inherit custom exceptions from the built-in `Exception` class, never from `BaseException`. | Inheriting from `BaseException` prevents the exception from being caught by standard `except Exception:` blocks. |
+| Exception Naming | Suffix all custom exception class names with `Error` (e.g., `ValidationError`, `PaymentFailedError`). | Maintains consistency with standard Python exceptions and clearly signals the class's purpose. |
+| Context Preservation | When raising a custom exception from another exception, use `raise CustomError from e` to preserve the original traceback. | Losing the original traceback makes debugging the root cause significantly harder in production. |

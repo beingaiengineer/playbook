@@ -197,3 +197,19 @@ Never, ever leave a `breakpoint()` call in code deployed to a server. If the ser
 - Logging
 - Production Debugging
 - Unit Testing (which reduces the need for debugging)
+
+
+## 17. Top GitHub Repositories
+
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [gotcha/ipdb](https://github.com/gotcha/ipdb) | ⭐ 2k+ | IPython-enabled pdb | A much better debugging experience than standard pdb. |
+| [alexmojaki/snoop](https://github.com/alexmojaki/snoop) | ⭐ 1k+ | Powerful debugging tools | Excellent library for tracing execution flow. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Debugging Output | Use the `logging` module instead of `print()` statements for diagnostic output in production code. | `print()` statements lack context, cannot be filtered, and do not integrate with log aggregation systems. |
+| Exception Tracebacks | Include traceback information when logging caught exceptions (e.g., `logger.error("Failed", exc_info=True)`). | Without tracebacks, identifying the exact location and path of the error is impossible. |
+| Breakpoints | Use `breakpoint()` for setting programmatic breakpoints instead of the older `import pdb; pdb.set_trace()`. | `breakpoint()` is the built-in standard and respects the `PYTHONBREAKPOINT` environment variable. |

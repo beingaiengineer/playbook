@@ -191,3 +191,19 @@ Silent failures are a nightmare to debug in production. If you catch an exceptio
 - Logging
 - Context Managers (the `with` statement replaces many `finally` blocks)
 - Debugging
+
+
+## 17. Top GitHub Repositories
+
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [getsentry/sentry-python](https://github.com/getsentry/sentry-python) | ⭐ 2k+ | The official Python SDK for Sentry | Shows how to capture and report exceptions in production. |
+| [Delgan/loguru](https://github.com/Delgan/loguru) | ⭐ 18k+ | Python logging made (stupidly) simple | Excellent exception catching and logging patterns. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Exception Scope | Never use bare `except:` clauses. Always catch specific exceptions (e.g., `except ValueError:`). | Bare excepts catch `KeyboardInterrupt` and `SystemExit`, making the application unkillable and hiding unrelated bugs. |
+| Error Swallowing | Never use `except Exception: pass` to silently ignore errors. At a minimum, log the exception. | Silent failures make production issues untraceable and create zombie processes. |
+| Resource Cleanup | Always use a `finally` block or context managers (`with`) to clean up resources, regardless of success or failure. | Relying on the happy path for cleanup leads to resource leaks (open files, dangling connections). |

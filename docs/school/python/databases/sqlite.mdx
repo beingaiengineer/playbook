@@ -241,9 +241,18 @@ If you do an `INSERT` or `UPDATE` but forget to call `conn.commit()`, the data w
 
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [sqlite/sqlite](https://github.com/sqlite/sqlite) | ⭐ 5k+ | SQLite Official Repo | The C source code of the database |
 | [encode/databases](https://github.com/encode/databases) | ⭐ 3k+ | Async database support | Shows async SQLite usage |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Query Parameters | Always use parameterized queries (`?`) for SQLite execution. Never use f-strings or string concatenation for variables. | String interpolation leads to SQL injection, even in local file-based databases. |
+| Connection Handling | Always use context managers or `finally` blocks to ensure SQLite connections are closed after operations. | Leaving SQLite connections open can lead to "database is locked" errors on subsequent executions. |
+| Concurrency Restrictions | Do not generate code that relies on high-concurrency writes to a SQLite database. | SQLite write operations lock the entire file, causing failures under concurrent write load. |

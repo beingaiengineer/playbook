@@ -346,6 +346,12 @@ _Empty_
 - [x] [BAE-FDE-204] | Retrofit FDE + Section 18: `collections/deque.mdx`
 - [x] [BAE-FDE-205] | Retrofit FDE + Section 18: `collections/dictionaries.mdx`
 
+- [x] [BAE-FDE-230] | Retrofit FDE + Section 18: `databases/sqlite.mdx`
+- [x] [BAE-FDE-231] | Retrofit FDE + Section 18: `databases/transactions.mdx`
+- [x] [BAE-FDE-232] | Retrofit FDE + Section 18: `error-handling/custom-exceptions.mdx`
+- [x] [BAE-FDE-233] | Retrofit FDE + Section 18: `error-handling/debugging.mdx`
+- [x] [BAE-FDE-234] | Retrofit FDE + Section 18: `error-handling/exceptions.mdx`
+
 ## Dependencies
 
 No active dependencies.
@@ -372,25 +378,27 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 189
-- Lessons Remaining: 97
-- Completion %: 66.0%
-- Open Tasks: 128
+- Lessons Completed: 194
+- Lessons Remaining: 92
+- Completion %: 67.8%
+- Open Tasks: 123
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-230] | Retrofit FDE + Section 18: `databases/sqlite.mdx`
-- [ ] [BAE-FDE-231] | Retrofit FDE + Section 18: `databases/transactions.mdx`
-- [ ] [BAE-FDE-232] | Retrofit FDE + Section 18: `error-handling/custom-exceptions.mdx`
-- [ ] [BAE-FDE-233] | Retrofit FDE + Section 18: `error-handling/debugging.mdx`
-- [ ] [BAE-FDE-234] | Retrofit FDE + Section 18: `error-handling/exceptions.mdx`
+- [ ] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
+- [ ] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
+- [ ] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
+- [ ] [BAE-FDE-238] | Retrofit FDE + Section 18: `file-handling/file-best-practices.mdx`
+- [ ] [BAE-FDE-239] | Retrofit FDE + Section 18: `file-handling/json-files.mdx`
+
 
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-230 through BAE-FDE-234 | Retrofitted 5 Python topics (Databases & Error Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-225 through BAE-FDE-229 | Retrofitted 5 Python topics (Databases) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-206 through BAE-FDE-224 | Retrofitted 19 Python topics (Collections, Concurrency, Control Flow) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-196 through BAE-FDE-205 | Retrofitted 10 Python topics (Best Practices & Collections) with FDE scenarios and Section 18 AI Agent Instructions. |
@@ -442,6 +450,7 @@ No reusable insights recorded yet.
 ---
 
 ## Automation State
+- End-of-day reviewer corrected 'Top GitHub Repositories' from an H3 to an H2 heading (`## 17. Top GitHub Repositories`) in recently retrofitted Python Database modules (BAE-FDE-225 through BAE-FDE-229), and adjusted 'Bro' density to strictly adhere to the 3-5 limit per page.
 - End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
 
 No automation history yet.

@@ -226,9 +226,18 @@ Bro, in highly concurrent systems, "deadlocks" happen. This is when Transaction 
 
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [django/django](https://github.com/django/django) | ⭐ 74k+ | Django Framework | Shows robust transaction management |
 | [sqlalchemy/sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) | ⭐ 8k+ | SQLAlchemy | Core transaction implementation |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Transaction Scope | Always wrap critical multi-step write operations in a transaction block. | Ensures data integrity; partial updates cause inconsistent state on application crashes. |
+| Rollback Handling | Explicitly call `.rollback()` in the exception handler of a database transaction before re-raising the error. | Failing to rollback leaves the connection in an aborted state and locks resources. |
+| Connection Autocommit | When managing manual transactions, ensure autocommit is disabled on the database connection. | Autocommit commits every statement immediately, defeating the purpose of transactional integrity. |
