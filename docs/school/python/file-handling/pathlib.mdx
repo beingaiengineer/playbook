@@ -22,6 +22,8 @@ Bro, before `pathlib`, everyone used `os.path` and glued strings together to mak
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer tasked with migrating an entire legacy data processing pipeline from Windows servers to a Kubernetes cluster running Linux. You run the code, and suddenly hundreds of microservices crash with `FileNotFoundError` because every path was hardcoded with `\` backslashes. FDE deployments require absolute path portability. If you aren't using `pathlib` for dynamic path resolution, your code will fail the moment it touches a different operating system.
+
 Back in the day, we used `os.path.join()` everywhere to build file paths. It was ugly, verbose, and error-prone. Then a junior dev ran a script on Windows that was written for Linux, and all the hardcoded forward slashes broke the app. Enter `pathlib`, which made our code infinitely cleaner and completely cross-platform.
 
 ## 3. Real-World Analogy
@@ -215,3 +217,13 @@ If you are deploying a Python app inside a Docker container (which is Linux base
 - Writing Files
 - os Module (legacy path handling)
 - File Best Practices
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| OS Independence | Always use `pathlib.Path` for file system interactions instead of `os.path` or raw strings. | Hardcoded string paths (e.g., `\` or `/`) break across different operating systems in FDE deployments. |
+| Path Construction | Use the `/` operator to construct paths (e.g., `Path("dir") / "file.txt"`) rather than string concatenation. | String concatenation bypasses Pathlib's OS-specific path resolution logic. |
+| Creation Safety | When creating directories with `.mkdir()`, always pass `parents=True, exist_ok=True` unless specifically required to fail. | Prevents unhandled `FileExistsError` crashes in production when re-running initialization scripts. |

@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer debugging a critical bug in an FDE environment where user sessions are suddenly being mixed up. You look at the code and realize a junior dev used a mutable default argument like `def connect_user(user, session_data={}):` across the entire application. That single empty dictionary was shared across every single function call, bleeding sensitive data between completely different client requests. Understanding how Python evaluates arguments at definition time versus runtime is the difference between a scalable application and a massive security breach.
+
 A generic helper function is useless if it cannot adapt to dynamic contexts. A function hardcoded to fetch user ID 1 is a liability. Production systems require passing dynamic configuration into isolated logic blocks. Whether it's injecting different API endpoint URLs, specifying database connection pools, or passing variable timeout limits, arguments allow our functions to be highly flexible and reusable across entirely different architectural layers.
 
 
@@ -212,3 +214,13 @@ def add_item(item, box=None):
 - Variable Scope (Local/Global)
 - `*args` and `**kwargs`
 - Pass-by-reference vs Pass-by-value
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Default Arguments | Never use mutable types (`list`, `dict`, `set`) as default argument values. Use `None` instead and initialize within the function. | Mutable defaults are evaluated once at definition, causing state to leak between function calls in production. |
+| Keyword Arguments | When calling functions with more than two parameters, explicitly use keyword arguments (`func(x=1, y=2)`) instead of positional arguments. | Enhances readability and prevents silent logical errors if the function signature changes in the future. |
+| Signature Ordering | Always place required positional parameters before default keyword parameters in function definitions. | Failing to do so causes a `SyntaxError` which breaks the deployment build. |

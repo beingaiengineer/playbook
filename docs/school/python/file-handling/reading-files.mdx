@@ -22,6 +22,8 @@ Bro, reading files is one of the most common things you'll do in Python. You're 
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer deploying an on-premise log analyzer for a massive financial client. You write a script to read their access logs, but their logs are 500GB per day. The client runs your script, and it immediately kills their server due to an Out-Of-Memory (OOM) exception because your code tried to load the entire 500GB file into RAM at once using `.read()`. FDE environments have strict memory constraints. You must stream files sequentially, line-by-line, to keep your memory footprint flat regardless of the file size.
+
 We once had a batch script that read a massive 10GB access log file to count unique visitors. A junior dev wrote it using `file.read()`, which tried to load the entire 10GB file into RAM at once. The server immediately crashed due to an Out-Of-Memory error. That's when we learned why streaming files line-by-line is absolutely crucial.
 
 ## 3. Real-World Analogy
@@ -214,3 +216,13 @@ If you are running Python on different operating systems (like Windows locally, 
 - Context Managers
 - Exception Handling (for FileNotFoundError)
 - Pathlib (for dealing with file paths securely)
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Memory Efficiency | Never use `.read()` or `.readlines()` on files with unknown or potentially large sizes. Always iterate over the file object directly (`for line in file:`). | Loading large files into memory causes OOM crashes in resource-constrained FDE environments. |
+| Resource Management | Always open files using the `with` context manager (`with open(...) as f:`). | Prevents file descriptor leaks which can bring down entire host machines. |
+| Encoding Safety | Explicitly specify `encoding="utf-8"` when opening text files. | System defaults vary by OS (e.g., Windows may default to cp1252), leading to UnicodeDecodeErrors in production. |
