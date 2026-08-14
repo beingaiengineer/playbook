@@ -19,7 +19,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are an engineer deploying an API gateway to an edge device in a remote FDE environment. You need to implement strict rate-limiting, but the device is so resource-constrained that spinning up a full Redis cache or heavy Object-Oriented classes causes CPU throttling. By using closures, you dynamically generate lightweight functions that securely encapsulate state—like request counts—directly in memory without the overhead of massive object instantiation. Closures allow us to maintain secure, isolated execution environments on the fly.
+
+## 3. Real-World Analogy
 
 Think of a closure like a backpack you give to a hiker, bro.
 
@@ -212,9 +216,19 @@ Bro, be careful with memory leaks. If your closure captures a massive dataset (l
 - Variable Scope (LEGB Rule)
 - Object-Oriented Programming (Classes vs Closures)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [django/django](https://github.com/django/django) | ⭐ 80k+ | The Web framework for perfectionists | Uses closures heavily inside its middleware architecture. |
 | [celery/celery](https://github.com/celery/celery) | ⭐ 25k+ | Distributed Task Queue | Heavily uses closures to encapsulate task state across worker processes. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| State Modification | When an inner function needs to modify a variable in the outer closure, you must explicitly declare it using the `nonlocal` keyword. | Python will silently create a new local variable instead of updating the closure's state, leading to hard-to-trace bugs. |
+| Encapsulation | Use closures to encapsulate internal state for simple, single-method behaviors instead of creating full Object-Oriented classes. | Reduces overhead and memory footprint in performance-critical FDE environments. |
+| Factory Functions | Use closures effectively when writing decorators or factory functions to maintain clean separation of concerns. | Ensures metadata and setup logic are cleanly isolated from runtime execution logic. |

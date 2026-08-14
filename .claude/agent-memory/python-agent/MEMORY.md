@@ -44,11 +44,11 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-240] | Retrofit FDE + Section 18: `file-handling/pathlib.mdx`
-- [ ] [BAE-FDE-241] | Retrofit FDE + Section 18: `file-handling/reading-files.mdx`
-- [ ] [BAE-FDE-242] | Retrofit FDE + Section 18: `file-handling/writing-files.mdx`
-- [ ] [BAE-FDE-243] | Retrofit FDE + Section 18: `functions/arguments-parameters.mdx`
-- [ ] [BAE-FDE-244] | Retrofit FDE + Section 18: `functions/closures.mdx`
+
+
+
+
+
 - [ ] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
 - [ ] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
 - [ ] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
@@ -352,6 +352,12 @@ _Empty_
 - [x] [BAE-FDE-233] | Retrofit FDE + Section 18: `error-handling/debugging.mdx`
 - [x] [BAE-FDE-234] | Retrofit FDE + Section 18: `error-handling/exceptions.mdx`
 
+- [x] [BAE-FDE-240] | Retrofit FDE + Section 18: `file-handling/pathlib.mdx`
+- [x] [BAE-FDE-241] | Retrofit FDE + Section 18: `file-handling/reading-files.mdx`
+- [x] [BAE-FDE-242] | Retrofit FDE + Section 18: `file-handling/writing-files.mdx`
+- [x] [BAE-FDE-243] | Retrofit FDE + Section 18: `functions/arguments-parameters.mdx`
+- [x] [BAE-FDE-244] | Retrofit FDE + Section 18: `functions/closures.mdx`
+
 ## Dependencies
 
 No active dependencies.
@@ -378,25 +384,25 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 199
-- Lessons Remaining: 87
-- Completion %: 69.5%
-- Open Tasks: 118
+- Lessons Completed: 204
+- Lessons Remaining: 82
+- Completion %: 71.3%
+- Open Tasks: 113
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-240] | Retrofit FDE + Section 18: `file-handling/pathlib.mdx`
-- [ ] [BAE-FDE-241] | Retrofit FDE + Section 18: `file-handling/reading-files.mdx`
-- [ ] [BAE-FDE-242] | Retrofit FDE + Section 18: `file-handling/writing-files.mdx`
-- [ ] [BAE-FDE-243] | Retrofit FDE + Section 18: `functions/arguments-parameters.mdx`
-- [ ] [BAE-FDE-244] | Retrofit FDE + Section 18: `functions/closures.mdx`
-
+- [ ] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
+- [ ] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
+- [ ] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
+- [ ] [BAE-FDE-248] | Retrofit FDE + Section 18: `functions/iterators.mdx`
+- [ ] [BAE-FDE-249] | Retrofit FDE + Section 18: `functions/lambda-functions.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-240 through BAE-FDE-244 | Retrofitted 5 Python topics (File Handling & Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-235 through BAE-FDE-239 | Retrofitted 5 Python topics (Error Handling & File Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-230 through BAE-FDE-234 | Retrofitted 5 Python topics (Databases & Error Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-225 through BAE-FDE-229 | Retrofitted 5 Python topics (Databases) with FDE scenarios and Section 18 AI Agent Instructions. |
