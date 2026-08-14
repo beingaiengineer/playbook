@@ -44,11 +44,6 @@ Ready for next planning phase.
 ## Execution Board
 
 ### TODO
-- [ ] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
-- [ ] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
-- [ ] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
-- [ ] [BAE-FDE-238] | Retrofit FDE + Section 18: `file-handling/file-best-practices.mdx`
-- [ ] [BAE-FDE-239] | Retrofit FDE + Section 18: `file-handling/json-files.mdx`
 - [ ] [BAE-FDE-240] | Retrofit FDE + Section 18: `file-handling/pathlib.mdx`
 - [ ] [BAE-FDE-241] | Retrofit FDE + Section 18: `file-handling/reading-files.mdx`
 - [ ] [BAE-FDE-242] | Retrofit FDE + Section 18: `file-handling/writing-files.mdx`
@@ -126,6 +121,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
+- [x] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
+- [x] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
+- [x] [BAE-FDE-238] | Retrofit FDE + Section 18: `file-handling/file-best-practices.mdx`
+- [x] [BAE-FDE-239] | Retrofit FDE + Section 18: `file-handling/json-files.mdx`
 - [x] [BAE-FDE-206] | Retrofit FDE + Section 18: `collections/dictionary-comprehension.mdx`
 - [x] [BAE-FDE-207] | Retrofit FDE + Section 18: `collections/list-comprehension.mdx`
 - [x] [BAE-FDE-208] | Retrofit FDE + Section 18: `collections/lists.mdx`
@@ -378,26 +378,26 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 194
-- Lessons Remaining: 92
-- Completion %: 67.8%
-- Open Tasks: 123
+- Lessons Completed: 199
+- Lessons Remaining: 87
+- Completion %: 69.5%
+- Open Tasks: 118
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
-- [ ] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
-- [ ] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
-- [ ] [BAE-FDE-238] | Retrofit FDE + Section 18: `file-handling/file-best-practices.mdx`
-- [ ] [BAE-FDE-239] | Retrofit FDE + Section 18: `file-handling/json-files.mdx`
-
+- [ ] [BAE-FDE-240] | Retrofit FDE + Section 18: `file-handling/pathlib.mdx`
+- [ ] [BAE-FDE-241] | Retrofit FDE + Section 18: `file-handling/reading-files.mdx`
+- [ ] [BAE-FDE-242] | Retrofit FDE + Section 18: `file-handling/writing-files.mdx`
+- [ ] [BAE-FDE-243] | Retrofit FDE + Section 18: `functions/arguments-parameters.mdx`
+- [ ] [BAE-FDE-244] | Retrofit FDE + Section 18: `functions/closures.mdx`
 
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-235 through BAE-FDE-239 | Retrofitted 5 Python topics (Error Handling & File Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-230 through BAE-FDE-234 | Retrofitted 5 Python topics (Databases & Error Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-225 through BAE-FDE-229 | Retrofitted 5 Python topics (Databases) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-206 through BAE-FDE-224 | Retrofitted 19 Python topics (Collections, Concurrency, Control Flow) with FDE scenarios and Section 18 AI Agent Instructions. |
