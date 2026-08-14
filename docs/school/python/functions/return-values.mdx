@@ -23,7 +23,6 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 In a service-oriented architecture, a function that successfully charges a user's credit card but only prints 'Success' to the console is a critical failure. The broader application needs a standardized way to receive computed data or status flags back from the processing layer so it can make downstream decisions, like sending a confirmation email or updating the database state. Returning values is how isolated systems communicate their results.
 
-
 ## 3. Real-World Analogy
 
 Think of giving your clothes to an Indian Dhobi (Laundry), bro.
@@ -235,3 +234,12 @@ Python tricks you into thinking you are returning two separate values, but inter
 - Exceptions (an alternative to returning error codes)
 - Variable Scope
 - Generators (using `yield` instead of `return`)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always explicitly `return` a value from functions, avoiding implicit `None` returns unless explicitly intended. | Implicit `None` returns cause downstream `TypeError`s when callers expect a specific data type. |
+| Multiple Returns | Return multiple values as a `tuple` or a structured `dict` rather than relying on global state. | Returning structured data ensures thread safety and clear contracts in client integrations. |
+| Early Returns | Use early returns (guard clauses) to handle error conditions or edge cases before the main logic. | Deeply nested `if-else` blocks reduce readability and increase cognitive load during debugging. |

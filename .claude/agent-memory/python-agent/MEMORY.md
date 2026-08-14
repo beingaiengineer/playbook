@@ -49,11 +49,6 @@ Ready for next planning phase.
 
 
 
-- [ ] [BAE-FDE-255] | Retrofit FDE + Section 18: `fundamentals/operators.mdx`
-- [ ] [BAE-FDE-256] | Retrofit FDE + Section 18: `fundamentals/type-conversion.mdx`
-- [ ] [BAE-FDE-257] | Retrofit FDE + Section 18: `fundamentals/variables.mdx`
-- [ ] [BAE-FDE-258] | Retrofit FDE + Section 18: `interview-prep/coding-round-patterns.mdx`
-- [ ] [BAE-FDE-259] | Retrofit FDE + Section 18: `interview-prep/debugging-rounds.mdx`
 - [ ] [BAE-FDE-260] | Retrofit FDE + Section 18: `interview-prep/senior-python-questions.mdx`
 - [ ] [BAE-FDE-261] | Retrofit FDE + Section 18: `interview-prep/system-design-rounds.mdx`
 - [ ] [BAE-FDE-262] | Retrofit FDE + Section 18: `interview-prep/top-python-interview-questions.mdx`
@@ -111,6 +106,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-250] | Retrofit FDE + Section 18: `functions/recursion.mdx`
+- [x] [BAE-FDE-251] | Retrofit FDE + Section 18: `functions/return-values.mdx`
+- [x] [BAE-FDE-252] | Retrofit FDE + Section 18: `fundamentals/comments-docstrings.mdx`
+- [x] [BAE-FDE-253] | Retrofit FDE + Section 18: `fundamentals/data-types.mdx`
+- [x] [BAE-FDE-254] | Retrofit FDE + Section 18: `fundamentals/input-output.mdx`
 - [x] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
 - [x] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
 - [x] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
@@ -379,24 +379,25 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 209
-- Lessons Remaining: 77
-- Completion %: 73.1%
-- Open Tasks: 108
+- Lessons Completed: 214
+- Lessons Remaining: 72
+- Completion %: 74.8%
+- Open Tasks: 103
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-250] | Retrofit FDE + Section 18: `functions/recursion.mdx`
-- [ ] [BAE-FDE-251] | Retrofit FDE + Section 18: `functions/return-values.mdx`
-- [ ] [BAE-FDE-252] | Retrofit FDE + Section 18: `fundamentals/comments-docstrings.mdx`
-- [ ] [BAE-FDE-253] | Retrofit FDE + Section 18: `fundamentals/data-types.mdx`
-- [ ] [BAE-FDE-254] | Retrofit FDE + Section 18: `fundamentals/input-output.mdx`
+- [ ] [BAE-FDE-255] | Retrofit FDE + Section 18: `fundamentals/operators.mdx`
+- [ ] [BAE-FDE-256] | Retrofit FDE + Section 18: `fundamentals/type-conversion.mdx`
+- [ ] [BAE-FDE-257] | Retrofit FDE + Section 18: `fundamentals/variables.mdx`
+- [ ] [BAE-FDE-258] | Retrofit FDE + Section 18: `interview-prep/coding-round-patterns.mdx`
+- [ ] [BAE-FDE-259] | Retrofit FDE + Section 18: `interview-prep/debugging-rounds.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-250 through BAE-FDE-254 | Retrofitted 5 Python topics (Functions & Fundamentals) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-245 through BAE-FDE-249 | Retrofitted 5 Python topics (Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-240 through BAE-FDE-244 | Retrofitted 5 Python topics (File Handling & Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-235 through BAE-FDE-239 | Retrofitted 5 Python topics (Error Handling & File Handling) with FDE scenarios and Section 18 AI Agent Instructions. |

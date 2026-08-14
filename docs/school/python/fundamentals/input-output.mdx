@@ -22,9 +22,7 @@ Bro, a program that doesn't talk to the outside world is basically a black box g
 
 ## 2. Engineering Story
 
-You write a brilliant script to calculate compound interest for a finance team. You hardcode the starting amount to $10,000. You hand the script to the financial analyst. Five minutes later, he messages you on Slack: "How do I calculate it for $25,000?"
-
-If you tell a non-technical user to "just open the `.py` file, find line 14, change the variable, and re-run it," they will accidentally delete a comma and break the whole script. Instead, you use `input()`. The script boots up, asks "What is the starting amount?", the analyst types a number, and gets the result. By adding basic I/O, you just turned a static script into an interactive tool.
+Bro, imagine you are a senior engineer deploying a Python script to calculate compound interest for a finance team. You hardcode the starting amount to $10,000. You hand the script to the financial analyst. Five minutes later, he messages you on Slack: "How do I calculate it for $25,000?" If you tell a non-technical user to "just open the `.py` file, find line 14, change the variable, and re-run it," they will accidentally delete a comma and break the whole script. Instead, you use `input()`. The script boots up, asks "What is the starting amount?", the analyst types a number, and gets the result. By adding basic console I/O, you just turned a static script into an interactive tool.
 
 ## 3. Real-World Analogy
 
@@ -189,3 +187,12 @@ While `input()` is great for building local CLI (Command Line Interface) tools, 
 - [Data Types](./data-types.mdx)
 - [Type Conversion](./type-conversion.mdx)
 - [Error Handling - Exceptions](../error-handling/exceptions.mdx)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always handle `EOFError` and `KeyboardInterrupt` gracefully when writing CLI tools that use `input()`. | Client environments may pipe data into scripts or prematurely terminate them, causing unhandled exceptions if `input()` is unexpectedly interrupted. |
+| Prompting | Provide clear, descriptive prompts in `input()` so the user knows exactly what data format is expected. | Ambiguous prompts lead to malformed input, which crashes downstream data processing logic. |
+| Sanitization | Always strip whitespace and sanitize input directly after receiving it via `user_input = input().strip()`. | FDEs frequently encounter trailing spaces or unexpected characters from user input that break string matching or type conversion. |

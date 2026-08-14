@@ -22,9 +22,7 @@ Bro, writing code that a computer can understand is easy. Writing code that anot
 
 ## 2. Engineering Story
 
-You inherit a massive, 5,000-line script from an engineer who quit the company. On line 402, you see: `time.sleep(3)`. Why is there a 3-second delay? Is it waiting for a database to boot? Is it a rate limit for an API? Is it just a leftover hack from debugging?
-
-You don't know. So you remove it to speed up the code. The next day, the entire production pipeline collapses because the downstream API was silently dropping requests that came in too fast. If the previous engineer had just written `# Wait 3 seconds to avoid Shopify API rate limits`, you wouldn't have brought down production. Comments are the connective tissue of engineering teams.
+Bro, imagine you are a senior engineer who inherits a critical payment processing module written by someone who left the company three years ago. The code is dense and uses obscure variable names. Without documentation explaining *why* certain tax calculations are bypassed, you are flying blind. Comments and docstrings are not just for beginners; they are the essential context that prevents production outages when making updates to complex logic.
 
 ## 3. Real-World Analogy
 
@@ -198,3 +196,12 @@ Every major open-source library (like NumPy, Pandas, or Django) relies heavily o
 - [Functions Basics](../functions/functions-basics.mdx)
 - [Variables](./variables.mdx)
 - [Best Practices - Clean Code](../best-practices/clean-code.mdx)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include module-level, class-level, and function-level docstrings following PEP 257 (or Google/NumPy style). | Lack of documentation drastically increases onboarding time and debugging effort for FDEs. |
+| Commenting | Write comments explaining the *why*, not the *what*. Avoid stating the obvious. | Redundant comments clutter the codebase and quickly become outdated, confusing future maintainers. |
+| Edge Cases | Explicitly document any known edge cases, workarounds, or 'hacks' in comments near the affected code. | FDEs need to know why non-standard approaches were taken to avoid accidentally breaking fragile workarounds. |
