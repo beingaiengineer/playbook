@@ -49,16 +49,6 @@ Ready for next planning phase.
 
 
 
-- [ ] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
-- [ ] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
-- [ ] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
-- [ ] [BAE-FDE-248] | Retrofit FDE + Section 18: `functions/iterators.mdx`
-- [ ] [BAE-FDE-249] | Retrofit FDE + Section 18: `functions/lambda-functions.mdx`
-- [ ] [BAE-FDE-250] | Retrofit FDE + Section 18: `functions/recursion.mdx`
-- [ ] [BAE-FDE-251] | Retrofit FDE + Section 18: `functions/return-values.mdx`
-- [ ] [BAE-FDE-252] | Retrofit FDE + Section 18: `fundamentals/comments-docstrings.mdx`
-- [ ] [BAE-FDE-253] | Retrofit FDE + Section 18: `fundamentals/data-types.mdx`
-- [ ] [BAE-FDE-254] | Retrofit FDE + Section 18: `fundamentals/input-output.mdx`
 - [ ] [BAE-FDE-255] | Retrofit FDE + Section 18: `fundamentals/operators.mdx`
 - [ ] [BAE-FDE-256] | Retrofit FDE + Section 18: `fundamentals/type-conversion.mdx`
 - [ ] [BAE-FDE-257] | Retrofit FDE + Section 18: `fundamentals/variables.mdx`
@@ -121,6 +111,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
+- [x] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
+- [x] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
+- [x] [BAE-FDE-248] | Retrofit FDE + Section 18: `functions/iterators.mdx`
+- [x] [BAE-FDE-249] | Retrofit FDE + Section 18: `functions/lambda-functions.mdx`
 - [x] [BAE-FDE-235] | Retrofit FDE + Section 18: `error-handling/logging.mdx`
 - [x] [BAE-FDE-236] | Retrofit FDE + Section 18: `error-handling/production-debugging.mdx`
 - [x] [BAE-FDE-237] | Retrofit FDE + Section 18: `file-handling/csv-files.mdx`
@@ -384,24 +379,25 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 204
-- Lessons Remaining: 82
-- Completion %: 71.3%
-- Open Tasks: 113
+- Lessons Completed: 209
+- Lessons Remaining: 77
+- Completion %: 73.1%
+- Open Tasks: 108
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-245] | Retrofit FDE + Section 18: `functions/decorators.mdx`
-- [ ] [BAE-FDE-246] | Retrofit FDE + Section 18: `functions/functions-basics.mdx`
-- [ ] [BAE-FDE-247] | Retrofit FDE + Section 18: `functions/generators.mdx`
-- [ ] [BAE-FDE-248] | Retrofit FDE + Section 18: `functions/iterators.mdx`
-- [ ] [BAE-FDE-249] | Retrofit FDE + Section 18: `functions/lambda-functions.mdx`
+- [ ] [BAE-FDE-250] | Retrofit FDE + Section 18: `functions/recursion.mdx`
+- [ ] [BAE-FDE-251] | Retrofit FDE + Section 18: `functions/return-values.mdx`
+- [ ] [BAE-FDE-252] | Retrofit FDE + Section 18: `fundamentals/comments-docstrings.mdx`
+- [ ] [BAE-FDE-253] | Retrofit FDE + Section 18: `fundamentals/data-types.mdx`
+- [ ] [BAE-FDE-254] | Retrofit FDE + Section 18: `fundamentals/input-output.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-245 through BAE-FDE-249 | Retrofitted 5 Python topics (Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-240 through BAE-FDE-244 | Retrofitted 5 Python topics (File Handling & Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-235 through BAE-FDE-239 | Retrofitted 5 Python topics (Error Handling & File Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-230 through BAE-FDE-234 | Retrofitted 5 Python topics (Databases & Error Handling) with FDE scenarios and Section 18 AI Agent Instructions. |
