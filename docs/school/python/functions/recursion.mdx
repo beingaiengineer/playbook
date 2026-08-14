@@ -19,7 +19,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer dealing with a legacy system that requires processing a deeply nested JSON hierarchy or an org chart. While iterative loops become impossibly complex and hard to maintain when tracing unknown depths, recursion elegantly allows you to unpack those structures cleanly. You have to handle this nested hierarchy without causing stack overflows on constrained servers.
+
+## 3. Real-World Analogy
 
 Bro, think of recursion like looking for a specific file in a giant folder of folders on your computer.
 
@@ -32,7 +36,7 @@ Recursion is simply a function calling itself to solve a smaller piece of the sa
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Recursion happens when a function calls itself.
 
@@ -49,7 +53,7 @@ Don't use recursion when:
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Concept | Example |
 |---|---|
@@ -58,7 +62,7 @@ Don't use recursion when:
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 The classic example: calculating a factorial. The factorial of 5 (written as 5!) is `5 * 4 * 3 * 2 * 1`.
 
@@ -78,7 +82,7 @@ print(factorial(5))  # Output: 120
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In backend engineering, you often deal with nested data structures like massive JSON responses or organizational charts.
 
@@ -120,7 +124,7 @@ print(f"Total Team Size: {count_employees(org_chart)}")
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 Every time a function is called, Python creates a "Stack Frame" in memory to hold its local variables.
 
@@ -153,7 +157,7 @@ If you forget the base case, Python keeps creating stack frames until it runs ou
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity | Note |
 |---|---|---|
@@ -162,7 +166,7 @@ If you forget the base case, Python keeps creating stack frames until it runs ou
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -173,7 +177,7 @@ If you forget the base case, Python keeps creating stack frames until it runs ou
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, if you get asked to write the Fibonacci sequence recursively in an interview, be careful!
 
@@ -201,7 +205,7 @@ def fast_fib(n):
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Web Crawlers:** Visiting a webpage, finding all the links on it, and recursively visiting those links.
 - **File System Tools:** Deleting a directory that contains sub-directories (`rm -rf`).
@@ -209,7 +213,7 @@ def fast_fib(n):
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -218,14 +222,14 @@ def fast_fib(n):
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ **Production Note:**
 > Python has a hardcoded recursion limit (usually 1,000 calls) to protect the C-stack from overflowing and crashing the entire interpreter. If you are processing massive datasets, like a deeply nested JSON payload with thousands of levels, a recursive function will fail in production. In high-performance, robust systems, engineers often rewrite recursive algorithms using a standard `while` loop and a manual Stack data structure to avoid the `RecursionError`.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Missing Base Case:** The function runs forever.
 - **Unreachable Base Case:** `if n == 0:` but you pass in `-1` and subtract `1` every time. It never hits `0`.
@@ -251,3 +255,12 @@ def fast_fib(n):
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The Python language reference implementation | See how recursion limits are managed in the C source code. |
 | [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) | ⭐ 170k+ | All Algorithms implemented in Python | Great repository to study recursive algorithmic patterns like DFS or tree traversals. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include an explicit base case at the very top of recursive functions. | Missing base cases cause infinite recursion, leading to `RecursionError` and bringing down client processes. |
+| Limit Enforcement | Use `sys.setrecursionlimit()` cautiously, and prefer iterative solutions for deeply nested data structures. | Client systems often have strict memory limits; unbounded recursion can cause OOM crashes. |
+| Optimization | Implement memoization (e.g., `@lru_cache`) for recursive functions with overlapping subproblems. | Redundant calculations in recursive trees (like Fibonacci) exponentially degrade performance. |

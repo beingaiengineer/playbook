@@ -22,9 +22,7 @@ Bro, data types are how Python knows whether `+` means "add these numbers" or "g
 
 ## 2. Engineering Story
 
-You are building a login system. A user signs up and enters their age as `"25"` in a web form. The form sends that data to your Python backend. You write code that checks: `if age > 18: allow_login()`.
-
-But the server crashes with a massive `TypeError`. Why? Because the web form sent `"25"` as a **string** (text), and you tried to mathematically compare it to `18`, which is an **integer**. Python panicked because comparing words to math doesn't make sense. Understanding data types is the only way to safely move data from the outside world into your core logic.
+Bro, imagine you are a senior engineer processing a stream of incoming financial transactions from an external client API. The payload mixes string representations of numbers, floating-point decimals, and boolean flags. If you don't explicitly validate and cast these data types into the correct native structures before calculations, you'll end up with catastrophic bugs—like concatenating '10' and '20' to get '1020' instead of a mathematical sum of 30.
 
 ## 3. Real-World Analogy
 
@@ -203,3 +201,12 @@ Instead of `def process(user):`, they write `def process(user: dict) -> bool:`. 
 - [Variables](./variables.mdx)
 - [Operators](./operators.mdx)
 - [Type Conversion](./type-conversion.mdx)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use explicit type hinting (e.g., `def process(data: int) -> str:`) for function signatures. | Type hints enable static analysis tools (like `mypy`) to catch type-related bugs before deployment to client environments. |
+| Type Conversion | Explicitly cast external data (e.g., from JSON or APIs) to the expected internal data types (e.g., `int(payload['age'])`). | Implicit type assumptions lead to runtime errors when client systems send unexpected data formats. |
+| Validation | Use `isinstance()` to validate types when processing dynamic or weakly-structured data. | FDEs frequently encounter poorly typed inputs; validation prevents downstream logic failures. |
