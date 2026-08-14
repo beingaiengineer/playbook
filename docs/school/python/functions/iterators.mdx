@@ -19,7 +19,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer building a custom pagination client for a rate-limited third-party API that returns millions of records. You can't just fetch everything and return a massive array. You need an object that remembers exactly which page it is on, and only fetches the *next* chunk of data when the consumer explicitly asks for it, gracefully stopping when there are no more records left.
+
+---
+
+## 3. Real-World Analogy
 
 Think of an Iterator like scrolling through TikTok, bro.
 
@@ -29,7 +35,7 @@ An iterable (like a List) is the whole database of videos. The iterator is your 
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 An **Iterable** is an object you can loop over (like a list, string, or dictionary). It implements `__iter__()`, which returns an Iterator.
 
@@ -39,7 +45,7 @@ Bro, whenever you use a `for` loop in Python, it secretly grabs the iterator and
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -50,7 +56,7 @@ Bro, whenever you use a `for` loop in Python, it secretly grabs the iterator and
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at how Python lists use iterators internally.
 
@@ -69,7 +75,7 @@ print(next(fruit_iterator))  # banana
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Let's build a custom Iterator. Imagine we need a class that generates unique transaction IDs for a payment system up to a certain limit.
 
@@ -104,7 +110,7 @@ for txn_id in txn_gen:
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   diagram={{
@@ -131,7 +137,7 @@ When you write `for item in my_list:`, Python does this:
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity | Description |
 |---|---|---|
@@ -141,7 +147,7 @@ When you write `for item in my_list:`, Python does this:
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -152,7 +158,7 @@ When you write `for item in my_list:`, Python does this:
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, look at this classic interview trap:
 
@@ -169,7 +175,7 @@ Because checking `3 in my_iter` consumes the iterator up to the number 3. The it
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Where do companies actually use custom iterators?
 - **Database Cursors:** Fetching 100 rows at a time from a huge Postgres table.
@@ -178,7 +184,7 @@ Where do companies actually use custom iterators?
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -187,14 +193,14 @@ Where do companies actually use custom iterators?
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, when implementing custom iterators for network or database calls, ensure you handle network timeouts inside the `__next__` method properly. If `next()` blocks indefinitely, your entire application loop will hang!
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting `__iter__` on an Iterator:** If you don't return `self` in `__iter__`, you can't use your iterator in a `for` loop!
 - **Exhausting an Iterator accidentally:** Passing an iterator to a function that loops over it, and then trying to loop over it again later in your code. It will be empty.
@@ -213,3 +219,13 @@ Bro, when implementing custom iterators for network or database calls, ensure yo
 |---|---|---|---|
 | [more-itertools](https://github.com/more-itertools/more-itertools) | ⭐ 3.5k+ | More routines for operating on iterables | Great production code to study on how to build complex robust iterators. |
 | [vinta/awesome-python](https://github.com/vinta/awesome-python) | ⭐ 200k+ | A curated list of awesome Python frameworks | Contains numerous libraries utilizing iterator protocols for heavy data manipulation. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Protocol | When building custom iterators, always implement both `__iter__()` returning `self`, and `__next__()` raising `StopIteration`. | Incomplete iterator protocols break standard Python loops and functions like `list()`, `max()`, or `sum()`, causing unexpected runtime crashes. |
+| Exhaustion | Treat iterators as consumable streams. Do not assume an iterator can be iterated over multiple times. | Attempting to loop over an exhausted iterator does nothing, which can cause downstream logic to silently operate on empty datasets in production. |
+| Laziness | Only compute or fetch the next item within `__next__()`. Do not pre-compute all values during initialization. | Pre-computing defeats the entire memory-saving purpose of iterators and can crash production servers when handling massive datasets. |

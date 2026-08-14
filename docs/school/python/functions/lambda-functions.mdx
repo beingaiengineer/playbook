@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-When processing large data streams, engineers frequently need simple, throwaway transformation logic for a split second—such as extracting unique user IDs from a list of complex dictionary objects, or sorting a massive JSON payload by a specific nested key. Defining a full-fledged, named function for a single line of logic unnecessarily pollutes the global namespace and degrades code readability. We need a concise, inline way to define anonymous operations for higher-order functions.
+Bro, imagine you are a senior engineer dealing with a massive list of deeply nested JSON dictionaries from an external webhook. When processing large data streams, engineers frequently need simple, throwaway transformation logic for a split second—such as extracting unique user IDs from those complex dictionary objects, or sorting the payload by a specific nested key. Defining a full-fledged, named function for a single line of logic unnecessarily pollutes the global namespace and degrades code readability. We need a concise, inline way to define anonymous operations for higher-order functions.
 
 
 ## 3. Real-World Analogy
@@ -226,3 +226,14 @@ print(multipliers[0](5))
 - List Comprehensions (often a better alternative)
 - Sorting (`sorted()` and `.sort()`)
 - Closures
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Simplicity | Restrict lambdas to simple, single-expression operations (like sorting keys). Never use them for complex business logic. | Complex lambdas are unreadable and impossible to debug. If logic requires branching or multiple steps, a standard `def` must be used. |
+| Binding | Never assign a lambda function to a variable name (e.g., `func = lambda x: x * 2`). Use a standard `def` instead. | PEP 8 strictly forbids assigning lambdas to variables because it breaks tracebacks; unnamed lambdas show up as `<lambda>` in stack traces, complicating debugging. |
+| Alternative | Prefer list comprehensions or generator expressions over `map()` and `filter()` combined with lambdas. | Comprehensions are more pythonic, generally faster, and significantly easier for other engineers to read and maintain. |

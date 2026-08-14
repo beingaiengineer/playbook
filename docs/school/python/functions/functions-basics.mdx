@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-In a rapidly growing monolithic codebase, copying and pasting the same logic—like connecting to an RDS database or formatting UTC timestamps—across multiple modules creates a maintenance nightmare. When a bug is discovered, developers must hunt down and patch it in fifty different places. We require a mechanism to encapsulate complex logic into isolated, reusable execution blocks that can be invoked across the application, reducing technical debt and preventing code duplication.
+Bro, imagine you are a senior engineer inheriting a massive, chaotic script written by an intern. In a rapidly growing monolithic codebase, copying and pasting the same logic—like connecting to an RDS database or formatting UTC timestamps—across multiple modules creates a maintenance nightmare. When a bug is discovered, developers must hunt down and patch it in fifty different places. We require a mechanism to encapsulate complex logic into isolated, reusable execution blocks that can be invoked across the application, reducing technical debt and preventing code duplication.
 
 
 ## 3. Real-World Analogy
@@ -218,3 +218,14 @@ Every single Python application uses functions, bro.
 - Return Values
 - Lambda Functions
 - Scope (Local vs Global variables)
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Modularity | Always extract repeated chunks of procedural code into dedicated, cleanly named functions. | Duplicated code increases the blast radius of bugs and makes maintenance exponentially harder in production codebases. |
+| Naming | Use descriptive, action-oriented verbs for function names (e.g., `calculate_tax`, `fetch_user_data`). | Vague names like `process_data` force engineers to read the entire function body to understand its intent, wasting time during incidents. |
+| Purity | Favor pure functions that return values instead of modifying global state or arguments in-place. | Functions that rely on or mutate global state cause unpredictable side effects and are incredibly difficult to unit test reliably. |

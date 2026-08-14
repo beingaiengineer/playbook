@@ -19,7 +19,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior data engineer tasked with parsing a 50GB server access log file to find malicious IP addresses. If you try to read all those logs into a standard Python list, your EC2 instance will instantly run out of memory and get OOM-killed. You can't load everything at once; you need a way to stream the data, processing exactly one log line at a time, keeping your memory footprint tiny while still looping cleanly through the dataset.
+
+---
+
+## 3. Real-World Analogy
 
 Think of a generator like a water tap versus a bucket, bro.
 
@@ -29,7 +35,7 @@ A generator is like a water tap. You ask for water, and it gives you exactly one
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A generator is a special type of function that returns an iterator. Instead of computing everything at once and returning a massive list, a generator uses the `yield` keyword to pause its execution, return a single value, and wait until it is asked for the next one.
 
@@ -37,7 +43,7 @@ Bro, this is called **lazy evaluation**. It only calculates the next item when r
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -47,7 +53,7 @@ Bro, this is called **lazy evaluation**. It only calculates the next item when r
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at a simple countdown generator.
 
@@ -71,7 +77,7 @@ Bro, notice how the function "pauses" at `yield` and remembers its state (`num`)
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Here's how backend engineers use generators to read massive 50GB log files without crashing the server's RAM.
 
@@ -92,7 +98,7 @@ for log in log_stream:
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   diagram={{
@@ -117,7 +123,7 @@ The next time `next()` is called, it unfreezes exactly where it left off, right 
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Structure | Memory Complexity | Best For |
 |---|---|---|
@@ -126,7 +132,7 @@ The next time `next()` is called, it unfreezes exactly where it left off, right 
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -137,7 +143,7 @@ The next time `next()` is called, it unfreezes exactly where it left off, right 
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Look at this trap, bro. What happens if you try to get the length of a generator?
 
@@ -151,7 +157,7 @@ Generators don't know how many items they have! They only know how to calculate 
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Where do companies actually use generators?
 - **Data Pipelines:** ETL processes reading large CSVs/JSONs chunk by chunk.
@@ -161,7 +167,7 @@ Where do companies actually use generators?
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -170,14 +176,14 @@ Where do companies actually use generators?
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, generators are stateful single-pass streams. If you pass a generator to two different functions in your codebase thinking they will both see the data, the second function will get an empty sequence! If you need multiple passes, either recreate the generator or, if memory allows, convert it to a list using `list(gen)`.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Re-using Exhausted Generators:** Thinking a generator acts like a list you can loop over multiple times.
 - **Returning instead of Yielding:** Mixing up `return` inside a generator loop, which immediately stops iteration.
@@ -196,3 +202,13 @@ Bro, generators are stateful single-pass streams. If you pass a generator to two
 |---|---|---|---|
 | [dabeaz/generators](https://github.com/dabeaz/generators) | ⭐ 2k+ | Python Generators Tutorial | The legendary PyCon tutorial by David Beazley on using generators for system programming. |
 | [encode/httpx](https://github.com/encode/httpx) | ⭐ 15k+ | A next generation HTTP client for Python | Uses advanced generator features for async streams and chunked data handling in networking. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Streaming | Always use generators (`yield`) instead of returning large lists when processing files, databases, or large datasets. | Returning massive lists causes OOM (Out of Memory) kills in constrained production environments like AWS Lambdas or small containers. |
+| State | Never attempt to index into a generator or reset it. If multiple passes are needed, recreate the generator or persist the necessary data. | Generators are single-pass iterators. Trying to reuse them after they are exhausted leads to silent bugs where the loop simply does nothing. |
+| Cleanup | Use context managers (`with` statements) inside generators to ensure resources (like files or network connections) are closed even if the generator is only partially consumed. | If a generator is abandoned before completion, open file handles or connections can leak, leading to resource exhaustion on the server. |

@@ -19,7 +19,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ---
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer scaling a legacy Flask monolith. You have 50 different API endpoints that suddenly need JWT authentication and role-based access control (RBAC). If you copy-paste the token validation logic into every single route, you're going to create a maintenance nightmare and inevitably miss one, causing a massive security breach. We need a way to wrap existing functions with this security logic seamlessly, without modifying the underlying core business logic of each endpoint.
+
+---
+
+## 3. Real-World Analogy
 
 Think of a decorator like a bouncer at an exclusive club, bro.
 
@@ -29,7 +35,7 @@ The core VIP room logic never changes, but we "decorated" it with a security che
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A decorator is a function that takes another function and extends its behavior without explicitly modifying it. In Python, functions are first-class citizens, meaning you can pass them around as arguments to other functions and return them.
 
@@ -37,7 +43,7 @@ Bro, this is insanely powerful. If you have 50 API routes that all need to check
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -47,7 +53,7 @@ Bro, this is insanely powerful. If you have 50 API routes that all need to check
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at a simple timer decorator.
 
@@ -72,7 +78,7 @@ Bro, notice how `greet` itself returns lowercase, but when we call it, the decor
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Here's a classic engineering use case: a decorator that calculates how long a function takes to execute. This is huge for debugging slow endpoints or database queries.
 
@@ -101,7 +107,7 @@ heavy_computation()
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   diagram={{
@@ -127,7 +133,7 @@ When you put `@decorator` above a function, Python essentially does this: `func 
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Complexity / Impact |
 |---|---|
@@ -139,7 +145,7 @@ Bro, the performance impact of the wrapper is generally negligible unless you ar
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -150,7 +156,7 @@ Bro, the performance impact of the wrapper is generally negligible unless you ar
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Look at this stacked decorator scenario. It's a classic trap during interviews.
 
@@ -179,7 +185,7 @@ Bro, remember: decorators are applied from the bottom up! First `make_italic` wr
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Where do companies actually use decorators?
 - **Web Frameworks:** Routing in Flask/FastAPI (`@app.get("/")`).
@@ -190,7 +196,7 @@ Where do companies actually use decorators?
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -200,14 +206,14 @@ Where do companies actually use decorators?
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, beware of decorators hiding errors. If your decorator has a broad `except Exception: pass` block, it will swallow errors from your core function, making production debugging a total nightmare. Always log exceptions if your decorator handles them, and explicitly raise them if the caller should know.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **Forgetting to return the wrapper:** Your decorator must return the nested wrapper function, or the decorated function becomes `None`!
 - **Forgetting to return the original function's result inside the wrapper:** If you call `func()` but don't `return` it, your decorated function will silently return `None`.
@@ -227,3 +233,13 @@ Bro, beware of decorators hiding errors. If your decorator has a broad `except E
 |---|---|---|---|
 | [micheles/decorator](https://github.com/micheles/decorator) | ⭐ 1k+ | Python decorator module | A great library to see how complex decorators can be implemented while preserving signatures. |
 | [pallets/flask](https://github.com/pallets/flask) | ⭐ 65k+ | The Python micro framework | Flask uses decorators extensively for routing (e.g., `@app.route`), an excellent production reference. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Preservation | Always use `@wraps` from the `functools` module when creating decorators. | Failing to use `@wraps` overwrites the original function's `__name__` and `__doc__`, breaking auto-generated documentation and confusing debuggers in production. |
+| Introspection | Ensure decorators forward both `*args` and `**kwargs` accurately to the wrapped function. | Hardcoding parameters in the inner wrapper breaks if the underlying function signature changes, causing rigid, fragile decorators. |
+| Context | Keep decorators completely decoupled from the specific arguments of the function they wrap unless explicitly designed to inspect them. | Tightly coupling a decorator to a specific function's signature defeats the purpose of decorators as generic, reusable middleware. |
