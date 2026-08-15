@@ -49,11 +49,6 @@ Ready for next planning phase.
 
 
 
-- [ ] [BAE-FDE-275] | Retrofit FDE + Section 18: `oops/classes-objects.mdx`
-- [ ] [BAE-FDE-276] | Retrofit FDE + Section 18: `oops/composition-vs-inheritance.mdx`
-- [ ] [BAE-FDE-277] | Retrofit FDE + Section 18: `oops/constructors.mdx`
-- [ ] [BAE-FDE-278] | Retrofit FDE + Section 18: `oops/dataclasses.mdx`
-- [ ] [BAE-FDE-279] | Retrofit FDE + Section 18: `oops/encapsulation.mdx`
 - [ ] [BAE-FDE-280] | Retrofit FDE + Section 18: `oops/inheritance.mdx`
 - [ ] [BAE-FDE-281] | Retrofit FDE + Section 18: `oops/magic-methods.mdx`
 - [ ] [BAE-FDE-282] | Retrofit FDE + Section 18: `oops/polymorphism.mdx`
@@ -353,6 +348,12 @@ _Empty_
 - [x] [BAE-FDE-243] | Retrofit FDE + Section 18: `functions/arguments-parameters.mdx`
 - [x] [BAE-FDE-244] | Retrofit FDE + Section 18: `functions/closures.mdx`
 
+- [x] [BAE-FDE-270] | Retrofit FDE + Section 18: `modules-packages/packages.mdx`
+- [x] [BAE-FDE-271] | Retrofit FDE + Section 18: `modules-packages/pip.mdx`
+- [x] [BAE-FDE-272] | Retrofit FDE + Section 18: `modules-packages/pyproject-toml.mdx`
+- [x] [BAE-FDE-273] | Retrofit FDE + Section 18: `modules-packages/virtual-environments.mdx`
+- [x] [BAE-FDE-274] | Retrofit FDE + Section 18: `oops/abstraction.mdx`
+
 ## Dependencies
 
 No active dependencies.
@@ -367,6 +368,7 @@ No active blockers.
 
 ## Lessons Learned
 
+- When updating the MEMORY.md `### Next Task` and `## Execution Review` tables programmatically with Python string replacement or regex, be exceptionally careful about newline structures to avoid breaking Markdown formatting (e.g., adding blank rows to tables or squishing tasks together).
 - When fixing broken Docusaurus image links across multiple subdirectories, verify the exact relative path required (e.g., `../assets/` vs `../../assets/`). Use `npm run build` after fixing paths to strictly ensure no broken images remain before committing.
 
 
@@ -380,24 +382,25 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 224
-- Lessons Remaining: 62
-- Completion %: 78.3%
-- Open Tasks: 93
+- Lessons Completed: 229
+- Lessons Remaining: 57
+- Completion %: 80.0%
+- Open Tasks: 88
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-270] | Retrofit FDE + Section 18: `modules-packages/packages.mdx`
-- [ ] [BAE-FDE-271] | Retrofit FDE + Section 18: `modules-packages/pip.mdx`
-- [ ] [BAE-FDE-272] | Retrofit FDE + Section 18: `modules-packages/pyproject-toml.mdx`
-- [ ] [BAE-FDE-273] | Retrofit FDE + Section 18: `modules-packages/virtual-environments.mdx`
-- [ ] [BAE-FDE-274] | Retrofit FDE + Section 18: `oops/abstraction.mdx`
+- [ ] [BAE-FDE-275] | Retrofit FDE + Section 18: `oops/classes-objects.mdx`
+- [ ] [BAE-FDE-276] | Retrofit FDE + Section 18: `oops/composition-vs-inheritance.mdx`
+- [ ] [BAE-FDE-277] | Retrofit FDE + Section 18: `oops/constructors.mdx`
+- [ ] [BAE-FDE-278] | Retrofit FDE + Section 18: `oops/dataclasses.mdx`
+- [ ] [BAE-FDE-279] | Retrofit FDE + Section 18: `oops/encapsulation.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-270 through BAE-FDE-274 | Retrofitted 5 Python topics (Modules/Packages & OOP) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-265 through BAE-FDE-269 | Retrofitted 5 Python topics (Intro & Modules) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-260 through BAE-FDE-264 | Retrofitted 5 Python topics (Interview Prep & Intro) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-255 through BAE-FDE-259 | Retrofitted 5 Python topics (Fundamentals & Interview Prep) with FDE scenarios and Section 18 AI Agent Instructions. |
