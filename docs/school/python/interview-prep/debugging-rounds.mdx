@@ -22,8 +22,7 @@ Bro, debugging interviews test your thinking process more than your memory.
 
 ## 2. Engineering Story
 
-Bro, imagine you are a senior engineer dealing with a massive memory leak in a financial trading platform.
-The system is failing, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the architecture, and realize the problem requires a deep understanding of these core principles. By applying these standards, you stabilize the system, save the company thousands of dollars, and turn a disaster into a masterclass on robust engineering.
+Bro, imagine you are a senior engineer in a live debugging interview where the interviewer gives you a broken script and you need to systematically isolate the bug while explaining your thought process aloud. The system is failing, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the architecture, and realize the problem requires a deep understanding of these core principles. By applying these standards, you stabilize the system, save the company thousands of dollars, and turn a disaster into a masterclass on robust engineering.
 
 ## 3. Real-World Analogy
 
@@ -118,7 +117,7 @@ Used in backend incidents, test failures, data jobs, and API production support.
 
 ---
 
-## 17. Advanced Top Debugging Patterns
+### Advanced Top Debugging Patterns
 1. **Binary Search Debugging (Git Bisect)**: When a system suddenly breaks and no one knows why, use `git bisect` to binary search your commit history. It finds the exact commit that introduced the bug in `O(log N)` time.
 2. **Rubber Ducking the Call Stack**: Go through the stack trace line by line out loud. Often, engineers skip the middle of the stack trace, assuming the framework is broken, when actually a middleware they wrote modified the request payload.
 3. **Isolating State**: Flaky bugs are almost always caused by shared state (global variables, database singletons, or thread locals). Write a test that runs the function 100 times concurrently to prove the race condition.
@@ -139,15 +138,24 @@ Used in backend incidents, test failures, data jobs, and API production support.
 - Testing
 - Performance
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 50k+ | The core language itself has great debugging examples | Highly relevant to understanding debugging rounds in production. |
 
-## 17. Final Interview Advice
+### Final Interview Advice
 
 > BAE's Top Tip:
 > Don't just memorize these patterns. Understand *why* they exist. 
 > In a real interview, the interviewer cares more about how you communicate tradeoffs than whether you wrote a perfect one-liner.
 > If you get stuck, always verbalize your thought process! "I know a hash map gives O(1) lookup, but it will cost O(N) space. Let's start with that and optimize later."
+
+
+## 18. AI Agent Instructions
+
+| Agent | Task | Example Scenario |
+|---|---|---|
+| Claude | Generate a boilerplate based on the concept | "Generate a Python snippet that demonstrates this concept in a FastAPI route." |
+| GPT-4 | Refactor bad code to good code | "Take this nested loop and refactor it using this concept." |
+| GitHub Copilot | Autocomplete boilerplate | "Write tests for the function using this concept." |
