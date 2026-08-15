@@ -20,6 +20,8 @@ import InterviewCheatSheet from '@site/src/components/InterviewCheatSheet';
 Bro, tricky questions test whether you understand Python behavior under pressure.
 
 ## 2. Engineering Story
+**FDE Scenario:** Imagine you are a senior engineer debugging a production incident at 3 AM because a newly hired junior engineer misunderstood a tricky Python edge case.
+
 
 A seasoned Java developer transitioned to Python and deployed a microservice with a function that used a mutable list as a default argument `def add_item(item, cache=[])`. After running perfectly in staging, production traffic hit, and users suddenly started seeing each other's private data mixed together. A grueling debugging session revealed the classic Python trap: default arguments are evaluated only once at definition time, creating a shared state across all function calls.
 
@@ -149,3 +151,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 |---|---|---|---|
 | [satwikkansal/wtfpython](https://github.com/satwikkansal/wtfpython) | ⭐ 35k+ | What the f*** Python? | A fascinating collection of surprising snippets and edge cases in Python. |
 | [yasoob/intermediatePython](https://github.com/yasoob/intermediatePython) | ⭐ 15k+ | Python tips and tricks | Covers many concepts that often trip up developers in tricky interview questions. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Explicit Edge Cases | Always highlight the specific edge case or quirk being tested when generating explanations for tricky questions. | FDEs need to recognize patterns like mutable defaults or variable shadowing to avoid common traps. |
+| Clear Remediation | When explaining a tricky trap, always provide the corrected, safe approach alongside the dangerous one. | Knowing the trap is only half the battle; knowing the production-safe fix is essential. |

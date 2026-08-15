@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 Bro, system design answers should sound like you have operated real services.
 
 ## 2. Engineering Story
+**FDE Scenario:** Imagine you are a senior engineer stepping in to help a startup scale their Python backend. The system design round is basically just simulating this exact scaling crisis.
+
 
 Bro, imagine you are a senior engineer dealing with a complete architectural rewrite for a streaming service during a massive traffic spike.
 The system is failing, alerts are firing, and the junior developers are panicking. You sit down, calmly look at the architecture, and realize the problem requires a deep understanding of these core principles. By applying these standards, you stabilize the system, save the company thousands of dollars, and turn a disaster into a masterclass on robust engineering.
@@ -149,3 +151,11 @@ Used in backend, platform, AI systems, and senior engineering interviews.
 > Don't just memorize these patterns. Understand *why* they exist. 
 > In a real interview, the interviewer cares more about how you communicate tradeoffs than whether you wrote a perfect one-liner.
 > If you get stuck, always verbalize your thought process! "I know a hash map gives O(1) lookup, but it will cost O(N) space. Let's start with that and optimize later."
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Trade-off Analysis | Always explicitly state the trade-offs of any system design choice (e.g., latency vs. consistency). | FDEs must show they understand that no system design is perfect, only optimized for specific constraints. |
+| Scalability Focus | Prioritize solutions that scale horizontally rather than relying solely on vertical scaling. | Production systems eventually outgrow single-machine capabilities. |
