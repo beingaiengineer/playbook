@@ -22,9 +22,12 @@ Bro, Python is an interpreted, high-level, general-purpose programming language.
 
 ## 2. Engineering Story
 
+Bro, imagine you are an architect deciding the tech stack for a new massive scale service. You need something that allows your team of 50 developers to ship features daily without getting bogged down in memory management. Knowing exactly what Python is—and what it isn't—is how you make million-dollar technical decisions.
+
 Imagine you are hired to build a fast-moving startup's backend. The founders want a web server, a daily data processing cron job, and an AI integration to summarize user feedback. If you build this in C++, your backend will be blazing fast, but it will take you six months to handle memory safety, threading, and compiling on different servers. The startup will run out of money before you finish.
 
 If you choose Python, you can spin up a FastAPI server in an hour, use Pandas for the daily data job, and drop in the OpenAI SDK for the summaries. Python trades raw CPU speed for developer velocity. In the modern cloud era, servers are cheap, but engineers are expensive. Python optimizes for the engineer's time.
+
 
 ## 3. Real-World Analogy
 
@@ -183,3 +186,12 @@ Every major tech company uses Python heavily.
 - [Setup Python](./setup-python.mdx)
 - [Python Execution Flow](./python-execution-flow.mdx)
 - [Variables](../fundamentals/variables.mdx)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Context | Always assume the code runs in a production environment (like a Docker container or managed cloud service). | FDE scenarios require code that is resilient and independent of local machine quirks. |
+| Dependency Isolation | When generating setup instructions, always explicitly mandate the creation and activation of a virtual environment before installing packages. | Prevents global namespace pollution and conflicting dependency versions, a common cause of production outages. |
+| Import Structure | When writing modules, always group standard library imports, third-party imports, and local application imports separately. | Enforces clean architecture and makes it instantly clear where dependencies are coming from during an incident. |

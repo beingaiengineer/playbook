@@ -12,7 +12,10 @@ Bro, dependency management is how you control the external libraries (like `requ
 
 ## 2. Engineering Story
 
+Bro, imagine you are a release engineer. A minor, unpinned dependency deeply nested in your web framework releases a breaking change on a Friday night. Your CI/CD pipelines start failing globally. Strict dependency management is what prevents a single rogue package from bringing down an entire cloud architecture.
+
 Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding dependency management, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
+
 
 ## 3. Real-World Analogy
 Imagine baking a highly specific cake. If the recipe just says "use flour," one baker might use all-purpose, another bread flour, and your cake gets ruined. Dependency management is writing a recipe that says: "Use exactly King Arthur All-Purpose Flour, Version 2.0." It guarantees the end result is always identical.
@@ -159,8 +162,17 @@ In a real CI/CD pipeline, the build step should *never* resolve dependencies. It
 - **Pip:** The underlying package installer used by almost all Python dependency managers.
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The official Python implementation | It shows how Dependency Management is implemented under the hood in C. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Context | Always assume the code runs in a production environment (like a Docker container or managed cloud service). | FDE scenarios require code that is resilient and independent of local machine quirks. |
+| Dependency Isolation | When generating setup instructions, always explicitly mandate the creation and activation of a virtual environment before installing packages. | Prevents global namespace pollution and conflicting dependency versions, a common cause of production outages. |
+| Import Structure | When writing modules, always group standard library imports, third-party imports, and local application imports separately. | Enforces clean architecture and makes it instantly clear where dependencies are coming from during an incident. |

@@ -22,9 +22,12 @@ Bro, setup is not just installation. Good setup makes your code easier to run, t
 
 ## 2. Engineering Story
 
+Bro, imagine you are an SRE trying to debug a script on a staging server. You run `pip install`, and suddenly a global dependency breaks, bringing down another microservice running on the same box. Proper environment setup is the first line of defense against infrastructure chaos in production.
+
 Imagine you are a new hire at a mid-sized tech company. Your manager asks you to run a legacy data-processing script. You proudly type `python run.py` and immediately get an error: `ImportError: No module named 'pandas'`. So, you run `pip install pandas`. Then it complains about `numpy`. You install that. Then it crashes because your system Python is version 3.12, but the script relies on a deprecated feature from version 3.8.
 
 You spend the entire afternoon fighting your operating system instead of writing code. This is the reality of poor environment setup. If the original engineer had used proper dependency management and a virtual environment, you could have run two commands and been coding in five minutes. In production, a clean setup separates the amateurs from the pros.
+
 
 ## 3. Real-World Analogy
 
@@ -175,3 +178,12 @@ In modern DevOps, managing Python environments has evolved beyond just `venv` an
 - [First Python Program](./first-python-program.mdx)
 - [Modules & Packages](../modules-packages/modules.mdx)
 - [Dependency Management](../modules-packages/dependency-management.mdx)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Context | Always assume the code runs in a production environment (like a Docker container or managed cloud service). | FDE scenarios require code that is resilient and independent of local machine quirks. |
+| Dependency Isolation | When generating setup instructions, always explicitly mandate the creation and activation of a virtual environment before installing packages. | Prevents global namespace pollution and conflicting dependency versions, a common cause of production outages. |
+| Import Structure | When writing modules, always group standard library imports, third-party imports, and local application imports separately. | Enforces clean architecture and makes it instantly clear where dependencies are coming from during an incident. |

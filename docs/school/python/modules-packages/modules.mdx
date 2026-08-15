@@ -22,7 +22,10 @@ Bro, writing a 5,000-line Python script is a nightmare to read and debug. Module
 
 ## 2. Engineering Story
 
+Bro, imagine you are refactoring a massive monolithic Python application with over a million lines of code. The code is tangled, and changing one thing breaks ten others. Understanding how to properly isolate code into clean, independent modules is the only way to scale the codebase without it collapsing under its own weight.
+
 Bro, imagine you're deploying a large-scale system at a tech giant like Zomato. You have complex logic for handling high concurrency and massive data flows. Without understanding modules, you might end up with severe performance bottlenecks or unmaintainable code that breaks under pressure. Mastering this concept is crucial for building robust, production-ready systems that can handle real-world scale smoothly.
+
 
 ## 3. Real-World Analogy
 
@@ -234,8 +237,17 @@ Shadowing is a massive headache. If you create a file named `json.py` in your pr
 - Python Execution Flow
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The official Python implementation | It shows how Modules is implemented under the hood in C. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Context | Always assume the code runs in a production environment (like a Docker container or managed cloud service). | FDE scenarios require code that is resilient and independent of local machine quirks. |
+| Dependency Isolation | When generating setup instructions, always explicitly mandate the creation and activation of a virtual environment before installing packages. | Prevents global namespace pollution and conflicting dependency versions, a common cause of production outages. |
+| Import Structure | When writing modules, always group standard library imports, third-party imports, and local application imports separately. | Enforces clean architecture and makes it instantly clear where dependencies are coming from during an incident. |

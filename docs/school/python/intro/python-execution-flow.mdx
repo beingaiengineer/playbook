@@ -22,9 +22,12 @@ Bro, understanding execution flow is the difference between writing code that "j
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior platform engineer dealing with a mysterious production issue. The API takes minutes to warm up, and sometimes crashes right after deployment because of a typo. Understanding Python's execution flow isn't just theory—it's how you debug why a server fails before it even runs your first log statement.
+
 Imagine you deploy a new Python server handling user logins. It works perfectly on your local machine. But in production, you notice the server takes an unusually long time to start up, and occasionally throws weird `SyntaxError` crashes on lines of code that haven't even executed yet.
 
 If you don't understand Python's execution flow, you will assume the code failed while running. But the truth is, Python *compiles* your entire file before it runs a single line. The startup delay is the compilation phase, and the `SyntaxError` proves that the compiler caught a typo at the bottom of the file before the top of the file ever executed. Understanding this two-step process saves you hours of wild goose chases.
+
 
 ## 3. Real-World Analogy
 
@@ -175,3 +178,12 @@ When deploying serverless architectures (like AWS Lambda), cold-start times are 
 - [What is Python](./what-is-python.mdx)
 - [First Python Program](./first-python-program.mdx)
 - [Error Handling - Exceptions](../error-handling/exceptions.mdx)
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Context | Always assume the code runs in a production environment (like a Docker container or managed cloud service). | FDE scenarios require code that is resilient and independent of local machine quirks. |
+| Dependency Isolation | When generating setup instructions, always explicitly mandate the creation and activation of a virtual environment before installing packages. | Prevents global namespace pollution and conflicting dependency versions, a common cause of production outages. |
+| Import Structure | When writing modules, always group standard library imports, third-party imports, and local application imports separately. | Enforces clean architecture and makes it instantly clear where dependencies are coming from during an incident. |
