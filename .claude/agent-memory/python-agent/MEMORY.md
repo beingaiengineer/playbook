@@ -49,11 +49,6 @@ Ready for next planning phase.
 
 
 
-- [ ] [BAE-FDE-270] | Retrofit FDE + Section 18: `modules-packages/packages.mdx`
-- [ ] [BAE-FDE-271] | Retrofit FDE + Section 18: `modules-packages/pip.mdx`
-- [ ] [BAE-FDE-272] | Retrofit FDE + Section 18: `modules-packages/pyproject-toml.mdx`
-- [ ] [BAE-FDE-273] | Retrofit FDE + Section 18: `modules-packages/virtual-environments.mdx`
-- [ ] [BAE-FDE-274] | Retrofit FDE + Section 18: `oops/abstraction.mdx`
 - [ ] [BAE-FDE-275] | Retrofit FDE + Section 18: `oops/classes-objects.mdx`
 - [ ] [BAE-FDE-276] | Retrofit FDE + Section 18: `oops/composition-vs-inheritance.mdx`
 - [ ] [BAE-FDE-277] | Retrofit FDE + Section 18: `oops/constructors.mdx`
@@ -96,6 +91,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-265] | Retrofit FDE + Section 18: `intro/python-execution-flow.mdx`
+- [x] [BAE-FDE-266] | Retrofit FDE + Section 18: `intro/setup-python.mdx`
+- [x] [BAE-FDE-267] | Retrofit FDE + Section 18: `intro/what-is-python.mdx`
+- [x] [BAE-FDE-268] | Retrofit FDE + Section 18: `modules-packages/dependency-management.mdx`
+- [x] [BAE-FDE-269] | Retrofit FDE + Section 18: `modules-packages/modules.mdx`
 - [x] [BAE-FDE-260] | Retrofit FDE + Section 18: `interview-prep/senior-python-questions.mdx`
 - [x] [BAE-FDE-261] | Retrofit FDE + Section 18: `interview-prep/system-design-rounds.mdx`
 - [x] [BAE-FDE-262] | Retrofit FDE + Section 18: `interview-prep/top-python-interview-questions.mdx`
@@ -380,24 +380,25 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 219
-- Lessons Remaining: 67
-- Completion %: 76.6%
-- Open Tasks: 98
+- Lessons Completed: 224
+- Lessons Remaining: 62
+- Completion %: 78.3%
+- Open Tasks: 93
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-265] | Retrofit FDE + Section 18: `intro/python-execution-flow.mdx`
-- [ ] [BAE-FDE-266] | Retrofit FDE + Section 18: `intro/setup-python.mdx`
-- [ ] [BAE-FDE-267] | Retrofit FDE + Section 18: `intro/what-is-python.mdx`
-- [ ] [BAE-FDE-268] | Retrofit FDE + Section 18: `modules-packages/dependency-management.mdx`
-- [ ] [BAE-FDE-269] | Retrofit FDE + Section 18: `modules-packages/modules.mdx`
+- [ ] [BAE-FDE-270] | Retrofit FDE + Section 18: `modules-packages/packages.mdx`
+- [ ] [BAE-FDE-271] | Retrofit FDE + Section 18: `modules-packages/pip.mdx`
+- [ ] [BAE-FDE-272] | Retrofit FDE + Section 18: `modules-packages/pyproject-toml.mdx`
+- [ ] [BAE-FDE-273] | Retrofit FDE + Section 18: `modules-packages/virtual-environments.mdx`
+- [ ] [BAE-FDE-274] | Retrofit FDE + Section 18: `oops/abstraction.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-265 through BAE-FDE-269 | Retrofitted 5 Python topics (Intro & Modules) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-260 through BAE-FDE-264 | Retrofitted 5 Python topics (Interview Prep & Intro) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-255 through BAE-FDE-259 | Retrofitted 5 Python topics (Fundamentals & Interview Prep) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-250 through BAE-FDE-254 | Retrofitted 5 Python topics (Functions & Fundamentals) with FDE scenarios and Section 18 AI Agent Instructions. |
