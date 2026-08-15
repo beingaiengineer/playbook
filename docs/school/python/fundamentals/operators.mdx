@@ -22,6 +22,8 @@ Bro, operators are the verbs of the programming world. Without them, variables j
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer troubleshooting a bug where precision errors in floating-point division are causing financial discrepancies in your company's billing system. You need to use the right operators to ensure correct calculations.
+
 Imagine you are writing the logic for a banking app's withdrawal feature. A user wants to withdraw $500. You write: `if user_balance = 500: allow_withdrawal()`.
 
 You deploy the code. The next day, every single user on your app, regardless of how much money they actually had, is able to withdraw $500. Why? Because you used a single `=` (assignment operator), which forced their balance to become 500, instead of `==` (comparison operator), which would have checked if their balance was actually 500. A single missing character cost the bank millions. Understanding the strict differences between operators is non-negotiable.
@@ -192,3 +194,19 @@ In complex data pipelines (like Pandas or PySpark), standard Python loops with o
 - [Data Types](./data-types.mdx)
 - [Variables](./variables.mdx)
 - [If-Else Control Flow](../control-flow/if-else.mdx)
+
+
+
+## 17. Top GitHub Repositories
+
+| Repository | Stars | Description | Why It Matters |
+|---|---|---|---|
+| [python/cpython](https://github.com/python/cpython) | ⭐ 50k+ | The official Python repository | Relevant to understand how Python works internally. |
+
+## 18. AI Agent Instructions
+
+| Agent | Task | Example Scenario |
+|---|---|---|
+| Claude | Generate a boilerplate based on the concept | "Generate a Python snippet that demonstrates this concept in a FastAPI route." |
+| GPT-4 | Refactor bad code to good code | "Take this nested loop and refactor it using this concept." |
+| GitHub Copilot | Autocomplete boilerplate | "Write tests for the function using this concept." |

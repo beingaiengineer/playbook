@@ -49,11 +49,6 @@ Ready for next planning phase.
 
 
 
-- [ ] [BAE-FDE-260] | Retrofit FDE + Section 18: `interview-prep/senior-python-questions.mdx`
-- [ ] [BAE-FDE-261] | Retrofit FDE + Section 18: `interview-prep/system-design-rounds.mdx`
-- [ ] [BAE-FDE-262] | Retrofit FDE + Section 18: `interview-prep/top-python-interview-questions.mdx`
-- [ ] [BAE-FDE-263] | Retrofit FDE + Section 18: `interview-prep/tricky-python-questions.mdx`
-- [ ] [BAE-FDE-264] | Retrofit FDE + Section 18: `intro/first-python-program.mdx`
 - [ ] [BAE-FDE-265] | Retrofit FDE + Section 18: `intro/python-execution-flow.mdx`
 - [ ] [BAE-FDE-266] | Retrofit FDE + Section 18: `intro/setup-python.mdx`
 - [ ] [BAE-FDE-267] | Retrofit FDE + Section 18: `intro/what-is-python.mdx`
@@ -106,6 +101,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-255] | Retrofit FDE + Section 18: `fundamentals/operators.mdx`
+- [x] [BAE-FDE-256] | Retrofit FDE + Section 18: `fundamentals/type-conversion.mdx`
+- [x] [BAE-FDE-257] | Retrofit FDE + Section 18: `fundamentals/variables.mdx`
+- [x] [BAE-FDE-258] | Retrofit FDE + Section 18: `interview-prep/coding-round-patterns.mdx`
+- [x] [BAE-FDE-259] | Retrofit FDE + Section 18: `interview-prep/debugging-rounds.mdx`
 - [x] [BAE-FDE-250] | Retrofit FDE + Section 18: `functions/recursion.mdx`
 - [x] [BAE-FDE-251] | Retrofit FDE + Section 18: `functions/return-values.mdx`
 - [x] [BAE-FDE-252] | Retrofit FDE + Section 18: `fundamentals/comments-docstrings.mdx`
@@ -371,6 +371,7 @@ No active blockers.
 
 
 - When checking off tasks in MEMORY.md, always remove them from the `### Next Task` section and append them to the `### DONE` section to maintain queue cleanliness, and promote the next batch of uncompleted tasks from the backlog if necessary.
+- When retrofitting MDX files, ensure that dynamically injected headings (like `## 17. Top GitHub Repositories`) do not conflict with existing topic-specific extra headings, and safely demote any extra content to `###` to comply with the 16+2 standard sections.
 - When injecting new FDE scenarios and Section 18 to older MDX files, be sure to gracefully handle cases where Section 2 ("Engineering Story") or Section 17 ("Top GitHub Repositories") might be named differently or missing.
 
 No reusable insights recorded yet.
@@ -387,16 +388,17 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-255] | Retrofit FDE + Section 18: `fundamentals/operators.mdx`
-- [ ] [BAE-FDE-256] | Retrofit FDE + Section 18: `fundamentals/type-conversion.mdx`
-- [ ] [BAE-FDE-257] | Retrofit FDE + Section 18: `fundamentals/variables.mdx`
-- [ ] [BAE-FDE-258] | Retrofit FDE + Section 18: `interview-prep/coding-round-patterns.mdx`
-- [ ] [BAE-FDE-259] | Retrofit FDE + Section 18: `interview-prep/debugging-rounds.mdx`
+- [ ] [BAE-FDE-260] | Retrofit FDE + Section 18: `interview-prep/senior-python-questions.mdx`
+- [ ] [BAE-FDE-261] | Retrofit FDE + Section 18: `interview-prep/system-design-rounds.mdx`
+- [ ] [BAE-FDE-262] | Retrofit FDE + Section 18: `interview-prep/top-python-interview-questions.mdx`
+- [ ] [BAE-FDE-263] | Retrofit FDE + Section 18: `interview-prep/tricky-python-questions.mdx`
+- [ ] [BAE-FDE-264] | Retrofit FDE + Section 18: `intro/first-python-program.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-255 through BAE-FDE-259 | Retrofitted 5 Python topics (Fundamentals & Interview Prep) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-250 through BAE-FDE-254 | Retrofitted 5 Python topics (Functions & Fundamentals) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-245 through BAE-FDE-249 | Retrofitted 5 Python topics (Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-240 through BAE-FDE-244 | Retrofitted 5 Python topics (File Handling & Functions) with FDE scenarios and Section 18 AI Agent Instructions. |
