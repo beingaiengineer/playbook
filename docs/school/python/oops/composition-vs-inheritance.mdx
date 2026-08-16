@@ -19,7 +19,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A game engine originally used deep inheritance to model entities (e.g., `FlyingEnemy` inherits from `Enemy` inherits from `Entity`). When designers requested a `FlyingSwimmingEnemy`, the inheritance tree broke down into the diamond problem. By favoring composition, engineers break behaviors into modular components (`WingComponent`, `SwimComponent`) and assemble entities at runtime, providing infinite flexibility without structural lock-in.
+Bro, imagine you are a senior Field Deployed Engineer trying to integrate a client's monolithic e-commerce engine. They used deep inheritance for their products (`DigitalProduct` inherits from `Product`, `Subscription` inherits from `DigitalProduct`). Then they ask for a `PhysicalSubscription`. The diamond problem strikes! By retrofitting the architecture to use composition instead, you break behaviors into modular components (`ShippingComponent`, `BillingComponent`) and attach them to base entities dynamically, saving the integration from an inheritance nightmare.
 
 ## 3. Real-World Analogy
 
@@ -233,3 +233,13 @@ Deep inheritance hierarchies in production systems (like Django models inheritin
 | [pygame/pygame](https://github.com/pygame/pygame) | ⭐ 6k+ | Python game development library | Modern Pygame architectures often favor ECS (Entity Component System) using composition. |
 | [pytorch/pytorch](https://github.com/pytorch/pytorch) | ⭐ 75k+ | Tensors and Dynamic neural networks in Python | Uses `nn.Module` heavily which relies on composition to build complex neural networks. |
 | [Textualize/rich](https://github.com/Textualize/rich) | ⭐ 45k+ | Rich text and beautiful formatting in the terminal | Composes terminal outputs using mixable Renderable components. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Favor Composition | Prefer composition over inheritance by default when designing new domain models. | Deep inheritance trees become rigid and untestable in large codebases. |
+| Interface Delegation | When using composition, explicitly delegate method calls to the composed objects rather than exposing them directly. | Prevents breaking encapsulation and keeps the public API clean. |
+| Inheritance Limit | Restrict inheritance depth to a maximum of 2 levels (Base -> Child). | Deep hierarchies cause MRO (Method Resolution Order) confusion and brittle tightly-coupled code. |

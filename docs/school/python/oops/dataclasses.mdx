@@ -19,7 +19,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-In a microservice architecture, API responses often consist of deeply nested JSON structures that need to be parsed into typed objects. Writing `__init__`, `__repr__`, and `__eq__` methods for dozens of simple data containers is tedious and error-prone. Dataclasses automate this boilerplate, allowing engineers to focus on the schema definition rather than writing mechanical setup code for data transfer objects.
+Bro, imagine you are a senior Field Deployed Engineer processing millions of API JSON payloads from an external vendor. The payloads need to be parsed into typed objects. Writing `__init__`, `__repr__`, and `__eq__` methods for dozens of simple data containers is tedious and error-prone. Dataclasses automate this boilerplate, allowing you to quickly define the schema definition and focus on the actual data validation logic without writing mechanical setup code.
 
 ## 3. Real-World Analogy
 
@@ -208,3 +208,13 @@ If you are creating millions of dataclass objects (like parsing a massive CSV or
 | [pypa/build](https://github.com/pypa/build) | ⭐ 1k+ | A simple, correct PEP 517 build frontend | Uses dataclasses internally to manage package metadata efficiently. |
 | [Textualize/textual](https://github.com/Textualize/textual) | ⭐ 20k+ | TUI framework for Python | Uses dataclasses extensively for terminal styling and message passing. |
 | [huggingface/transformers](https://github.com/huggingface/transformers) | ⭐ 120k+ | State-of-the-art Machine Learning for Pytorch, TensorFlow | Uses dataclasses extensively for model configuration and hyperparameter storage. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Mutable Defaults | Always use `field(default_factory=list)` or `field(default_factory=dict)` instead of `[]` or `{}` for mutable defaults. | Using mutable defaults directly shares the same object reference across all instances. |
+| Immutability | Use `@dataclass(frozen=True)` when the data structure should strictly be read-only after creation. | Prevents accidental mutation of configuration payloads in highly concurrent distributed systems. |
+| Type Hinting | Always provide strict type hints for all dataclass fields. | The dataclass decorator relies on type annotations to generate the boilerplate methods. |

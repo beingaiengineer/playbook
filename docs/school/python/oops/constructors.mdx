@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-When an e-commerce platform initializes a new checkout session, it must instantly secure a database connection, lock inventory items, and attach a unique session ID. Doing this manually after creating the object is a recipe for disaster—a forgotten method call means corrupted state. Constructors solve this by ensuring an object is fully formed, valid, and ready to use the exact millisecond it is instantiated.
+Bro, imagine you are a senior Field Deployed Engineer connecting a client's legacy database to your modern API. Every time a connection object is created, it must instantly secure a socket, authenticate, and attach a unique session ID. Doing this manually after object creation is a recipe for disaster—a forgotten method call in their messy codebase means corrupted state. Constructors (`__init__`) solve this by ensuring the connection object is fully formed, valid, and authenticated the exact millisecond it is instantiated.
 
 ## 3. Real-World Analogy
 
@@ -221,3 +221,13 @@ Avoid putting blocking I/O (like making an HTTP request or heavy DB query) direc
 | [sqlalchemy/sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) | ⭐ 22k+ | Python SQL Toolkit and ORM | Relies on complex `__init__` setups for database session management. |
 | [boto/boto3](https://github.com/boto/boto3) | ⭐ 8k+ | AWS SDK for Python | Uses constructors extensively to initialize client connections to AWS. |
 | [urllib3/urllib3](https://github.com/urllib3/urllib3) | ⭐ 3k+ | HTTP library with thread-safe connection pooling | Connection pools are set up heavily in constructors. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Initialization Completeness | Ensure `__init__` sets all instance variables. Do not create new instance variables in other methods. | Defining attributes outside the constructor causes `AttributeError` when methods are called out of order. |
+| No Return Value | Never use `return` statements (other than `return None`) inside `__init__`. | The `__init__` method must only initialize state; returning a value raises a `TypeError`. |
+| Dependency Injection | Pass required dependencies (like database connections) into the constructor rather than creating them inside. | Makes the class easily mockable for unit testing in production pipelines. |

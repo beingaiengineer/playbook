@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A banking application manages user balances. If the `balance` variable is exposed globally, any rogue module could accidentally set it to a negative number or bypass transaction logging. Encapsulation wraps the internal state in a protective shield, forcing all changes through controlled methods like `deposit()` and `withdraw()`. This ensures invariants are maintained and illegal states are impossible.
+Bro, imagine you are a senior Field Deployed Engineer auditing a client's banking API integration. The client exposed the `balance` variable globally, allowing rogue downstream modules to accidentally set it to a negative number or bypass transaction logging. You must refactor the system using Encapsulation to wrap the internal state in a protective shield, forcing all changes through controlled property setters like `deposit()` and `withdraw()`, ensuring illegal states are impossible.
 
 ## 3. Real-World Analogy
 
@@ -264,3 +264,13 @@ In huge teams, violating the `_` convention causes massive technical debt. If de
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The official Python implementation | The core C code heavily encapsulates internal object states. |
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 65k+ | A modern, fast web framework | Uses Pydantic to encapsulate and validate incoming request data safely. |
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 17k+ | Data validation using Python type hints | Encapsulates complex validation logic behind simple attribute access. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Protected Attributes | Use a single leading underscore (e.g., `_internal_state`) to denote protected attributes meant only for internal use. | Establishes a convention that external modules should not touch the variable directly. |
+| Property Decorators | Use `@property` and `@name.setter` instead of writing custom Java-style `get_name()` and `set_name()` methods. | Adheres to Pythonic style while maintaining control over attribute access and validation. |
+| Name Mangling | Avoid using double leading underscores (`__`) unless actively preventing naming collisions in deep inheritance. | Name mangling makes debugging harder and doesn't actually provide true security; single underscores are sufficient for encapsulation. |
