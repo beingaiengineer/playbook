@@ -24,7 +24,7 @@ You are working at a fast-growing stock trading platform. Initially, the dashboa
 
 You realize HTTP is the wrong tool for real-time streams. You rewrite the live-ticker service to use WebSockets. Now, a client connects to the server *once*. The connection stays open indefinitely. When a stock price changes, the server instantly pushes the update down the open connection without the client having to ask. The 50,000 requests per second drop to near zero, and the prices on the dashboard update in milliseconds instead of seconds. The servers breathe a sigh of relief.
 
-**FDE Scenario:** As a Field Deployed Engineer (FDE), you will often deploy real-time applications into strict corporate environments where firewalls aggressively terminate long-lived TCP connections. If you don't implement robust client-side reconnection logic and server-side heartbeats (ping/pong) over your WebSockets, your application will silently disconnect, leaving users staring at stale data without knowing it.
+**FDE Scenario:** As a Forward Deployed Engineer (FDE), you will often deploy real-time applications into strict corporate environments where firewalls aggressively terminate long-lived TCP connections. If you don't implement robust client-side reconnection logic and server-side heartbeats (ping/pong) over your WebSockets, your application will silently disconnect, leaving users staring at stale data without knowing it.
 
 ### 3. Real-World Analogy
 
