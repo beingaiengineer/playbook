@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+> **FDE Scenario:** You are working on a massive monolithic Django backend for an enterprise client. The API is suddenly taking 10+ seconds to respond to initial requests on startup, causing Kubernetes health checks to fail and pods to crashloop. It turns out the application is eager-loading huge ML models into memory when the server boots. You must retrofit the app to use lazy loading, ensuring these heavy assets are only loaded upon the first client request that actually requires them.
 Bro, imagine you build a mobile app that shows a list of 10,000 products. When the user opens the app, it tries to download all 10,000 high-resolution product images at once before showing anything. The app freezes for a full minute, drains the user's data plan, and they uninstall it immediately. This is exactly why lazy loading matters. You should only load what the user is actually looking at, exactly when they need to see it.
 
 ---
@@ -251,3 +253,15 @@ Bro, understand the tradeoff. Lazy loading shifts the performance hit from *star
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Lazy Loading Implementation | Use `functools.cached_property` or explicit `None` checks to lazily instantiate expensive objects. | Prevents high memory consumption and slow startup times in containerized environments. |
+| Dependency Management | Defer importing heavy libraries (e.g., `pandas`, `tensorflow`) inside functions unless absolutely needed. | Large imports can slow down the entire module's execution, even if the specific function isn't called. |
+| Caching | Once a lazy property is initialized, cache it to avoid redundant computation on subsequent access. | Re-computing expensive lazy-loaded properties defeats the performance benefits. |
+| Thread Safety | Be aware of thread-safety when implementing lazy loading in multi-threaded applications; use locks if necessary. | Concurrent access to uninitialized lazy properties can cause race conditions or duplicate initializations. |

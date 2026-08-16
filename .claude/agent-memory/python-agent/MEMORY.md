@@ -351,6 +351,11 @@ _Empty_
 - [x] [BAE-FDE-272] | Retrofit FDE + Section 18: `modules-packages/pyproject-toml.mdx`
 - [x] [BAE-FDE-273] | Retrofit FDE + Section 18: `modules-packages/virtual-environments.mdx`
 - [x] [BAE-FDE-274] | Retrofit FDE + Section 18: `oops/abstraction.mdx`
+- [x] [BAE-FDE-285] | Retrofit FDE + Section 18: `performance/lazy-loading.mdx`
+- [x] [BAE-FDE-286] | Retrofit FDE + Section 18: `performance/memory-optimization.mdx`
+- [x] [BAE-FDE-287] | Retrofit FDE + Section 18: `performance/numpy-performance.mdx`
+- [x] [BAE-FDE-288] | Retrofit FDE + Section 18: `performance/performance-best-practices.mdx`
+- [x] [BAE-FDE-289] | Retrofit FDE + Section 18: `performance/profiling.mdx`
 
 ## Dependencies
 
@@ -388,16 +393,13 @@ No reusable insights recorded yet.
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-285] | Retrofit FDE + Section 18: `performance/lazy-loading.mdx`
-- [ ] [BAE-FDE-286] | Retrofit FDE + Section 18: `performance/memory-optimization.mdx`
-- [ ] [BAE-FDE-287] | Retrofit FDE + Section 18: `performance/numpy-performance.mdx`
-- [ ] [BAE-FDE-288] | Retrofit FDE + Section 18: `performance/performance-best-practices.mdx`
-- [ ] [BAE-FDE-289] | Retrofit FDE + Section 18: `performance/profiling.mdx`
+_Empty_
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-285 through BAE-FDE-289 | Retrofitted 5 Python topics (Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-280 through BAE-FDE-284 | Retrofitted 5 Python topics (OOP & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-275 through BAE-FDE-279 | Retrofitted 5 Python topics (OOP Concepts) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-270 through BAE-FDE-274 | Retrofitted 5 Python topics (Modules/Packages & OOP) with FDE scenarios and Section 18 AI Agent Instructions. |

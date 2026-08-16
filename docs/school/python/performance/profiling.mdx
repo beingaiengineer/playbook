@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+> **FDE Scenario:** You are debugging a background task processor that occasionally stalls for minutes at a time. The team is arguing over whether the bottleneck is network latency, a slow database query, or CPU-bound JSON parsing. Instead of guessing, you must instrument the code with Python profiling tools (`cProfile`, `line_profiler`) to generate exact metrics and definitively prove where the execution time is going.
 Bro, imagine your background worker is processing a million records every night. Suddenly, your boss complains that the job is taking 8 hours instead of 10 minutes. You stare at 5,000 lines of code trying to guess which loop is slow. You rewrite a complex database query, but it turns out the slowdown was caused by a simple string concatenation inside a loop. You wasted three days fixing the wrong thing. This is exactly why profiling matters. It tells you exactly where the fire is.
 
 ---
@@ -252,3 +254,15 @@ Bro, do NOT leave deterministic profilers (like `cProfile` or `line_profiler`) e
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Measurement First | Always use `cProfile` or `timeit` to identify bottlenecks before attempting to optimize code. | Premature optimization leads to complex code while often missing the actual performance bottleneck. |
+| Targeted Profiling | Use `line_profiler` for granular, line-by-line performance analysis on specific functions identified as slow. | Standard profilers give function-level metrics, which might not be enough to find the exact problematic line. |
+| Memory Profiling | Use `memory_profiler` or `tracemalloc` when investigating memory leaks or Out-Of-Memory issues. | CPU profiling does not reveal excessive memory allocation or garbage collection overhead. |
+| Zero Production Overhead | Never leave heavy profilers like `cProfile` active in production code unless specifically sampling a small percentage of requests. | Profiling adds significant execution overhead and can degrade actual production performance. |
