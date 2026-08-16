@@ -45,15 +45,6 @@ Ready for next planning phase.
 
 ### TODO
 
-
-
-
-
-- [ ] [BAE-FDE-285] | Retrofit FDE + Section 18: `performance/lazy-loading.mdx`
-- [ ] [BAE-FDE-286] | Retrofit FDE + Section 18: `performance/memory-optimization.mdx`
-- [ ] [BAE-FDE-287] | Retrofit FDE + Section 18: `performance/numpy-performance.mdx`
-- [ ] [BAE-FDE-288] | Retrofit FDE + Section 18: `performance/performance-best-practices.mdx`
-- [ ] [BAE-FDE-289] | Retrofit FDE + Section 18: `performance/profiling.mdx`
 - [ ] [BAE-FDE-290] | Retrofit FDE + Section 18: `performance/vectorization.mdx`
 - [ ] [BAE-FDE-291] | Retrofit FDE + Section 18: `strings/f-strings.mdx`
 - [ ] [BAE-FDE-292] | Retrofit FDE + Section 18: `strings/regex.mdx`
@@ -74,6 +65,8 @@ Ready for next planning phase.
 - [ ] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
 - [ ] [BAE-FDE-308] | Retrofit FDE + Section 18: `testing/test-best-practices.mdx`
 - [ ] [BAE-FDE-309] | Retrofit FDE + Section 18: `testing/unit-testing.mdx`
+
+
 ### IN PROGRESS
 _Empty_
 
@@ -81,6 +74,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-280] | Retrofit FDE + Section 18: `oops/inheritance.mdx`
+- [x] [BAE-FDE-281] | Retrofit FDE + Section 18: `oops/magic-methods.mdx`
+- [x] [BAE-FDE-282] | Retrofit FDE + Section 18: `oops/polymorphism.mdx`
+- [x] [BAE-FDE-283] | Retrofit FDE + Section 18: `oops/solid-principles.mdx`
+- [x] [BAE-FDE-284] | Retrofit FDE + Section 18: `performance/caching.mdx`
 - [x] [BAE-FDE-275] | Retrofit FDE + Section 18: `oops/classes-objects.mdx`
 - [x] [BAE-FDE-276] | Retrofit FDE + Section 18: `oops/composition-vs-inheritance.mdx`
 - [x] [BAE-FDE-277] | Retrofit FDE + Section 18: `oops/constructors.mdx`
@@ -382,24 +380,25 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 234
-- Lessons Remaining: 52
-- Completion %: 81.8%
-- Open Tasks: 83
+- Lessons Completed: 239
+- Lessons Remaining: 47
+- Completion %: 83.6%
+- Open Tasks: 78
 
 ---
 
 ### Next Task
-- [ ] [BAE-FDE-280] | Retrofit FDE + Section 18: `oops/inheritance.mdx`
-- [ ] [BAE-FDE-281] | Retrofit FDE + Section 18: `oops/magic-methods.mdx`
-- [ ] [BAE-FDE-282] | Retrofit FDE + Section 18: `oops/polymorphism.mdx`
-- [ ] [BAE-FDE-283] | Retrofit FDE + Section 18: `oops/solid-principles.mdx`
-- [ ] [BAE-FDE-284] | Retrofit FDE + Section 18: `performance/caching.mdx`
+- [ ] [BAE-FDE-285] | Retrofit FDE + Section 18: `performance/lazy-loading.mdx`
+- [ ] [BAE-FDE-286] | Retrofit FDE + Section 18: `performance/memory-optimization.mdx`
+- [ ] [BAE-FDE-287] | Retrofit FDE + Section 18: `performance/numpy-performance.mdx`
+- [ ] [BAE-FDE-288] | Retrofit FDE + Section 18: `performance/performance-best-practices.mdx`
+- [ ] [BAE-FDE-289] | Retrofit FDE + Section 18: `performance/profiling.mdx`
 
 ## Execution Review
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-280 through BAE-FDE-284 | Retrofitted 5 Python topics (OOP & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-275 through BAE-FDE-279 | Retrofitted 5 Python topics (OOP Concepts) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-270 through BAE-FDE-274 | Retrofitted 5 Python topics (Modules/Packages & OOP) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-265 through BAE-FDE-269 | Retrofitted 5 Python topics (Intro & Modules) with FDE scenarios and Section 18 AI Agent Instructions. |

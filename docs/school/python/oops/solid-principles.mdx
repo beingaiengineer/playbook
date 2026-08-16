@@ -18,12 +18,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | No direct runtime penalty, but improves developer velocity in the long run |
 
 ## 2. Engineering Story
+Bro, imagine you are a senior engineer dealing with a legacy monolith where a single `UserManager` class handles database connections, email formatting, password hashing, and HTTP responses. A simple request to change the email subject line accidentally broke the password reset flow because the logic was entirely intertwined. Applying SOLID principles forces you to decouple these responsibilities, making the system resilient to changes and dramatically easier to test in isolation.
+
 
 A monolithic application has grown so tangled that changing the payment gateway logic accidentally breaks the user login module. This "spaghetti code" happens when objects take on too many responsibilities and depend on concrete implementations rather than abstractions. The SOLID principles provide the structural guardrails required to decouple systems, ensuring that modules remain cohesive, extendable, and testable at enterprise scale.
 
 ## 3. Real-World Analogy
 
-Bro, imagine running a restaurant.
+imagine running a restaurant.
 - If the chef is also the waiter, the cashier, and the cleaner, everything breaks down when it gets busy (violating **Single Responsibility**).
 - If you have to tear down a wall every time you want to add a new dish to the menu, your building is poorly designed (violating **Open/Closed**).
 - If you hire a pastry chef and they refuse to bake bread because they "only do cakes," you can't substitute them for a regular baker (violating **Liskov Substitution**).
@@ -106,7 +108,7 @@ r = Report("Q1 Earnings")
 ReportFormatter.format_to_pdf(r)
 ```
 
-Bro, now if the PDF logic changes, the `Report` class doesn't need to be touched.
+now if the PDF logic changes, the `Report` class doesn't need to be touched.
 
 ## 7. Real-World Engineering Example
 
@@ -171,7 +173,7 @@ SOLID principles are conceptual, not technical. Python doesn't enforce them at r
 
 ## 11. Tricky Questions & Edge Cases
 
-Bro, does Python's dynamic nature make SOLID obsolete?
+does Python's dynamic nature make SOLID obsolete?
 
 **Trick:** Some developers argue that Python's duck typing makes ISP and DIP unnecessary because you don't *need* to inherit from abstract classes. However, in large codebases, relying entirely on duck typing leads to chaos. While you don't *have* to use `abc`, following the *conceptual* design of SOLID (using type hints and well-defined contracts) is absolutely necessary for maintaining large Python systems.
 
@@ -214,3 +216,14 @@ SOLID principles are a tool, not a religion. In a fast-moving startup, over-appl
 | [clean-python/clean-architecture](https://github.com/roye/clean-architecture-python) | ⭐ 1k+ | Clean Architecture in Python | A direct demonstration of SOLID principles in a Python web app. |
 | [encode/httpx](https://github.com/encode/httpx) | ⭐ 12k+ | A next generation HTTP client for Python | Highly modular design that adheres to the Single Responsibility Principle. |
 | [pypa/twine](https://github.com/pypa/twine) | ⭐ 2k+ | Utility for interacting with PyPI | Exhibits strong Separation of Concerns for package uploading. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Single Responsibility | Ensure every class has only one reason to change. Separate data access, business logic, and presentation layers. | God classes become unmaintainable, merge conflict hotspots, and are impossible to unit test effectively. |
+| Open/Closed | Design systems so new features can be added by creating new classes, not by modifying existing core classes. | Modifying existing core classes risks breaking already tested and deployed production functionality. |
+| Dependency Inversion | Depend on abstractions (interfaces/protocols) rather than concrete implementations, especially for external services (DBs, APIs). | Allows for easy mocking during tests and hot-swapping infrastructure components without rewriting business logic. |

@@ -20,14 +20,16 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
+Bro, imagine you are a senior engineer dealing with a dashboard that shows real-time analytics for millions of users. The junior engineers are running raw SQL aggregate queries against the production replica every time a user refreshes the page, causing the database CPU to spike to 100%. By implementing caching in a fast Redis layer, you serve 99% of requests instantly from memory, saving the database and keeping the application online during massive traffic spikes.
 
-Bro, imagine your e-commerce site has a complex recommendation engine. Every time a user loads the homepage, it queries the database and runs a heavy algorithm taking 5 seconds. Users get frustrated and leave. But the recommendations only change once a day! You are re-calculating the exact same thing thousands of times a second for no reason. This is exactly why caching matters. It saves the answer so you don't have to keep doing the math.
+
+imagine your e-commerce site has a complex recommendation engine. Every time a user loads the homepage, it queries the database and runs a heavy algorithm taking 5 seconds. Users get frustrated and leave. But the recommendations only change once a day! You are re-calculating the exact same thing thousands of times a second for no reason. This is exactly why caching matters. It saves the answer so you don't have to keep doing the math.
 
 ---
 
 ## 3. Real-World Analogy
 
-Bro, imagine you are a librarian.
+imagine you are a librarian.
 
 Someone asks you for the capital of Madagascar. You don't know it, so you walk down three aisles, pull out an encyclopedia, flip to the M section, read the page, and walk back to tell them: "It's Antananarivo." That took 5 minutes.
 
@@ -39,7 +41,7 @@ Five minutes later, someone else asks you the exact same question. Are you going
 
 Caching is the process of storing the result of an expensive operation in fast memory so that subsequent requests for the exact same operation return the cached result instantly.
 
-In Python, you can cache data in variables, dictionaries, or by using built-in decorators like `@functools.lru_cache` and `@functools.cache`. Bro, caching is the easiest way to make a slow application incredibly fast, but it introduces the hardest problem in computer science: cache invalidation (knowing when to throw the old answer away).
+In Python, you can cache data in variables, dictionaries, or by using built-in decorators like `@functools.lru_cache` and `@functools.cache`. caching is the easiest way to make a slow application incredibly fast, but it introduces the hardest problem in computer science: cache invalidation (knowing when to throw the old answer away).
 
 ---
 
@@ -85,7 +87,7 @@ print(fib_fast(35))  # Takes 0.00001 seconds
 print(f"Fast: {time.time() - start:.5f}s")
 ```
 
-Bro, just adding one line (`@lru_cache`) made the function hundreds of thousands of times faster.
+just adding one line (`@lru_cache`) made the function hundreds of thousands of times faster.
 
 ---
 
@@ -193,7 +195,7 @@ def process_data(data_list): # Fails!
     raise NotImplementedError("This method must be implemented by the subclass")
 ```
 Lists are unhashable, so this throws a `TypeError`.
-**Solution:** Bro, you have to convert the list to a tuple before calling the cached function, or use a custom caching mechanism.
+**Solution:** you have to convert the list to a tuple before calling the cached function, or use a custom caching mechanism.
 
 **Edge Case:** Cache invalidation on distributed servers.
 If you use `@lru_cache` on Server A, and a user updates their profile on Server B, Server A will still show the old cached data.
@@ -221,7 +223,7 @@ If you use `@lru_cache` on Server A, and a user updates their profile on Server 
 ## 14. Production Notes
 
 > ⚠ Production Note:
-Bro, caching hides bugs. If your underlying database query is fundamentally broken but returns the correct cached result for 24 hours, you won't know the system is broken until the cache expires. Always have a way to manually flush (clear) the cache in production without having to restart the whole application.
+caching hides bugs. If your underlying database query is fundamentally broken but returns the correct cached result for 24 hours, you won't know the system is broken until the cache expires. Always have a way to manually flush (clear) the cache in production without having to restart the whole application.
 
 ---
 
@@ -248,3 +250,14 @@ Bro, caching hides bugs. If your underlying database query is fundamentally brok
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Cache Keys | Ensure cache keys are completely deterministic and encompass all variables that affect the output. | Missing variables in the cache key cause hash collisions, leading to users seeing incorrect or cross-pollinated data. |
+| Bounding Caches | Never use unbounded memory caches in production (e.g., plain `dict`). Always use bounded sizes or TTLs like `@lru_cache(maxsize=128)`. | Unbounded caches inevitably cause Out-Of-Memory (OOM) crashes as the application runs over time. |
+| Cache Mutability | Never mutate an object returned from a cache. Treat cached objects as strictly read-only. | Mutating a cached object corrupts the cache for all subsequent callers in the same process. |

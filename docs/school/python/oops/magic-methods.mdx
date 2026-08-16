@@ -18,12 +18,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Performance | Fast, as they hook directly into Python's C-level evaluation |
 
 ## 2. Engineering Story
+Bro, imagine you are a senior engineer dealing with a custom data structure representing currency amounts across a globally distributed microservices architecture. The junior engineers keep writing `.add_money()` and `.subtract_money()` methods, which leads to messy, unreadable calculations like `total = a.add_money(b.subtract_money(c))`. By implementing magic methods like `__add__` and `__sub__`, you allow the team to write clean, Pythonic code like `total = a + (b - c)` while maintaining strict validation under the hood.
+
 
 When building a custom matrix mathematics library for machine learning, forcing users to write `matrix1.add(matrix2)` feels clunky and un-Pythonic. By implementing magic methods like `__add__`, engineers can hook directly into Python's native operators, allowing intuitive expressions like `matrix1 + matrix2`. This seamlessly bridges the gap between custom domain objects and the core language syntax.
 
 ## 3. Real-World Analogy
 
-Bro, think of magic methods like customized physical buttons on a smart home device. Every device has standard expected behaviors when you "press the power button" or "turn the volume knob." Magic methods are how you tell Python what exactly should happen inside *your specific object* when someone "presses the power button" (like using the `+` operator or calling `len()`).
+think of magic methods like customized physical buttons on a smart home device. Every device has standard expected behaviors when you "press the power button" or "turn the volume knob." Magic methods are how you tell Python what exactly should happen inside *your specific object* when someone "presses the power button" (like using the `+` operator or calling `len()`).
 
 ## 4. Concept Explanation
 
@@ -85,7 +87,7 @@ w3 = w1 + w2      # Calls w1.__add__(w2)
 print(w3)         # Output: Wallet with $150
 ```
 
-Bro, notice how `w1 + w2` didn't crash? That's the magic of `__add__`.
+notice how `w1 + w2` didn't crash? That's the magic of `__add__`.
 
 ## 7. Real-World Engineering Example
 
@@ -142,7 +144,7 @@ If the left operand doesn't know how to add the right operand, it returns a spec
 
 ## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if you compare a custom object to an integer, but your object only knows how to compare to itself?
+what happens if you compare a custom object to an integer, but your object only knows how to compare to itself?
 
 ```python
 class Score:
@@ -199,3 +201,14 @@ Be extremely careful when overriding `__getattr__` or `__getattribute__`. They a
 | [numpy/numpy](https://github.com/numpy/numpy) | ⭐ 25k+ | The fundamental package for scientific computing | Heavily implements magic methods like `__add__` and `__getitem__` for array math. |
 | [pandas-dev/pandas](https://github.com/pandas-dev/pandas) | ⭐ 41k+ | Flexible and powerful data analysis | Uses magic methods extensively for DataFrame slicing and operations. |
 | [pathlib](https://docs.python.org/3/library/pathlib.html) | Built-in | Object-oriented filesystem paths | Uses the `/` operator (`__truediv__`) to intuitively join file paths. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Rich Comparisons | Always implement `__eq__` and `__hash__` together if objects are intended to be used as dictionary keys or in sets. | Implementing only one breaks hash map consistency and leads to silent data loss or duplicates. |
+| String Representation | Implement `__repr__` for debugging (unambiguous representation) and `__str__` for user-facing display. If only one is implemented, use `__repr__`. | Clear `__repr__` output is critical for diagnosing state issues in production server logs. |
+| Type Checking in Math | In mathematical magic methods (e.g., `__add__`), return `NotImplemented` if the other operand's type is unsupported, rather than raising `TypeError` directly. | Returning `NotImplemented` allows Python to attempt the reverse operation (e.g., `__radd__`) on the other operand. |
