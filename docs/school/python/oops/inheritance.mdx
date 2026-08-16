@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
+Bro, imagine you are a senior engineer dealing with a massive enterprise application that connects to three different cloud providers. The juniors wrote three completely separate classes for AWS, GCP, and Azure. If the product manager says "add a timeout to all network calls," you have to update three different files and inevitably forget one, causing a production outage on Azure. That's why we use inheritance to centralize the shared logic into a single `CloudConnector` parent class.
+
 
 Consider an internal HR portal handling different employee types: Full-Time, Contractors, and Freelancers. Every employee shares core functionality like logging in or calculating base pay. Duplicating this code across three different models means three places to fix a single bug. Inheritance allows engineers to define a `BaseEmployee` class with shared logic, letting child classes inherit the core and only override specific behaviors like tax calculation.
 
@@ -143,7 +145,7 @@ view = SecureDataView()
 print(view.execute("guest")) # 403 Forbidden
 print(view.execute("admin")) # 200 OK: Secret Data
 ```
-Bro, notice how the parent class `execute()` method calls the child's overridden methods? That's the power of OOP frameworks!
+notice how the parent class `execute()` method calls the child's overridden methods? That's the power of OOP frameworks!
 
 ---
 
@@ -195,7 +197,7 @@ kid = Child()
 print(kid.first_name) # John
 # print(kid.surname) # AttributeError: 'Child' object has no attribute 'surname'
 ```
-Bro, if the child defines its own `__init__`, it **completely overwrites** the parent's setup. The parent's `__init__` does NOT run automatically. You MUST call `super().__init__()` manually inside the child if you want the parent's attributes!
+if the child defines its own `__init__`, it **completely overwrites** the parent's setup. The parent's `__init__` does NOT run automatically. You MUST call `super().__init__()` manually inside the child if you want the parent's attributes!
 
 ---
 
@@ -245,3 +247,14 @@ Modern software engineering actually heavily favors **Composition over Inheritan
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | A high-level Python Web framework | Deeply utilizes class-based inheritance for Views and Models. |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework | Uses inheritance for test collection and plugin hooks. |
 | [scrapy/scrapy](https://github.com/scrapy/scrapy) | ⭐ 50k+ | A fast high-level web crawling framework | Users inherit from `scrapy.Spider` to create custom crawlers. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Deep Hierarchies | Limit inheritance depth to a maximum of 2 levels unless strictly necessary. Favor composition over deep inheritance trees. | Deep inheritance trees cause the Fragile Base Class problem where changes in a root class break distant subclasses unexpectedly. |
+| Super Calls | Always use `super().__init__()` in subclass initializers, even if currently empty. | Failing to call `super()` leads to uninitialized parent state and subtle runtime attribute errors. |
+| Method Overriding | When overriding methods, preserve the exact signature (arguments and return type hints) of the parent class. | Changing signatures in subclasses breaks Liskov Substitution Principle and causes typing errors in client code. |

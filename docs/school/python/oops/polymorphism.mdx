@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 ---
 
 ## 2. Engineering Story
+Bro, imagine you are a senior engineer dealing with an event processing pipeline that ingests data from Kafka, SQS, and RabbitMQ. A junior engineer wrote a massive `if-elif` block checking the exact type of every incoming message to decide how to process it. Every time a new queue is added, they have to modify the core pipeline code, risking breaking everything. Polymorphism solves this by ensuring all message objects implement a common `.process()` method, completely eliminating the need for `if` statements and letting the pipeline scale safely.
+
 
 In a unified notification service, alerts need to be sent via Email, SMS, and Push Notifications. Without polymorphism, the core engine would rely on massive `if/else` chains checking the alert type before sending. Polymorphism allows the engine to simply call `.send()` on any notification object, trusting that the specific instance knows how to deliver itself, decoupling the core engine from the delivery mechanisms.
 
@@ -82,7 +84,7 @@ make_it_talk(Dog())   # Woof!
 make_it_talk(Cat())   # Meow!
 make_it_talk(Robot()) # Beep Boop.
 ```
-Bro, notice how `Robot` has zero relation to `Dog` or `Cat`? There is no shared parent class. But because they all have a `speak()` method, duck typing makes it work!
+notice how `Robot` has zero relation to `Dog` or `Cat`? There is no shared parent class. But because they all have a `speak()` method, duck typing makes it work!
 
 ---
 
@@ -180,7 +182,7 @@ def process_data(data):
     else:
         print("Error!")
 ```
-Bro, doing strict `type()` checks defeats the entire purpose of Python! What if the user passes a custom `tuple` or a Pandas `Series` that is iterable like a list?
+doing strict `type()` checks defeats the entire purpose of Python! What if the user passes a custom `tuple` or a Pandas `Series` that is iterable like a list?
 
 **The Pythonic Way:**
 ```python
@@ -242,3 +244,14 @@ In massive enterprise codebases, pure duck typing can become dangerous because t
 | [encode/starlette](https://github.com/encode/starlette) | ⭐ 9k+ | The little ASGI framework that shines | Uses duck typing and polymorphism for different ASGI middleware handlers. |
 | [celery/celery](https://github.com/celery/celery) | ⭐ 23k+ | Distributed Task Queue | Uses polymorphic backend interfaces to support Redis, RabbitMQ, etc. |
 | [pypa/pip](https://github.com/pypa/pip) | ⭐ 9k+ | The package installer for Python | Uses polymorphic handlers for different VCS (Git, SVN, Hg). |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Type Checking Avoidance | Never use `isinstance()` or `type()` checks to control business logic flow. Rely entirely on duck typing and polymorphic method calls. | Type checking defeats polymorphism, tightly couples code, and requires modifying core logic for every new subclass. |
+| Protocol Usage | Use `typing.Protocol` to define expected polymorphic interfaces rather than relying solely on Abstract Base Classes (ABCs). | Protocols enforce structural subtyping (duck typing) at static analysis time, which is more Pythonic than nominal subtyping. |
+| Abstract Methods | Use `@abstractmethod` in parent classes to strictly enforce that subclasses must implement required polymorphic behaviors. | Prevents silent runtime failures by failing at instantiation time if a subclass is incomplete. |
