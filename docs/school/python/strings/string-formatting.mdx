@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Legacy codebases often generate dynamic SQL queries or log messages by concatenating strings with the `+` operator. This not only makes the code unreadable but frequently leads to TypeErrors when integers aren't explicitly cast to strings. Engineers transitioned to `.format()` and `%` formatting to separate the string template from the data, improving readability and drastically reducing runtime crashes during string interpolation.
+Bro, imagine you are a senior engineer dealing with refactoring legacy string concatenation code. Legacy codebases often generate dynamic SQL queries or log messages by concatenating strings with the `+` operator. This not only makes the code unreadable but frequently leads to TypeErrors when integers aren't explicitly cast to strings. Engineers transitioned to `.format()` and `%` formatting to separate the string template from the data, improving readability and drastically reducing runtime crashes during string interpolation.
 
 ---
 
@@ -209,8 +209,19 @@ Never use `.format()` or f-strings to inject user input directly into a database
 - Input / Output
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The official Python runtime | See how this is implemented natively |
+
+
+---
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| String Formatting | Use f-strings (`f"{var}"`) for string interpolation in Python 3.6+ codebases. | F-strings are the fastest and most readable string formatting method in modern Python. |
+| Secure Regex | Implement timeouts or length limits when executing regular expressions on user input. | Unbounded regex on malicious input can lead to ReDoS (Regular Expression Denial of Service). |
+| Encoding Standards | Explicitly define `encoding="utf-8"` when reading or writing text files. | Relying on system default encodings causes unpredictable behavior across different client environments. |

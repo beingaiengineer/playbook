@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-In modern backend services, formatting logs and user output correctly is critical. Before, engineers had to write clunky and slow `.format()` statements, leading to messy string concatenation that was hard to debug. F-strings were introduced to solve this exact problem, allowing variables to be injected directly without losing speed.
+Bro, imagine you are a senior engineer dealing with complex string formatting across multiple log messages. In modern backend services, formatting logs and user output correctly is critical. Before, engineers had to write clunky and slow `.format()` statements, leading to messy string concatenation that was hard to debug. F-strings were introduced to solve this exact problem, allowing variables to be injected directly without losing speed.
 
 ---
 
@@ -213,8 +213,19 @@ While f-strings are amazing for standard logging, the standard Python `logging` 
 - Best Practices (Clean Code)
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The official Python runtime | See how this is implemented natively |
+
+
+---
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| String Formatting | Use f-strings (`f"{var}"`) for string interpolation in Python 3.6+ codebases. | F-strings are the fastest and most readable string formatting method in modern Python. |
+| Secure Regex | Implement timeouts or length limits when executing regular expressions on user input. | Unbounded regex on malicious input can lead to ReDoS (Regular Expression Denial of Service). |
+| Encoding Standards | Explicitly define `encoding="utf-8"` when reading or writing text files. | Relying on system default encodings causes unpredictable behavior across different client environments. |
