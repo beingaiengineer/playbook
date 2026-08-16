@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Imagine a ride-sharing platform tracking millions of concurrent trips. If each trip was just a loose dictionary of coordinates, status flags, and timestamps, the system would collapse under the weight of unstructured data manipulation. By modeling a `Trip` as a Class, engineers encapsulate the state (driver, rider, route) and behavior (start, cancel, complete) into a single, predictable blueprint. This structure prevents unauthorized state changes and makes the core domain logic scalable across a massive codebase.
+Bro, imagine you are a senior Field Deployed Engineer integrating a massive logistics client. They have millions of concurrent active tracking sessions. If each session was just a loose dictionary of coordinates, status flags, and timestamps, the system would collapse under the weight of unstructured data manipulation. By modeling a `Trip` as a Class, you encapsulate the state (driver, rider, route) and behavior (start, cancel, complete) into a single, predictable blueprint. This prevents legacy client scripts from causing unauthorized state changes.
 
 ## 3. Real-World Analogy
 
@@ -247,3 +247,13 @@ While OOP is great for organization, creating millions of small Python objects c
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | A high-level Python Web framework | Heavily relies on classes for models, views, and forms. |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | A simple HTTP library | Uses objects like `Session` to maintain state across requests. |
 | [pallets/flask](https://github.com/pallets/flask) | ⭐ 65k+ | A lightweight WSGI web application framework | Uses the `Flask` class as the central registry for the app. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Self Keyword | Always explicitly include `self` as the first parameter in instance methods. | Missing `self` causes `TypeError` crashes in production when instance methods are called. |
+| Class Variables | Never use class variables (defined outside `__init__`) for mutable data structures like lists or dicts. | Mutating class variables unintentionally shares state across all instances, causing catastrophic cross-tenant data leaks. |
+| Object Instantiation | Avoid hardcoding object creation deep inside business logic; use dependency injection where possible. | Hardcoded instantiation makes unit testing impossible and tightly couples components. |
