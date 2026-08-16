@@ -20,7 +20,7 @@ import Admonition from '@theme/Admonition';
 
 ## 2. Engineering Story
 
-Consider a fast-growing tech startup that launched an automated customer support bot using an early agentic framework. Initially, the system worked beautifully for simple queries. However, as user traffic scaled and queries became more complex—requiring multiple tool calls and database lookups—the agent started exhibiting erratic behavior. It would occasionally enter infinite loops, repeatedly calling the same API endpoint and exhausting rate limits, or hallucinate entirely incorrect policies. The engineering team realized they had built a prototype, not a production system. They lacked proper testing, robust error handling, and a clear understanding of agent design patterns. By implementing the principles discussed in this topic, they stabilized their system, reducing error rates by 95% and improving customer satisfaction dramatically. This underscores the difference between building a weekend project and engineering a resilient agentic system.
+Bro, imagine you are a senior engineer scaling a multi-agent system, and suddenly you notice your agents getting stuck in infinite tool-calling loops, costing thousands of dollars in API credits while achieving absolutely zero progress on the actual task.
 
 ## 3. Real-World Analogy
 
@@ -203,3 +203,11 @@ Always implement circuit breakers when your agents interact with downstream APIs
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 15k+ | State machine for LLM agents | Excellent for building reliable, cyclical agent workflows |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Framework for multi-agent conversations | Industry leader in multi-agent orchestration patterns |
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 8k+ | Agent framework built on Pydantic | Provides robust type safety for agent outputs |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

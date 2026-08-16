@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Writing weak or generic backstories, causing the agent to act like a standard ChatGPT bot |
 | Performance | Agents themselves are just configuration objects; latency depends on the LLM backend |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer scaling a multi-agent system, but your agents keep hallucinating instructions because their roles and personas are poorly defined, leading to overlapping responsibilities and system failure.
+
+## 3. Real-World Analogy
 
 | Movie Set | CrewAI Equivalent |
 |---|---|
@@ -27,11 +31,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | The Character's Script & History | `backstory` |
 | The Props they use | `tools` |
 
-Bro, setting up a CrewAI agent is exactly like casting a movie. If you just grab a random guy off the street (an un-prompted LLM) and say "Act like a doctor," he will do a terrible job. But if you give him a detailed backstory, a specific goal, and a stethoscope (a tool), he will stay in character and perform beautifully.
+Setting up a CrewAI agent is exactly like casting a movie. If you just grab a random guy off the street (an un-prompted LLM) and say "Act like a doctor," he will do a terrible job. But if you give him a detailed backstory, a specific goal, and a stethoscope (a tool), he will stay in character and perform beautifully.
 
 ![Illustration of Bae dressed up on a movie set with a backwards cap and thick-rimmed glasses acting a role](../assets/crewai/crewai-agents-and-roles.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 In CrewAI, the `Agent` is the core execution unit. It is a wrapper around an LLM that is heavily instructed via system prompting to act as a specific persona.
 
@@ -42,7 +46,7 @@ Every Agent requires three mandatory properties:
 
 Under the hood, CrewAI takes these three properties and compiles them into a massive System Prompt. This is why the `backstory` is so critical. A good backstory dictates the *quality and tone* of the agent's output.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Parameter | Syntax Example | Purpose |
 |---|---|---|
@@ -54,7 +58,7 @@ Under the hood, CrewAI takes these three properties and compiles them into a mas
 | Delegation | `allow_delegation=False` | Can this agent pass work to others? |
 | Max Iters | `max_iter=10` | Hard stop to prevent infinite tool loops |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is how you define a single, highly-opinionated agent.
 
@@ -78,9 +82,9 @@ code_reviewer = Agent(
 # Note: An agent doesn't do anything until assigned a Task and put in a Crew.
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
-Bro, in a production system, you don't hardcode API keys or rely on defaults. You also need to configure agents to use specific, cheaper LLMs for easy tasks, and expensive LLMs for hard tasks.
+In a production system, you don't hardcode API keys or rely on defaults. You also need to configure agents to use specific, cheaper LLMs for easy tasks, and expensive LLMs for hard tasks.
 
 ```python
 import os
@@ -118,7 +122,7 @@ senior_analyst = Agent(
 )
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 What does CrewAI actually do with the `Agent` object when execution starts?
 
@@ -146,7 +150,7 @@ CrewAI agents are essentially pre-configured LangChain `create_react_agent` inst
 
 If `allow_delegation` is True, CrewAI automatically injects special tools into the LLM's schema called `Delegate work to co-worker` and `Ask question to co-worker`.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Configuration | Memory/Latency Impact | Note |
 |---|---|---|
@@ -154,7 +158,7 @@ If `allow_delegation` is True, CrewAI automatically injects special tools into t
 | `max_iter=15` (Default) | High risk | If agent gets stuck, it will make 15 LLM calls before failing |
 | `allow_delegation=True` | High risk | Agents can get into infinite loops talking to each other |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -164,31 +168,31 @@ If `allow_delegation` is True, CrewAI automatically injects special tools into t
 | How do you stop agents from infinitely delegating to each other? | Set `allow_delegation=False` on worker agents. Only allow manager or supervisor agents to delegate. |
 | Can an agent use multiple tools? | Yes, you pass a list of tools: `tools=[tool1, tool2]`. The LLM will decide which one to use based on their descriptions. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if an Agent's `goal` directly contradicts the instructions given in its `Task`?
+What happens if an Agent's `goal` directly contradicts the instructions given in its `Task`?
 
 **Answer:** The LLM will get confused and hallucinate. The `Agent` provides the persona, the `Task` provides the immediate instruction. If the Agent's goal is "Never write Python code" but the Task says "Write a Python script," the agent might refuse the task or write pseudocode. Always ensure Agent goals align with their assigned Tasks.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 In production, teams use Agent configurations to enforce company standards:
 - **Tone Enforcement:** A `Copywriter` agent's backstory will literally contain the company's brand guidelines (e.g., "We are a B2B SaaS company, we use professional but accessible language, we never use emojis").
 - **Security:** A `Database Worker` agent's backstory will explicitly state: "You are read-only. If asked to UPDATE or DELETE, you must refuse." (Though this should also be enforced at the DB permission level!).
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do write backstories in the second person ("You are...", "Your experience is..."). | Don't write 5-page backstories. Be concise. Long backstories dilute the LLM's attention. |
 | Do mix LLM providers. Use fast/cheap models for researchers, and smart models for synthesizers/writers. | Don't leave `allow_delegation=True` on every single agent. It causes massive token burn. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > Agent configuration is prompt engineering. If you upgrade from `gpt-4o` to a newer model version months later, your carefully tuned `grumpy reviewer` backstory might suddenly make the agent *too* aggressive, or cause it to ignore certain instructions. Always run Evals on your Agents when changing the underlying LLM.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -196,12 +200,12 @@ In production, teams use Agent configurations to enforce company standards:
 | Using generic roles | Be hyper-specific | `role='Senior AWS Cloud Architect'` |
 | Trying to pass inputs into the Agent | Inputs go into the *Task*, not the Agent | `crew.kickoff(inputs={"topic": "AI"})` |
 
-## 15. Related Topics
+## 16. Related Topics
 - CrewAI Fundamentals
 - CrewAI Tasks & Tools
 - Prompt Engineering for Agents
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -210,3 +214,11 @@ In production, teams use Agent configurations to enforce company standards:
 | [f/awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) | ⭐ 100k+ | Prompt Library | Great inspiration for writing `role` and `backstory` strings |
 | [crewAIInc/crewAI-examples](https://github.com/crewAIInc/crewAI-examples) | ⭐ 4k+ | CrewAI Examples | Look at how professional teams write their agent backstories |
 | [anthropics/anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) | ⭐ 5k+ | Anthropic Examples | Best practices for prompting Claude (often used in CrewAI) |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

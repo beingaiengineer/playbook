@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Turning on memory without configuring a proper embedding model, causing silent failures or high OpenAI bills |
 | Performance | Adds latency due to database reads/writes and embedding vector generation on every turn |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer deploying an agentic system that forgets critical user context between turns, forcing the user to repeat themselves continuously, fundamentally breaking the value proposition of the application.
+
+## 3. Real-World Analogy
 
 | Human Memory | CrewAI Memory Equivalent |
 |---|---|
@@ -26,11 +30,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Remembering that "Apple" is a company, not a fruit | **Entity Memory** |
 | Leaving a note for your coworker | **Shared Crew Memory** |
 
-Bro, imagine working with a team where every morning, they forget everything that happened the day before. That is an agent without memory. CrewAI's memory system gives your agents a shared notebook (Short-term), a filing cabinet (Long-term), and a rolodex of important people/places (Entity).
+Imagine working with a team where every morning, they forget everything that happened the day before. That is an agent without memory. CrewAI's memory system gives your agents a shared notebook (Short-term), a filing cabinet (Long-term), and a rolodex of important people/places (Entity).
 
 ![Illustration of Bae as an office worker looking in a filing cabinet and checking a shared notebook](../assets/crewai/crewai-memory-system.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 CrewAI has a very robust, built-in memory system that you can enable with a single boolean flag: `memory=True`. When enabled, CrewAI automatically activates several memory modules:
 
@@ -40,7 +44,7 @@ CrewAI has a very robust, built-in memory system that you can enable with a sing
 
 By default, CrewAI uses OpenAI for embeddings to power the RAG search.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Syntax Example | Purpose |
 |---|---|---|
@@ -49,7 +53,7 @@ By default, CrewAI uses OpenAI for embeddings to power the RAG search.
 | Custom DB Path | `Crew(..., memory_config=\{"path": "./db"\})` | Change where SQLite saves long-term data |
 | Disable for Agent | Not natively supported | Memory is a Crew-level construct |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 The easiest way to use memory is just to flip the switch. CrewAI handles the databases and vector stores automatically in your local directory.
 
@@ -83,9 +87,9 @@ crew.kickoff()
 crew.kickoff()
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
-Bro, in production, you might not want to use OpenAI for embeddings because it gets expensive. You can configure CrewAI to use an open-source local embedding model (like HuggingFace) to save money.
+In production, you might not want to use OpenAI for embeddings because it gets expensive. You can configure CrewAI to use an open-source local embedding model (like HuggingFace) to save money.
 
 ```python
 import os
@@ -113,7 +117,7 @@ crew = Crew(
 result = crew.kickoff()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 What happens when an agent tries to remember something?
 
@@ -138,7 +142,7 @@ What happens when an agent tries to remember something?
 
 When `memory=True`, CrewAI spins up a local ChromaDB instance (for vector embeddings) and a SQLite database. Before an agent executes a task, CrewAI automatically searches these databases for relevant past context and injects it silently into the LLM's system prompt. When the task finishes, it embeds the result and writes it back to the databases.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Memory Type | Latency Impact | Storage | Best For |
 |---|---|---|---|
@@ -146,7 +150,7 @@ When `memory=True`, CrewAI spins up a local ChromaDB instance (for vector embedd
 | Short-Term | Medium (Requires embedding call) | In-memory / ChromaDB | Complex tasks where Agent B needs context from Agent A |
 | Long-Term | High (Disk I/O + Embeddings) | SQLite | Recurring daily tasks (e.g., daily market analysis) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -156,31 +160,31 @@ When `memory=True`, CrewAI spins up a local ChromaDB instance (for vector embedd
 | Can I use a cloud vector database instead of ChromaDB? | Out of the box, CrewAI defaults to local ChromaDB. For cloud databases (like Pinecone or Weaviate), you would need to build a custom tool that the agents query manually. |
 | Does memory persist if I restart my Python script? | Yes, Long-Term memory persists because it is saved to a SQLite file (`.db`) on your disk. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if your Long-Term memory gets filled with garbage data from a failed agent run?
+What happens if your Long-Term memory gets filled with garbage data from a failed agent run?
 
 **Answer:** If an agent hallucinates badly and saves it to Long-Term memory, future runs will fetch that hallucination via semantic search, poisoning your new runs. You must manually delete the local SQLite/ChromaDB folders that CrewAI generates to "wipe" the agent's memory if things get corrupted.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Memory is crucial for continuous pipelines:
 - **Coding Assistants:** The crew writes code on Day 1. It discovers that a specific internal API requires an auth token. It saves this to memory. On Day 2, when asked to write new code, it fetches the auth token requirement from memory automatically.
 - **Customer Profiling:** An agent reads user emails. Over time, it builds an Entity Memory of the user (e.g., "User prefers short responses, uses a Mac"). Next month, the agent uses that entity memory to customize the reply.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do configure local open-source embedders (like HuggingFace) if you are processing massive amounts of text to avoid high API costs. | Don't turn on memory for simple, stateless tasks. It adds unnecessary latency and complexity. |
 | Do add `.chroma` and `.db` files to your `.gitignore` so you don't accidentally commit massive agent databases to GitHub. | Don't rely on memory for critical factual data. If an agent MUST know an API key, pass it in the prompt or use a custom Tool, don't hope it remembers it. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > CrewAI's default memory writes to local disk (SQLite/Chroma). If you deploy your CrewAI app to a serverless environment (like AWS Lambda or Vercel), the disk is ephemeral. The memory will be wiped every time the function spins down. You must deploy to a persistent container (like EC2 or a persistent volume on Kubernetes) if you want Long-Term memory to work.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -188,12 +192,12 @@ Memory is crucial for continuous pipelines:
 | Committing memory to Git | Update `.gitignore` | `echo "*.db" >> .gitignore` |
 | Assuming memory is shared across servers | It is stored locally. | Use a shared EFS volume if using Kubernetes. |
 
-## 15. Related Topics
+## 16. Related Topics
 - CrewAI Fundamentals
 - Agent Memory Types Overview
 - Semantic Memory
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -202,3 +206,11 @@ Memory is crucial for continuous pipelines:
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | LangChain | Provides the embedding integrations (OpenAI, HuggingFace) |
 | [sqlite/sqlite](https://github.com/sqlite/sqlite) | ⭐ 5k+ | SQLite | The underlying long-term storage engine |
 | [huggingface/sentence-transformers](https://github.com/UKPLab/sentence-transformers) | ⭐ 14k+ | Open-source embeddings | Best way to save money on CrewAI memory embeddings |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |
