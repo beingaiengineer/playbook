@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using CrewAI for complex, non-linear workflows that require strict control flow |
 | Performance | Slower execution due to multiple agents conversing and delegating, but excellent output quality |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer attempting to orchestrate multiple LLMs to complete a complex project, but without a unified framework, you end up writing thousands of lines of fragile gluing code that breaks whenever an API changes.
+
+## 3. Real-World Analogy
 
 | Corporate Office | CrewAI Equivalent |
 |---|---|
@@ -27,11 +31,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | The team of people working together | A `Crew` |
 | How they collaborate (e.g., passing tasks down a line) | The `Process` (Sequential, Hierarchical) |
 
-Bro, CrewAI is literally just a virtual office. Instead of thinking about "state machines" or "nodes", you just define fake people. You say "You are a Researcher, use this Google tool." Then you say "You are a Writer, read the research and write a blog." Put them both in a room (a Crew), give them the assignment, and let them talk it out.
+CrewAI is literally just a virtual office. Instead of thinking about "state machines" or "nodes", you just define fake people. You say "You are a Researcher, use this Google tool." Then you say "You are a Writer, read the research and write a blog." Put them both in a room (a Crew), give them the assignment, and let them talk it out.
 
 ![Illustration of Bae in a virtual office assigning tasks to researcher and writer Baes](../assets/crewai/crewai-fundamentals.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 CrewAI is an incredibly popular open-source framework built on top of LangChain (though it has recently reduced its strict dependency on it). It abstracts away the complex graph logic of frameworks like LangGraph and replaces it with a simple **Role-Playing Team** architecture.
 
@@ -47,7 +51,7 @@ You should NOT use CrewAI when:
 
 **Community Verdict:** Developers love how fast it is to prototype with CrewAI. But some senior engineers complain that as projects get massive, the abstraction becomes a "black box" that fights against strict architectural control.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Concept | Syntax Example | Purpose |
 |---|---|---|
@@ -56,7 +60,7 @@ You should NOT use CrewAI when:
 | Crew | `Crew(agents=[a1, a2], tasks=[t1, t2], process=Process.sequential)` | Groups agents and tasks together |
 | Execution | `crew.kickoff(inputs=\{"topic": "AI"\})` | Starts the multi-agent execution |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a complete, functioning CrewAI script that researches a topic and writes a summary.
 
@@ -110,9 +114,9 @@ result = crew.kickoff(inputs={'topic': 'Quantum Computing'})
 print("FINAL RESULT:", result)
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
-Bro, in a real production script, you use custom tools, and you often use `Hierarchical` processes where a manager agent automatically delegates to the worker agents.
+In a real production script, you use custom tools, and you often use `Hierarchical` processes where a manager agent automatically delegates to the worker agents.
 
 ```python
 from crewai import Agent, Task, Crew, Process
@@ -161,7 +165,7 @@ crew = Crew(
 result = crew.kickoff(inputs={'product': 'Sony WH-1000XM5'})
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does CrewAI actually orchestrate the agents under the hood?
 
@@ -188,7 +192,7 @@ In a `Sequential` process, CrewAI compiles a massive prompt for the first Agent,
 
 In a `Hierarchical` process, CrewAI generates a "Manager" agent. The manager is given the tasks, and it uses LLM function-calling to assign tasks to the specific workers it thinks are best for the job.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Impact | Note |
 |---|---|---|
@@ -197,7 +201,7 @@ In a `Hierarchical` process, CrewAI generates a "Manager" agent. The manager is 
 | Token Cost | High | Prompts get large as agent backstories and task context accumulate. |
 | Flexibility | Medium | Great for text generation pipelines, poor for strict programmatic logic. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -207,32 +211,32 @@ In a `Hierarchical` process, CrewAI generates a "Manager" agent. The manager is 
 | Can CrewAI run tasks in parallel? | Yes. You can set `async_execution=True` on specific tasks, meaning the crew won't block waiting for them to finish before starting the next synchronous task. |
 | How do you prevent CrewAI from hallucinating output formats? | You must be extremely specific in the `expected_output` parameter of the Task, or use Pydantic models with the `output_pydantic` parameter. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if Agent A finishes a task, but Agent B decides it doesn't like Agent A's output?
+What happens if Agent A finishes a task, but Agent B decides it doesn't like Agent A's output?
 
 **Answer:** In a sequential process, Agent B will just complain in its internal monologue and try to fix it, wasting tokens. But if `allow_delegation=True` is enabled, Agent B can literally pause its task, invoke Agent A as a tool, and say "Your research sucked, do it again and find X." This is powerful, but can lead to expensive infinite loops if not monitored.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 CrewAI shines in content creation and research pipelines.
 - **Marketing Agencies:** A crew consisting of a Trend Researcher, SEO Expert, and Copywriter automatically generating weekly blog posts.
 - **Investment Firms:** A crew that reads SEC filings (Agent 1), compares financials (Agent 2), and writes an executive summary (Agent 3).
 - **QA Automation:** An agent that writes unit tests, and another agent that runs them and fixes the code if they fail.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do write rich, detailed `backstory` descriptions. The LLM relies heavily on this for its persona. | Don't give an agent 15 tools. Give 3 agents 5 tools each for better accuracy. |
 | Do use `verbose=True` during development so you can see the agents "talking" and reasoning. | Don't use a cheap model (like Haiku or GPT-4o-mini) as the Manager in a hierarchical process. The manager MUST be incredibly smart (GPT-4o or Claude 3.5 Sonnet). |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > CrewAI abstracts errors away. If a tool fails, the agent will naturally try to fix it or apologize. This is cool, but in production, you might *want* the system to hard-crash so your monitoring alerts you. Always wrap critical custom tools in `try/except` blocks that log to your observability stack (like LangSmith or DataDog) before letting the agent gracefully handle the error.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -240,12 +244,12 @@ CrewAI shines in content creation and research pipelines.
 | Expecting JSON but getting text | Use `output_json` or `output_pydantic` | `Task(..., output_json=MySchema)` |
 | Infinite delegation loops | Set `allow_delegation=False` for junior workers | `Agent(..., allow_delegation=False)` |
 
-## 15. Related Topics
+## 16. Related Topics
 - CrewAI Agents & Roles
 - CrewAI Tasks & Tools
 - Orchestrator-Worker Pattern (Hierarchical Process)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -254,3 +258,11 @@ CrewAI shines in content creation and research pipelines.
 | [crewAIInc/crewAI-examples](https://github.com/crewAIInc/crewAI-examples) | ⭐ 4k+ | Example Implementations | Dozens of real-world crew templates (HR, Marketing, Coding) |
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | LangChain Framework | The underlying tech that powers many CrewAI features |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen | CrewAI's primary competitor in the multi-agent space |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

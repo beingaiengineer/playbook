@@ -56,16 +56,6 @@ Ready for next planning phase.
 - [x] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
 - [x] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
 - [x] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
-- [ ] [BAE-FDE-014] | Retrofit FDE + Section 18: `best-practices/agent-anti-patterns.mdx`
-- [ ] [BAE-FDE-015] | Retrofit FDE + Section 18: `best-practices/agent-design-patterns.mdx`
-- [ ] [BAE-FDE-016] | Retrofit FDE + Section 18: `best-practices/agent-testing.mdx`
-- [ ] [BAE-FDE-017] | Retrofit FDE + Section 18: `best-practices/framework-selection-guide.mdx`
-- [ ] [BAE-FDE-018] | Retrofit FDE + Section 18: `best-practices/future-of-agents.mdx`
-- [ ] [BAE-FDE-019] | Retrofit FDE + Section 18: `crewai/crewai-agents-and-roles.mdx`
-- [ ] [BAE-FDE-020] | Retrofit FDE + Section 18: `crewai/crewai-flows-and-pipelines.mdx`
-- [ ] [BAE-FDE-021] | Retrofit FDE + Section 18: `crewai/crewai-fundamentals.mdx`
-- [ ] [BAE-FDE-022] | Retrofit FDE + Section 18: `crewai/crewai-memory-system.mdx`
-- [ ] [BAE-FDE-023] | Retrofit FDE + Section 18: `crewai/crewai-multi-agent-crews.mdx`
 - [ ] [BAE-FDE-024] | Retrofit FDE + Section 18: `crewai/crewai-production-deployment.mdx`
 - [ ] [BAE-FDE-025] | Retrofit FDE + Section 18: `crewai/crewai-tasks-and-processes.mdx`
 - [ ] [BAE-FDE-026] | Retrofit FDE + Section 18: `emerging-frameworks/agno-formerly-phidata.mdx`
@@ -344,7 +334,29 @@ No reusable insights recorded yet.
 - [x] [BAE-AF-087] | Create `tools-and-actions/api-tools-rest-graphql.mdx`
 - [x] [BAE-AF-088] | Create `tools-and-actions/database-tools.mdx`
 - [x] [BAE-AF-089] | Create `tools-and-actions/code-execution-sandboxes.mdx`
+- [x] [BAE-FDE-014] | Retrofit FDE + Section 18: `best-practices/agent-anti-patterns.mdx`
+- [x] [BAE-FDE-015] | Retrofit FDE + Section 18: `best-practices/agent-design-patterns.mdx`
+- [x] [BAE-FDE-016] | Retrofit FDE + Section 18: `best-practices/agent-testing.mdx`
+- [x] [BAE-FDE-017] | Retrofit FDE + Section 18: `best-practices/framework-selection-guide.mdx`
+- [x] [BAE-FDE-018] | Retrofit FDE + Section 18: `best-practices/future-of-agents.mdx`
+- [x] [BAE-FDE-019] | Retrofit FDE + Section 18: `crewai/crewai-agents-and-roles.mdx`
+- [x] [BAE-FDE-020] | Retrofit FDE + Section 18: `crewai/crewai-flows-and-pipelines.mdx`
+- [x] [BAE-FDE-021] | Retrofit FDE + Section 18: `crewai/crewai-fundamentals.mdx`
+- [x] [BAE-FDE-022] | Retrofit FDE + Section 18: `crewai/crewai-memory-system.mdx`
+- [x] [BAE-FDE-023] | Retrofit FDE + Section 18: `crewai/crewai-multi-agent-crews.mdx`
+--
 ### Next Task
+- [ ] [BAE-FDE-024] | Retrofit FDE + Section 18: `crewai/crewai-production-deployment.mdx`
+- [ ] [BAE-FDE-025] | Retrofit FDE + Section 18: `crewai/crewai-tasks-and-processes.mdx`
+- [ ] [BAE-FDE-026] | Retrofit FDE + Section 18: `emerging-frameworks/agno-formerly-phidata.mdx`
+- [ ] [BAE-FDE-027] | Retrofit FDE + Section 18: `emerging-frameworks/camel-ai.mdx`
+- [ ] [BAE-FDE-028] | Retrofit FDE + Section 18: `emerging-frameworks/haystack-agents.mdx`
+- [ ] [BAE-FDE-029] | Retrofit FDE + Section 18: `emerging-frameworks/llamaindex-agents-and-workflows.mdx`
+- [ ] [BAE-FDE-030] | Retrofit FDE + Section 18: `emerging-frameworks/mastra-typescript-agents.mdx`
+- [ ] [BAE-FDE-031] | Retrofit FDE + Section 18: `emerging-frameworks/metagpt.mdx`
+- [ ] [BAE-FDE-032] | Retrofit FDE + Section 18: `emerging-frameworks/smolagents-huggingface.mdx`
+- [ ] [BAE-FDE-033] | Retrofit FDE + Section 18: `google-adk/google-adk-callbacks-and-hooks.mdx`
+--
 ## Backlog
 - [x] [BAE-AF-090] | Create `tools-and-actions/tool-error-handling-and-retries.mdx`
 - [x] [BAE-AF-101] | Create `interview-prep/agent-coding-rounds.mdx`
@@ -373,6 +385,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-014 through BAE-FDE-023 | Retrofitted 10 topics (Best Practices & CrewAI) with FDE scenarios and Section 18 AI Agent Instructions. |
 | `[BAE-AF-1]` | Created intro categories and first 9 concepts including ReAct pattern. |
 | `[BAE-AF-2]` | Created 10 architecture patterns and LangGraph fundamentals concepts. |
 | `[BAE-AF-3]` | Created LangGraph advanced topics and CrewAI fundamentals (af-021 through af-030). |

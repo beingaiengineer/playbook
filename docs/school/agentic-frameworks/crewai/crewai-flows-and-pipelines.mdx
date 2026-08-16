@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using Crews for simple linear code logic instead of using the Flow decorator system |
 | Performance | Fast, as it allows combining standard Python code execution with heavy LLM Crew runs |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer building an autonomous research pipeline, but your sequential execution flow keeps failing because data isn't passed correctly between agents, causing downstream tasks to crash with missing context.
+
+## 3. Real-World Analogy
 
 | Corporate Structure | CrewAI Equivalent |
 |---|---|
@@ -27,11 +31,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | "Start the campaign" | `@start()` |
 | "Once Marketing finishes, hand it to Sales" | `@listen(marketing_func)` |
 
-Bro, a Crew is just a team of people. But what happens when you have multiple teams? The Marketing team writes the email, but then the Sales team needs to send it. You don't put them all in one massive meeting room (one giant Crew). You use a Flow. A Flow is the corporate pipeline that says: "Run this Python code, then trigger the Marketing Crew, take their output, run an API call, and then trigger the Sales Crew."
+A Crew is just a team of people. But what happens when you have multiple teams? The Marketing team writes the email, but then the Sales team needs to send it. You don't put them all in one massive meeting room (one giant Crew). You use a Flow. A Flow is the corporate pipeline that says: "Run this Python code, then trigger the Marketing Crew, take their output, run an API call, and then trigger the Sales Crew."
 
 ![Illustration of Bae as a CEO explaining a flowchart diagram on a whiteboard to connect different departments](../assets/crewai/crewai-flows-and-pipelines.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 CrewAI recently introduced **Flows** to compete with LangGraph's state machine architecture.
 
@@ -43,7 +47,7 @@ A Flow is a stateful, event-driven pipeline. It allows you to create workflows w
 
 Before Flows, you had to write dirty Python scripts to run a Crew, parse the string, and start another Crew. With Flows, you subclass `Flow`, define a `State` (a Pydantic model), and use decorators like `@start()` and `@listen()` to build a clean event-driven graph.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Syntax Example | Purpose |
 |---|---|---|
@@ -54,7 +58,7 @@ Before Flows, you had to write dirty Python scripts to run a Crew, parse the str
 | Router | `@router(func)` | Conditional branching based on state |
 | Run Flow | `flow = MyFlow(); flow.kickoff()` | Executes the pipeline |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a basic flow that doesn't even use a Crew. It just shows the event-driven architecture.
 
@@ -92,9 +96,9 @@ flow.kickoff()
 # 3. Finished. Counter: 2
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
-Bro, here is a real production pattern. We want to read an email, use an LLM to decide if it's spam, and if it's NOT spam, we trigger an entire Crew to draft a response.
+Here is a real production pattern. We want to read an email, use an LLM to decide if it's spam, and if it's NOT spam, we trigger an entire Crew to draft a response.
 
 ```python
 from pydantic import BaseModel
@@ -144,7 +148,7 @@ flow = EmailPipeline()
 flow.kickoff()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does the Flow event system execute?
 
@@ -169,7 +173,7 @@ How does the Flow event system execute?
 
 Under the hood, CrewAI Flows use a Pub/Sub (Publish-Subscribe) model. When a method finishes, it publishes an event with its method name. Any method decorated with `@listen(method_name)` subscribes to that event and is added to the execution queue. If multiple methods listen to the same event, they can execute concurrently.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Architecture | Speed | Flexibility | Use Case |
 |---|---|---|---|
@@ -177,7 +181,7 @@ Under the hood, CrewAI Flows use a Pub/Sub (Publish-Subscribe) model. When a met
 | Python Script + Crews | Fast | Medium | Quick scripts, messy error handling |
 | CrewAI Flow | Fast | High | Enterprise pipelines, human-in-loop, DB calls |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -187,31 +191,31 @@ Under the hood, CrewAI Flows use a Pub/Sub (Publish-Subscribe) model. When a met
 | How does the `@router` decorator work? | A routing function returns a string. You can then use `@listen("that_string")` on other methods to conditionally execute them based on the router's output. |
 | Are Flows a replacement for LangGraph? | They are CrewAI's attempt to compete with LangGraph. LangGraph is still more robust for state checkpointer persistence, but Flows are much simpler to write. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
-Bro, what happens if an LLM Crew throws an exception inside a Flow?
+What happens if an LLM Crew throws an exception inside a Flow?
 
 **Answer:** Because the Flow is just standard Python, the exception will bubble up and crash the pipeline. However, because Flows isolate logic, you can easily wrap the `crew.kickoff()` call inside a standard `try/except` block within the listener method, handle the error, update `self.state.error_msg`, and route to a fallback `@listen` method.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Flows are used for orchestrating entire backend applications.
 - **Support Ticket System:** Flow starts on webhook. Step 1 (Python): Save to DB. Step 2 (Crew): Analyze sentiment. Step 3 (Router): If angry, alert manager; if happy, draft reply (Crew 2).
 - **Daily Reporting:** Cron job starts Flow. Step 1 (Python): Fetch Google Analytics. Step 2 (Crew): Write summary. Step 3 (Python): Send Slack message.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do use Pydantic models for your Flow State to ensure type safety across the pipeline. | Don't put LLM API calls directly in Flow methods. Put them inside Agents/Crews, and call the Crew from the Flow method. |
 | Do use Flows to separate "thinking" from "doing". Let the LLM think, let Python do the API calls. | Don't create a massive 50-step Flow. Break pipelines down into manageable chunks. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > Unlike LangGraph's checkpointers, CrewAI Flows do not currently have native "pause and resume" state persistence out-of-the-box in the same robust way. If the server crashes in the middle of a Flow, that state is gone. If you need 100% durable state machines, you still need to back your Flow state with a database or use a queue like Temporal/Celery.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -219,12 +223,12 @@ Flows are used for orchestrating entire backend applications.
 | Listening to a string instead of a function | Pass the function reference | `@listen(fetch_data)` not `@listen("fetch_data")` (unless it's a router output) |
 | Mutating state without type checking | Use Pydantic | `class State(BaseModel): count: int` |
 
-## 15. Related Topics
+## 16. Related Topics
 - CrewAI Tasks & Processes
 - LangGraph State Machines (Alternative)
 - Orchestrator-Worker Pattern
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -233,3 +237,11 @@ Flows are used for orchestrating entire backend applications.
 | [temporalio/sdk-python](https://github.com/temporalio/sdk-python) | ⭐ 3k+ | Temporal Python SDK | Often used alongside CrewAI to provide durable execution for Flows |
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 18k+ | Pydantic | The schema library used to define Flow state |
 | [crewAIInc/crewAI-examples](https://github.com/crewAIInc/crewAI-examples) | ⭐ 4k+ | CrewAI Examples | Shows how to wire multiple crews together using Flows |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |
