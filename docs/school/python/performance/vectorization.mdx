@@ -230,7 +230,7 @@ Bro, NumPy arrays use contiguous memory. If you try to vectorize an operation on
 - Profiling
 - AI Engineering Basics
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -239,3 +239,14 @@ Bro, NumPy arrays use contiguous memory. If you try to vectorize an operation on
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+
+
+---
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Vector Operations | Always use NumPy/Pandas native vectorized operations instead of Python `for` loops. | Python loops over arrays are extremely slow in production and cause severe bottlenecks in data processing. |
+| Type Conversions | Ensure data arrays are converted to NumPy arrays before performing vectorized operations. | Standard lists do not support vectorized mathematical operations natively. |
+| Memory Management | Be aware of memory limits when performing vectorized operations on massive datasets. | Vectorized operations can create large intermediate arrays in memory causing OOM issues. |

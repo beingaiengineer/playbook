@@ -45,11 +45,6 @@ Ready for next planning phase.
 
 ### TODO
 
-- [ ] [BAE-FDE-290] | Retrofit FDE + Section 18: `performance/vectorization.mdx`
-- [ ] [BAE-FDE-291] | Retrofit FDE + Section 18: `strings/f-strings.mdx`
-- [ ] [BAE-FDE-292] | Retrofit FDE + Section 18: `strings/regex.mdx`
-- [ ] [BAE-FDE-293] | Retrofit FDE + Section 18: `strings/string-basics.mdx`
-- [ ] [BAE-FDE-294] | Retrofit FDE + Section 18: `strings/string-formatting.mdx`
 - [ ] [BAE-FDE-295] | Retrofit FDE + Section 18: `strings/string-methods.mdx`
 - [ ] [BAE-FDE-296] | Retrofit FDE + Section 18: `strings/unicode.mdx`
 - [ ] [BAE-FDE-297] | Retrofit FDE + Section 18: `system-design/distributed-systems.mdx`
@@ -65,7 +60,6 @@ Ready for next planning phase.
 - [ ] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
 - [ ] [BAE-FDE-308] | Retrofit FDE + Section 18: `testing/test-best-practices.mdx`
 - [ ] [BAE-FDE-309] | Retrofit FDE + Section 18: `testing/unit-testing.mdx`
-
 
 ### IN PROGRESS
 _Empty_
@@ -296,6 +290,11 @@ _Empty_
 - [x] Production Checklists (best-practices/production-checklists.mdx)
 - [x] Scalability Guidelines (best-practices/scalability-guidelines.mdx)
 - [x] Engineering Principles (best-practices/engineering-principles.mdx)
+- [x] [BAE-FDE-290] | Retrofit FDE + Section 18: `performance/vectorization.mdx`
+- [x] [BAE-FDE-291] | Retrofit FDE + Section 18: `strings/f-strings.mdx`
+- [x] [BAE-FDE-292] | Retrofit FDE + Section 18: `strings/regex.mdx`
+- [x] [BAE-FDE-293] | Retrofit FDE + Section 18: `strings/string-basics.mdx`
+- [x] [BAE-FDE-294] | Retrofit FDE + Section 18: `strings/string-formatting.mdx`
 
 ---
 - [x] [BAE-FDE-225] | Retrofit FDE + Section 18: python/databases/connection-pooling.mdx
@@ -385,10 +384,10 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 239
-- Lessons Remaining: 47
-- Completion %: 83.6%
-- Open Tasks: 78
+- Lessons Completed: 244
+- Lessons Remaining: 42
+- Completion %: 85.3%
+- Open Tasks: 73
 
 ---
 
@@ -399,6 +398,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-290 through BAE-FDE-294 | Retrofitted 5 Python topics (Strings & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-285 through BAE-FDE-289 | Retrofitted 5 Python topics (Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-280 through BAE-FDE-284 | Retrofitted 5 Python topics (OOP & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-275 through BAE-FDE-279 | Retrofitted 5 Python topics (OOP Concepts) with FDE scenarios and Section 18 AI Agent Instructions. |

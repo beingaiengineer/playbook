@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-A security team needed to scan millions of source code files to detect accidentally committed AWS access keys and credit card numbers. Simple string `.find()` methods couldn't handle the variable patterns of these secrets. They deployed regular expressions (regex) to define precise, powerful search patterns, allowing them to instantly identify and scrub sensitive data formats across their entire infrastructure.
+Bro, imagine you are a senior engineer dealing with extracting specific patterns from gigabytes of messy log data. A security team needed to scan millions of source code files to detect accidentally committed AWS access keys and credit card numbers. Simple string `.find()` methods couldn't handle the variable patterns of these secrets. They deployed regular expressions (regex) to define precise, powerful search patterns, allowing them to instantly identify and scrub sensitive data formats across their entire infrastructure.
 
 ---
 
@@ -216,8 +216,19 @@ Bro, always remember: regex is greedy by nature. It will eat your entire string 
 - File Handling (Parsing Logs)
 
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The official Python runtime | See how this is implemented natively |
+
+
+---
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| String Formatting | Use f-strings (`f"{var}"`) for string interpolation in Python 3.6+ codebases. | F-strings are the fastest and most readable string formatting method in modern Python. |
+| Secure Regex | Implement timeouts or length limits when executing regular expressions on user input. | Unbounded regex on malicious input can lead to ReDoS (Regular Expression Denial of Service). |
+| Encoding Standards | Explicitly define `encoding="utf-8"` when reading or writing text files. | Relying on system default encodings causes unpredictable behavior across different client environments. |

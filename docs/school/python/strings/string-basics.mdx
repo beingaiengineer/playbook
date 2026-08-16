@@ -21,7 +21,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-When handling user input for a new web service, developers realized that text data is the lifeblood of communication between systems. However, treating text just as an array of characters ignores its immutability requirements for dictionary keys and secure hashing. Understanding standard Python strings became critical for ensuring memory efficiency when passing millions of request payloads across the application.
+Bro, imagine you are a senior engineer dealing with parsing arbitrary user text input safely. When handling user input for a new web service, developers realized that text data is the lifeblood of communication between systems. However, treating text just as an array of characters ignores its immutability requirements for dictionary keys and secure hashing. Understanding standard Python strings became critical for ensuring memory efficiency when passing millions of request payloads across the application.
 
 ---
 
@@ -206,8 +206,19 @@ String building in a loop (`text += new_word`) is one of the most common perform
 - Regex
 - Memory Management
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 65k+ | The official Python runtime | See how this is implemented natively |
+
+
+---
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| String Formatting | Use f-strings (`f"{var}"`) for string interpolation in Python 3.6+ codebases. | F-strings are the fastest and most readable string formatting method in modern Python. |
+| Secure Regex | Implement timeouts or length limits when executing regular expressions on user input. | Unbounded regex on malicious input can lead to ReDoS (Regular Expression Denial of Service). |
+| Encoding Standards | Explicitly define `encoding="utf-8"` when reading or writing text files. | Relying on system default encodings causes unpredictable behavior across different client environments. |
