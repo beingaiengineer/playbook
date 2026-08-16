@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+> **FDE Scenario:** You are working on a batch processing service running on AWS Lambda, which has strict 1GB memory limits. The service crashes with `MemoryError` because it's reading an entire 500MB JSON payload into memory and duplicating lists during transformations. You need to implement memory optimization using Python generators (`yield`) and `itertools` to process the data stream without exceeding the tight memory constraints.
 Bro, imagine your app runs perfectly on your developer laptop with 32GB of RAM. You deploy it to a cheap $5/month cloud server. Ten minutes later, the server crashes with an Out Of Memory (OOM) error. You realize your code was loading a 10GB CSV file entirely into memory at once instead of processing it line by line. This is exactly why memory optimization matters. Without it, your application becomes a resource hog that is impossible to scale affordably.
 
 ---
@@ -229,3 +231,15 @@ Bro, Out of Memory (OOM) errors are vicious. The OS will just brutally kill your
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Stream Processing | Always use generators (`yield`) or iterators for processing large datasets instead of loading everything into lists. | Prevents Out-Of-Memory (OOM) crashes on constrained infrastructure. |
+| Object Memory | Use `__slots__` in classes that are instantiated millions of times to reduce memory footprint per object. | Python dictionaries associated with standard objects consume massive memory at scale. |
+| Data Types | Use efficient data structures like `array.array` or NumPy arrays instead of standard Python lists for numeric data. | Standard Python lists have high overhead per element due to object boxing. |
+| Explicit Deletion | Explicitly `del` large variables when they are no longer needed, especially in long-running functions. | Helps the garbage collector reclaim memory faster and reduces peak memory usage. |

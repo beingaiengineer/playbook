@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+> **FDE Scenario:** You are tasked with preparing an older Python microservice for a massive traffic spike during a promotional event. The codebase has grown organically and contains inefficient string formatting, redundant database queries in loops, and excessive global state. You need to implement core performance best practices systematically—without rewriting the entire service—ensuring it can handle 10x throughput without vertically scaling the hardware.
 Bro, listen to this. We had a massive scraping system at my last job pulling millions of records. Our AWS bill was insane, and it was so slow we were missing deadlines. We spent weeks trying to scale horizontally, adding more servers. Then, one senior engineer came in and ran a profiler. Turns out, we were doing unneeded deep copies inside a massive loop. Fixing that one line cut CPU usage by 80% and reduced memory usage to a fraction. It was a brutal lesson in writing efficient code before throwing money at the cloud.
 
 ---
@@ -248,3 +250,15 @@ Bro, the fastest code is the code that never runs. Before you optimize a functio
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The CPython reference implementation | Shows how Python works underneath |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Local Variables | Assign frequently accessed global variables or module-level functions to local variables inside tight loops. | Local variable lookups in Python are significantly faster than global or attribute lookups. |
+| String Formatting | Prefer `f-strings` over `.format()` or `%` formatting for optimal performance and readability. | F-strings are evaluated at runtime and are generally the fastest string formatting method in Python. |
+| List Comprehensions | Use list/dict/set comprehensions instead of explicit `for` loops when constructing collections. | Comprehensions are executed more efficiently at the C level within the Python interpreter. |
+| Set Lookups | Always convert lists to `sets` before performing multiple `in` membership checks. | Set lookups are O(1) on average, while list lookups are O(n), preventing massive slowdowns on large collections. |

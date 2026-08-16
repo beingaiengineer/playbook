@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+> **FDE Scenario:** You are optimizing a quantitative trading script that calculates moving averages for millions of tick data points. The script currently iterates through data using standard Python `for` loops, taking 20 minutes to execute. You must refactor the script to leverage NumPy's vectorized operations and broadcasting, bringing the execution time down to seconds without altering the underlying mathematical logic.
 Bro, let me tell you about a time at a FinTech startup when we tried to calculate moving averages over 10 million transactions using standard Python lists. The job took 45 minutes to run every hour. We were sweating bullets trying to keep up. Once we refactored the entire pipeline to use vectorized NumPy arrays, the exact same calculation dropped to 1.2 seconds. It was a massive eye-opener that in Python, data structures literally dictate your execution speed.
 
 ---
@@ -247,3 +249,15 @@ Bro, watch out for memory leaks when using NumPy Views. If you load a 10GB array
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [numpy/numpy](https://github.com/numpy/numpy) | ⭐ 26k+ | Core NumPy repository | Industry standard |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Vectorization | Never use standard Python `for` loops to iterate over NumPy arrays; always use vectorized operations. | Vectorized operations run in compiled C code, making them orders of magnitude faster than interpreted loops. |
+| Broadcasting | Utilize NumPy's broadcasting rules to perform arithmetic between arrays of different shapes without explicit loops. | Broadcasting avoids unnecessary array duplication and improves execution speed. |
+| Pre-allocation | Always pre-allocate NumPy arrays with the correct size (e.g., `np.zeros()`) instead of using `np.append()`. | Repeatedly appending to NumPy arrays forces constant memory re-allocation and kills performance. |
+| Contiguous Arrays | Ensure arrays are contiguous in memory (using `.copy()` or `np.ascontiguousarray()`) before applying C-level operations. | Non-contiguous memory access significantly degrades CPU cache performance and slows down computations. |
