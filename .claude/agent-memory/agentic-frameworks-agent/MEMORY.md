@@ -56,26 +56,6 @@ Ready for next planning phase.
 - [x] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
 - [x] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
 - [x] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
-- [ ] [BAE-FDE-024] | Retrofit FDE + Section 18: `crewai/crewai-production-deployment.mdx`
-- [ ] [BAE-FDE-025] | Retrofit FDE + Section 18: `crewai/crewai-tasks-and-processes.mdx`
-- [ ] [BAE-FDE-026] | Retrofit FDE + Section 18: `emerging-frameworks/agno-formerly-phidata.mdx`
-- [ ] [BAE-FDE-027] | Retrofit FDE + Section 18: `emerging-frameworks/camel-ai.mdx`
-- [ ] [BAE-FDE-028] | Retrofit FDE + Section 18: `emerging-frameworks/haystack-agents.mdx`
-- [ ] [BAE-FDE-029] | Retrofit FDE + Section 18: `emerging-frameworks/llamaindex-agents-and-workflows.mdx`
-- [ ] [BAE-FDE-030] | Retrofit FDE + Section 18: `emerging-frameworks/mastra-typescript-agents.mdx`
-- [ ] [BAE-FDE-031] | Retrofit FDE + Section 18: `emerging-frameworks/metagpt.mdx`
-- [ ] [BAE-FDE-032] | Retrofit FDE + Section 18: `emerging-frameworks/smolagents-huggingface.mdx`
-- [ ] [BAE-FDE-033] | Retrofit FDE + Section 18: `google-adk/google-adk-callbacks-and-hooks.mdx`
-- [ ] [BAE-FDE-034] | Retrofit FDE + Section 18: `google-adk/google-adk-fundamentals.mdx`
-- [ ] [BAE-FDE-035] | Retrofit FDE + Section 18: `google-adk/google-adk-multi-agent-orchestration.mdx`
-- [ ] [BAE-FDE-036] | Retrofit FDE + Section 18: `google-adk/google-adk-production-deployment.mdx`
-- [ ] [BAE-FDE-037] | Retrofit FDE + Section 18: `google-adk/google-adk-sessions-and-state.mdx`
-- [ ] [BAE-FDE-038] | Retrofit FDE + Section 18: `google-adk/google-adk-tools-and-functions.mdx`
-- [ ] [BAE-FDE-039] | Retrofit FDE + Section 18: `interview-prep/agent-coding-rounds.mdx`
-- [ ] [BAE-FDE-040] | Retrofit FDE + Section 18: `interview-prep/agent-system-design.mdx`
-- [ ] [BAE-FDE-041] | Retrofit FDE + Section 18: `intro/agent-ecosystem-landscape-2026.mdx`
-- [ ] [BAE-FDE-042] | Retrofit FDE + Section 18: `intro/agent-types-and-taxonomies.mdx`
-- [ ] [BAE-FDE-043] | Retrofit FDE + Section 18: `intro/agent-vs-chatbot-vs-rag.mdx`
 - [ ] [BAE-FDE-044] | Retrofit FDE + Section 18: `intro/anatomy-of-an-agent.mdx`
 - [ ] [BAE-FDE-045] | Retrofit FDE + Section 18: `intro/choosing-a-framework.mdx`
 - [ ] [BAE-FDE-046] | Retrofit FDE + Section 18: `intro/how-agents-think.mdx`
@@ -345,17 +325,27 @@ No reusable insights recorded yet.
 - [x] [BAE-FDE-022] | Retrofit FDE + Section 18: `crewai/crewai-memory-system.mdx`
 - [x] [BAE-FDE-023] | Retrofit FDE + Section 18: `crewai/crewai-multi-agent-crews.mdx`
 --
+- [x] [BAE-FDE-024] | Retrofit FDE + Section 18: `crewai/crewai-production-deployment.mdx`
+- [x] [BAE-FDE-025] | Retrofit FDE + Section 18: `crewai/crewai-tasks-and-processes.mdx`
+- [x] [BAE-FDE-026] | Retrofit FDE + Section 18: `emerging-frameworks/agno-formerly-phidata.mdx`
+- [x] [BAE-FDE-027] | Retrofit FDE + Section 18: `emerging-frameworks/camel-ai.mdx`
+- [x] [BAE-FDE-028] | Retrofit FDE + Section 18: `emerging-frameworks/haystack-agents.mdx`
+- [x] [BAE-FDE-029] | Retrofit FDE + Section 18: `emerging-frameworks/llamaindex-agents-and-workflows.mdx`
+- [x] [BAE-FDE-030] | Retrofit FDE + Section 18: `emerging-frameworks/mastra-typescript-agents.mdx`
+- [x] [BAE-FDE-031] | Retrofit FDE + Section 18: `emerging-frameworks/metagpt.mdx`
+- [x] [BAE-FDE-032] | Retrofit FDE + Section 18: `emerging-frameworks/smolagents-huggingface.mdx`
+- [x] [BAE-FDE-033] | Retrofit FDE + Section 18: `google-adk/google-adk-callbacks-and-hooks.mdx`
 ### Next Task
-- [ ] [BAE-FDE-024] | Retrofit FDE + Section 18: `crewai/crewai-production-deployment.mdx`
-- [ ] [BAE-FDE-025] | Retrofit FDE + Section 18: `crewai/crewai-tasks-and-processes.mdx`
-- [ ] [BAE-FDE-026] | Retrofit FDE + Section 18: `emerging-frameworks/agno-formerly-phidata.mdx`
-- [ ] [BAE-FDE-027] | Retrofit FDE + Section 18: `emerging-frameworks/camel-ai.mdx`
-- [ ] [BAE-FDE-028] | Retrofit FDE + Section 18: `emerging-frameworks/haystack-agents.mdx`
-- [ ] [BAE-FDE-029] | Retrofit FDE + Section 18: `emerging-frameworks/llamaindex-agents-and-workflows.mdx`
-- [ ] [BAE-FDE-030] | Retrofit FDE + Section 18: `emerging-frameworks/mastra-typescript-agents.mdx`
-- [ ] [BAE-FDE-031] | Retrofit FDE + Section 18: `emerging-frameworks/metagpt.mdx`
-- [ ] [BAE-FDE-032] | Retrofit FDE + Section 18: `emerging-frameworks/smolagents-huggingface.mdx`
-- [ ] [BAE-FDE-033] | Retrofit FDE + Section 18: `google-adk/google-adk-callbacks-and-hooks.mdx`
+- [ ] [BAE-FDE-034] | Retrofit FDE + Section 18: `google-adk/google-adk-fundamentals.mdx`
+- [ ] [BAE-FDE-035] | Retrofit FDE + Section 18: `google-adk/google-adk-multi-agent-orchestration.mdx`
+- [ ] [BAE-FDE-036] | Retrofit FDE + Section 18: `google-adk/google-adk-production-deployment.mdx`
+- [ ] [BAE-FDE-037] | Retrofit FDE + Section 18: `google-adk/google-adk-sessions-and-state.mdx`
+- [ ] [BAE-FDE-038] | Retrofit FDE + Section 18: `google-adk/google-adk-tools-and-functions.mdx`
+- [ ] [BAE-FDE-039] | Retrofit FDE + Section 18: `interview-prep/agent-coding-rounds.mdx`
+- [ ] [BAE-FDE-040] | Retrofit FDE + Section 18: `interview-prep/agent-system-design.mdx`
+- [ ] [BAE-FDE-041] | Retrofit FDE + Section 18: `intro/agent-ecosystem-landscape-2026.mdx`
+- [ ] [BAE-FDE-042] | Retrofit FDE + Section 18: `intro/agent-types-and-taxonomies.mdx`
+- [ ] [BAE-FDE-043] | Retrofit FDE + Section 18: `intro/agent-vs-chatbot-vs-rag.mdx`
 --
 ## Backlog
 - [x] [BAE-AF-090] | Create `tools-and-actions/tool-error-handling-and-retries.mdx`
@@ -385,6 +375,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-024 through BAE-FDE-033 | Retrofitted 10 topics (CrewAI, Emerging Frameworks, Google ADK) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-014 through BAE-FDE-023 | Retrofitted 10 topics (Best Practices & CrewAI) with FDE scenarios and Section 18 AI Agent Instructions. |
 | `[BAE-AF-1]` | Created intro categories and first 9 concepts including ReAct pattern. |
 | `[BAE-AF-2]` | Created 10 architecture patterns and LangGraph fundamentals concepts. |

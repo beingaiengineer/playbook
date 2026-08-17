@@ -14,7 +14,11 @@ sidebar_label: "Production Deployment"
 | Common Mistake | Exposing raw agent outputs to users without validation. |
 | Performance | High variance depending on LLM response times and retry logic. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer tasked with taking a fragile, locally-run script that orchestrates LLMs and turning it into an enterprise-grade service, only to realize that production requires webhooks, robust asynchronous queues, and strict security guardrails.
+
+## 3. Real-World Analogy
 
 ![Real-World Analogy](../assets/crewai/crewai-production-deployment.png)
 
@@ -26,19 +30,19 @@ Bro, running a Crew on your laptop is like having a talented chef cook in his ho
 | `print(error)` | Centralized Logging (LangSmith / Datadog) |
 | Hardcoded API keys | Secrets Manager (AWS Secrets / Vault) |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 Deploying CrewAI means wrapping your `crew.kickoff()` execution in a web server (like FastAPI), securing it, handling long-running asynchronous tasks, and monitoring the outputs.
 
 You must use asynchronous queues (like Celery or Redis) because LLM chains take seconds to minutes to run. You shouldn't block an HTTP request while waiting for your Crew to finish researching a 10-page document.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Tool/Concept | Code / Pattern | Description |
 |---|---|---|
 | Web Framework | `FastAPI()` | Exposes the Crew via HTTP. |
 | Async Queue | `Celery(broker='redis://')` | Handles the long-running Crew task. |
 | Monitoring | `litellm.success_callback = [...]` | Tracks token usage and latency. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Here is how you wrap a Crew in a basic FastAPI endpoint. (Note: In reality, you'd use background tasks, but this shows the concept).
 
 ```python
@@ -62,7 +66,7 @@ async def run_crew(request: JobRequest):
     return {"status": "success", "result": result}
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 Bro, production systems use Background Tasks or Celery to avoid timeout errors on the client side.
 
 ```python
@@ -92,7 +96,7 @@ async def get_job_status(job_id: str):
     return {"status": jobs.get(job_id, "Not Found")}
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 When a request hits your production server, it should immediately acknowledge the request, pass the heavy lifting to a worker queue, and let the user poll for the result.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -109,14 +113,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Component | Bottleneck Risk | Fix |
 |---|---|---|
 | HTTP Server | Timeout waiting for LLM | Use async/BackgroundTasks |
 | LLM API | Rate limits (429 errors) | Implement litellm fallbacks / exponential backoff |
 | Memory | Crew context window growing too large | Restrict max_iterations and use summarization tools |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | Why shouldn't you run `crew.kickoff()` synchronously in an API? | Because LLM calls take too long and will cause the HTTP request to timeout. |
@@ -125,38 +129,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is a hallucination guardrail? | An output validation step (often using Pydantic) to ensure the agent's output is factually structured before sending it to the user. |
 | How do you scale CrewAI? | Scale the worker nodes horizontally using Docker/Kubernetes while reading from a centralized message queue. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if the LLM provider goes down entirely?
 **The Fix:** Your production code must configure fallback models. If GPT-4o fails, your code should automatically attempt to use Claude 3.5 Sonnet to ensure the crew completes its task.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Enterprises deploy agentic workflows for automated report generation. They run nightly cron jobs that trigger a Crew. The Crew pulls data from Snowflake, writes the report, and emails it. The entire process runs asynchronously on a Kubernetes cluster.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Log every tool input and output. | Deploy without observability. |
 | Use Pydantic to enforce structured output. | Trust the raw text output from the final agent. |
 | Use a task queue (Celery/Redis) for execution. | Block the main web thread. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 LLM APIs are inherently flaky. Your agents WILL fail occasionally. You must design your system to expect failures, retry gracefully, and alert a human if a task gets permanently stuck.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Hardcoding API keys | Use `.env` files and a Secrets Manager. |
 | Not setting `max_iterations` | Agents get stuck in a loop and burn hundreds of dollars in tokens. Set limits! |
 | Ignoring cost monitoring | Set up budget alerts on your OpenAI/Anthropic accounts. |
 
-## 15. Related Topics
+## 16. Related Topics
 - CrewAI Memory System
 - FastAPI Fundamentals
 - Observability and Tracing
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | High-performance Python web framework. | The standard for wrapping AI agents in APIs. |
@@ -164,3 +168,12 @@ LLM APIs are inherently flaky. Your agents WILL fail occasionally. You must desi
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 18k+ | The CrewAI framework. | The core engine. |
 | [BerriAI/litellm](https://github.com/BerriAI/litellm) | ⭐ 10k+ | Call 100+ LLMs using the same API format. | Critical for production fallbacks and cost tracking. |
 | [langchain-ai/langsmith-sdk](https://github.com/langchain-ai/langsmith-sdk) | ⭐ 1k+ | SDK for LangSmith observability. | You need to trace where your agents are failing in prod. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |
