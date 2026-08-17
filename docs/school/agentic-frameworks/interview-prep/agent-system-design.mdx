@@ -20,7 +20,7 @@ import Admonition from '@theme/Admonition';
 
 ## 2. Engineering Story
 
-Consider a fast-growing tech startup that launched an automated customer support bot using an early agentic framework. Initially, the system worked beautifully for simple queries. However, as user traffic scaled and queries became more complex—requiring multiple tool calls and database lookups—the agent started exhibiting erratic behavior. It would occasionally enter infinite loops, repeatedly calling the same API endpoint and exhausting rate limits, or hallucinate entirely incorrect policies. The engineering team realized they had built a prototype, not a production system. They lacked proper testing, robust error handling, and a clear understanding of agent design patterns. By implementing the principles discussed in this topic, they stabilized their system, reducing error rates by 95% and improving customer satisfaction dramatically. This underscores the difference between building a weekend project and engineering a resilient agentic system.
+Bro, imagine you're a forward-deployed engineer tasked with evaluating a legacy RAG application for a Fortune 500 client. The system frequently crashed under load because it treated the LLM as a synchronous database rather than an orchestration engine. You realized they needed a complete system redesign. By introducing asynchronous task queues, explicit memory states, and robust tool-calling interfaces, you transformed a brittle script into a scalable agentic architecture capable of handling complex, multi-step user intents without dropping requests.
 
 ## 3. Real-World Analogy
 
@@ -196,10 +196,21 @@ Always implement circuit breakers when your agents interact with downstream APIs
 - Tool Design Principles
 - Agent Observability and Tracing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 15k+ | State machine for LLM agents | Excellent for building reliable, cyclical agent workflows |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Framework for multi-agent conversations | Industry leader in multi-agent orchestration patterns |
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 8k+ | Agent framework built on Pydantic | Provides robust type safety for agent outputs |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| State Persistence | Design agent systems to persist their state (e.g., using a database or distributed cache) between steps. | In-memory state is lost if the agent process restarts or scales horizontally, leading to broken workflows. |
+| Asynchronous Execution | Use async patterns for long-running agent tasks (e.g., web scraping, complex reasoning). | Synchronous execution blocks the main thread, severely limiting the system's throughput and responsiveness. |
+| Observability | Integrate structured logging to track the agent's decision-making process and tool usage. | Without detailed logs, it is impossible to debug why an agent made a specific choice or hallucinated in production. |

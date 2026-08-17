@@ -20,7 +20,7 @@ import Admonition from '@theme/Admonition';
 
 ## 2. Engineering Story
 
-Consider a fast-growing tech startup that launched an automated customer support bot using an early agentic framework. Initially, the system worked beautifully for simple queries. However, as user traffic scaled and queries became more complex—requiring multiple tool calls and database lookups—the agent started exhibiting erratic behavior. It would occasionally enter infinite loops, repeatedly calling the same API endpoint and exhausting rate limits, or hallucinate entirely incorrect policies. The engineering team realized they had built a prototype, not a production system. They lacked proper testing, robust error handling, and a clear understanding of agent design patterns. By implementing the principles discussed in this topic, they stabilized their system, reducing error rates by 95% and improving customer satisfaction dramatically. This underscores the difference between building a weekend project and engineering a resilient agentic system.
+Bro, imagine you are a senior engineer dealing with a startup's agentic framework. Initially, the system worked beautifully for simple queries. However, as user traffic scaled and queries became more complex—requiring multiple tool calls and database lookups—the agent started exhibiting erratic behavior. It would occasionally enter infinite loops, repeatedly calling the same API endpoint and exhausting rate limits, or hallucinate entirely incorrect policies. The engineering team realized they had built a prototype, not a production system. They lacked proper testing, robust error handling, and a clear understanding of agent design patterns. By implementing the principles discussed in this topic, they stabilized their system, reducing error rates by 95% and improving customer satisfaction dramatically. This underscores the difference between building a weekend project and engineering a resilient agentic system.
 
 ## 3. Real-World Analogy
 
@@ -196,10 +196,21 @@ Always implement circuit breakers when your agents interact with downstream APIs
 - Tool Design Principles
 - Agent Observability and Tracing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 15k+ | State machine for LLM agents | Excellent for building reliable, cyclical agent workflows |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Framework for multi-agent conversations | Industry leader in multi-agent orchestration patterns |
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 8k+ | Agent framework built on Pydantic | Provides robust type safety for agent outputs |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Fallback Mechanisms | Always implement a default safe fallback for agent actions in coding rounds. | In a live coding interview or production system, failure to provide a fallback can lead to unhandled exceptions and system crashes. |
+| Timeouts | Explicitly define timeouts for all external API calls within the agent's logic. | Agents can hang indefinitely waiting for a response, leading to resource exhaustion and poor user experience. |
+| Output Validation | Validate the structure of all LLM outputs before processing them further. | LLMs can produce malformed JSON or unexpected text, which must be caught early to prevent cascading failures. |

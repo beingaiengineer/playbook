@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using a complex multi-agent system when a single routing agent is enough |
 | Performance | Scales with complexity: Single agents are fast, Multi-agent swarms are extremely slow |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you're debugging a customer support bot that suddenly decided it had the authority to issue full refunds. The original team just used a generic 'chat agent' template without understanding the taxonomy of agent types. They gave a simple conversational agent the tools and permissions of an execution-focused autonomous agent. By redefining the system's architecture and clearly separating the 'router agent' from the 'execution agent', you restored order and prevented further financial loss. Knowing what type of agent to build is step one.
+
+## 3. Real-World Analogy
 
 ![Illustration of Bae in different restaurant roles representing agent types](../assets/intro/agent-types-and-taxonomies.png)
 
@@ -31,7 +35,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, don't overcomplicate it. If you run a tiny tea stall, you do everything yourself (Single Agent). If you run a massive restaurant, you need a host (Router), a head chef (Planner), line cooks (Workers), and a health inspector (Evaluator). Your agent architecture should match the complexity of the business problem.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Not all agents are built the same. As the industry matures, we've classified agents into specific taxonomies based on their autonomy, communication style, and structural layout.
 
@@ -45,7 +49,7 @@ Not all agents are built the same. As the industry matures, we've classified age
 
 Understanding these types prevents you from building a 5-agent swarm to do a task that a simple Python `if/else` statement could have routed.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 *High-level architectural patterns using common terminology.*
 
@@ -56,7 +60,7 @@ Understanding these types prevents you from building a 5-agent swarm to do a tas
 | **Supervisor** | `plan = make_plan(); for step in plan: delegate_to_worker()` | Complex, multi-step workflows |
 | **Evaluator** | `if result_is_good(): return else: send_back()` | Code generation, high-stakes data |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a conceptual example of a **Supervisor / Worker** taxonomy using pseudo-code.
 
@@ -88,7 +92,7 @@ def supervisor_loop(task):
 supervisor_loop("Write an email about the latest AI news.")
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in production, we often use a **Router Agent** combined with specialized **Worker Agents**. This is highly deterministic and cheaper than a free-flowing swarm. Here is how you might structure it using LangGraph.
 
@@ -136,7 +140,7 @@ workflow.add_edge("tech_support", END)
 app = workflow.compile()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 This diagram visualizes the three most common taxonomies: Single, Supervisor (Hierarchical), and Swarm (Network).
 
@@ -164,7 +168,7 @@ This diagram visualizes the three most common taxonomies: Single, Supervisor (Hi
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Taxonomy | Latency | Token Cost | Predictability / Control |
 |---|---|---|---|
@@ -173,7 +177,7 @@ This diagram visualizes the three most common taxonomies: Single, Supervisor (Hi
 | **Supervisor / Hierarchical** | High | High | Medium |
 | **Swarm / Group Chat** | Very High | Very High | Low (Prone to infinite loops) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -182,43 +186,43 @@ This diagram visualizes the three most common taxonomies: Single, Supervisor (Hi
 | Explain the "Evaluator" pattern. | It's a two-agent setup. Agent A generates a result. Agent B (the Evaluator) checks it against rules. If it fails, B sends feedback to A to try again. |
 | Why is the Router taxonomy popular in production? | It saves money and latency. By routing a query to a small, specialized agent (or even a hardcoded script), you avoid running a massive, expensive generalized agent loop. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, how do agents in a Supervisor architecture share memory?
 If Worker A finds a bug, how does Worker B know about it? If you don't implement a shared "Scratchpad" or global state, Worker B starts from scratch. The edge case here is **context fragmentation**. You must pass the outputs of Worker A explicitly into the inputs of Worker B, or maintain a centralized graph state (like in LangGraph).
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Routing:** Customer support bots on Zendesk. (Intent -> Tech Support Agent vs Billing Agent).
 - **Plan and Execute:** Devin, the AI software engineer. (Plan the feature -> write tests -> write code -> evaluate).
 - **Swarm:** Mostly research, experimental game development (like the famous Stanford AI town), and complex data synthesis where multiple perspectives are needed.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Start with a Single Agent. Only split it into multiple agents if the system prompt becomes too massive or confusing. | Don't build a 4-agent CrewAI setup for a task that a single prompt can solve. |
 | Use clear handoff protocols (like OpenAI's handoff functions) to pass state between agents. | Don't let agents talk to each other indefinitely without a strict `max_turns` limit. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, the more autonomous agents you string together, the harder it is to debug. In a Swarm or Supervisor setup, if the final output is wrong, tracing *which* agent made the logical error is a nightmare. You absolutely must use tracing tools like LangSmith or Braintrust if you use advanced taxonomies.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Overloading a Single Agent with 50 tools and 5 personas. | The LLM gets confused, hallucinates, or picks the wrong tool. | Split it into a Supervisor with 5 specialized Worker agents (5 tools each). |
 | Using Swarm architecture for transactional tasks. | Swarms are slow and conversational. A checkout process needs deterministic steps. | Use a state machine or Sequential pipeline for transactions. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Anatomy of an Agent
 - Multi-Agent Systems Overview
 - Choosing a Framework
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -227,3 +231,14 @@ Bro, the more autonomous agents you string together, the harder it is to debug. 
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 6k+ | Graph-based agents | Best for defining strict Routers and highly controlled Supervisor taxonomies. |
 | [openai/swarm](https://github.com/openai/swarm) | ⭐ 8k+ | OpenAI's educational multi-agent framework | Demonstrates the "Handoff" and "Routine" taxonomy clearly and cleanly. |
 | [agiresearch/AIOS](https://github.com/agiresearch/AIOS) | ⭐ 4k+ | LLM Agent Operating System | Explores theoretical taxonomies of how agents share OS-level resources. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Principle of Least Privilege | Only grant an agent the tools strictly necessary for its specific type and function. | Providing generic tools to all agents increases the risk of unintended actions and security breaches. |
+| Explicit Typing | Clearly define and document the type (e.g., Router, Executor, Evaluator) of each agent in multi-agent systems. | Ambiguity in agent roles leads to overlapping responsibilities and unpredictable execution flows. |
+| Role Boundaries | Prevent conversational agents from executing state-changing tools without explicit approval from an execution agent or human. | Mixing conversation and execution without boundaries is a common source of critical agent failures. |

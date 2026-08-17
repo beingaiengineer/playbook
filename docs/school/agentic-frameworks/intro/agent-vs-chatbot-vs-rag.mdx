@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Overengineering a simple search problem by building a complex agent |
 | Performance | Chatbot (fastest) < RAG (medium latency) < Agent (slowest) |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, think about a deployed engineer dealing with a client who demands 'an AI agent' but really just needs a basic RAG system to search their PDFs. The client was burning money on complex orchestration and LLM tokens for simple queries. You had to sit them down and explain that a true agent makes decisions and takes actions, whereas RAG just fetches context. By downgrading their over-engineered agent back to a solid RAG pipeline, you cut latency in half and saved them thousands in API costs.
+
+## 3. Real-World Analogy
 
 ![Illustration of Bae as a librarian fetching books](../assets/intro/agent-vs-chatbot-vs-rag.png)
 
@@ -29,7 +33,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 Bro, it’s simple. A chatbot just talks to you. RAG talks to you *after* reading a document you gave it. An agent goes out into the world, does things, and *then* talks to you about what it did.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Let's break down the evolution of LLM applications:
 
@@ -42,7 +46,7 @@ You realize the chatbot doesn't know your private company data. So, you build RA
 **3. AI Agents:**
 You realize reading isn't enough; you need the AI to *do* things. Agents have tools (APIs, calculators, code execution). They don't just answer; they execute a loop of reasoning and action until a complex goal is met.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Architecture | Core Code Pattern | Focus |
 |---|---|---|
@@ -50,7 +54,7 @@ You realize reading isn't enough; you need the AI to *do* things. Agents have to
 | **RAG** | `docs = db.search(query); llm.generate(docs + query)` | Information Retrieval |
 | **Agent** | `while not done: action = llm.think(); result = tool(action)` | Task Execution |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at how the prompt differs for each architecture.
 
@@ -72,7 +76,7 @@ Decide your first tool to use.
 """
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, imagine you are building a customer support system for an e-commerce site. Here is how you decide what to build:
 
@@ -98,7 +102,7 @@ def handle_customer_request(user_message: str):
         return agent.run(user_message)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Let's visualize how the complexity scales from RAG to a full Agent. Notice how RAG is a straight line, while the Agent is a loop.
 
@@ -127,7 +131,7 @@ Let's visualize how the complexity scales from RAG to a full Agent. Notice how R
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Architecture | Latency | Cost (Tokens) | Failure Mode |
 |---|---|---|---|
@@ -135,7 +139,7 @@ Let's visualize how the complexity scales from RAG to a full Agent. Notice how R
 | **RAG** | Fast | Medium | Retrieving the wrong chunks, poor context |
 | **Agent** | Slow | High (multiple loops) | Infinite loops, wrong tool usage, API errors |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -144,43 +148,43 @@ Let's visualize how the complexity scales from RAG to a full Agent. Notice how R
 | Why are Agents more expensive to run than chatbots? | Because agents execute in a loop. A single user request might require 5 LLM calls (think, act, observe, think again) before returning the final answer. |
 | What is the biggest risk in deploying an Agent vs RAG? | RAG only reads data. Agents take action (write data). If an agent hallucinates, it might delete an active database record or send a wrong email. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what if the user says: "Summarize my last 10 emails and reply to the urgent ones."
 A RAG system will just summarize them. It can't reply.
 An Agent *can* do it, but what if it misinterprets "urgent" and replies to your CEO with a hallucinated commitment? The edge case with agents is **blast radius**. You must implement Human-in-the-Loop (HITL) for any destructive or external-facing action.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **RAG in Prod:** Notion AI, Copilot for Docs, enterprise internal wikis.
 - **Agents in Prod:** Devin (autonomous coding), Multi-on (browser automation), advanced customer support bots that can issue refunds via Stripe.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Start with RAG. Only upgrade to an Agent if you strictly need the system to take *actions*. | Don't build an agent if a simple vector search solves the business problem. |
 | Wrap destructive agent tools (like `delete_user`) in approval workflows. | Don't let agents write to production databases unsupervised. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, never use an agent where latency is critical. If a user expects a sub-second response on a web UI, you cannot use an agent. Agents take time to think, call APIs, and parse results. For synchronous, low-latency UI, use a Chatbot or fast RAG.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Forcing an agentic architecture for a Q&A app | It inflates your OpenAI bill 5x and makes responses take 10 seconds. | Use standard RAG. |
 | Giving RAG an entire document without chunking | The LLM will hit context limits and forget the middle of the document. | Use proper text splitting and semantic search. |
 
-## 15. Related Topics
+## 16. Related Topics
 - What Are AI Agents?
 - Anatomy of an Agent
 - Choosing a Framework
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -189,3 +193,14 @@ Bro, never use an agent where latency is critical. If a user expects a sub-secon
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 6k+ | Stateful agent framework | When your simple RAG needs to become a multi-step agent, this is the upgrade path. |
 | [khoj-ai/khoj](https://github.com/khoj-ai/khoj) | ⭐ 8k+ | Open-source AI copilot | A great real-world example of blending RAG (searching your notes) with Agents. |
 | [milvus-io/milvus](https://github.com/milvus-io/milvus) | ⭐ 30k+ | Vector Database | Essential infrastructure for the RAG side of the equation. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Tool selection | Do not use an agentic framework if the requirement only involves information retrieval (RAG). | Agentic frameworks add unnecessary latency, cost, and complexity for simple search tasks. |
+| Action Verification | Before designating a system as an 'agent', verify it has tools that perform actions or change state. | Mislabeling a chatbot or RAG system as an agent leads to architectural confusion and misplaced expectations. |
+| Cost Optimization | Monitor LLM token usage closely when an agent loops through reasoning steps compared to a single RAG query. | Agents can quickly rack up massive API bills if they get stuck in loops while trying to answer simple queries. |
