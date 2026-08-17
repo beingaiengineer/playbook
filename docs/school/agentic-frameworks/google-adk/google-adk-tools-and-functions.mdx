@@ -14,10 +14,15 @@ sidebar_label: "Tools & Functions"
 | Common Mistake | Using custom Python functions for GCP tasks that have native ADK tool wrappers. |
 | Performance | Fast, especially when using native Vertex AI tools inside the GCP backbone. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior platform engineer building an ADK agent that needs to run complex analytics on BigQuery. Instead of writing custom Python wrapper functions, you use Google's highly optimized Native Vertex AI Tools to provide secure, direct access to enterprise datastores.
+
+## 3. Real-World Analogy
+
 ![Real-World Analogy](../assets/google-adk/google-adk-tools-and-functions.png)
 
-Bro, imagine a master mechanic (the LLM). If he only has a wrench, he can only do basic repairs. If you give him the keys to the automated diagnostics machine and the hydraulic lift (Tools), he can overhaul the entire engine. In Google ADK, providing tools turns the LLM from a simple chat interface into a system that can read databases and trigger cloud functions.
+Imagine a master mechanic (the LLM). If he only has a wrench, he can only do basic repairs. If you give him the keys to the automated diagnostics machine and the hydraulic lift (Tools), he can overhaul the entire engine. In Google ADK, providing tools turns the LLM from a simple chat interface into a system that can read databases and trigger cloud functions.
 
 | Master Mechanic | Agentic System |
 |---|---|
@@ -25,21 +30,21 @@ Bro, imagine a master mechanic (the LLM). If he only has a wrench, he can only d
 | Hand wrench | Basic Python Function Tool |
 | Hydraulic Lift | Native Vertex AI Tool |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 In Google ADK, Tools are the bridge between the generative model and the real world. When you provide tools to the agent, the Gemini model can decide to pause its text generation, request the execution of a tool, and wait for the result before continuing.
 
 There are two main types:
 1. **Native GCP Tools**: Pre-built integrations like Vertex Search, Code Execution, or BigQuery. These are highly optimized.
 2. **Custom Function Tools**: Your own Python code wrapped in a tool definition, similar to standard function calling in other frameworks.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Concept | Code | Description |
 |---|---|---|
 | Native Tool | `VertexSearchTool(datastore_id="...")` | Using a built-in GCP integration. |
 | Custom Tool | `@tool\ndef my_func(x: int):...` | Decorating a Python function. |
 | Agent Binding | `Agent(tools=[my_func, search_tool])` | Giving the tools to the agent. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Here is how you wrap a simple Python function into a tool for the Google ADK.
 
 ```python
@@ -65,7 +70,7 @@ print(response.text)
 # Output: "The final price is $1020.00"
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 Bro, in an enterprise, you use Native Tools. Let's look at giving an agent the ability to execute Python code natively in a Google-hosted secure sandbox, and search a company datastore.
 
 ```python
@@ -94,7 +99,7 @@ res = session.chat("Calculate the first 50 Fibonacci numbers and give me the sum
 print(res.text)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 When you pass `@tool` to the ADK, it converts your Python type hints and docstrings into an OpenAPI specification. Gemini reads this spec. If Gemini wants to use the tool, it sends a `functionCall` payload. The ADK intercepts this, runs your Python code locally (or triggers the native GCP API), and sends a `functionResponse` back to Gemini.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -114,14 +119,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Tool Type | Execution Location | Latency Profile |
 |---|---|---|
 | Native Vertex Search | GCP Backbone | Extremely Fast (~100ms) |
 | Native Code Sandbox | GCP Container | Fast (~500ms startup) |
 | Custom Python API Tool | Your local server | Depends on external API speed |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | What is the advantage of the Code Execution Tool in Google ADK? | It runs generated Python code in a secure, isolated, Google-managed sandbox, preventing the LLM from accidentally executing harmful code on your own application servers. |
@@ -129,38 +134,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Can Gemini execute multiple tools in parallel? | Yes, Gemini 1.5 supports parallel function calling, and the ADK will execute independent tools concurrently to save time. |
 | What happens if a custom tool throws an exception? | You should handle the exception inside the tool and return a string (e.g., "Error: User not found") so the LLM knows it failed and can respond appropriately. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if your custom tool returns a massive 10MB JSON file from a database query?
 **The Fix:** Gemini has a massive context window (up to 2M tokens), but feeding it 10MB of raw JSON will degrade its reasoning and cost you a fortune. Always parse and summarize the data *inside* your Python tool before returning it to the LLM.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Enterprise data teams use the Google ADK with BigQuery tools. A user asks a natural language question. The agent uses the BigQuery tool to write SQL, execute it, read the results, use the Code Execution tool to plot a chart, and returns the image and summary to the user.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Write extensive docstrings explaining exactly when to use the tool. | Leave tools undocumented, forcing the LLM to guess. |
 | Use Native GCP tools whenever possible for security and speed. | Re-invent the wheel by writing custom Python to hit Vertex APIs. |
 | Validate tool inputs (e.g., checking if `user_id` is an int). | Blindly trust the arguments the LLM provides. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 When using custom tools that write to databases (e.g., `update_record()`), implement a Human-in-the-Loop check or strict programmatic validation. An LLM hallucinating a `DELETE` command inside a tool call can destroy your production data.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Not returning strings | Tool functions should generally return strings (or stringified JSON). Returning complex Python objects will break the JSON serialization sent back to Gemini. |
 | Conflicting tool names | Ensure every tool has a strictly unique name, or the ADK will overwrite the schema definitions. |
 | Too many tools | Giving an agent 30 tools causes "tool confusion." Break it down into multiple specialized agents using a router pattern. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Function Calling Deep Dive
 - Tool Design Principles
 - Agent Handoffs and Delegation
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [googleapis/google-cloud-python](https://github.com/googleapis/google-cloud-python) | ⭐ 4k+ | Google Cloud Python libraries. | The foundation for building custom GCP tools. |
@@ -168,3 +173,12 @@ When using custom tools that write to databases (e.g., `update_record()`), imple
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 18k+ | Data validation. | Use this inside your custom tools to validate LLM inputs. |
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | LangChain framework. | Good reference for how community-built tools are structured. |
 | [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) | ⭐ 165k+ | Original autonomous agent. | Great reference for designing file-system and web-browsing tools. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Tool Selection | Always prioritize Native GCP Tools (e.g., Vertex Search, BigQuery) over custom Python wrappers when available. | Native tools are optimized for latency, handle pagination automatically, and enforce GCP security perimeters. |
+| Error Propagation | Custom tools must catch internal exceptions and return a clean, descriptive string back to the agent instead of raising raw Python errors. | Prevents the entire ADK orchestration loop from crashing and allows the LLM to understand and self-correct the error. |
+| Payload Limits | Enforce strict payload size limits or summarization within custom tools before returning data to the agent. | Prevents massive JSON responses from overwhelming the Gemini context window and causing OOM or API rejections. |

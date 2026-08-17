@@ -295,6 +295,11 @@ No reusable insights recorded yet.
 ---
 
 ### Completed This Cycle
+- [x] [BAE-FDE-034] | Retrofit FDE + Section 18: `google-adk/google-adk-fundamentals.mdx`
+- [x] [BAE-FDE-035] | Retrofit FDE + Section 18: `google-adk/google-adk-multi-agent-orchestration.mdx`
+- [x] [BAE-FDE-036] | Retrofit FDE + Section 18: `google-adk/google-adk-production-deployment.mdx`
+- [x] [BAE-FDE-037] | Retrofit FDE + Section 18: `google-adk/google-adk-sessions-and-state.mdx`
+- [x] [BAE-FDE-038] | Retrofit FDE + Section 18: `google-adk/google-adk-tools-and-functions.mdx`
 - [x] [BAE-AF-071] | Create `protocols/a2a-agent-cards.mdx`
 - [x] [BAE-AF-072] | Create `protocols/mcp-vs-a2a-when-to-use.mdx`
 - [x] [BAE-AF-073] | Create `multi-agent-systems/multi-agent-patterns-overview.mdx`
@@ -336,11 +341,6 @@ No reusable insights recorded yet.
 - [x] [BAE-FDE-032] | Retrofit FDE + Section 18: `emerging-frameworks/smolagents-huggingface.mdx`
 - [x] [BAE-FDE-033] | Retrofit FDE + Section 18: `google-adk/google-adk-callbacks-and-hooks.mdx`
 ### Next Task
-- [ ] [BAE-FDE-034] | Retrofit FDE + Section 18: `google-adk/google-adk-fundamentals.mdx`
-- [ ] [BAE-FDE-035] | Retrofit FDE + Section 18: `google-adk/google-adk-multi-agent-orchestration.mdx`
-- [ ] [BAE-FDE-036] | Retrofit FDE + Section 18: `google-adk/google-adk-production-deployment.mdx`
-- [ ] [BAE-FDE-037] | Retrofit FDE + Section 18: `google-adk/google-adk-sessions-and-state.mdx`
-- [ ] [BAE-FDE-038] | Retrofit FDE + Section 18: `google-adk/google-adk-tools-and-functions.mdx`
 - [ ] [BAE-FDE-039] | Retrofit FDE + Section 18: `interview-prep/agent-coding-rounds.mdx`
 - [ ] [BAE-FDE-040] | Retrofit FDE + Section 18: `interview-prep/agent-system-design.mdx`
 - [ ] [BAE-FDE-041] | Retrofit FDE + Section 18: `intro/agent-ecosystem-landscape-2026.mdx`
@@ -375,6 +375,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-034 through BAE-FDE-038 | Retrofitted 5 Google ADK topics with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-024 through BAE-FDE-033 | Retrofitted 10 topics (CrewAI, Emerging Frameworks, Google ADK) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-014 through BAE-FDE-023 | Retrofitted 10 topics (Best Practices & CrewAI) with FDE scenarios and Section 18 AI Agent Instructions. |
 | `[BAE-AF-1]` | Created intro categories and first 9 concepts including ReAct pattern. |

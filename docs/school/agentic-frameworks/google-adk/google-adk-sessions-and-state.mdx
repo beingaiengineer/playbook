@@ -18,7 +18,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine you deployed a support bot. User A says "My name is Alice." User B says "What is my name?" and the bot replies "You are Alice!" 
+Bro, imagine you are a backend engineer debugging a multi-tenant support bot where User A is suddenly receiving answers based on User B's context. You realize you failed to isolate ADK Session objects per user request, leading to catastrophic cross-user state leakage.
+
+Imagine you deployed a support bot. User A says "My name is Alice." User B says "What is my name?" and the bot replies "You are Alice!"
 This is the nightmare of stateless agents in a concurrent web server. Because the developer stored the conversation history in a global python list, every user was reading the same memory. By switching to Google ADK's `Session` manager backed by Firestore, you isolate every user's chat history via a unique UUID, ensuring privacy and eliminating context leaks.
 
 ## 3. Real-World Analogy
@@ -165,3 +167,12 @@ You must implement **Memory Summarization**. The ADK allows you to hook into the
 |---|---|---|---|
 | [googleapis/google-cloud-python](https://github.com/googleapis/google-cloud-python) | ⭐ 8k+ | Firestore SDK | The underlying storage mechanism for ADK sessions in production. |
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | LangGraph | Shows alternative ways to manage state via highly complex graph architectures. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Session Isolation | Never share a single `Session` object globally across different HTTP requests or users. | Prevents cross-tenant data leakage and severe privacy violations in multi-user deployments. |
+| Memory Pruning | Implement a custom state pruner or sliding window strategy if the session history grows unbounded. | Prevents Vertex AI `400 Bad Request` errors caused by exceeding the maximum context window of the Gemini model. |
+| State Persistence | Serialize and store the `Session` history in a persistent database (e.g., Firestore) between stateless Cloud Run requests. | Ensures conversation continuity across container restarts and distributed load balancers. |
