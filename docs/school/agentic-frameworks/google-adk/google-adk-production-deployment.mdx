@@ -18,7 +18,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built an awesome internal HR bot using Google ADK. You tested it locally using your `gcloud auth application-default login`, and it was blazing fast. You containerized it and pushed it to Google Cloud Run. The HR team logs in, asks a question, and boom... `403 Permission Denied`. 
+Bro, imagine you are a senior DevOps engineer deploying a Google ADK application to Cloud Run. The app works perfectly locally but crashes with a 403 Permission Denied in production because the default compute service account lacks the required Vertex AI User roles. You must implement strict IAM bindings for your agent.
+
+You built an awesome internal HR bot using Google ADK. You tested it locally using your `gcloud auth application-default login`, and it was blazing fast. You containerized it and pushed it to Google Cloud Run. The HR team logs in, asks a question, and boom... `403 Permission Denied`.
 Why? Because your local machine had your personal super-admin credentials, but the Cloud Run service account had zero permissions to invoke Vertex AI. By properly configuring IAM roles and VPC Service Controls, you locked down the agent, secured the enterprise data, and successfully launched it to 5,000 employees.
 
 ## 3. Real-World Analogy
@@ -151,3 +153,12 @@ Cloud Run experiences a "Cold Start". It takes a few seconds to spin up the cont
 |---|---|---|---|
 | [GoogleCloudPlatform/cloud-run-hello](https://github.com/GoogleCloudPlatform/cloud-run-hello) | ⭐ 1k+ | Cloud Run Examples | Good reference for the foundational containerization. |
 | [GoogleCloudPlatform/terraform-google-cloud-run](https://github.com/terraform-google-modules/terraform-google-cloud-run) | ⭐ 800+ | Terraform module | The enterprise way to deploy ADK agents consistently. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| IAM Roles | Always bind the `roles/aiplatform.user` role to the specific service account running the ADK container. | Prevents unauthorized access and ensures the agent can actually invoke Vertex AI models in production. |
+| Cold Starts | Configure minimum instances (`--min-instances=1`) for Cloud Run deployments handling synchronous agent chats. | Mitigates severe cold start latency that degrades user experience during interactive chat sessions. |
+| Error Logging | Wrap ADK initialization and execution calls in structured JSON logging for Cloud Logging. | Allows SRE teams to debug production execution failures, tool crashes, and API quota limits efficiently. |

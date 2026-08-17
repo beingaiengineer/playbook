@@ -18,8 +18,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built an IT support bot. At first, it just answered password reset questions. Then management wanted it to also write SQL queries to check employee PTO, and also draft HR emails. You jammed all 50 tools into a single Gemini agent. The result? The agent got confused, hallucinated, and accidentally emailed the CEO's PTO balance to the entire company. 
-This is why you use multi-agent orchestration. Instead of one massive "God Agent," you build three tiny, specialized agents: `IT_Agent`, `SQL_Agent`, and `HR_Agent`. You put a `RouterAgent` in front of them. When a user asks about PTO, the Router securely hands off the conversation to the `HR_Agent`, which only has access to HR tools. 
+Bro, imagine you are a senior architect dealing with a monolithic "God Agent" that constantly hallucinates and executes the wrong tools because its context window is polluted. You decide to break it down into specialized Worker Agents managed by a strict Router Agent using Google ADK's native orchestration capabilities.
+
+You built an IT support bot. At first, it just answered password reset questions. Then management wanted it to also write SQL queries to check employee PTO, and also draft HR emails. You jammed all 50 tools into a single Gemini agent. The result? The agent got confused, hallucinated, and accidentally emailed the CEO's PTO balance to the entire company.
+This is why you use multi-agent orchestration. Instead of one massive "God Agent," you build three tiny, specialized agents: `IT_Agent`, `SQL_Agent`, and `HR_Agent`. You put a `RouterAgent` in front of them. When a user asks about PTO, the Router securely hands off the conversation to the `HR_Agent`, which only has access to HR tools.
 
 ## 3. Real-World Analogy
 
@@ -171,3 +173,12 @@ This is a **Routing Loop**. Google ADK mitigates this by enforcing `max_hops` (u
 |---|---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Building stateful applications | The industry standard for graph-based multi-agent orchestration. |
 | [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Excellent for sequential multi-agent workflows. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Routing State | Always pass the `Session` object explicitly when a Router Agent hands off to a Worker Agent. | Ensures the specialized worker retains full context of the user's prior interaction history. |
+| Tool Scoping | Strictly limit tools attached to a Worker Agent to only what is necessary for its domain (e.g., only HR tools for an HR_Agent). | Prevents cross-domain hallucinations and limits the blast radius of compromised agents. |
+| Handoff Loops | Implement a maximum handoff depth or routing limit within the Orchestrator. | Prevents infinite routing loops where Agent A and Agent B continually refer tasks back to each other. |
