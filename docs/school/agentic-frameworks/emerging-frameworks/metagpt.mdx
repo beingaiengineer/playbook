@@ -18,9 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, if you want an LLM to build a web app, you prompt it. It spits out 500 lines of spaghetti code in one file. Half the functions don't connect.
-How do *real* humans build software? A Product Manager writes a PRD (Product Requirements Document). An Architect designs the system API. An Engineer writes the code. A QA tester writes unit tests.
-**MetaGPT** digitizes this exact process. You assign roles to AI agents and enforce **Standardized Operating Procedures (SOPs)**. You type: "Build a Flappy Bird clone." MetaGPT's PM writes a markdown PRD. The Architect generates mermaid diagrams. The Engineer writes the Python files. The result is a fully structured, professional codebase.
+Bro, imagine you are a senior engineer frustrated by monolithic LLM outputs, realizing that to generate a complex software project, you must enforce standardized operating procedures across a simulated team of specialized AI roles.
 
 ## 3. Real-World Analogy
 
@@ -191,3 +189,12 @@ In early versions, this was a huge problem. MetaGPT solves this by injecting an 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [geekan/MetaGPT](https://github.com/geekan/MetaGPT) | ⭐ 40k+ | The official MetaGPT repository. | One of the most starred AI agent frameworks in the world. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

@@ -18,9 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built a RAG system to read company PDFs. It works perfectly. But then your boss says, "If the user asks about the weather, call a weather API. If they ask about PDFs, use RAG. If they ask about SQL, query the database."
-You try to cram all this into a single LangChain agent, and it hallucinates constantly, using the PDF tool to check the weather.
-Enter **Haystack**. Instead of hoping the LLM figures it out, you build a strict, visual **Pipeline**. You use a `ConditionalRouter`. If the prompt contains "weather", it goes to Node A (API). If it contains "document", it goes to Node B (RAG). You combine the predictability of traditional programming with the power of LLMs.
+Bro, imagine you are a senior engineer trying to build an advanced RAG system, but your standard pipeline is too static, forcing you to integrate dynamic agent routing directly into your document retrieval graphs.
 
 ## 3. Real-World Analogy
 
@@ -197,3 +195,12 @@ Haystack's `.connect()` method performs strict validation *before* the pipeline 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [deepset-ai/haystack](https://github.com/deepset-ai/haystack) | ⭐ 15k+ | The official Haystack repository. | The premier open-source orchestrator for production RAG. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

@@ -18,9 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you are a frontend developer. You build amazing Next.js apps. Your boss says, "Add an AI agent."
-You look at LangChain, AutoGen, and CrewAI... they are all Python! You now have to spin up a FastAPI backend, write Python, manage pip environments, and build a fragile REST API just to talk to your Next.js frontend.
-Enter **Mastra**. It is an AI framework built *from the ground up* for TypeScript. You write your agents, tools, and workflows in standard TS. It integrates perfectly with Vercel AI SDK, meaning you can stream agent thoughts directly into your React components without ever leaving your monorepo. 
+Bro, imagine you are a senior frontend engineer trying to embed AI into a complex Next.js application, and you refuse to spin up a fragmented Python backend just to get decent agentic orchestration.
 
 ## 3. Real-World Analogy
 
@@ -202,3 +200,12 @@ Mastra tools intercept the LLM's raw JSON response and run `schema.parse()`. If 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [mastra-ai/mastra](https://github.com/mastra-ai/mastra) | ⭐ 1k+ | The official Mastra repository. | The leading native TypeScript agent framework. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

@@ -18,9 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you've used LangChain and AutoGen. Behind the scenes, they rely on "Tool Calling". The LLM is forced to format its thoughts as a massive JSON object like `{"tool": "weather", "args": {"city": "NY"}}`. 
-The problem? JSON is terrible for reasoning. It costs a ton of tokens, and open-source models (like Llama-3) are notoriously bad at outputting perfect JSON, causing parsing errors constantly.
-Enter **SmolAgents** by HuggingFace. They realized something profound: LLMs are incredible at writing Python code. Instead of forcing the LLM to output JSON to call a tool, SmolAgents tells the LLM: "Just write a Python script that calls the tool." The LLM writes python natively, executes it in a local sandbox, and gets the answer. It is ridiculously simple, fast, and works beautifully with cheap open-source models.
+Bro, imagine you are a senior engineer trying to use open-source models for tool calling, only to watch them fail repeatedly at JSON formatting, leading you to discover a framework that simply lets models write native Python scripts instead.
 
 ## 3. Real-World Analogy
 
@@ -174,3 +172,12 @@ If the AI writes an infinite loop or a highly complex computation, the LocalPyth
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [huggingface/smolagents](https://github.com/huggingface/smolagents) | ⭐ 10k+ | The official SmolAgents repository. | The leading framework for Python-native code agents. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

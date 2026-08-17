@@ -18,9 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you want to write a Python game, but you don't want to code. You could prompt ChatGPT 50 times, correcting it when it makes a mistake. 
-What if you instead created an AI "Python Programmer" and an AI "Game Designer"? You give them a high-level goal: "Create Flappy Bird."
-Instead of you prompting them, **CAMEL** takes over. CAMEL generates 10 specific sub-tasks automatically. Then, the Game Designer prompts the Programmer to write the physics engine. The Programmer writes it and replies. The Game Designer evaluates it and asks for the graphics. They talk to *each other* autonomously until the game is done. You just sit back and watch.
+Bro, imagine you are a senior engineer researching autonomous multi-agent cooperation, and you need a system where agents can explore open-ended problems by communicating with each other through structured role-playing.
 
 ## 3. Real-World Analogy
 
@@ -199,3 +197,12 @@ CAMEL's Inception Prompt explicitly forbids conversational pleasantries. The sys
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [camel-ai/camel](https://github.com/camel-ai/camel) | ⭐ 5k+ | The official CAMEL repository. | The origin of the Role-Playing agent pattern. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

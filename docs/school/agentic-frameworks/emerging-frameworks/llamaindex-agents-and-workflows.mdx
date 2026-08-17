@@ -18,9 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built an AI app that reads 50 PDFs using standard RAG. But your users want more. They ask, "Compare the financial report in PDF A with the trends in our Snowflake database, then email the summary to John."
-Standard RAG fails because it just does vector search. You need an **Agent**. 
-LlamaIndex, historically the king of data ingestion, introduced `FunctionCallingAgentWorker` and event-driven `Workflows`. Now, you give LlamaIndex a "Query Engine Tool" (for the PDFs), a "SQL Tool" (for Snowflake), and an "Email Tool". The LlamaIndex agent autonomously routes between these massive data sources to solve complex, multi-step user queries.
+Bro, imagine you are a senior engineer dealing with massive unstructured data lakes, and simple semantic search is no longer enough to answer complex queries, requiring intelligent agents that can route between multiple RAG pipelines.
 
 ## 3. Real-World Analogy
 
@@ -191,3 +189,12 @@ The Workflow will hang! Because it is strictly event-driven, the system waits fo
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 30k+ | The official LlamaIndex repo. | The premier framework for connecting LLMs to data. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

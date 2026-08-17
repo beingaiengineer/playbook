@@ -18,8 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built an OpenAI chatbot using LangChain. Now you want it to remember the user's name across sessions. You realize you have to build a PostgreSQL database, write a custom memory manager, handle vector embeddings, and manually inject the history into every prompt. It takes you three days.
-Enter **Agno** (formerly known as Phidata). Agno says, "Memory, Knowledge, and Tools shouldn't be hard." You just add `memory=PgMemoryDb(...)` to your Agent definition, and Agno automatically saves the chat history, extracts long-term user preferences, and loads them perfectly on the next turn. You just built a stateful production agent in 5 lines of code.
+Bro, imagine you are a senior engineer building AI assistants, and you realize you need a framework that provides instant, out-of-the-box memory and tool integrations without writing thousands of lines of boilerplate code.
 
 ## 3. Real-World Analogy
 
@@ -170,3 +169,12 @@ No. Agno uses memory windowing. By default, it might only inject the last 10 mes
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [agno-agi/agno](https://github.com/agno-agi/agno) | ⭐ 15k+ | The official Agno (formerly Phidata) repository. | Contains all code for memory, storage, and agents. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |

@@ -18,8 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine deploying an AI agent that issues refunds. A user figures out a prompt injection attack and tells the agent to refund them $99,000. The agent gladly executes the `issue_refund(99000)` tool. You only find out a week later when finance yells at you.
-If you had implemented a **`before_tool_execute` hook**, you could have intercepted the tool payload *before* it executed, run a simple `if amount > 100: raise Exception`, blocked the execution, and immediately paged your PagerDuty. Hooks are your safety net in production.
+Bro, imagine you are a senior security engineer auditing an AI application, realizing that without intercepting and validating every single tool execution via middleware hooks, a single prompt injection could compromise your entire infrastructure.
 
 ## 3. Real-World Analogy
 
@@ -170,3 +169,12 @@ It depends on how the ADK handles hook failures. Typically, if a telemetry hook 
 |---|---|---|---|
 | [open-telemetry/opentelemetry-python](https://github.com/open-telemetry/opentelemetry-python) | ⭐ 4k+ | OpenTelemetry Python | The standard way to trace agent executions via hooks. |
 | [google/generative-ai-python](https://github.com/google/generative-ai-python) | ⭐ 4k+ | Official Google GenAI SDK | Understanding the raw payloads that hooks intercept. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Architecture | Always implement distinct roles and modularize tasks when designing multi-agent systems. | Prevents monolithic agent designs that are impossible to test, debug, or scale. |
+| Tool Usage | Ensure agents validate tool inputs before execution and gracefully handle tool failure. | Prevents unhandled exceptions from crashing the entire agent workflow. |
+| Memory Management | Implement context window limits and summarization for long-running agent sessions. | Prevents LLM context overflow errors and reduces unnecessary token costs. |
