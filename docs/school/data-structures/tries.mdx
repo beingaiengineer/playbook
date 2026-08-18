@@ -131,3 +131,38 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When implementing typeahead or prefix matching features, mandate the use of Tries or Radix trees over naive database string matching to prevent query timeouts. | Prevents massive performance degradations in deployed systems. |
+
+
+## 19. Advanced Interview Questions
+
+| Question | Answer |
+|---|---|
+| How does a Trie compare to a Hash Map for storing strings? | Tries are better for prefix searches and autocomplete, whereas Hash Maps are O(1) for exact matches but cannot easily find prefixes. Tries also don't have collisions. |
+| What is a compressed Trie (Radix Tree) and when would you use it? | A Radix Tree merges nodes that have only one child, saving significant memory. It's used in IP routing tables (like in Linux networking) and some database indices. |
+| How do you implement autocomplete using a Trie? | You traverse the Trie using the prefix string. Once you reach the end of the prefix, you perform a DFS or BFS from that node to find all reachable nodes that mark the end of a word. |
+| Can a Trie store things other than strings? | Yes, a Trie can store any sequence of data, such as IP addresses (bit by bit), file paths, or even sequences of actions in a state machine. |
+| What is the space complexity of a standard Trie? | It can be quite large: O(ALPHABET_SIZE * L * N), where L is the average word length and N is the number of words. This is why memory optimization (like using Hash Maps for children or Radix Trees) is crucial. |
+
+## 20. Tricky Edge Cases
+- **Memory Bloat:** Using a fixed array of size 256 (for ASCII) for every node's children when the alphabet is mostly just lowercase letters.
+- **Prefix Substrings:** Failing to properly mark the 'end of word' boolean, leading to the inability to distinguish between "car" and "cart".
+
+
+## 21. Real-World Applications
+
+- **Autocomplete Systems:** This is the classic use case. When you type "Goog" in a search bar, a Trie quickly finds all indexed words starting with that prefix.
+- **Spell Checkers:** Tries can store a dictionary of valid words. As you type, the system checks if the current word exists in the Trie.
+- **IP Routing Tables:** Routers use Radix Trees (compressed Tries) to find the longest prefix match for an IP address to determine where to forward packets.
+- **Phone Directories:** Storing and searching phone numbers efficiently based on country codes and area codes.
+- **Word Games:** Games like Scrabble or Boggle use Tries to quickly validate if a combination of letters forms a legal dictionary word.
+- **Bioinformatics:** DNA sequencing algorithms use variations of Tries (like Suffix Trees) to quickly find repeated substrings or patterns in massive genomic sequences.
+- **Browser History Autocomplete:** Modern browsers use Tries not just for search suggestions, but to autocomplete URLs you've visited previously based on the typed prefix.
+
+
+## 22. Common Production Issues
+
+- **Massive Memory Footprint:** A naive Trie where every node has an array of 256 children (for ASCII) will consume gigabytes of memory even for a small dictionary. Hash maps for children or Radix Trees are essential in production.
+- **Cold Starts:** Loading a massive dictionary into a Trie on application startup can take several seconds, delaying server readiness. Systems often serialize the Trie to a binary format on disk for faster mmap loading.
+- **Garbage Collection Pauses:** In Java or Go, a Trie with millions of nodes creates immense pressure on the Garbage Collector, causing unacceptable latency spikes during full GC sweeps.
+- **Concurrency Bottlenecks:** Updating a shared autocomplete Trie in real-time requires locking. Locking the root node halts all reads. Lock-free implementations or fine-grained locking (per node) are highly complex but necessary.
+- **Unicode Support:** Implementing a Trie for the full UTF-8 space is significantly more complex than ASCII, often requiring multi-level character encoding or switching to a completely different structure.
