@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ![Illustration of Bae retracing his steps to find keys](../assets/intro/how-agents-think.png)
 
+Bro, imagine you are a senior engineer debugging an agent that keeps making stupid decisions. To fix it, you need to understand exactly how the LLM reasons through a problem and executes tools step-by-step.
+
 | Human World (Solving a Math Problem) | AI Agent Equivalent |
 |---|---|
 | Looking at the equation on the board | **Observation (Input State)** |
@@ -213,3 +215,12 @@ Bro, thinking takes time. If an agent loops 5 times before finding the answer, t
 | [anthropics/anthropic-cookbook](https://github.com/anthropics/anthropic-cookbook) | ⭐ 4k+ | Claude Examples | Excellent examples of how to prompt Claude for complex Chain of Thought reasoning. |
 | [langchain-ai/langsmith-cookbook](https://github.com/langchain-ai/langsmith-cookbook) | ⭐ 1k+ | Tracing Examples | Shows how to visually trace and debug the internal thought loops of an agent in production. |
 | [bclavie/RAGatouille](https://github.com/bclavie/RAGatouille) | ⭐ 2k+ | Advanced RAG | Sometimes agents need to "think" about large documents; this repo shows how to compress that knowledge. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Prompt Engineering | Utilize Chain-of-Thought prompting to enforce explicit reasoning steps before tool usage. | Prevents rash decisions by forcing the LLM to output its logical sequence first. |
+| ReAct Pattern | Implement standard ReAct (Reasoning and Acting) loops rather than blind one-shot generation. | Improves the agent's ability to self-correct upon encountering unexpected tool outputs. |

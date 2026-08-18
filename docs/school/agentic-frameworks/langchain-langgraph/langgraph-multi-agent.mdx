@@ -30,6 +30,8 @@ Bro, a multi-agent system is exactly like a high-end kitchen. If you force one c
 
 ![Illustration of Bae as a supervisor chef delegating tasks to Grill and Pastry Baes](../assets/langchain-langgraph/langgraph-multi-agent.png)
 
+Bro, imagine you are a senior engineer trying to make one massive agent do everything, and it's failing miserably. You need to break the problem down and orchestrate a team of specialized agents.
+
 ## 3. Concept Explanation
 
 LangGraph is perfectly suited for multi-agent architectures because every agent can just be a `Node` or a compiled `Subgraph`.
@@ -232,3 +234,12 @@ Enterprise coding assistants use Subgraphs heavily.
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 18k+ | CrewAI Framework | The primary competitor to LangGraph for multi-agent systems |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Framework | Another massive multi-agent framework |
 | [langchain-ai/langsmith-cookbook](https://github.com/langchain-ai/langsmith-cookbook) | ⭐ 2k+ | LangSmith Cookbook | Shows how to trace complex multi-agent handoffs |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Handoff Logic | Use strict schema enforcement when transferring state between separate specialized agents. | Schema mismatches between agents cause cascading failures in multi-agent orchestration. |
+| Supervision | Implement a Supervisor node that oversees and routes tasks between worker agents. | Decentralized agent communication can result in infinite debating loops without a decisive orchestrator. |
