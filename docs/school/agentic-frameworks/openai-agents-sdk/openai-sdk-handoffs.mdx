@@ -14,7 +14,11 @@ sidebar_label: "Handoffs & Delegation"
 | Common Mistake | Losing context or variables during the handoff process. |
 | Performance | Fast, but requires an extra function call loop. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer deployed to a client site. The client has multiple OpenAI agents—one for sales, one for support. But customers keep getting frustrated because they have to start over when they are transferred from one agent to another. You need to implement seamless stateful handoffs using the OpenAI SDK's function calling features.
+
+## 3. Real-World Analogy
 ![Real-World Analogy](../assets/openai-agents-sdk/openai-sdk-handoffs.png)
 
 Bro, think of a corporate call center. You call the helpline and get the Receptionist (Router Agent). You say, "I need help with my refund." The Receptionist doesn't have the tools to process refunds, so they transfer your call to the Billing Department (Billing Agent). The Receptionist is out of the loop, and you are now talking directly to Billing. That is exactly what an Agent Handoff is.
@@ -25,18 +29,18 @@ Bro, think of a corporate call center. You call the helpline and get the Recepti
 | Transferring the call | Handoff Function |
 | Billing Expert | Specialized Agent |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 In the OpenAI SDK (and Swarm pattern), handoffs are implemented simply by having a tool function return another `Agent` object instead of returning a string.
 
 When the orchestrator sees that a function returned an `Agent`, it updates the active agent in its loop. The new agent takes over the conversation, bringing its own specific system instructions and its own specific tools. This prevents you from building one massive "God Agent" with 50 tools that gets confused.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Concept | Code | Description |
 |---|---|---|
 | Handoff Function | `def transfer_to_billing(): return billing_agent` | The function that triggers the switch. |
 | Router Setup | `triage_agent = Agent(functions=[transfer_to_billing])` | Giving the router the ability to transfer. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Here is a minimal example of a triage agent transferring to a specialist.
 
 ```python
@@ -71,7 +75,7 @@ print(response.agent.name) # Will be "SpanishBot"
 print(response.messages[-1]["content"]) # Will reply in Spanish
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 Bro, let's look at a customer support scenario where we pass context during the handoff.
 
 ```python
@@ -114,7 +118,7 @@ print(f"Ended up with agent: {response.agent.name}")
 # Output: Ended up with agent: Tech Support
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 The Swarm orchestrator checks the type of the result returned by a tool function. If `isinstance(result, Agent)`, it updates `current_agent = result` and continues the loop without asking the user for input.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -133,14 +137,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Aspect | Detail |
 |---|---|
 | Latency | Adds 1 LLM roundtrip (the routing decision). |
 | Token Usage | The whole conversation history is usually passed to the new agent. |
 | Scalability | Excellent. You can add infinite specialized agents. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | How do you implement a handoff in the OpenAI SDK? | By creating a Python tool function that returns an `Agent` instance instead of a string. |
@@ -149,38 +153,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | How do you prevent endless bouncing between agents? | Write strict system instructions ("Do not transfer back to Triage") or implement a hop-limit in your custom orchestrator loop. |
 | Why use handoffs instead of one big agent? | To isolate tools and instructions. A God Agent with 50 tools will hallucinate which tool to use. Specialists are more reliable. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if the user says "I need a refund and also my app is crashing"?
 **The Fix:** Standard handoffs are linear. The Triage agent will likely pick one to transfer to. To handle this, the Triage agent must be instructed to handle one issue at a time, or the specialist agents must have a tool to transfer to *each other* once they finish their part.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Top-tier AI customer support bots (like Klarna's) use massive handoff networks. A router catches the intent, passes it to the "Order Tracking Agent," which can then pass it to the "Human Escalation Agent" if the user gets angry.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Keep the Router agent's tools limited ONLY to handoff functions. | Give the Router agent real tools (like database access). |
 | Use clear docstrings on handoff functions (e.g., "Use this for billing"). | Have overlapping domains between specialized agents. |
 | Let the specialist agents transfer back to the router if needed. | Trap the user in a specialist agent they didn't want. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 Beware of the "Hot Potato" problem. If Agent A transfers to Agent B, and Agent B decides it's actually Agent A's job and transfers back, your system is in an infinite loop. Always monitor and log agent transitions in production.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Forgetting to return the agent | Your tool must explicitly `return specialist_agent`. |
 | Unclear transfer instructions | If the docstring for `transfer_to_tech` is vague, the LLM won't know when to use it. |
 | Passing state poorly | If you rely on context variables, ensure they are updated before the handoff. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Orchestrator Worker Pattern
 - Multi-Agent Systems
 - Routing Pattern
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [openai/swarm](https://github.com/openai/swarm) | ⭐ 15k+ | OpenAI's Swarm. | The reference architecture for the handoff pattern. |
@@ -188,3 +192,13 @@ Beware of the "Hot Potato" problem. If Agent A transfers to Agent B, and Agent B
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen group chats. | A different approach to multi-agent communication (group chat vs direct handoff). |
 | [BerriAI/litellm](https://github.com/BerriAI/litellm) | ⭐ 10k+ | LiteLLM | Useful for routing requests to different models during a handoff. |
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 18k+ | CrewAI. | Uses sequential tasks rather than dynamic runtime handoffs. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Handoff Functions | Implement handoffs as explicit tools (functions) that the current agent must call. | This makes the transfer explicit and allows the system to validate the handoff arguments. |
+| Context Transfer | Pass a summarized context object during the handoff, rather than the entire raw conversation history. | Summarized context reduces token usage and helps the receiving agent focus on the current task. |

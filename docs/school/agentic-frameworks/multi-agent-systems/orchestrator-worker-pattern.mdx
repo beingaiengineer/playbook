@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer deployed to a client site. The client wants a system that can handle a wide variety of customer requests, from billing inquiries to technical support. Instead of trying to build one giant agent that knows everything, you decide to build a central 'router' agent that analyzes the request and delegates it to a specialized 'worker' agent.
+
+
 Bro, your company needs an AI system to process incoming emails, categorize them, extract attachments, and update a CRM. You build a pipeline where Agent A passes to Agent B, which passes to Agent C. But if Agent B fails, the whole pipeline stalls, and Agent A has no idea what happened. Linear pipelines are brittle. Instead, you need to implement the Orchestrator-Worker pattern. In this architecture, a central Orchestrator agent breaks down the complex task, dispatches sub-tasks to specialized Worker agents, monitors their progress, and handles failures dynamically. This hub-and-spoke model is highly resilient, allowing the orchestrator to retry failed tasks or route them to different workers, ensuring the overall job gets done.
 
 ## 3. Real-World Analogy
@@ -157,3 +160,13 @@ By optimizing the orchestrator, you ensure the agent team can scale horizontally
 | Repository | Stars | Description |
 |---|---|---|
 | [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) | ⭐ 15k+ | Excellent implementation of tasks and delegation |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Orchestrator Simplicity | The orchestrator agent must only be responsible for planning and delegation. Do not give it execution tools. | Mixing planning and execution in the orchestrator degrades its routing accuracy and increases latency. |
+| Worker Isolation | Worker agents should not communicate directly with each other. All results must be returned to the orchestrator. | Direct worker-to-worker communication bypasses the orchestrator's control flow, making the system unpredictable. |

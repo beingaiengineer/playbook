@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer deployed to a client site. The client has a complex multi-agent system running in production, but it keeps failing silently. Agents are passing corrupted data to each other, getting stuck in infinite loops, and making weird API calls. You need a way to trace exactly what each agent is thinking and doing, rather than just looking at the final output.
+
+
 Bro, your multi-agent system just spent 10 minutes processing a request, burned through $5 of API credits, and output complete garbage. You look at the logs, and it's just a massive wall of text with hundreds of LLM calls. You have no idea which agent hallucinated, which tool failed, or where the logic went off the rails. Debugging a single LLM call is hard; debugging a distributed system of autonomous agents is a nightmare. You cannot ship multi-agent systems without engineering robust observability. You must implement distributed tracing, capture the state of every agent at every step, and visualize the execution graph, allowing you to pinpoint exactly where the multi-agent orchestration broke down.
 
 ## 3. Real-World Analogy
@@ -155,3 +158,13 @@ By treating agents more like loosely coupled microservices and less like standar
 | Repository | Stars | Description |
 |---|---|---|
 | [langchain-ai/langsmith-sdk](https://github.com/langchain-ai/langsmith-sdk) | ⭐ 1k+ | Essential tracing for LangChain/LangGraph |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Trace Propagation | Inject a unique trace ID into the state object that is passed between every agent. | Without trace IDs, it is impossible to correlate logs across multiple asynchronous agent executions. |
+| State Snapshots | Log the delta of the state object before and after every agent invocation. | Full state dumps are too large, but deltas are necessary to pinpoint exactly which agent corrupted the context. |

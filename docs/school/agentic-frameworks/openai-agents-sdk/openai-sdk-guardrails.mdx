@@ -14,7 +14,11 @@ sidebar_label: "Guardrails & Safety"
 | Common Mistake | Relying solely on system prompts ("Please don't swear") instead of code-level checks. |
 | Performance | Adds latency due to validation steps or secondary LLM evaluation calls. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer deployed to a client site. The client's new OpenAI-powered agent is live, but it occasionally goes off-script, recommending competitor products or generating inappropriate content. You need to implement strict guardrails directly at the SDK level to intercept and block these behaviors before they reach the user.
+
+## 3. Real-World Analogy
 ![Real-World Analogy](../assets/openai-agents-sdk/openai-sdk-guardrails.png)
 
 Bro, think of a bowling alley. If you are a beginner, your ball is going to end up in the gutter. Guardrails are literally those metal bumpers they put over the gutters. They physically prevent the ball from going out of bounds, no matter how badly you throw it. In agent engineering, a system prompt tells the LLM to bowl straight; a code-level guardrail *forces* it to stay in bounds.
@@ -25,7 +29,7 @@ Bro, think of a bowling alley. If you are a beginner, your ball is going to end 
 | The metal bumpers | Input/Output validation code |
 | The gutter | Hallucinations, prompt injection, toxicity |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 Guardrails are safety mechanisms wrapped around your LLM calls. In the OpenAI SDK context, you implement guardrails at three levels:
 1. **Input Guardrails**: Checking the user's prompt before sending it to the LLM (e.g., blocking prompt injections or profanity).
 2. **Tool Guardrails**: Validating the arguments the LLM tries to pass to your Python functions (e.g., ensuring it doesn't pass `-1` for a quantity).
@@ -33,14 +37,14 @@ Guardrails are safety mechanisms wrapped around your LLM calls. In the OpenAI SD
 
 You use guardrails because LLMs are non-deterministic. You cannot trust them 100% of the time, bro.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Concept | Implementation Strategy | Description |
 |---|---|---|
 | Input Validation | `if contains_profanity(text): abort()` | Code-level check before the LLM. |
 | Pydantic Output | `client.beta.chat.completions.parse(..., response_format=Model)` | Strict structured output enforcement. |
 | LLM-as-a-Judge | `evaluate_safety_with_llm(output)` | Using a smaller LLM to check the main LLM's output. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Here is a simple input and tool guardrail setup.
 
 ```python
@@ -72,7 +76,7 @@ else:
     # and the LLM will tell the user the ID is invalid.
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 Bro, in production, we use Pydantic for strict output guardrails (Structured Outputs) to guarantee the LLM doesn't hallucinate JSON keys.
 
 ```python
@@ -106,7 +110,7 @@ result = extract_user_info("Hey, I'm Rahul, I'm 28, and yeah I pay for the premi
 print(result.name, result.age, result.is_premium)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 When you use Pydantic for output guardrails, the OpenAI API restricts the grammar of the token generation. It literally cannot output a `{` if the schema requires a `[`. This is a hard, mathematical constraint at the inference level, not just a prompt suggestion.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -125,14 +129,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Guardrail Type | Latency Impact | Reliability |
 |---|---|---|
 | Regex / Python Checks | ~0ms | 100% for strict patterns |
 | OpenAI Structured Outputs | None | ~100% structural guarantee |
 | LLM-as-a-Judge | High (Full extra API call) | 80-90% |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | What is the difference between a prompt instruction and a guardrail? | A prompt is a suggestion ("Don't swear"). A guardrail is code or inference-level constraints that block the output if it disobeys. |
@@ -141,38 +145,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Should you validate tool arguments? | Yes, always. Treat LLM tool calls like an unauthenticated API request from a user. |
 | What is LLM-as-a-Judge? | Using a fast, cheap model (like GPT-4o-mini) to review the output of the main model for safety before showing it to the user. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if the LLM gets trapped in a loop because your tool keeps rejecting its hallucinated arguments?
 **The Fix:** Implement a retry counter in your orchestrator loop. If a tool fails 3 times due to validation errors, force the agent to return a standard error message to the user ("I'm having trouble with that right now") and exit the loop.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Banks use extreme guardrails. The input is checked by a classification model for toxicity. The LLM processes the query. The output is checked by a secondary LLM to ensure it doesn't contain financial advice. Only then is it shown to the user.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Use Pydantic/Structured Outputs for all JSON returns. | Ask the LLM nicely to "return JSON format" in the prompt. |
 | Treat the LLM as an untrusted client in your tools. | Let the LLM directly execute SQL commands. |
 | Fail gracefully and apologize to the user. | Show the user raw Python stack traces. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 Guardrails are essential, but too many LLM-based guardrails will make your system unusable due to latency and cost. Use fast, traditional code (regex, blocklists, Pydantic) for 90% of your guardrails, and reserve LLM-as-a-judge for complex semantic checks.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Trusting the LLM | Code your tool functions as if a malicious hacker is calling them. Validating IDs and permissions is mandatory. |
 | Over-prompting | Cramming 50 lines of "Do not say X, Y, Z" into the system prompt. It dilutes the instructions. Use code checks. |
 | Ignoring Hallucinations | Assuming the LLM will always output valid URLs or IDs. Check if the resource actually exists in the tool. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Agent Security Threats
 - Agent Evaluation Frameworks
 - Pydantic AI Structured Output
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [NVIDIA/NeMo-Guardrails](https://github.com/NVIDIA/NeMo-Guardrails) | ⭐ 5k+ | Nvidia's open-source guardrails toolkit. | The industry standard for adding programmable guardrails to LLMs. |
@@ -180,3 +184,13 @@ Guardrails are essential, but too many LLM-based guardrails will make your syste
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 18k+ | Data validation. | The backbone of OpenAI's Structured Outputs. |
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | LangChain. | Contains excellent output parser and retry logic implementations. |
 | [protectai/llm-guard](https://github.com/protectai/llm-guard) | ⭐ 2k+ | Security toolkit for LLMs. | Provides scanners for PII, toxicity, and prompt injections. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Input Validation | Sanitize and validate all user inputs before passing them to the OpenAI API. | Prompt injection attacks can hijack the agent's behavior if inputs are not properly sanitized. |
+| Output Moderation | Implement a post-generation check (e.g., using the Moderation API) before returning the response. | Even well-prompted models can generate unsafe content; post-checks are a necessary defense-in-depth layer. |

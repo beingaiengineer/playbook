@@ -14,7 +14,11 @@ sidebar_label: "OpenAI SDK Fundamentals"
 | Common Mistake | Using this SDK when you need complex graph orchestration (like LangGraph). |
 | Performance | Fast and native, but locked into the OpenAI ecosystem. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer deployed to a client site. The client wants to build a reliable, fast agentic system, but they don't want to adopt a heavy, complex framework like LangGraph. They want to stick as close to the bare metal OpenAI API as possible to minimize dependencies and maintain full control over the execution loop.
+
+## 3. Real-World Analogy
 ![Real-World Analogy](../assets/openai-agents-sdk/openai-sdk-fundamentals.png)
 
 Bro, using the OpenAI Agents SDK is like buying a pre-built gaming PC directly from Dell. It works perfectly out of the box, all the parts are guaranteed to work together, and support is easy. But if you want to swap out the motherboard for a custom part later, it's going to be a headache. Frameworks like LangGraph are like building the PC yourself from scratch.
@@ -25,12 +29,12 @@ Bro, using the OpenAI Agents SDK is like buying a pre-built gaming PC directly f
 | Custom built PC | LangGraph / Custom Python |
 | Warranty / Support | Native OpenAI Integration |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 The OpenAI Agents SDK (formerly Swarm, now evolved into official patterns) provides a lightweight, native way to build agents using the OpenAI API. It abstracts away the heavy lifting of function calling loops and context management.
 
 You should use it when you are exclusively using OpenAI models (GPT-4o) and want the fastest path to a working agent. You should NOT use it if you need model agnosticism (e.g., you want to switch to Claude tomorrow) or complex state machine logic.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Concept | Code | Description |
 |---|---|---|
 | Initialize Client | `client = OpenAI()` | Standard OpenAI client setup. |
@@ -38,7 +42,7 @@ You should use it when you are exclusively using OpenAI models (GPT-4o) and want
 | Define Tools | `def get_weather(): ...` | Standard python functions. |
 | Execution | `client.run(agent, messages)` | Run the loop. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Here is the most basic example of an agent that can say hello.
 
 ```python
@@ -59,7 +63,7 @@ print(response.messages[-1]["content"])
 # Output: "Bro! How's it going?"
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 Bro, let's look at an agent with a real tool. We'll give it a function to fetch a user's account balance.
 
 ```python
@@ -87,7 +91,7 @@ print(response.messages[-1]["content"])
 # Output: "Your current account balance is $500, bro."
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 Under the hood, the SDK manages the standard LLM function-calling loop. It sends the prompt, the LLM says "call this tool", the SDK executes the Python function locally, appends the result to the messages array, and sends it back to the LLM. It hides this `while` loop from you.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -105,14 +109,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Metric | Details |
 |---|---|
 | Latency | Very low overhead; exactly matches raw OpenAI API speed. |
 | Setup Time | Extremely fast (minutes). |
 | Vendor Lock-in | High (tied to OpenAI infrastructure). |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | What is the main advantage of the OpenAI SDK for agents? | It provides the most native, reliable interface to OpenAI's function calling without external abstraction layers. |
@@ -121,38 +125,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Is it suitable for highly complex, stateful multi-agent systems? | No, for complex state management, frameworks like LangGraph are preferred. |
 | Can agents transfer control in this SDK? | Yes, "handoffs" are a core pattern where an agent returns another agent to transfer the conversation. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if your Python tool function raises an exception?
 **The Fix:** By default, it might crash your script. You must implement `try/except` blocks inside your tool functions and return a string like "Error fetching data" back to the LLM so the LLM knows it failed and can apologize to the user.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Companies heavily invested in the Microsoft/OpenAI ecosystem use this SDK for lightweight internal tools, like Slack bots that query internal documentation or basic customer service triaging bots.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Use clear, concise docstrings on your tool functions. | Leave tool functions undocumented. The LLM reads the docstring! |
 | Handle exceptions inside the tool function. | Let exceptions crash the orchestration loop. |
 | Use this SDK for fast prototyping. | Try to force it to do complex DAG state routing. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 Because this SDK is deeply tied to OpenAI, if OpenAI goes down, your application goes down. If you require multi-provider failover (e.g., falling back to Claude or Gemini), you must use a more agnostic framework like LangChain or LiteLLM.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Missing type hints | Ensure all tool function arguments have Python type hints (e.g., `def query(date: str):`). |
 | Poor docstrings | Write detailed docstrings. The LLM uses this to understand what the tool does. |
 | Overcomplicating the logic | Keep the agent logic simple. If it's too complex, switch to a graph framework. |
 
-## 15. Related Topics
+## 16. Related Topics
 - OpenAI SDK Tools and Functions
 - Agent Handoffs
 - Function Calling Deep Dive
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [openai/openai-python](https://github.com/openai/openai-python) | ⭐ 20k+ | Official OpenAI Python API library. | The foundational library for all OpenAI calls. |
@@ -160,3 +164,13 @@ Because this SDK is deeply tied to OpenAI, if OpenAI goes down, your application
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | The dominant agnostic framework. | The primary alternative when you outgrow native SDKs. |
 | [BerriAI/litellm](https://github.com/BerriAI/litellm) | ⭐ 10k+ | Call any LLM API using OpenAI format. | Useful if you want the OpenAI syntax but need multi-provider support. |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | Microsoft's framework. | Another approach to building agents in the MS ecosystem. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Native SDK Usage | Use the official OpenAI SDK patterns for function calling and handoffs instead of custom wrappers. | Official patterns are optimized by the OpenAI backend and are more resilient to API changes. |
+| State Management | explicitly manage the `messages` array. Do not rely on implicit state. | The OpenAI API is stateless; failing to manage the conversation history results in amnesic agents. |

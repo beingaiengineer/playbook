@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer deployed to a client site. The client is trying to scale up their GenAI capabilities. They want to move beyond a single chatbot and build a system that can handle complex, multi-step workflows. But they have no idea how to structure it. You need to explain the different ways multiple agents can interact, from simple worker pools to complex hierarchies.
+
+
 Bro, you need to build an AI system that researches a topic, writes a blog post, and publishes it. You decide to try and cram all these instructions into a single, massive prompt for one agent. It fails miserably, losing track of instructions and hallucinating facts. A single agent cannot do everything. You must transition to multi-agent architectures. But you can't just throw agents together randomly; you need to understand established Multi-Agent Patterns. Whether it's an Orchestrator-Worker model for task delegation, a Peer-to-Peer network for brainstorming, or a Supervisor pattern for quality control, selecting the right architectural pattern is critical to building a reliable, scalable system that actually accomplishes complex goals.
 
 ## 3. Real-World Analogy
@@ -149,3 +152,13 @@ Used in AI software houses (like MetaGPT) to simulate PMs, Designers, and Engine
 | Repository | Stars | Description |
 |---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | The standard for defining agent graphs |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Pattern Selection | Default to the simplest pattern (e.g., Routing or Orchestrator-Worker) before adopting complex topologies. | Over-engineering agent interactions increases latency, token costs, and debugging complexity unnecessarily. |
+| Boundary Enforcement | Clearly define the input and output schemas for each agent in the system. | Loose typing between agents leads to catastrophic downstream failures when an agent hallucinates a schema change. |
