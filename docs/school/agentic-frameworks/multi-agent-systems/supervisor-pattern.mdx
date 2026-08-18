@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer deployed to a client site. The client has a team of specialized agents, but they keep getting stuck in endless debates or failing to reach a final conclusion. You realize you need a 'supervisor' agent whose only job is to evaluate the work of the other agents, decide when a task is complete, and make the final decision.
+
+
 Bro, you built a coding agent that writes scripts for your users. It works fast, but 30% of the time, the code has syntax errors or security vulnerabilities. You can't just deploy this to production and hope for the best. Relying on a single agent to generate perfect output is a recipe for disaster. You must engineer quality control into the architecture by implementing the Supervisor Pattern. By introducing a dedicated 'Supervisor' or 'Critic' agent whose sole job is to review, test, and critique the output of the 'Generator' agent, you create an adversarial loop. The Supervisor forces the Generator to fix its mistakes before the final output is ever shown to the user, drastically increasing the reliability of the system.
 
 ## 3. Real-World Analogy
@@ -159,3 +162,13 @@ By establishing strict boundaries, you ensure the Supervisor pattern remains a p
 | Repository | Stars | Description |
 |---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | The absolute standard for this pattern. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Supervisor Authority | The supervisor agent must have explicit authority to terminate the execution loop. | Without a termination mechanism, specialized agents can get stuck in infinite retry loops trying to perfect an answer. |
+| Evaluation Criteria | Provide the supervisor with a strict, measurable rubric for evaluating the workers' outputs. | Vague supervisor prompts lead to inconsistent approvals and degraded final output quality. |

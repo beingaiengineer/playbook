@@ -20,6 +20,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer deployed to a client site. They want to build a complex financial analysis system. They have a basic setup, but the LLM gets confused when asked to do market research, fundamental analysis, and risk assessment all at once. You realize you need a structured chain of command where specialized agents report to manager agents, mimicking a real analyst team.
+
+
 Bro, you tried to build a customer support system by putting 5 different specialized agents (billing, technical, sales, etc.) in a single group chat. Whenever a user asked a question, all 5 agents tried to answer at once, arguing with each other and confusing the user. Flat architectures do not scale for complex workflows. You need to engineer Hierarchical Agent Teams. By introducing a 'Manager' or 'Router' agent at the top of the hierarchy, you create a chain of command. The manager analyzes the intent, delegates the task to the specific subordinate agent, and synthesizes the final response. This architectural pattern brings order, efficiency, and predictability to complex multi-agent systems.
 
 ## 3. Real-World Analogy
@@ -149,3 +152,13 @@ Large-scale AI software engineering systems (like SWE-agent or enterprise intern
 | Repository | Stars | Description |
 |---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Excellent support for compiled sub-graphs |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Top-Down State Flow | Ensure state updates strictly flow from managers down to workers and back up. | Bypassing the hierarchy causes inconsistent state and race conditions in complex multi-step workflows. |
+| Worker Specialization | Define worker agents with highly constrained, single-purpose system prompts and tools. | Over-broad worker agents negate the benefits of a hierarchical team and increase hallucination risks. |

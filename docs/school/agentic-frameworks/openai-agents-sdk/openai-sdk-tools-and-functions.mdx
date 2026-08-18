@@ -14,7 +14,11 @@ sidebar_label: "Tools & Functions"
 | Common Mistake | Forgetting type hints and docstrings on Python functions. |
 | Performance | Instant local execution, but adds latency to the LLM loop. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer deployed to a client site. The client's agent needs to interact with their legacy SQL database and a third-party CRM. You need to define precise, strict JSON schemas for the OpenAI SDK's function calling, ensuring the model doesn't hallucinate column names or pass string values where integers are expected.
+
+## 3. Real-World Analogy
 ![Real-World Analogy](../assets/openai-agents-sdk/openai-sdk-tools-and-functions.png)
 
 Bro, an LLM without tools is like a very smart executive locked in a room without a phone or a computer. They know a lot of theory, but they can't check today's stock price or send an email. Giving the LLM tools is like handing that executive a smartphone. Now they can interact with the outside world.
@@ -25,19 +29,19 @@ Bro, an LLM without tools is like a very smart executive locked in a room withou
 | Can only answer based on training data | Can fetch live data |
 | Cannot take action | Can execute commands (send emails) |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 In the OpenAI SDK ecosystem, "Tools" are simply standard Python functions. When you pass a list of functions to an Agent, the SDK automatically parses the function signatures (type hints) and docstrings, converts them into a JSON schema, and sends that schema to the OpenAI API.
 
 When the model decides it needs data, it halts generation and says, "Call function X with arguments Y". The SDK executes your Python code and feeds the result back to the LLM.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Concept | Syntax | Description |
 |---|---|---|
 | Function Definition | `def my_tool(arg: str) -> str:` | Standard Python function with type hints. |
 | Docstring | `"""Fetches the user data."""` | Crucial! This tells the LLM what the tool does. |
 | Agent Setup | `Agent(functions=[my_tool])` | Attaching the tool to the agent. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Bro, let's create a tool that gets the weather.
 
 ```python
@@ -65,7 +69,7 @@ response = client.run(
 print(response.messages[-1]["content"])
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 In production, your tools will interact with real databases or APIs. Let's look at a tool that updates a database record.
 
 ```python
@@ -101,7 +105,7 @@ response = client.run(
 print(response.messages[-1]["content"])
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 The conversion from Python function to JSON Schema is the magic of the SDK. It inspects the `__annotations__` and `__doc__` of your Python function.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -118,14 +122,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Operation | Latency Impact |
 |---|---|
 | Simple Python Tool | ~1ms (negligible) |
 | API Call Tool | +100ms to 2000ms (depends on external API) |
 | Tool-Calling Loop | +1 full LLM roundtrip (high latency impact) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | How does the LLM know how to use your Python function? | The SDK converts the function's docstring and type hints into a JSON schema that the LLM understands natively. |
@@ -134,38 +138,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Why are type hints mandatory? | Without them, the SDK cannot generate the correct JSON schema, and the LLM might hallucinate argument types. |
 | Can an agent call multiple tools in parallel? | Yes, modern OpenAI models support parallel function calling automatically. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if the LLM hallucinates an argument that isn't in your function signature? (e.g., passing `date` when your function only takes `location`).
 **The Fix:** The SDK handles basic validation based on the schema, but you should always write defensive Python code. Use `**kwargs` if you want to silently catch and ignore hallucinated arguments, or let it fail gracefully and return "Invalid arguments provided" to the LLM so it can try again.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Production support agents use tools to check Jira tickets, query PostgreSQL databases for user states, and trigger PagerDuty alerts.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Use explicit type hints (`arg: int`). | Use `arg: Any` or omit type hints. |
 | Write descriptive docstrings explaining the tool's purpose. | Write tools with no documentation. |
 | Return stringified JSON for complex data. | Return raw Python class objects. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 Never give an agent a destructive tool (like `DROP TABLE` or `DELETE USER`) without a Human-in-the-Loop approval step. LLMs will hallucinate and confidently delete production data if given the chance.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Forgetting to import dependencies in the tool | Ensure your tool function has access to the libraries it needs (e.g., `import requests`). |
 | Returning massive datasets | Don't return 10,000 rows of a DB query. Summarize or paginate it, or it will blow up the context window. |
 | Relying on global variables | Keep tool functions pure and self-contained if possible. |
 
-## 15. Related Topics
+## 16. Related Topics
 - OpenAI SDK Fundamentals
 - Function Calling Deep Dive
 - Agent Guardrails and Safety
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [openai/openai-python](https://github.com/openai/openai-python) | ⭐ 20k+ | Official Python SDK. | The core library handling the JSON schema conversion. |
@@ -173,3 +177,13 @@ Never give an agent a destructive tool (like `DROP TABLE` or `DELETE USER`) with
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 18k+ | Data validation library. | Often used inside tools to strictly validate the LLM's arguments. |
 | [significant-gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) | ⭐ 165k+ | Original autonomous agent. | Great reference for how to build massive tool sets (file I/O, web browsing). |
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | LangChain. | Look at `langchain-community` for thousands of pre-built tool examples. |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Strict Schemas | Enable `strict: true` for all tool definitions in the OpenAI SDK. | Strict schemas force the model to adhere exactly to the defined structure, drastically reducing parsing errors. |
+| Tool Descriptions | Provide highly detailed descriptions for both the tool and its parameters. | The model relies entirely on these descriptions to know when and how to use the tool. Vague descriptions lead to incorrect tool usage. |
