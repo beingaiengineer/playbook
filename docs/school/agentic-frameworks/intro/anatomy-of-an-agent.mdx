@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ![Illustration of Bae in a kitchen representing agent anatomy](../assets/intro/anatomy-of-an-agent.png)
 
+Bro, imagine you are a senior engineer tasked with building a scalable internal tool that requires pulling data from various APIs and making decisions. You need to understand the fundamental architecture before writing a single line of code.
+
 | Human World (Restaurant Kitchen) | AI Agent Equivalent |
 |---|---|
 | The Head Chef deciding what to cook based on orders | **The Brain (LLM Core)** |
@@ -205,3 +207,12 @@ Bro, the orchestration loop is where you must put your guardrails. Do not trust 
 | [anthropics/anthropic-tools](https://github.com/anthropics/anthropic-tools) | ⭐ 2k+ | Tool use examples | Shows best practices for the "Actuator" part of the anatomy using Claude. |
 | [e2b-dev/E2B](https://github.com/e2b-dev/E2B) | ⭐ 5k+ | Code execution sandbox | A critical piece of infrastructure for agents that need code-execution tools. |
 | [chroma-core/chroma](https://github.com/chroma-core/chroma) | ⭐ 12k+ | Vector DB | The standard open-source long-term memory component for local agents. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Modular Architecture | Always separate the LLM client, Memory, and Tool execution components in code structure. | Tight coupling makes debugging hallucinatory loops impossible in production. |
+| State Management | Maintain explicit conversational state rather than relying entirely on a monolithic prompt payload string. | Implicit state is easily corrupted when injecting asynchronous tool outputs. |

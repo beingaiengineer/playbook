@@ -27,6 +27,8 @@ You have a sink from one brand, a dishwasher from another, and a water main from
 
 ![Illustration of Bae in a kitchen using pipes and adapters to connect appliances](../assets/langchain-langgraph/langchain-fundamentals.png)
 
+Bro, imagine you are a senior engineer migrating a messy, hardcoded LLM script into a standardized, maintainable application using LangChain's core components.
+
 | Plumbing Component | LangChain Equivalent |
 |---|---|
 | The raw water supply | The LLM API (OpenAI, Anthropic, local) |
@@ -210,3 +212,12 @@ The edge case is **Input Schema Mismatches**. The `prompt` component usually exp
 | [langchain-ai/langchain-experimental](https://github.com/langchain-ai/langchain/tree/master/libs/experimental) | N/A | Experimental components and architectures. | Where cutting-edge patterns are tested before graduating to the main library. |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLM apps. | The primary competitor to LangChain, focusing specifically on RAG and data indexing. |
 | [jxnl/instructor](https://github.com/jxnl/instructor) | ⭐ 6k+ | Structured outputs for LLMs. | A great alternative if you only need structured output and find LangChain too heavy. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Chain Construction | Use LCEL (LangChain Expression Language) for linear execution chains instead of deprecated classes. | LCEL provides built-in streaming, async support, and better observability by default. |
+| Prompt Templates | Standardize all dynamic prompt injections using `ChatPromptTemplate.from_messages`. | Raw string concatenation is prone to injection vulnerabilities and formatting errors. |

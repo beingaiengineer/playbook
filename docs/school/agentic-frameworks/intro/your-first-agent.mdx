@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ![Illustration of Bae learning to drive in an empty parking lot](../assets/intro/your-first-agent.png)
 
+Bro, imagine you are a senior engineer who needs to prototype a simple autonomous script by the end of the day to prove a concept to stakeholders.
+
 | Human World (Learning to drive) | AI Agent Equivalent |
 |---|---|
 | Understanding the gas and brake | **Calling the LLM API** |
@@ -238,3 +240,12 @@ Bro, this script loops `while True`. If you give the agent a bad tool that alway
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 6k+ | State Graph Framework | Once you outgrow the `while True` loop, this is where you go next to make it robust. |
 | [ShreyaR/guardrails](https://github.com/guardrails-ai/guardrails) | ⭐ 3k+ | LLM Validation | A great repo to look at when you realize your raw `json.loads()` keeps breaking. |
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 25k+ | Multi-agent framework | See how complex the raw SDK loops get when you have 5 agents talking to each other. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Initialization | Always explicitly set temperature to 0 when testing your first autonomous loop to ensure deterministic outputs. | High temperature causes erratic tool calling, making initial debugging extremely difficult. |
+| Logging | Implement comprehensive debug logging for every payload sent to and received from the LLM. | Silent failures in prompt formatting are the #1 cause of agent stalls. |

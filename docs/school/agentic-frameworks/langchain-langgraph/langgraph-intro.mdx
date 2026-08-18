@@ -28,6 +28,8 @@ LangGraph is the framework that lets you build this complex, looping, decision-b
 
 ![Illustration of Bae as a dabbawala sorting lunchboxes](../assets/langchain-langgraph/langgraph-intro.png)
 
+Bro, imagine you are a senior engineer who realizes that a simple linear LangChain script isn't enough anymore. You need loops, state management, and cyclical execution to handle complex tasks.
+
 | Network Role | LangGraph Equivalent |
 |---|---|
 | The Dabbawala Stations | Nodes (Python functions) |
@@ -242,3 +244,12 @@ You must define the state like this: `messages: Annotated[list, operator.add]`. 
 | [langchain-ai/langgraph-example](https://github.com/langchain-ai/langgraph/tree/main/examples) | N/A | Official examples directory. | The best place to find production-grade patterns for Plan-and-Execute, Reflection, and HITL. |
 | [langchain-ai/langgraph-studio](https://github.com/langchain-ai/langgraph-studio) | ⭐ 1k+ | Desktop IDE for LangGraph. | Essential tool for visualizing your graph architecture and debugging state transitions locally. |
 | [langchain-ai/open-canvas](https://github.com/langchain-ai/open-canvas) | ⭐ 2k+ | Open-source alternative to ChatGPT Canvas. | A masterclass in building complex, production-ready React applications powered by a LangGraph backend. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| State Definition | Strictly type the `AgentState` using TypedDict or Pydantic models. | Dynamic untyped states lead to silent key errors during complex graph traversal. |
+| Edge Routing | Implement deterministic conditional edge functions that return explicit string node names. | LLM-driven edge routing without validation can cause the graph to route to non-existent nodes. |

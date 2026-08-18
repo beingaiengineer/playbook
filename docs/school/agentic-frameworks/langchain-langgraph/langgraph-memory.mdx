@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ![Illustration of Bae as a waiter writing in a notebook to remember a customer's order history](../assets/langchain-langgraph/langgraph-memory.png)
 
+Bro, imagine you are a senior engineer dealing with user complaints that the agent 'forgets' what they said five minutes ago. You need to implement persistent state across multiple execution turns.
+
 | Restaurant Scenario | LangGraph Memory Equivalent |
 |---|---|
 | A regular customer walks in | Starting a new thread with a specific `thread_id` |
@@ -235,3 +237,12 @@ Companies building complex customer support bots use Postgres checkpointers.
 | [psycopg/psycopg](https://github.com/psycopg/psycopg) | ⭐ 4k+ | PostgreSQL adapter for Python | Required for `AsyncPostgresSaver` |
 | [encode/databases](https://github.com/encode/databases) | ⭐ 3k+ | Async database support | Good to know for scaling checkpointers |
 | [redis/redis-py](https://github.com/redis/redis-py) | ⭐ 12k+ | Redis Python client | Used for custom high-speed Redis checkpointers |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Context Window | Implement a message summarization node or sliding window mechanism for the state's message array. | Indefinitely appending to the state array will inevitably breach the LLM's token limit. |
+| Persistence | Use a production-grade database (like PostgreSQL) for long-term thread checkpointers. | In-memory checkpointers are completely volatile and unsuitable for distributed deployments. |

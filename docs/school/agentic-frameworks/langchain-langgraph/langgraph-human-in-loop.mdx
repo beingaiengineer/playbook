@@ -30,6 +30,8 @@ Bro, think of Human in the Loop like a train conductor checking tickets. The tra
 
 ![Illustration of Bae as a train conductor turning a key to let a train cross the border](../assets/langchain-langgraph/langgraph-human-in-loop.png)
 
+Bro, imagine you are a senior engineer building an agent that can execute database migrations. You absolutely cannot let it run autonomously; you need a way to pause execution and get manual approval before the destructive action occurs.
+
 ## 3. Concept Explanation
 
 Sometimes, you do not want your AI agent to act completely autonomously. If your agent's job is to refund a customer, you probably want a human manager to click "Approve" before the Stripe API is called.
@@ -239,3 +241,12 @@ Companies use HITL for:
 | [copilot-kit/copilotkit](https://github.com/CopilotKit/CopilotKit) | ⭐ 8k+ | Build in-app AI copilots | Great frontend framework for rendering HITL approval states |
 | [streamlit/streamlit](https://github.com/streamlit/streamlit) | ⭐ 30k+ | Python UI framework | Often used to build quick internal HITL dashboards for LangGraph |
 | [gradio-app/gradio](https://github.com/gradio-app/gradio) | ⭐ 25k+ | ML web interface | Another popular tool for building human approval UIs |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Checkpointing | Always attach a persistent Checkpointer to any LangGraph workflow requiring human approval. | State will be lost if the server restarts while waiting for human input if memory is not persisted. |
+| Interrupt Handling | Handle `interrupt` exceptions gracefully within the state machine node transitions. | Abrupt termination of the execution thread corrupts the active conversational state. |

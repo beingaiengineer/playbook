@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ![Real-World Analogy](../assets/intro/what-are-ai-agents.png)
 
+Bro, imagine you are a senior engineer explaining to the VP of Engineering why an AI Agent is fundamentally different from the standard RAG chatbot your company built last year.
+
 ![Illustration of Bae as a new IT employee](../assets/intro/what-are-ai-agents.png)
 
 | Human World (Corporate IT Team) | AI Agent Equivalent |
@@ -230,3 +232,12 @@ Bro, agents are inherently non-deterministic. A simple prompt tweak can complete
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 25k+ | Multi-agent conversation framework | Pioneered the concept of agents chatting with each other to solve tasks. |
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 2k+ | Type-safe agent framework | Shows the modern trend of enforcing strict schemas on agent outputs. |
 | [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) | ⭐ 160k+ | The original autonomous agent | Historically important, sparked the entire agentic trend, though less used in enterprise prod today. |
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Agent Definition | Clearly define the scope of the agent's autonomy and bound its execution loop. | Unbounded agents can spiral into infinite loops, consuming massive token budgets. |
+| Human Oversight | For any state-altering actions, mandate a Human-in-the-Loop (HITL) approval step. | Prevents autonomous scripts from executing destructive commands without authorization. |
