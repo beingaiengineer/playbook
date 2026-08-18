@@ -118,3 +118,39 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When generating code that requires a queue in Python, always import `collections.deque`. Never use a standard list with `.pop(0)`. | Prevents massive performance degradations in deployed systems. |
+
+
+## 19. Advanced Interview Questions
+
+| Question | Answer |
+|---|---|
+| How do you implement a Queue using two Stacks? | You use one stack for enqueuing elements and the other for dequeuing. When dequeuing, if the second stack is empty, you pop everything from the first stack and push it to the second, reversing the order. |
+| Describe a use case for a Monotonic Stack. | Monotonic stacks are used to find the next greater or smaller element in an array in O(N) time. They keep elements in a strictly increasing or decreasing order. |
+| What is a Circular Queue and why is it useful? | A circular queue uses a fixed-size array and wraps around the pointers (head and tail). It's useful in memory-constrained environments like embedded systems or network buffers where you don't want to dynamically allocate memory. |
+| How do you evaluate a postfix expression using a stack? | You iterate through the expression: if it's a number, push it onto the stack. If it's an operator, pop the top two numbers, apply the operator, and push the result back onto the stack. |
+| Explain the difference between blocking and non-blocking queues. | A blocking queue will wait (block the thread) if you try to dequeue from an empty queue or enqueue to a full queue. Non-blocking queues will return an error or null immediately. |
+
+## 20. Tricky Edge Cases
+- **Priority Inversion:** In concurrent queues, a lower-priority task might hold a lock needed by a higher-priority task.
+- **Queue Overflow:** Failing to handle backpressure when producers are faster than consumers.
+
+
+## 21. Real-World Applications
+
+- **Call Stack:** Every modern programming language uses a stack to keep track of active subroutines. When a function is called, its local variables are pushed; when it returns, they are popped.
+- **Undo/Redo Mechanisms:** Text editors and graphic design software use stacks. Every action is pushed. Undo pops from the action stack and pushes to the redo stack.
+- **Browser History:** The back and forward buttons in a web browser are implemented using two stacks.
+- **Task Scheduling:** Operating systems use priority queues to determine which process gets CPU time next.
+- **Message Brokers:** Systems like RabbitMQ or Apache Kafka act as massive, distributed, persistent queues for microservice communication.
+- **Breadth-First Search (BFS):** Graph traversal algorithms rely on a queue to keep track of nodes to visit next.
+- **Print Spooling:** When multiple documents are sent to a printer, they are queued up and printed in a First-In-First-Out (FIFO) order.
+- **Rate Limiting:** Algorithms like the Token Bucket or Leaky Bucket often utilize queues to manage incoming request traffic and prevent server overload.
+
+
+## 22. Common Production Issues
+
+- **Queue Build-Up:** If a consumer service crashes or slows down, the queue can fill up quickly, eventually causing Out-Of-Memory (OOM) errors if unbounded.
+- **Dead-Letter Queues:** Failing to handle messages that cannot be processed successfully. These 'poison pills' can block the queue indefinitely if not moved to a Dead-Letter Queue (DLQ).
+- **Stack Overflow:** The literal error. Excessive recursion or allocating too many large local variables on the call stack causes the program to crash.
+- **Stale Data:** In caching scenarios, if a queue is used to invalidate cache entries, delays in processing the queue lead to users seeing stale data.
+- **Thundering Herd:** When a highly-contended queue suddenly becomes available, all waiting consumers might wake up simultaneously, causing a massive spike in CPU and network traffic.

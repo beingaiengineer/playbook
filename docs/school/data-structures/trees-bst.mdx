@@ -115,3 +115,39 @@ DOM representation in browsers, file systems, and routing tables.
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When traversing deep trees in environments lacking TCO (like Python), implement iterative stack-based traversal instead of recursive traversal to prevent stack overflows. | Prevents massive performance degradations in deployed systems. |
+
+
+## 19. Advanced Interview Questions
+
+| Question | Answer |
+|---|---|
+| How do you verify if a binary tree is a valid Binary Search Tree (BST)? | A common mistake is just checking if left < node < right. You must pass down the min and max bounds recursively for every node. |
+| What is an AVL tree and how does it differ from a standard BST? | An AVL tree is a self-balancing BST where the height difference between left and right subtrees cannot exceed one. It requires rotations upon insertion/deletion to maintain this property, guaranteeing O(log N) lookup times. |
+| Can you explain how to serialize and deserialize a binary tree? | You can use a pre-order traversal and use a special marker (like 'null') for empty children. Deserialization simply reads this pre-order string back, reconstructing the tree recursively. |
+| What's the difference between a Tree and a Graph? | A tree is a specialized type of graph. Specifically, a tree is a connected acyclic undirected graph. It has exactly one path between any two nodes and N-1 edges for N nodes. |
+| Describe how you would find the lowest common ancestor (LCA) of two nodes in a BST. | Starting from the root, if both nodes are smaller, move left. If both are larger, move right. If one is smaller and one is larger (or one matches the current node), the current node is the LCA. |
+
+## 20. Tricky Edge Cases
+- **Skewed Trees:** A BST can degrade into a linked list if items are inserted in sorted order, resulting in O(N) operations.
+- **Floating Point Keys:** Using floating point numbers as keys in a BST can lead to precision issues during comparisons.
+
+
+## 21. Real-World Applications
+
+- **Database Indices:** Many databases use variations of trees (like B-Trees, which we cover elsewhere, but conceptualize as balanced trees) to quickly locate records without scanning the entire table.
+- **File Systems:** Your operating system's file directory structure is a literal tree. Folders are internal nodes, and files are leaf nodes.
+- **DOM Representation:** In web development, the Document Object Model (DOM) is parsed and stored by the browser as a massive tree structure.
+- **Abstract Syntax Trees (ASTs):** Compilers parse source code into an AST to understand the grammatical structure before generating machine code.
+- **Decision Trees:** In machine learning, decision trees are used for classification and regression tasks by traversing nodes based on feature values.
+- **Network Routing:** Spanning tree protocols (STP) prevent loop issues in network bridging by creating a loop-free logical topology.
+- **Autocomplete:** Tries, a specific type of tree, are used to provide fast prefix-based autocomplete suggestions in search bars.
+- **Cryptography:** Merkle Trees (Hash Trees) are used in blockchain and version control systems (like Git) to quickly verify the integrity of large datasets.
+
+
+## 22. Common Production Issues
+
+- **Unbalanced Trees:** As mentioned, sequential inserts create a linked list, destroying O(log N) performance. Monitoring tree depth in production is critical.
+- **Memory Leaks:** In languages without garbage collection (like C++), failing to recursively delete all child nodes before deleting a parent node results in severe memory leaks.
+- **Deep Recursion:** Traversing very deep trees using recursion can cause Stack Overflow errors. Production systems often use iterative traversal with an explicit stack to mitigate this.
+- **Lock Contention:** In concurrent environments, locking the entire tree for a write operation creates a massive bottleneck.
+- **Serialization Overhead:** Converting a complex tree structure into JSON or XML for network transmission is computationally expensive and significantly inflates the payload size.

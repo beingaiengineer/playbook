@@ -129,3 +129,38 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | Always include cycle detection (e.g., maintaining a visited set) when writing any graph traversal algorithm to prevent infinite loops in production environments. | Prevents massive performance degradations in deployed systems. |
+
+
+## 19. Advanced Interview Questions
+
+| Question | Answer |
+|---|---|
+| When would you choose BFS over DFS? | BFS is optimal for finding the shortest path in an unweighted graph and searching closer neighbors first. DFS is better for exploring all possibilities (like solving a maze) or topological sorting. |
+| How does Dijkstra's Algorithm differ from BFS? | BFS finds the shortest path in unweighted graphs by using a Queue. Dijkstra's finds the shortest path in weighted graphs by using a Priority Queue to always explore the lowest-cost edge next. |
+| What is a Topological Sort and where is it used? | It's a linear ordering of vertices in a Directed Acyclic Graph (DAG) such that for every directed edge U->V, U comes before V. It's used for resolving build dependencies or task scheduling. |
+| How do you detect a cycle in a directed graph? | You can use DFS and keep track of a 'recursion stack' (or colors: white, gray, black). If you encounter a node that is currently in the recursion stack (gray), you have found a cycle. |
+| Explain the A* (A-Star) search algorithm. | It's an extension of Dijkstra's that uses a heuristic function to estimate the cost to the target. This guides the search towards the goal faster than exploring uniformly in all directions. |
+
+## 20. Tricky Edge Cases
+- **Disconnected Graphs:** Failing to wrap traversals in an outer loop that checks all vertices, completely missing disconnected components of the graph.
+- **Negative Weight Cycles:** Standard algorithms like Dijkstra will infinite loop or return incorrect results if the graph contains negative weight cycles (Bellman-Ford is needed here).
+
+
+## 21. Real-World Applications
+
+- **Social Networks:** Facebook, LinkedIn, and Twitter represent users as nodes and connections (friends/follows) as edges. Graph traversal algorithms power the "People You May Know" feature.
+- **GPS Navigation:** Google Maps uses complex graph traversal algorithms (variations of Dijkstra and A*) to find the shortest or fastest route between two locations on a map.
+- **Recommendation Engines:** E-commerce sites use bipartite graphs connecting users to products. Traversing these graphs helps recommend products bought by similar users.
+- **Web Crawlers:** Search engine spiders treat the internet as a massive directed graph. They use BFS or DFS to traverse links, indexing pages as they go.
+- **Dependency Resolution:** Package managers (like npm, pip, or apt) use topological sorting on directed acyclic graphs (DAGs) to install dependencies in the correct order.
+- **Network Routing Protocols:** OSPF (Open Shortest Path First) uses Dijkstra's algorithm to calculate the optimal route for data packets across the internet infrastructure.
+- **Fraud Detection:** Financial institutions model transaction histories as graphs to identify rings of suspicious activity and complex money laundering topologies.
+
+
+## 22. Common Production Issues
+
+- **Memory Exhaustion (BFS):** In very wide graphs (like social networks), the Queue in BFS can grow exponentially large, consuming all available RAM before finding the target.
+- **Stack Overflow (DFS):** In very deep graphs, recursive DFS will exceed the call stack limit. Iterative DFS with an explicit Stack object is mandatory in production.
+- **Infinite Loops:** Failing to properly track visited nodes, or tracking them inefficiently (e.g., using an array instead of a HashSet for O(1) lookups), will crash the system or degrade performance.
+- **Stale Data in Distributed Graphs:** In databases like Neo4j, concurrent modifications to graph topology while traversing can lead to inconsistent reads or missed paths.
+- **Throttling:** When crawling the web (a massive graph), failing to implement rate limiting per domain will result in your crawler being blocked or taking down target servers.

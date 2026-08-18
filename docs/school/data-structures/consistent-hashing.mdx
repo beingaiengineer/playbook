@@ -120,3 +120,37 @@ Distributed databases (Cassandra, DynamoDB), Content Delivery Networks (CDNs), a
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When generating sharding or caching logic for distributed systems, enforce consistent hashing over simple modulo hashing to prevent massive cache invalidation upon topology changes. | Prevents massive performance degradations in deployed systems. |
+
+
+## 19. Advanced Interview Questions
+
+| Question | Answer |
+|---|---|
+| What problem does Consistent Hashing solve compared to standard modulo hashing? | Modulo hashing (`hash(key) % N`) breaks entirely if the number of servers (`N`) changes, requiring rehashing of almost all keys. Consistent hashing minimizes key movement. |
+| How do virtual nodes (vnodes) work and why are they important? | Instead of mapping a physical server to one point on the ring, it's mapped to many virtual points. This ensures a much more uniform distribution of data and load. |
+| Explain how you find the correct server for a given key. | You hash the key to get its position on the ring, then move clockwise around the ring until you find the first virtual node, which maps to the physical server. |
+| How does Consistent Hashing handle server failures? | When a server dies, its virtual nodes are removed from the ring. The keys that previously mapped to it will simply be routed to the next available server clockwise on the ring. |
+| Where is Consistent Hashing actually used in production? | It's used heavily in distributed caching (like Memcached), distributed databases (like Cassandra and DynamoDB), and CDN load balancers. |
+
+## 20. Tricky Edge Cases
+- **Cascading Failures:** If a server fails, its load is shifted to the next server. If that server is already near capacity, it might fail too, causing a domino effect.
+- **Heterogeneous Hardware:** If servers have different capacities, assigning them all the same number of vnodes will overload weaker machines.
+
+
+## 21. Real-World Applications
+
+- **Distributed Caches:** Memcached clients use consistent hashing to determine which cache server should store a specific key. This prevents massive cache misses when a server is added or removed.
+- **NoSQL Databases:** Apache Cassandra and Amazon DynamoDB use consistent hashing as the core mechanism to partition data across a massive cluster of commodity hardware.
+- **Content Delivery Networks (CDNs):** CDNs use consistent hashing to route user requests to the optimal edge server, ensuring that the same content is generally served from the same machine to maximize cache hit rates.
+- **Load Balancers:** Modern load balancers use consistent hashing to ensure "sticky sessions," routing requests from the same user to the same backend server without needing to maintain a massive state table.
+- **Distributed File Systems:** Systems like GlusterFS use a variant of consistent hashing (elastic hashing) to distribute files across storage bricks without requiring a centralized metadata server.
+
+
+## 22. Common Production Issues
+
+- **Uneven Load Distribution:** Even with virtual nodes, hash functions might not distribute keys perfectly, leading to some servers handling slightly more load than others.
+- **Cascading Failures:** If a server fails and its load is distributed to neighboring servers, those neighbors might become overloaded and fail as well, causing a domino effect.
+- **Rebalancing Storms:** When adding many new servers at once, massive amounts of data need to be migrated over the network, potentially saturating network links and degrading overall system performance.
+- **State Synchronization:** Maintaining the view of the 'ring' consistently across thousands of client machines is a complex distributed consensus problem, often requiring systems like ZooKeeper or etcd.
+- **Hot Keys:** Consistent hashing ensures keys are evenly distributed, but if one specific key (e.g., a viral celebrity profile) receives 90% of the traffic, the server holding that key will still be overwhelmed.
+- **Topology Awareness:** Basic consistent hashing doesn't know about physical network topology. It might place replicas of data on servers in the same rack, defeating fault-tolerance goals if the rack loses power.
