@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you are running a complex autonomous research agent that takes 4 hours to complete a deep dive report. Two hours in, the server restarts for a routine patch, and the agent's process is killed. When it boots back up, it starts the entire 4-hour task from scratch, wasting time and API credits. This is a massive engineering failure. For long-running agentic workflows, you cannot rely on in-memory state. You must implement robust state persistence and checkpointing. By serializing the agent's current state, intermediate reasoning steps, and tool outputs to a durable store (like Redis or PostgreSQL) after every action, you ensure the system can resume exactly where it left off, making your architecture resilient to transient failures.
+Bro, imagine you are a senior engineer building a system that needs to pause agent workflows, wait for human approval, and resume exactly where it left off without losing state. Two hours in, the server restarts for a routine patch, and the agent's process is killed. When it boots back up, it starts the entire 4-hour task from scratch, wasting time and API credits. This is a massive engineering failure. For long-running agentic workflows, you cannot rely on in-memory state. You must implement robust state persistence and checkpointing. By serializing the agent's current state, intermediate reasoning steps, and tool outputs to a durable store (like Redis or PostgreSQL) after every action, you ensure the system can resume exactly where it left off, making your architecture resilient to transient failures.
+
 
 ## 3. Real-World Analogy
 
@@ -159,3 +160,15 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Thread Isolation | Always key checkpoints by a unique `thread_id` tied to a specific user session. | Reusing thread IDs causes concurrent users' states to overwrite each other, leading to data leaks. |
+| Human-in-the-Loop | When pausing for human input, store the exact pending node and state in the checkpoint. | Allows the graph to resume execution deterministically without re-running expensive LLM calls. |
