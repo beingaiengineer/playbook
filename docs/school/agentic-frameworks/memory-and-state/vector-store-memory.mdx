@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, your company is building a customer support agent that needs to answer questions based on a massive internal wiki of 10,000 documents. You obviously can't shove all 10,000 docs into the LLM's context window at once. So, you try keyword search, but it fails miserably when users ask conceptual questions using different terminology. This is the exact production scenario where Vector Store Memory becomes mandatory. By converting documents into semantic embeddings and storing them in a specialized vector database like Pinecone or Milvus, your agent can perform similarity searches to retrieve only the most relevant chunks of information. Understanding how to engineer this retrieval pipeline is the difference between an agent that gives accurate answers and one that hallucinates wildly.
+Bro, imagine you are a senior engineer integrating a vector database so your agent can quickly search and retrieve relevant facts from thousands of documents. You obviously can't shove all 10,000 docs into the LLM's context window at once. So, you try keyword search, but it fails miserably when users ask conceptual questions using different terminology. This is the exact production scenario where Vector Store Memory becomes mandatory. By converting documents into semantic embeddings and storing them in a specialized vector database like Pinecone or Milvus, your agent can perform similarity searches to retrieve only the most relevant chunks of information. Understanding how to engineer this retrieval pipeline is the difference between an agent that gives accurate answers and one that hallucinates wildly.
+
 
 ## 3. Real-World Analogy
 
@@ -157,3 +158,15 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Embedding Consistency | Never switch embedding models without completely re-indexing the vector store. | Different models produce incompatible vector spaces; querying will return garbage results. |
+| Metadata Filtering | Always store source references, dates, and access levels as metadata alongside vectors. | Enables pre-filtering by user permissions so an agent doesn't retrieve confidential documents it shouldn't access. |

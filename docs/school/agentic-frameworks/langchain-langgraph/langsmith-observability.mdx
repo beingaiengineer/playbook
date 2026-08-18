@@ -17,7 +17,12 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Forgetting to set environment variables or relying on print statements to debug agents |
 | Performance | Non-blocking async background tracing; minimal impact on application latency |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer debugging a massive agentic system where a single LLM hallucination in step 4 ruined the entire workflow, and you need precise tracing to figure out what went wrong.
+
+
+## 3. Real-World Analogy
 
 | Physical Security | LangSmith Equivalent |
 |---|---|
@@ -30,7 +35,7 @@ Bro, debugging AI agents with `print()` statements is like trying to find a bug 
 
 ![Illustration of Bae looking through CCTV footage and reviewing security logs](../assets/langchain-langgraph/langsmith-observability.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 LangSmith is the official observability platform built by the LangChain team. While LangChain/LangGraph are open-source, LangSmith is a hosted SaaS product (with self-hosted enterprise options).
 
@@ -43,7 +48,7 @@ When you enable LangSmith, every run of your graph is **traced**. A trace is a t
 
 Beyond tracing, LangSmith is used for **Evaluations**. You can build datasets of "perfect" Q&A pairs, and use LangSmith to run your new agent prompt against the dataset to see if accuracy improved or degraded.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Syntax Example | Use Case |
 |---|---|---|
@@ -53,7 +58,7 @@ Beyond tracing, LangSmith is used for **Evaluations**. You can build datasets of
 | Manual Trace | `@traceable` decorator | Tracing custom Python functions |
 | Get Run ID | `run_id = callbacks.Tracer().run_id` | Attaching a trace ID to a user feedback button |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 The beautiful thing about LangSmith is that if you use LangChain/LangGraph, you don't have to write any code to use it. You just set environment variables.
 
@@ -87,7 +92,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in production, you need to capture user feedback (thumbs up/down) and tie it back to the exact trace so you can figure out WHY the user hated the answer. Here's how to extract the `run_id` in a FastAPI app.
 
@@ -139,7 +144,7 @@ async def handle_feedback(req: FeedbackRequest):
     return {"status": "Feedback logged"}
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does the telemetry actually get from your code to their servers?
 
@@ -161,7 +166,7 @@ How does the telemetry actually get from your code to their servers?
 
 The LangSmith SDK uses background threads (or `asyncio` tasks) to send traces. This is critical: if LangSmith goes down, or your network is slow, your application **does not crash or slow down**. The HTTP requests happen out-of-band.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Impact | Note |
 |---|---|---|
@@ -169,7 +174,7 @@ The LangSmith SDK uses background threads (or `asyncio` tasks) to send traces. T
 | App Memory | Low | Queues traces in memory before batching |
 | Cost | Free Tier / Pay per trace | Depends on volume; sample rates can lower costs |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -179,32 +184,32 @@ The LangSmith SDK uses background threads (or `asyncio` tasks) to send traces. T
 | What is "Evaluation" in LangSmith? | It's the process of running your agent against a dataset of inputs, and using an evaluator (often another LLM or exact match logic) to grade the agent's outputs to prevent regressions. |
 | How do you associate a user thumbs-up with a specific trace? | Generate a UUID for the `run_id`, pass it in the graph config, return it to the frontend, and when the user clicks thumbs-up, send a `create_feedback` request to LangSmith with that `run_id`. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what if you are passing PII (Personally Identifiable Information) or API keys inside your graph state, and you don't want LangSmith to see it?
 
 **Answer:** LangSmith will capture everything in the state by default. To prevent this, you must set `LANGCHAIN_HIDE_INPUTS=true` (hides everything) or use a custom callback handler to manually sanitize or redact specific fields before the trace is sent.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies use LangSmith (or alternatives like Langfuse/Phoenix) for:
 - **Debugging:** When an agent gets stuck in a tool-calling loop, engineers look at the trace to see exactly what string the tool returned that confused the LLM.
 - **Cost Analysis:** Grouping traces by `LANGCHAIN_PROJECT` to see which feature is burning through the most OpenAI tokens.
 - **Continuous Integration (CI/CD):** Running automated LangSmith Evals on GitHub PRs. If the PR drops the agent's accuracy below 90%, the build fails.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do group your traces logically using the `LANGCHAIN_PROJECT` variable per environment (e.g., `bot_prod`, `bot_staging`). | Don't log sensitive PII or passwords into LangSmith without redaction. |
 | Do capture the `run_id` and attach it to your application's standard logger so you can cross-reference app logs with agent traces. | Don't rely solely on LangSmith for critical application uptime monitoring; it's an observability tool, not an APM like DataDog. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > If you have a high-traffic B2C application, tracing 100% of LLM calls will cost a massive amount of money on LangSmith. In production, you should implement **Sampling**. Configure LangSmith to only trace 5% of successful runs, but trigger a trace programmatically for 100% of runs that throw an exception or receive a thumbs-down from a user.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -212,12 +217,12 @@ Companies use LangSmith (or alternatives like Langfuse/Phoenix) for:
 | Typo in API Key env var | Use the correct name | `export LANGCHAIN_API_KEY="lsv2..."` |
 | Wondering why non-langchain code isn't traced | Use the decorator | `@traceable(name="my_func")` |
 
-## 15. Related Topics
+## 16. Related Topics
 - LangGraph Fundamentals
 - Agent Evaluation Frameworks
 - Agent Guardrails & Safety
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -226,3 +231,15 @@ Companies use LangSmith (or alternatives like Langfuse/Phoenix) for:
 | [langfuse/langfuse](https://github.com/langfuse/langfuse) | ⭐ 6k+ | Open-source alternative | The most popular open-source competitor to LangSmith |
 | [Arize-ai/phoenix](https://github.com/Arize-ai/phoenix) | ⭐ 4k+ | Open-source observability | Another strong OSS alternative for LLM tracing |
 | [promptfoo/promptfoo](https://github.com/promptfoo/promptfoo) | ⭐ 5k+ | Prompt testing tool | Excellent alternative for CLI-based agent evaluations |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Trace Tags | Always apply specific tags (e.g., `user_id`, `session_id`, `environment`) to your LangSmith runs. | Untagged runs make it impossible to filter and debug issues for specific users in production. |
+| Cost Tracking | Inject custom metadata tracking token usage for each agent node. | Prevents runaway costs from recursive agent loops by making token consumption visible in dashboards. |

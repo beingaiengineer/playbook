@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you are designing a complex AI agent architecture, and the product manager asks you to 'just make it remember things.' But 'memory' isn't a single feature. Do they mean remembering the current conversation? Storing user preferences forever? Or retrieving facts from a massive knowledge base? If you just try to shove everything into a single database or context window, the system will become slow, expensive, and inaccurate. As an engineer, you must understand the taxonomy of Agent Memory Types. You have to architect a multi-tiered memory system, utilizing short-term context for immediate interactions, semantic vector stores for factual retrieval, and episodic databases for past experiences, orchestrating them seamlessly to create a coherent agent.
+Bro, imagine you are a senior engineer designing an agent's memory architecture, trying to balance fast short-term context with scalable long-term storage. But 'memory' isn't a single feature. Do they mean remembering the current conversation? Storing user preferences forever? Or retrieving facts from a massive knowledge base? If you just try to shove everything into a single database or context window, the system will become slow, expensive, and inaccurate. As an engineer, you must understand the taxonomy of Agent Memory Types. You have to architect a multi-tiered memory system, utilizing short-term context for immediate interactions, semantic vector stores for factual retrieval, and episodic databases for past experiences, orchestrating them seamlessly to create a coherent agent.
+
 
 ## 3. Real-World Analogy
 
@@ -151,3 +152,15 @@ Memory systems are the core differentiator between a generic chatbot and a perso
 | Repository | Stars | Description |
 |---|---|---|
 | [mem0ai/mem0](https://github.com/mem0ai/mem0) | ⭐ 20k+ | Standardized memory layer for AI agents |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Memory Selection | Do not use vector stores for short-term conversation history. Use the context window directly. | Vector search on immediate chat history adds unnecessary latency and can retrieve out-of-order messages. |
+| State Separation | Strictly isolate episodic memory (user events) from semantic memory (knowledge base facts). | Mixing user actions with static facts degrades the agent's ability to retrieve accurate domain knowledge. |

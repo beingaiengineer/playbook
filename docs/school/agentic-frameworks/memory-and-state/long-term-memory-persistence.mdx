@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine you are building a personal assistant agent. A user tells the agent they are allergic to peanuts on Monday. On Friday, they ask for a recipe, and the agent suggests a peanut butter sandwich. This is a catastrophic failure in user trust. The issue? The agent's memory was tied entirely to its ephemeral short-term context window, which reset when the session ended. To build a truly intelligent agent, you need long-term memory persistence. This means engineering a system that can extract key facts from conversations, store them in a durable database, and selectively retrieve them in future sessions. Without robust persistence, your agents are just goldfish, incapable of learning or building personalized experiences over time.
+Bro, imagine you are a senior engineer implementing a durable storage layer so your agent can remember user preferences and past interactions across multiple sessions. A user tells the agent they are allergic to peanuts on Monday. On Friday, they ask for a recipe, and the agent suggests a peanut butter sandwich. This is a catastrophic failure in user trust. The issue? The agent's memory was tied entirely to its ephemeral short-term context window, which reset when the session ended. To build a truly intelligent agent, you need long-term memory persistence. This means engineering a system that can extract key facts from conversations, store them in a durable database, and selectively retrieve them in future sessions. Without robust persistence, your agents are just goldfish, incapable of learning or building personalized experiences over time.
+
 
 ## 3. Real-World Analogy
 
@@ -158,3 +159,15 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Database Selection | Use a relational or NoSQL database (Postgres/Mongo) for user profiles and episodic events, not just a vector database. | Vector databases are terrible at exact-match queries and updating specific fields like user preferences. |
+| PII Redaction | Ensure all sensitive user data is redacted before being stored in long-term episodic memory logs. | Prevents PII leakage in case the agent's memory database is compromised or accessed by developers. |

@@ -17,7 +17,12 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using `MemorySaver` in a FastAPI app behind Gunicorn, losing state on every worker rotation |
 | Performance | Heavily dependent on checkpointer latency, LLM API latency, and async concurrency |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer scaling a local LangGraph agent into a robust, high-availability production service to handle thousands of concurrent requests.
+
+
+## 3. Real-World Analogy
 
 | Cooking Environment | LangGraph Equivalent |
 |---|---|
@@ -30,7 +35,7 @@ Bro, building an agent on your laptop is easy. But when you deploy it to product
 
 ![Illustration of Bae cooking in a commercial kitchen with digital screens and load balancing](../assets/langchain-langgraph/langgraph-production-deployment.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Deploying a LangGraph agent means exposing your compiled `StateGraph` as an API so frontends, Slack bots, or cron jobs can interact with it.
 
@@ -41,7 +46,7 @@ There are three primary ways to deploy LangGraph:
 
 For serious engineering teams who want to control their infrastructure, deploying the open-source **LangGraph Server** via Docker is usually the best move.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Command / Config | Use Case |
 |---|---|---|
@@ -51,7 +56,7 @@ For serious engineering teams who want to control their infrastructure, deployin
 | Build Docker Image | `langgraph build -t my-agent` | Packaging the agent for production |
 | API Call | `POST /threads/\{id\}/runs` | The LangGraph server endpoint to trigger a run |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 To use LangGraph Server, you don't write FastAPI code. You write a config file.
 
@@ -89,7 +94,7 @@ Second, your config (`langgraph.json`):
 
 Then you run `langgraph dev` and it automatically spins up a REST API on port 8123 and a Studio UI on port 2024.
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, if you want to deploy a custom FastAPI server instead of using LangGraph Server (maybe because you have massive custom authentication logic), you must use async execution and SSE (Server-Sent Events) for streaming.
 
@@ -147,7 +152,7 @@ async def shutdown():
     await pool.close()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does a LangGraph deployment actually handle concurrent requests?
 
@@ -173,7 +178,7 @@ Because FastAPI and Uvicorn use async Python (`asyncio`), a single worker proces
 
 The checkpointer is critical here. It uses row-level locking in Postgres to ensure that if the user clicks a button twice quickly, Worker 1 and Worker 2 don't try to update the exact same graph state at the exact same time, which would corrupt the memory.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Component | Bottleneck Risk | Mitigation Strategy |
 |---|---|---|
@@ -182,7 +187,7 @@ The checkpointer is critical here. It uses row-level locking in Postgres to ensu
 | Tool Executions | Medium (Network I/O) | Make tools completely `async def` |
 | Python Event Loop | Low | Do not use `time.sleep()`, use `asyncio.sleep()` |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -192,13 +197,13 @@ The checkpointer is critical here. It uses row-level locking in Postgres to ensu
 | What happens if an agent crashes mid-execution in production? | The checkpointer has saved the state of the *last successfully completed node*. You can resume the graph from that exact state without losing prior work. |
 | How do you update a LangGraph agent's code without breaking ongoing sessions? | You must version your graph logic or use LangGraph Server's built-in deployment revision system to ensure old threads finish on the old code while new threads use the new code. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if you deploy an agent and use `requests.get()` inside one of your tools?
 
 **Answer:** You will bottleneck your entire server. `requests` is a synchronous library. If it takes 2 seconds to fetch a URL, the entire Uvicorn worker process freezes for 2 seconds. No other users can be served by that worker. You **MUST** use async HTTP libraries like `httpx.AsyncClient` or `aiohttp` inside tools for production deployments.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies deploying LangGraph to production usually use Kubernetes (EKS/GKE):
 - **Image:** They use `langgraph build` to generate a Dockerfile.
@@ -206,19 +211,19 @@ Companies deploying LangGraph to production usually use Kubernetes (EKS/GKE):
 - **Caching:** They put Redis in front for semantic caching (to avoid paying OpenAI for identical questions).
 - **Scale:** They run 5-10 replicas of the LangGraph server, behind an AWS Application Load Balancer.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do write all tools as `async def` functions so they don't block the event loop. | Don't put heavy CPU tasks (like video encoding) inside an agent node without offloading it to a queue like Celery. |
 | Do implement strict API timeouts on LLM calls so a degraded provider doesn't lock up your agent. | Don't expose your LangGraph endpoints directly to the internet; put them behind an API Gateway for auth and rate limiting. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > Model fallbacks are mandatory. OpenAI and Anthropic go down. If your graph relies entirely on `ChatOpenAI(model="gpt-4o")`, your whole app crashes when they have an outage. You must use `ChatOpenAI(...).with_fallbacks([ChatAnthropic(...)])` so your agent seamlessly routes to a backup LLM provider during degraded performance.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -226,12 +231,12 @@ Companies deploying LangGraph to production usually use Kubernetes (EKS/GKE):
 | Losing state on restart | Use Postgres Saver | `checkpointer = AsyncPostgresSaver(pool)` |
 | Storing unpicklable objects | Keep state pure | Don't put DB connection objects inside `State` |
 
-## 15. Related Topics
+## 16. Related Topics
 - LangGraph Memory
 - LangSmith Observability
 - Agent Deployment Patterns
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -240,3 +245,15 @@ Companies deploying LangGraph to production usually use Kubernetes (EKS/GKE):
 | [encode/httpx](https://github.com/encode/httpx) | ⭐ 12k+ | Async HTTP Client | Essential for writing non-blocking tools |
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI Framework | The standard for custom LangGraph deployments |
 | [magicspace/sse-starlette](https://github.com/sysid/sse-starlette) | ⭐ 1k+ | SSE for FastAPI | Critical library for streaming agent responses |
+
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Deployment Checkpoints | Always use `AsyncPostgresSaver` or a persistent database checkpointer in production, never `MemorySaver`. | In-memory savers lose state when server workers are restarted or rotated. |
+| Error Handling | Implement explicit timeout and retry logic for node executions in the graph. | LLM API latency can cause worker threads to hang, degrading overall system performance. |
