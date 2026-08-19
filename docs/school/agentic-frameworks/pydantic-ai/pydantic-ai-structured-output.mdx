@@ -19,6 +19,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with forcing an LLM to always return valid JSON using Pydantic AI to avoid crashing downstream systems.
+
 Bro, imagine parsing resumes using an LLM. You ask the LLM to return the candidate's name and skills. Half the time it returns `Name: John, Skills: Python`. The other half it returns `{"name": "John", "skills": ["Python"]}`. You write regex to parse this, and it constantly breaks in production. By switching to Pydantic AI and strictly defining a `ResumeModel(BaseModel)`, the framework forces the LLM to output perfect JSON. If the LLM makes a mistake, Pydantic catches it and asks the LLM to fix it. Your regex nightmares are over.
 
 ## 3. Real-World Analogy
@@ -177,3 +179,12 @@ LLMs struggle heavily with ambiguous `Union` types because the schema becomes `a
 |---|---|---|---|
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 20k+ | Data validation using Python type hints | The engine behind the structured outputs. |
 | [jxnl/instructor](https://github.com/jxnl/instructor) | ⭐ 8k+ | Structured outputs for LLMs | A fantastic alternative/companion library specifically built just for structured extraction. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

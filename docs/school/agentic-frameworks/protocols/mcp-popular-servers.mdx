@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with integrating popular MCP servers into an environment with tight security controls.
+
 Bro, you just installed Claude Desktop and want it to analyze a massive SQLite database and fix a bug in your GitHub repo. 
 Normally, you would spend a week writing custom Python scripts, authenticating with GitHub APIs, and struggling with SQLite drivers just to feed data into the LLM. 
 With the MCP ecosystem, you don't write a single line of code. You just open your `claude_desktop_config.json`, add 3 lines for the official **SQLite MCP Server** and 3 lines for the official **GitHub MCP Server**. You restart Claude, and suddenly it can query databases and push commits to GitHub perfectly. The community has already built the tools you need.
@@ -170,3 +172,12 @@ The MCP Client is responsible for handling namespace collisions. Most intelligen
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | ⭐ 15k+ | Official MCP Servers | The official repository maintained by Anthropic containing Postgres, GitHub, Slack, Filesystem, and more. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

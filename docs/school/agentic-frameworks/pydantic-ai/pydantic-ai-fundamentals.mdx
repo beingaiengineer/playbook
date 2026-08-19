@@ -19,6 +19,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with explaining Pydantic AI fundamentals to a junior dev who keeps writing agents that crash due to type errors.
+
 Bro, imagine building an AI assistant that reads customer emails and refunds their orders. You write a standard prompt: "Extract the order ID and refund amount." You test it locally, and it works. You deploy it. The very next day, an LLM hallucinates and outputs "Refund amount: A million dollars" instead of a number. The parsing script crashes, but not before a partial refund goes through. 
 This is why Pydantic AI exists. By putting a rigid, type-safe Python boundary around the LLM, it guarantees that if the LLM doesn't return exactly a `float` for the refund amount, the framework intercepts it, yells at the LLM to fix it, and never lets bad data touch your production database.
 
@@ -164,3 +166,12 @@ If you ask the LLM to output a UUID, but it keeps outputting "12345", Pydantic w
 |---|---|---|---|
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | The official framework repo | The source of truth for all documentation. |
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 20k+ | The core validation engine | Understanding Pydantic is a prerequisite for Pydantic AI. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

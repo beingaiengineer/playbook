@@ -56,16 +56,6 @@ Ready for next planning phase.
 - [x] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
 - [x] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
 - [x] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
-- [ ] [BAE-FDE-074] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-tracing.mdx`
-- [ ] [BAE-FDE-075] | Retrofit FDE + Section 18: `protocols/a2a-agent-cards.mdx`
-- [ ] [BAE-FDE-076] | Retrofit FDE + Section 18: `protocols/a2a-protocol-deep-dive.mdx`
-- [ ] [BAE-FDE-077] | Retrofit FDE + Section 18: `protocols/mcp-popular-servers.mdx`
-- [ ] [BAE-FDE-078] | Retrofit FDE + Section 18: `protocols/mcp-protocol-deep-dive.mdx`
-- [ ] [BAE-FDE-079] | Retrofit FDE + Section 18: `protocols/mcp-server-development.mdx`
-- [ ] [BAE-FDE-080] | Retrofit FDE + Section 18: `protocols/mcp-vs-a2a-when-to-use.mdx`
-- [ ] [BAE-FDE-081] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-fundamentals.mdx`
-- [ ] [BAE-FDE-082] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-production-deployment.mdx`
-- [ ] [BAE-FDE-083] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-structured-output.mdx`
 - [ ] [BAE-FDE-084] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-tools-and-dependencies.mdx`
 - [ ] [BAE-FDE-085] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-type-safe-agents.mdx`
 - [ ] [BAE-FDE-086] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-fundamentals.mdx`
@@ -87,6 +77,16 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-074] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-tracing.mdx`
+- [x] [BAE-FDE-075] | Retrofit FDE + Section 18: `protocols/a2a-agent-cards.mdx`
+- [x] [BAE-FDE-076] | Retrofit FDE + Section 18: `protocols/a2a-protocol-deep-dive.mdx`
+- [x] [BAE-FDE-077] | Retrofit FDE + Section 18: `protocols/mcp-popular-servers.mdx`
+- [x] [BAE-FDE-078] | Retrofit FDE + Section 18: `protocols/mcp-protocol-deep-dive.mdx`
+- [x] [BAE-FDE-079] | Retrofit FDE + Section 18: `protocols/mcp-server-development.mdx`
+- [x] [BAE-FDE-080] | Retrofit FDE + Section 18: `protocols/mcp-vs-a2a-when-to-use.mdx`
+- [x] [BAE-FDE-081] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-fundamentals.mdx`
+- [x] [BAE-FDE-082] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-production-deployment.mdx`
+- [x] [BAE-FDE-083] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-structured-output.mdx`
 - [x] [BAE-AF-001] | Create `_category_.json` files for all 17 categories
 - [x] [BAE-AF-002] | Create `intro/what-are-ai-agents.mdx`
 - [x] [BAE-AF-003] | Create `intro/agent-vs-chatbot-vs-rag.mdx`
@@ -260,7 +260,7 @@ No reusable insights recorded yet.
 - Lessons Completed: 187
 - Lessons Remaining: -2
 - Completion %: 101.1%
-- Open Tasks: 86
+- Open Tasks: 76
 
 ---
 
@@ -376,6 +376,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-074 through BAE-FDE-083 | Retrofitted 10 topics (Tracing, A2A, MCP, Pydantic AI) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-064 through BAE-FDE-073 | Retrofitted 10 topics (Multi-Agent Systems, OpenAI Agents SDK) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-054 through BAE-FDE-063 | Retrofitted 10 topics (LangChain/LangGraph, Memory & State, Multi-Agent Systems) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-044 through BAE-FDE-053 | Retrofitted 10 topics (Intro, LangChain/LangGraph) with FDE scenarios and Section 18 AI Agent Instructions. |

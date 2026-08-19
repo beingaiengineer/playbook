@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with architecting a system and having to justify to the client when to use MCP vs A2A.
+
 Bro, imagine you are building an AI assistant that needs to read from a Postgres database. Do you build an entire 'Database Expert Agent' (A2A) to talk to your main agent, or do you just give your main agent a 'Postgres Tool' (MCP)? Choosing the wrong architecture here is like buying an 18-wheeler truck just to pick up groceries. Let's break down when to use which protocol.
 
 ## 3. Real-World Analogy
@@ -150,3 +152,12 @@ By combining the strengths of both protocols, you can build highly capable, secu
 | Repository | Stars | Description |
 |---|---|---|
 | [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | ⭐ 5k+ | Official MCP servers |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |
