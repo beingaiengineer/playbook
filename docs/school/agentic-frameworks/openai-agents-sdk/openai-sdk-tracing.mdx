@@ -14,7 +14,11 @@ sidebar_label: "Observability & Tracing"
 | Common Mistake | Only logging the final response and ignoring the intermediate tool calls. |
 | Performance | Minimal overhead when using async loggers. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a senior engineer dealing with implementing tracing for an agent that failed silently in production due to a hidden tool error.
+
+## 3. Real-World Analogy
 ![Real-World Analogy](../assets/openai-agents-sdk/openai-sdk-tracing.png)
 
 Bro, imagine managing a Swiggy delivery fleet. If a customer complains their food is cold, and all you know is "Food Delivered at 8 PM," you can't fix the problem. You need tracing. You need to see exactly when the restaurant started cooking, when the driver arrived, the exact route the driver took, and how long they sat at a traffic light. Tracing an LLM agent is exactly the same—it shows you every thought, tool call, and latency spike in the pipeline.
@@ -25,19 +29,19 @@ Bro, imagine managing a Swiggy delivery fleet. If a customer complains their foo
 | Restaurant preparation time | Tool execution latency |
 | Total delivery time | Total token and latency metrics |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 Tracing is the practice of recording the exact execution path of your agent. Because agents use tools dynamically, a single user prompt might trigger 5 different LLM calls and 3 database queries under the hood. If the agent hallucinates or takes 30 seconds to reply, you need a trace to figure out which specific step failed.
 
 With the OpenAI SDK, you typically integrate an observability tool like LangSmith, Helicone, or generic OpenTelemetry to capture the inputs, outputs, tokens, and latency of every single `client.chat.completions.create` call.
 
-## 4. Syntax Table
+## 5. Syntax Table
 | Concept | Pattern | Description |
 |---|---|---|
 | Basic Python Logging | `logging.info(f"Tool {name} called with {args}")` | Manual tracing via standard logs. |
 | LangSmith Wrapper | `from langsmith import traceable` | Decorator to auto-log Python functions. |
 | Helicone Proxy | `client = OpenAI(base_url="https://oai.hconeai.com/v1")` | Routing calls through an observability proxy. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 Here is the manual way to trace an agent loop using standard Python logging. Bro, this is clunky, but you must understand the concept.
 
 ```python
@@ -61,7 +65,7 @@ response = client.run(agent=agent, messages=[{"role": "user", "content": "Get da
 logging.info(f"TRACE: Agent finished. Final response: {response.messages[-1]['content']}")
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 In production, nobody uses basic `print` statements. We use LangSmith or Helicone. Here is how you use the LangSmith `@traceable` decorator with OpenAI.
 
 ```python
@@ -98,7 +102,7 @@ def run_agent(prompt: str):
 final_text = run_agent("Is user 123 active?")
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 Tracing works by creating a "Parent Run" (the overall user request) and "Child Runs" (the specific LLM calls and tool executions). These are linked via trace IDs.
 
 import LearningFlow from '@site/src/components/LearningFlow';
@@ -119,14 +123,14 @@ import LearningFlow from '@site/src/components/LearningFlow';
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 | Tracing Method | Latency Overhead | Integration Effort |
 |---|---|---|
 | Proxy (Helicone) | ~20-50ms | Very Low (change base_url) |
 | SDK Hooks (LangSmith) | ~5ms (async logging) | Medium (add decorators) |
 | Manual Logging | ~0ms | High (clutters codebase) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | Why is tracing important for agents? | Agents execute loops autonomously. If an agent loops 10 times and fails, you need a trace to see which specific tool or prompt caused the loop. |
@@ -134,38 +138,38 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the difference between logging and tracing? | Logging is flat text. Tracing connects spans hierarchically (Parent -> Child), showing the exact timeline and relationship of executions. |
 | Does tracing impact performance? | Professional tools do network calls asynchronously, so the impact on user latency is negligible. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 Bro, what happens if your tool processes highly sensitive PII (like credit card numbers)? If you trace everything, you are sending raw PII to LangSmith's servers!
 **The Fix:** You must implement data scrubbing. Most SDKs allow you to mask specific keys or use decorators that exclude inputs/outputs from the payload sent to the observability platform.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 Top teams review their LangSmith traces daily. They filter for traces where latency > 10s or where the user left a negative feedback score, dig into the specific tool call that failed, and update the system prompt to fix the bug.
 
-## 12. Best Practices
+## 13. Best Practices
 | DO | DON'T |
 |---|---|
 | Trace every LLM call and every tool execution. | Only log the final text sent to the user. |
 | Attach `session_id` and `user_id` tags to your traces. | Send raw PII to external tracing dashboards. |
 | Monitor the total token count of the whole chain. | Assume one user request equals one LLM token charge. |
 
-## 13. Production Notes
+## 14. Production Notes
 :::warning
 Without tracing, debugging an AI agent in production is literally impossible. You will get bug reports saying "The bot gave me the wrong answer," and you will have absolutely no idea why. Implement observability *before* you launch.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 | Mistake | Fix |
 |---|---|
 | Not tagging traces | You must tag traces with the environment (`prod`, `dev`) and feature name so you can filter them later. |
 | Ignoring tool execution times | An agent might seem slow, but it's actually your database query taking 5 seconds. Trace the tools, not just the LLM. |
 | Forgetting to monitor costs | A bad prompt can cause an agent to loop infinitely. Set up alerts for high-token traces. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Agent Evaluation Frameworks
 - Production Deployment
 - LangSmith Observability
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [langchain-ai/langsmith-sdk](https://github.com/langchain-ai/langsmith-sdk) | ⭐ 1k+ | Python SDK for LangSmith. | The industry standard for tracing LLM and agent execution. |
@@ -173,3 +177,12 @@ Without tracing, debugging an AI agent in production is literally impossible. Yo
 | [open-telemetry/opentelemetry-python](https://github.com/open-telemetry/opentelemetry-python) | ⭐ 4k+ | Standard OTel tracing. | Use this if your company already uses Datadog/NewRelic for standard microservices. |
 | [Arize-ai/phoenix](https://github.com/Arize-ai/phoenix) | ⭐ 3k+ | Open-source AI observability. | Great for running traces locally without sending data to a cloud. |
 | [openai/openai-python](https://github.com/openai/openai-python) | ⭐ 20k+ | OpenAI SDK. | The base layer that emits the data. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

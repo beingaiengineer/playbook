@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with troubleshooting a miscommunication between an internal HR agent and a financial agent using the A2A protocol.
+
 Bro, you built a `LegalAgent` in Python. Your friend built an `AccountingAgent` in TypeScript. Your company wants them to collaborate on a merger contract.
 How do they talk? You can't just pass Python objects because they are in different languages on different servers. You could write a custom REST API, but what if they need to negotiate continuously? What if 100 other agents want to join?
 To solve this, we need an **A2A (Agent-to-Agent) Protocol**. Just like TCP/IP allows computers to talk, and SMTP allows email servers to talk, A2A protocols define a universal language for AI agents to broadcast their capabilities, request data, and reach consensus autonomously across the internet.
@@ -178,3 +180,12 @@ In decentralized A2A networks, Sybil attacks (faking identity) are a massive pro
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [fetchai/uAgents](https://github.com/fetchai/uAgents) | ⭐ 3k+ | Fast and lightweight framework for creating decentralized agents. | The leading modern Python implementation for A2A protocols. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

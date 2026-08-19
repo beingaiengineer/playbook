@@ -19,6 +19,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with deploying a Pydantic AI agent to production and dealing with edge cases in structured outputs.
+
 Bro, imagine you built a brilliant customer support agent using Pydantic AI. It works flawlessly on your local machine. You deploy it to AWS, and the marketing team blasts an email to 100,000 customers. Suddenly, your server crashes. Why? Because your agent was making synchronous HTTP calls to OpenAI, blocking the entire event loop. Every request waited 5 seconds for a response, and after 50 concurrent users, the system ran out of threads. By understanding async deployment and streaming, you refactored the agent, stabilized the system, and saved the launch.
 
 ## 3. Real-World Analogy
@@ -173,3 +175,12 @@ If OpenAI is down, your agent will hang and eventually timeout. If you don't cat
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 65k+ | FastAPI framework | The industry standard for deploying async Python agents. |
 | [pydantic/logfire](https://github.com/pydantic/logfire) | ⭐ 2k+ | Observability for Pydantic | Essential for tracing LLM calls in production. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

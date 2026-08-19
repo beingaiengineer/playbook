@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with building a custom MCP server for a legacy database that an agent needs to query.
+
 Bro, you built an internal company Wiki using a weird proprietary database. You want Cursor (your IDE) and Claude Desktop to read this Wiki to help you write code. 
 Normally, you'd have to wait for the Cursor team to build an integration, which will never happen. 
 Instead, you spend 15 minutes writing an **MCP Server** in Python. You define one tool: `search_wiki(query)`. You compile it. You tell Cursor to run your script via `stdio`. Suddenly, Cursor's AI knows exactly how to query your proprietary company Wiki. You just gave your AI superpowers using a standard protocol.
@@ -184,3 +186,12 @@ The MCP protocol itself doesn't have a strict timeout, but the Client (e.g., Cur
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | ⭐ 3k+ | Official Python SDK | Contains the FastMCP implementation used by most developers. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

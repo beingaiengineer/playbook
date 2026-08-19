@@ -18,6 +18,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with debugging a custom MCP integration that is dropping messages between the agent and the server.
+
 Bro, imagine you build an AI assistant. You want it to read local files, so you write a custom Python script to pass files to the LLM. Then you want it to query Postgres, so you write another custom script. Then Claude releases a new Desktop App, and you have to rewrite all your scripts to work with Claude's specific format. Then OpenAI releases a new Desktop App... you see the problem? 
 Every AI tool uses custom, fragmented integrations. 
 Anthropic created **MCP (Model Context Protocol)** to solve this. It is a universal, open standard. You write an "MCP Server" once for Postgres. Now, Claude Desktop, Cursor, LangChain, and any future AI client can instantly connect to your Postgres server without you writing any custom integration code. It's the "USB-C" port for AI.
@@ -191,3 +193,12 @@ If you are using `stdio`, the subprocess dies, the pipes break, and the Client r
 |---|---|---|---|
 | [modelcontextprotocol/specification](https://github.com/modelcontextprotocol/specification) | ⭐ 10k+ | Official MCP Spec | The definitive guide to the protocol format. |
 | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | ⭐ 3k+ | Python SDK | The library you use to build clients and servers in Python. |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |

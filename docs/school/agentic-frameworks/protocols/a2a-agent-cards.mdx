@@ -20,6 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer dealing with standardizing agent capabilities across a messy enterprise with agent cards.
+
 Bro, imagine you're at a massive tech conference, and you need a backend engineer who knows Rust. You wouldn't just yell 'Who knows Rust?!' to 5,000 people. You look at their name badges or LinkedIn profiles. In a multi-agent system, when Agent A needs Agent B to do a task, it needs to know what Agent B is capable of. That's exactly what an Agent Card does—it's a LinkedIn profile for AI agents.
 
 ## 3. Real-World Analogy
@@ -150,3 +152,12 @@ Enterprise multi-agent frameworks use these registries to dynamically spawn and 
 | Repository | Stars | Description |
 |---|---|---|
 | [camel-ai/camel](https://github.com/camel-ai/camel) | ⭐ 4k+ | Uses role-playing frameworks heavily reliant on agent profiles |
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always include detailed logging and tracing for agent state changes, intermediate tool calls, and LLM thoughts. | Without detailed tracing, debugging silently failing production agents is impossible. |
+| Error Handling | Catch exceptions at the tool level and expose them to the trace before bubbling up to the agent. | Tool errors are the most common failure point; hiding them breaks the trace context. |
+| Production Patterns | Use structured outputs (like Pydantic models) to enforce strict types between agent nodes or A2A communication. | A2A protocols and agent graphs break when unstructured text is passed instead of typed data. |
+| Security | Do not blindly expose internal data through MCP servers without strict access controls and validation. | MCP servers can easily become a massive security risk if they give unrestricted access to databases or APIs. |
