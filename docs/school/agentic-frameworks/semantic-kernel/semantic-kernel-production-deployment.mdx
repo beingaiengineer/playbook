@@ -18,9 +18,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, your local Semantic Kernel script is amazing. It reads PDFs, calls your database, and answers questions perfectly. You deploy it to an AWS EC2 instance by wrapping it in a basic Flask API.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, your local Semantic Kernel script is amazing. It reads PDFs, calls your database, and answers questions perfectly. You deploy it to an AWS EC2 instance by wrapping it in a basic Flask API.
 The next day, your company gets an alert: $5,000 billed on OpenAI. Why? A malicious user found your endpoint and sent a script that triggered your `ResearchPlugin` in an infinite loop. Your server crashed, your API keys were exposed in a stack trace, and your boss is furious.
 Deploying Semantic Kernel to production requires a massive shift: you need telemetry (Application Insights), security (Managed Identities), strict token budgeting, and asynchronous streaming endpoints (FastAPI).
+
 
 ## 3. Real-World Analogy
 
@@ -191,8 +192,17 @@ If the OpenAI API cuts the connection at token 500 out of 1000, your generator w
 - Azure Managed Identities
 - OpenTelemetry Tracing
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI | The industry standard python backend for SK deployment. |
 | [Azure/azure-sdk-for-python](https://github.com/Azure/azure-sdk-for-python) | ⭐ 4k+ | Azure SDK | Essential for `DefaultAzureCredential` integration. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Production Deployment for Semantic Kernel. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Production Deployment for Semantic Kernel API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Production Deployment for Semantic Kernel. | Tests must be deterministic and run without network access. |

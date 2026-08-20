@@ -19,8 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine you built an agent that answers questions about a company's database. You wrote a tool `@agent.tool def query_db(...)` and hardcoded the production database connection string right into the file. It worked perfectly. Then, someone wanted to use the same agent in the staging environment. They had to rewrite the entire file! 
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, imagine you built an agent that answers questions about a company's database. You wrote a tool `@agent.tool def query_db(...)` and hardcoded the production database connection string right into the file. It worked perfectly. Then, someone wanted to use the same agent in the staging environment. They had to rewrite the entire file!
 Worse, when 100 concurrent users hit the agent, they all shared the exact same database session, causing massive concurrency crashes. By learning about Dependency Injection (`RunContext`), you learned to isolate state per request and pass the database connection dynamically.
+
 
 ## 3. Real-World Analogy
 
@@ -167,9 +168,18 @@ By default, if a tool raises an exception, the agent execution stops and throws 
 - Dependency Injection in Python
 - Type Hinting
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | Type-safe AI agents | The framework handling the tools. |
 | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | ⭐ 90k+ | Langchain | Useful for comparing how different frameworks handle tool execution. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Pydantic AI Tools and Dependencies. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Pydantic AI Tools and Dependencies API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Pydantic AI Tools and Dependencies. | Tests must be deterministic and run without network access. |

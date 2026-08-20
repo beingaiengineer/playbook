@@ -19,8 +19,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, imagine you are building an AI agent that extracts flight bookings. Initially, you used a standard LLM call. Sometimes the LLM returned `{"date": "tomorrow"}`, sometimes `{"date": "2024-10-12"}`, and sometimes it just returned `I booked it for you!`. Your downstream pipeline kept breaking because it expected an ISO datetime string. 
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, imagine you are building an AI agent that extracts flight bookings. Initially, you used a standard LLM call. Sometimes the LLM returned `{"date": "tomorrow"}`, sometimes `{"date": "2024-10-12"}`, and sometimes it just returned `I booked it for you!`. Your downstream pipeline kept breaking because it expected an ISO datetime string.
 By integrating Pydantic AI, you bound the agent to a strictly typed `FlightBooking` model. Now, if the LLM hallucinates a string instead of a date, Pydantic catches it immediately, halting the pipeline before the corrupted data poisons your database.
+
 
 ## 3. Real-World Analogy
 
@@ -163,9 +164,18 @@ By default, Pydantic ignores extra fields (they are stripped out silently). If y
 - Static Type Checking in Python
 - Python Dataclasses
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 20k+ | Data validation | The core library that makes this all possible. |
 | [microsoft/pyright](https://github.com/microsoft/pyright) | ⭐ 12k+ | Static type checker | Essential for verifying your Agent types in CI/CD pipelines. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Pydantic AI Type Safe Agents. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Pydantic AI Type Safe Agents API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Pydantic AI Type Safe Agents. | Tests must be deterministic and run without network access. |

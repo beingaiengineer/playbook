@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, your agent needs to interact with a complex third-party SaaS platform via REST. You just give the agent the raw OpenAPI spec and tell it to figure it out. The agent gets confused by the massive schema, hallucinates endpoints that don't exist, and fails to handle pagination properly, resulting in incomplete data retrieval. Exposing raw, massive APIs directly to an LLM is a classic rookie mistake. As a senior engineer, you must build specialized, narrowed-down API tools for your agents. You have to abstract away pagination, handle authentication securely on the backend, and expose only the specific endpoints necessary for the task, ensuring the agent has a clear, constrained interface to work with.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, your agent needs to interact with a complex third-party SaaS platform via REST. You just give the agent the raw OpenAPI spec and tell it to figure it out. The agent gets confused by the massive schema, hallucinates endpoints that don't exist, and fails to handle pagination properly, resulting in incomplete data retrieval. Exposing raw, massive APIs directly to an LLM is a classic rookie mistake. As a senior engineer, you must build specialized, narrowed-down API tools for your agents. You have to abstract away pagination, handle authentication securely on the backend, and expose only the specific endpoints necessary for the task, ensuring the agent has a clear, constrained interface to work with.
+
 
 ## 3. Real-World Analogy
 
@@ -157,7 +158,7 @@ When scaling this in production, watch out for context window token limits and A
 - Agent Frameworks Basics
 - LangChain vs CrewAI
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -166,3 +167,12 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing API Tools REST GraphQL. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for API Tools REST GraphQL API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing API Tools REST GraphQL. | Tests must be deterministic and run without network access. |

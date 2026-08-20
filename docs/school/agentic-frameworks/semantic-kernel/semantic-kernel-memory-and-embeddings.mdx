@@ -18,9 +18,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built an AI customer service agent using Semantic Kernel. A customer says, "My order 123 is broken." The AI asks, "What is your address?" The customer gives it. 
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, you built an AI customer service agent using Semantic Kernel. A customer says, "My order 123 is broken." The AI asks, "What is your address?" The customer gives it.
 Ten minutes later, the customer says, "Send the replacement to my address." The AI replies, "What is your address?" 
 The customer is furious. LLMs are stateless; they have the memory of a goldfish. To fix this, you need **Semantic Memory**. You convert the conversation into embeddings (arrays of numbers) and save them to a Vector Database. When the customer asks about their address, Semantic Kernel automatically searches the database, finds the closest matching embedding, and injects the address into the prompt.
+
 
 ## 3. Real-World Analogy
 
@@ -179,7 +180,16 @@ Your python script will consume massive amounts of RAM and crash. Additionally, 
 - Vector Databases (Qdrant, Pinecone)
 - Text Chunking Strategies
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [qdrant/qdrant](https://github.com/qdrant/qdrant) | ⭐ 18k+ | Qdrant Vector Engine | Highly recommended persistent vector DB for Semantic Kernel. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Memory & Embeddings in Semantic Kernel. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Memory & Embeddings in Semantic Kernel API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Memory & Embeddings in Semantic Kernel. | Tests must be deterministic and run without network access. |

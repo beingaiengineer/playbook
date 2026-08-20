@@ -18,8 +18,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, an LLM is a brain in a jar. If you ask it, "What is my bank account balance?", it just hallucinates, "Your balance is $1,000,000!" because it has no arms or legs to actually check a database.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, an LLM is a brain in a jar. If you ask it, "What is my bank account balance?", it just hallucinates, "Your balance is $1,000,000!" because it has no arms or legs to actually check a database.
 To give the LLM arms and legs, you write **Plugins**. You write a standard Python function called `get_balance(user_id: int) -> float` that connects to Postgres. You tell Semantic Kernel: "Here is a Plugin." Now, when the user asks for their balance, the LLM says, "Hold on, let me use the `get_balance` arm," the Kernel runs your Python code, and the LLM returns the real balance.
+
 
 ## 3. Real-World Analogy
 
@@ -184,7 +185,16 @@ If the Python function crashes, the Kernel catches the exception, formats it as 
 - Semantic Kernel Planners
 - Guardrails & Prompt Injection
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | The official Semantic Kernel repo | Review the `core_plugins` folder to see how Microsoft writes native plugins (Math, Time, HTTP). |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Plugins and Functions in Semantic Kernel. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Plugins and Functions in Semantic Kernel API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Plugins and Functions in Semantic Kernel. | Tests must be deterministic and run without network access. |

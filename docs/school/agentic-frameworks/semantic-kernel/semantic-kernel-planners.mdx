@@ -18,9 +18,10 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you built an AI that can write emails (Plugin A), search Jira (Plugin B), and calculate math (Plugin C). A user asks: "Find how many Jira tickets are assigned to me, divide that by 5, and email my boss the result."
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, you built an AI that can write emails (Plugin A), search Jira (Plugin B), and calculate math (Plugin C). A user asks: "Find how many Jira tickets are assigned to me, divide that by 5, and email my boss the result."
 Without a Planner, you have to write rigid Python `if/else` logic to chain these plugins together. It's a nightmare. 
 With a **Semantic Kernel Planner**, you just give the Kernel the user's goal. The Planner (acting as the LLM's brain) looks at all the plugins you loaded, writes a "plan" (like a mini-script), and then executes it step-by-step. It figures out the orchestration completely autonomously.
+
 
 ## 3. Real-World Analogy
 
@@ -170,7 +171,16 @@ It might call `SearchJira`, fail, call `SearchJira` again, fail, forever. To pre
 - Function Calling / Tool Use
 - LangChain Agents vs SK Planners
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | The official Semantic Kernel repo | Contains the core Planner implementations. |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Semantic Kernel Planners. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Semantic Kernel Planners API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Semantic Kernel Planners. | Tests must be deterministic and run without network access. |
