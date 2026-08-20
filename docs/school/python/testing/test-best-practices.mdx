@@ -21,6 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+**FDE Scenario:** You review a client's test suite and find 100% code coverage, but every test is named `test_1()`, tests rely on hardcoded database IDs from prod, and changing one line of CSS breaks 50 backend tests. You need to enforce rigorous testing best practices so their tests actually prove correctness rather than just inflating a coverage metric.
+
 Bro, imagine joining a new team and running their test suite for the first time. It takes 45 minutes to finish, randomly fails 30% of the time, and when a test does fail, the error message just says "AssertionError: False != True". You have absolutely no idea what broke or how to fix it. The tests have become a bigger burden than the code itself. This is exactly why test best practices matter. Without them, your test suite turns into technical debt.
 
 ---
@@ -237,7 +240,7 @@ Bro, treat your test code with the same respect as your production code. Don't l
 - Integration Testing
 - Pytest Fixtures
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -246,3 +249,13 @@ Bro, treat your test code with the same respect as your production code. Don't l
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Naming Convention | Name test functions explicitly using the pattern `test_<function>_<condition>_<expected_result>`. | Makes test failures immediately understandable in CI logs without reading the test code. |
+| Test Structure | Structure every unit test using the AAA pattern: Arrange, Act, Assert. | Enforces clean separation of setup, execution, and verification logic within tests. |
+| Isolation | Ensure every test is 100% independent and deterministic; tests must pass regardless of execution order. | Prevents flaky test suites that fail randomly due to hidden state or dependencies. |
+| Meaningful Coverage | Focus on testing edge cases and business logic, not just achieving 100% line coverage on boilerplate getters/setters. | Prevents the illusion of safety; tests must actually verify behavior, not just execute lines. |

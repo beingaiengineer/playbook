@@ -21,6 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+**FDE Scenario:** A client's core billing engine calculates invoices incorrectly in production, but no one knows which specific function is broken because the only tests they have are massive end-to-end UI tests. You need to break down the monolithic logic and implement isolated unit tests to guarantee that individual mathematical functions behave predictably before they ever reach integration.
+
 Bro, imagine you are a senior dev and you write a massive payment processing function. You tested it manually with one test case and it looked fine. But the moment it hits production, the entire checkout system goes down because you forgot to handle negative numbers, and it starts refunding millions. You spend your weekend debugging production logs instead of relaxing. This is exactly why unit testing matters. Without it, you are coding blind and hoping for the best.
 
 ---
@@ -215,7 +218,7 @@ Bro, do not chase 100% Code Coverage blindly. A codebase with 100% coverage can 
 - Integration Testing
 - Clean Code
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -224,3 +227,13 @@ Bro, do not chase 100% Code Coverage blindly. A codebase with 100% coverage can 
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Isolation | A unit test must never access the network, a real database, or the file system. | True unit tests must be blazing fast and completely isolated from external environment variables. |
+| Scope | Test one specific behavior or logical path per unit test function. | When a test fails, it should immediately pinpoint the exact line of broken logic. |
+| Assertions | Use standard Python `assert` statements (via Pytest) rather than `self.assertEqual` or custom assertion methods. | Follows modern Python testing conventions and leverages Pytest's advanced introspection for readable errors. |
+| Refactoring | Refactor monolithic functions into smaller, pure functions to make them easily unit-testable. | Hard-to-test code is a symptom of bad architecture; testability drives better modular design. |

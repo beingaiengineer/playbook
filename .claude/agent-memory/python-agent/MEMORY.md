@@ -45,11 +45,6 @@ Ready for next planning phase.
 
 ### TODO
 
-- [ ] [BAE-FDE-305] | Retrofit FDE + Section 18: `testing/load-testing.mdx`
-- [ ] [BAE-FDE-306] | Retrofit FDE + Section 18: `testing/mocking.mdx`
-- [ ] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
-- [ ] [BAE-FDE-308] | Retrofit FDE + Section 18: `testing/test-best-practices.mdx`
-- [ ] [BAE-FDE-309] | Retrofit FDE + Section 18: `testing/unit-testing.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -58,6 +53,11 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-305] | Retrofit FDE + Section 18: `testing/load-testing.mdx`
+- [x] [BAE-FDE-306] | Retrofit FDE + Section 18: `testing/mocking.mdx`
+- [x] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
+- [x] [BAE-FDE-308] | Retrofit FDE + Section 18: `testing/test-best-practices.mdx`
+- [x] [BAE-FDE-309] | Retrofit FDE + Section 18: `testing/unit-testing.mdx`
 - [x] [BAE-FDE-295] | Retrofit FDE + Section 18: `strings/string-methods.mdx`
 - [x] [BAE-FDE-296] | Retrofit FDE + Section 18: `strings/unicode.mdx`
 - [x] [BAE-FDE-297] | Retrofit FDE + Section 18: `system-design/distributed-systems.mdx`
@@ -384,10 +384,10 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 254
-- Lessons Remaining: 32
-- Completion %: 88.8%
-- Open Tasks: 63
+- Lessons Completed: 259
+- Lessons Remaining: 27
+- Completion %: 90.5%
+- Open Tasks: 58
 
 ---
 
@@ -398,6 +398,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-305 through BAE-FDE-309 | Retrofitted 5 Python topics (Testing) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-295 through BAE-FDE-304 | Retrofitted 10 Python topics (Strings, System Design, Testing) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-290 through BAE-FDE-294 | Retrofitted 5 Python topics (Strings & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-285 through BAE-FDE-289 | Retrofitted 5 Python topics (Performance) with FDE scenarios and Section 18 AI Agent Instructions. |

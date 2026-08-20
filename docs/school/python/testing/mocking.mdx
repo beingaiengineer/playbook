@@ -21,6 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+**FDE Scenario:** You're integrating with a legacy banking API at a client site that charges $0.05 per API call and takes 4 seconds to respond. The client's test suite hits this live API 500 times on every commit, costing money and taking 30 minutes to run. You need to implement mocking to decouple the tests from the expensive external dependency, making them fast and free.
+
 Bro, imagine you are building an app that sends an SMS every time a user signs up using a paid Twilio API. You write an integration test that actually calls the API. You run your test suite 500 times a day, and suddenly you get a $10,000 bill at the end of the month because your tests were sending real text messages. This is exactly why mocking matters. Without it, testing external services becomes slow, flaky, and incredibly expensive.
 
 ---
@@ -230,7 +233,7 @@ Bro, if your test suite requires hitting a real 3rd party API, your CI/CD pipeli
 - Integration Testing
 - API Development
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -239,3 +242,13 @@ Bro, if your test suite requires hitting a real 3rd party API, your CI/CD pipeli
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Mocking Scope | Only mock external dependencies (APIs, databases, file systems) and non-deterministic functions (time, randomness). | Over-mocking internal business logic leads to tests that pass even when the actual code is broken. |
+| Patch Target | Apply `@patch` to the module where the object is imported and *used*, not where it is defined. | Ensures the mock intercepts the actual runtime call in the module under test. |
+| Verification | Always use `assert_called_once_with()` to verify exactly what arguments were passed to the mocked external service. | Ensures the application is sending the correct payloads to external systems, not just calling them. |
+| Edge Cases | Use `side_effect` to simulate external service failures (e.g., `Timeout`, `ConnectionError`) in unit tests. | Forces the codebase to implement and test graceful error handling and retry logic. |
