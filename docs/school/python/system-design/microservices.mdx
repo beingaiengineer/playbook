@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer leading a rapidly growing startup. The original monolithic application had grown into a massive 'big ball of mud' that took hours to deploy and caused constant merge conflicts across the engineering team. To restore developer velocity, you championed the migration to a microservices architecture. By splitting the monolith into independently deployable, loosely coupled services aligned with business domains, you enabled parallel development streams and vastly improved the platform's overall resilience.
+
 Bro, we had a massive deployment pipeline that took 4 hours to run. If a single test failed in the billing module, the entire company was blocked from releasing code. We broke the monolith into microservices. The billing team could deploy 10 times a day without talking to the search team, and the search team could use Go while we used Python. It sped up our engineering velocity, but it definitely added complexity to our monitoring.
 
 ---
@@ -234,7 +236,21 @@ Debugging a 500 Internal Server Error in a microservices environment is impossib
 - Scalable Python Architecture
 - API Development
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [nameko/nameko](https://github.com/nameko/nameko) | ⭐ 5k+ | A framework for building microservices in Python | Simple microservices tool |
+---
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Domain Boundaries | Define microservices around clear business domains (Bounded Contexts) rather than technical layers. | Poorly defined boundaries lead to the "Distributed Monolith" anti-pattern, where services are highly coupled and must be deployed together. |
+| Independent Deployment | Ensure each microservice can be deployed, tested, and scaled entirely independently of the others. | Interdependent deployments defeat the primary purpose of microservices and introduce massive deployment risk. |
+| API Contracts | Establish strict API contracts and use API Gateways to manage routing and abstract internal complexity from external clients. | Breaking API changes disrupt clients and dependent services; API Gateways provide a centralized point for versioning and routing. |
+| Observability First | Implement robust distributed tracing, centralized logging, and metrics before breaking apart a monolith. | Debugging requests that span multiple microservices is impossible without comprehensive observability tools. |

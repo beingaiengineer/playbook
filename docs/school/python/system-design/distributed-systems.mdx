@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer architecting a global e-commerce platform. During the holiday rush, the single monolithic server completely buckled under the load, taking down the entire site. You realized you needed to scale horizontally across multiple regions. Suddenly, you had to deal with network partitions, data consistency across continents, and clock synchronization issues. You had to apply distributed systems principles to build a resilient architecture that could survive server failures and network hiccups while maintaining a seamless user experience.
+
 Bro, I remember when we first split our app across multiple regions for high availability. It sounded great until a network partition happened between our US and EU data centers. Our database tried to sync and ended up creating thousands of conflicting records. We spent three days manually untangling the data. It taught me that distributed systems aren't just 'the same code on more servers', they require completely different engineering patterns to handle failure gracefully.
 
 ---
@@ -229,7 +231,21 @@ The "Fallacies of Distributed Computing" is required reading for senior engineer
 - Scalable Python Architecture
 - Concurrency
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [ray-project/ray](https://github.com/ray-project/ray) | ⭐ 32k+ | Unified framework for scaling AI and Python applications | Best for distributed AI tasks |
+---
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Network Reliability | Never assume the network is reliable. Always implement timeouts, retries with exponential backoff, and circuit breakers for external calls. | Unhandled network failures cause cascading system outages and resource exhaustion (e.g., thread starvation). |
+| Idempotency | Design APIs and background workers to be idempotent (safe to retry safely without unintended side effects). | In distributed systems, requests will inevitably be retried due to network drops, potentially leading to duplicate transactions or payments. |
+| State Management | Minimize shared state between services. Prefer stateless services and rely on distributed databases or caches for state persistence. | Shared state creates bottlenecks and synchronization issues, severely limiting horizontal scalability. |
+| Eventual Consistency | Accept and design for eventual consistency where strong consistency is not strictly required. | Forcing strong consistency across distributed nodes introduces massive latency and reduces overall system availability. |

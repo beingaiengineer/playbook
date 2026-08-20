@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer responsible for deploying critical updates to a high-frequency trading platform. A seemingly minor deployment introduced a bug that corrupted transaction data, and rolling back the monolithic release took over an hour, resulting in massive financial losses. You implemented advanced production patterns like Blue-Green deployments, Canary releases, and Feature Flags. These strategies allowed the team to test new features on a small subset of traffic and roll back instantly if anomalies were detected, achieving zero-downtime deployments.
+
 Bro, we once deployed a new feature that had a tiny memory leak. It looked fine in testing, but in production, over a week, the server slowly consumed all RAM and then brutally crashed at 3 AM on a Sunday. We had no health checks or automatic restarts configured. We learned the hard way that production code isn't just about features; it's about graceful degradation, circuit breakers, and building systems that expect to fail.
 
 ---
@@ -226,7 +228,21 @@ A database migration is the most dangerous part of any deployment pattern. If yo
 - Scalable Python
 - Advanced Debugging
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [pallets/flask](https://github.com/pallets/flask) | ⭐ 65k+ | A lightweight WSGI web application framework | Reliable production patterns |
+---
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Gradual Rollouts | Always use gradual rollout strategies (Canary or Blue-Green) for significant changes instead of "big bang" deployments. | Big bang deployments maximize risk. Gradual rollouts limit blast radius and allow for rapid rollback upon detecting anomalies. |
+| Feature Flags | Wrap new, risky functionality in feature flags that can be toggled independently of deployments. | Feature flags allow immediate mitigation of production issues without waiting for a new deployment pipeline to finish. |
+| Health Checks | Implement robust, deep health checks that verify critical dependencies (databases, caches) before a service is marked ready to receive traffic. | Superficial health checks lead load balancers to route traffic to broken instances, causing service degradation. |
+| Circuit Breakers | Employ circuit breaker patterns to fail fast when downstream dependencies are unavailable. | Circuit breakers prevent cascading failures and resource exhaustion during partial system outages. |

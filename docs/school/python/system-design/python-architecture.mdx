@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer rescuing a legacy Python backend. The application started as a simple Flask app but evolved into a sprawling mess where business logic, database queries, and API routing were hopelessly entangled in massive 2,000-line files. Testing was impossible, and adding new features broke existing ones constantly. You introduced clean architecture principles—separating concerns into distinct layers for routing, business logic, and data access. This architectural overhaul dramatically improved testability and allowed the engineering team to iterate safely and quickly.
+
 Bro, I once worked on a massive monolithic Django app that had zero architectural boundaries. Everything was shoved into `views.py`. When we had to swap our payment provider from Stripe to PayPal, it took six months of rewriting because payment logic was deeply coupled with HTML rendering and database models. After that nightmare, we adopted a strict layered architecture. The next time we needed to change a core service, it took two days.
 
 ---
@@ -243,7 +245,21 @@ Bro, don't over-engineer on Day 1. If you are building a simple CRUD app that ju
 - Microservices
 - Clean Code
 - Project Structure
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | High-performance API framework | Exemplary architectural patterns |
+---
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Separation of Concerns | Strictly separate API routing/controllers from core business logic and data access layers. | Mixing concerns makes the code untestable, difficult to read, and prone to breaking changes. |
+| Dependency Injection | Use dependency injection (or simple parameter passing) to provide required services and repositories to business logic functions. | Hardcoding dependencies makes unit testing extremely difficult, as mocking becomes complex and brittle. |
+| Interface Abstraction | Abstract database or external service interactions behind interfaces (or simple functions) to allow easy swapping or mocking. | Direct coupling to specific databases or APIs makes future migrations and testing painful. |
+| Modular Design | Organize code into logical modules or packages based on features or domains rather than technical types (e.g., all models vs. all views). | Feature-based organization improves discoverability and cohesion, especially in growing codebases. |

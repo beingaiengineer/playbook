@@ -21,6 +21,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+Bro, imagine you are a senior engineer managing an image processing API. Users started complaining about massive delays, and the API servers were constantly crashing under the load of synchronous image resizing requests. You completely transformed the system by introducing a robust message queue (like Celery/RabbitMQ). By offloading the heavy processing tasks to background workers, the API servers were freed up to respond instantly, and the system easily handled sudden spikes in traffic without breaking a sweat.
+
 Bro, our video processing app used to crash completely if more than 5 users uploaded a video at the exact same time. The server would run out of memory trying to convert all of them simultaneously. We introduced a task queue. Now, when a video is uploaded, the web server just drops a message in the queue. A fleet of worker servers pull from the queue one by one at their own pace. No more crashes, just a predictable pipeline.
 
 ---
@@ -231,7 +233,21 @@ Instead, save the image to S3, save the record to the DB, and just pass the `ima
 - Multiprocessing
 - Redis
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [rabbitmq/rabbitmq-server](https://github.com/rabbitmq/rabbitmq-server) | ⭐ 12k+ | Message broker | Industry standard queue |
+---
+
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
+
+Every topic page MUST end with a table of agent-facing rules specific to the concept being taught. These rules tell an AI agent HOW to apply the concept correctly when generating code, debugging, or refactoring in a production codebase.
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Asynchronous Processing | Offload time-consuming tasks (e.g., email sending, image processing) to background queues instead of blocking the main web request thread. | Blocking the main thread causes API timeouts, degraded user experience, and resource exhaustion under load. |
+| Task Idempotency | Ensure queue tasks are idempotent; they must be safe to run multiple times without causing duplicate side effects. | Queue systems often guarantee "at least once" delivery, meaning tasks may be retried automatically upon failure or timeout. |
+| Retry Strategies | Implement exponential backoff for task retries, especially when interacting with external APIs or rate-limited services. | Aggressive retries without backoff can exacerbate outages or lead to permanent rate-limiting by third-party providers. |
+| Monitoring Queues | Continuously monitor queue length and worker health to ensure tasks are being processed in a timely manner. | Silent queue buildup can lead to massive delays in critical background processes, impacting business operations. |

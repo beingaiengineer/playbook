@@ -45,16 +45,6 @@ Ready for next planning phase.
 
 ### TODO
 
-- [ ] [BAE-FDE-295] | Retrofit FDE + Section 18: `strings/string-methods.mdx`
-- [ ] [BAE-FDE-296] | Retrofit FDE + Section 18: `strings/unicode.mdx`
-- [ ] [BAE-FDE-297] | Retrofit FDE + Section 18: `system-design/distributed-systems.mdx`
-- [ ] [BAE-FDE-298] | Retrofit FDE + Section 18: `system-design/event-driven-systems.mdx`
-- [ ] [BAE-FDE-299] | Retrofit FDE + Section 18: `system-design/microservices.mdx`
-- [ ] [BAE-FDE-300] | Retrofit FDE + Section 18: `system-design/production-patterns.mdx`
-- [ ] [BAE-FDE-301] | Retrofit FDE + Section 18: `system-design/python-architecture.mdx`
-- [ ] [BAE-FDE-302] | Retrofit FDE + Section 18: `system-design/queue-systems.mdx`
-- [ ] [BAE-FDE-303] | Retrofit FDE + Section 18: `system-design/scalable-python.mdx`
-- [ ] [BAE-FDE-304] | Retrofit FDE + Section 18: `testing/integration-testing.mdx`
 - [ ] [BAE-FDE-305] | Retrofit FDE + Section 18: `testing/load-testing.mdx`
 - [ ] [BAE-FDE-306] | Retrofit FDE + Section 18: `testing/mocking.mdx`
 - [ ] [BAE-FDE-307] | Retrofit FDE + Section 18: `testing/pytest.mdx`
@@ -68,6 +58,16 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-295] | Retrofit FDE + Section 18: `strings/string-methods.mdx`
+- [x] [BAE-FDE-296] | Retrofit FDE + Section 18: `strings/unicode.mdx`
+- [x] [BAE-FDE-297] | Retrofit FDE + Section 18: `system-design/distributed-systems.mdx`
+- [x] [BAE-FDE-298] | Retrofit FDE + Section 18: `system-design/event-driven-systems.mdx`
+- [x] [BAE-FDE-299] | Retrofit FDE + Section 18: `system-design/microservices.mdx`
+- [x] [BAE-FDE-300] | Retrofit FDE + Section 18: `system-design/production-patterns.mdx`
+- [x] [BAE-FDE-301] | Retrofit FDE + Section 18: `system-design/python-architecture.mdx`
+- [x] [BAE-FDE-302] | Retrofit FDE + Section 18: `system-design/queue-systems.mdx`
+- [x] [BAE-FDE-303] | Retrofit FDE + Section 18: `system-design/scalable-python.mdx`
+- [x] [BAE-FDE-304] | Retrofit FDE + Section 18: `testing/integration-testing.mdx`
 - [x] [BAE-FDE-280] | Retrofit FDE + Section 18: `oops/inheritance.mdx`
 - [x] [BAE-FDE-281] | Retrofit FDE + Section 18: `oops/magic-methods.mdx`
 - [x] [BAE-FDE-282] | Retrofit FDE + Section 18: `oops/polymorphism.mdx`
@@ -384,10 +384,10 @@ No reusable insights recorded yet.
 
 ## Metrics
 
-- Lessons Completed: 244
-- Lessons Remaining: 42
-- Completion %: 85.3%
-- Open Tasks: 73
+- Lessons Completed: 254
+- Lessons Remaining: 32
+- Completion %: 88.8%
+- Open Tasks: 63
 
 ---
 
@@ -398,6 +398,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-295 through BAE-FDE-304 | Retrofitted 10 Python topics (Strings, System Design, Testing) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-290 through BAE-FDE-294 | Retrofitted 5 Python topics (Strings & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-285 through BAE-FDE-289 | Retrofitted 5 Python topics (Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-280 through BAE-FDE-284 | Retrofitted 5 Python topics (OOP & Performance) with FDE scenarios and Section 18 AI Agent Instructions. |
