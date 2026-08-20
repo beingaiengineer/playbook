@@ -21,6 +21,9 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
+
+**FDE Scenario:** You deploy to a major e-commerce client on the eve of their biggest annual sale. They claim their new microservices architecture is 'infinitely scalable', but they've never actually tested it beyond their internal QA team. You need to prove the system won't completely melt down when 100,000 users hit the checkout API simultaneously, preventing a multi-million dollar outage.
+
 Bro, imagine your startup just got featured on national television. You are expecting a massive spike in traffic. Your app has 100% test coverage and works perfectly for your 10 daily users. But when 100,000 people hit your site at once, the database connections max out, the server crashes, and you lose thousands of potential customers. This is exactly why load testing matters. Without it, you never know when your system will break under pressure.
 
 ---
@@ -208,7 +211,7 @@ Bro, if you run a load test against an API that sends SMS messages or emails, yo
 - Connection Pooling
 - System Architecture
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -217,3 +220,13 @@ Bro, if you run a load test against an API that sends SMS messages or emails, yo
 | [django/django](https://github.com/django/django) | ⭐ 75k+ | The Web framework for perfectionists with deadlines | Great testing examples |
 | [pytest-dev/pytest](https://github.com/pytest-dev/pytest) | ⭐ 11k+ | The pytest framework makes it easy to write small tests | Industry standard testing |
 | [psf/requests](https://github.com/psf/requests) | ⭐ 50k+ | Python HTTP Requests for Humans | Clean mocking examples |
+## 18. AI Agent Instructions
+
+*This section provides machine-readable directives for AI coding agents operating in production codebases.*
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Load Testing Setup | When writing Locust tests, use `HttpUser` and realistic `wait_time` (e.g., `between(1, 5)`) to simulate human behavior, not brute-force loops. | Accurately models production traffic spikes instead of accidental DDoS attacks on internal infrastructure. |
+| Test Targets | Never run load tests against production databases without explicit authorization and isolated tenant data. | Prevents test suites from taking down live client systems or corrupting production data. |
+| Performance Assertions | Assert on P99 latency and error rates rather than average response times in load test results. | Averages hide the actual user experience; P99 reveals the true bottlenecks during high load. |
+| Tooling | Prefer Locust or k6 for generating load testing scripts over custom threaded Python scripts. | Standardizes testing methodology and provides built-in metrics and distributed execution capabilities. |
