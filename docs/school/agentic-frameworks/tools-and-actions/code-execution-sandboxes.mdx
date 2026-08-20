@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, your new coding assistant agent generated a Python script to process some files and immediately ran it on your host server. The script had a subtle bug (or was maliciously prompted by a user) and ended up deleting critical system configurations, causing a major outage. You can never, ever run AI-generated code directly on your host machine. This is a fundamental security requirement. As an engineer, you must implement secure code execution sandboxes. Whether using Docker containers, specialized micro-VMs like Firecracker, or managed services like E2B, you have to isolate the execution environment, restrict network access, and set hard limits on memory and CPU to safely harness the power of code-generating agents.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, your new coding assistant agent generated a Python script to process some files and immediately ran it on your host server. The script had a subtle bug (or was maliciously prompted by a user) and ended up deleting critical system configurations, causing a major outage. You can never, ever run AI-generated code directly on your host machine. This is a fundamental security requirement. As an engineer, you must implement secure code execution sandboxes. Whether using Docker containers, specialized micro-VMs like Firecracker, or managed services like E2B, you have to isolate the execution environment, restrict network access, and set hard limits on memory and CPU to safely harness the power of code-generating agents.
+
 
 ## 3. Real-World Analogy
 
@@ -159,7 +160,7 @@ When scaling this in production, watch out for context window token limits and A
 - Agent Frameworks Basics
 - LangChain vs CrewAI
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -168,3 +169,12 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Code Execution Sandboxes. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Code Execution Sandboxes API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Code Execution Sandboxes. | Tests must be deterministic and run without network access. |

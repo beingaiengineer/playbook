@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you want your agent to answer questions about user analytics, so you give it a tool that can execute raw SQL queries against your production database. Within an hour, the agent hallucinates a poorly optimized `JOIN` that locks up a critical table, bringing down the entire application. Later, it accidentally drops a view. Giving an AI direct, unrestricted SQL access is an engineering disaster waiting to happen. When building database tools for agents, you must implement strict read-only roles, query timeouts, and schema constraints. Better yet, you should abstract the database behind a semantic layer or specific analytical tools, ensuring the agent can retrieve insights safely without risking the integrity of your production infrastructure.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, you want your agent to answer questions about user analytics, so you give it a tool that can execute raw SQL queries against your production database. Within an hour, the agent hallucinates a poorly optimized `JOIN` that locks up a critical table, bringing down the entire application. Later, it accidentally drops a view. Giving an AI direct, unrestricted SQL access is an engineering disaster waiting to happen. When building database tools for agents, you must implement strict read-only roles, query timeouts, and schema constraints. Better yet, you should abstract the database behind a semantic layer or specific analytical tools, ensuring the agent can retrieve insights safely without risking the integrity of your production infrastructure.
+
 
 ## 3. Real-World Analogy
 
@@ -151,7 +152,7 @@ When scaling this in production, watch out for context window token limits and A
 - Agent Frameworks Basics
 - LangChain vs CrewAI
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -160,3 +161,12 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Database Tools. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Database Tools API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Database Tools. | Tests must be deterministic and run without network access. |

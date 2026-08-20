@@ -56,19 +56,6 @@ Ready for next planning phase.
 - [x] [BAE-FDE-011] | Retrofit FDE + Section 18: `autogen/autogen-fundamentals.mdx`
 - [x] [BAE-FDE-012] | Retrofit FDE + Section 18: `autogen/autogen-group-chat-patterns.mdx`
 - [x] [BAE-FDE-013] | Retrofit FDE + Section 18: `autogen/autogen-production-deployment.mdx`
-- [ ] [BAE-FDE-084] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-tools-and-dependencies.mdx`
-- [ ] [BAE-FDE-085] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-type-safe-agents.mdx`
-- [ ] [BAE-FDE-086] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-fundamentals.mdx`
-- [ ] [BAE-FDE-087] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-memory-and-embeddings.mdx`
-- [ ] [BAE-FDE-088] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-planners.mdx`
-- [ ] [BAE-FDE-089] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-plugins-and-functions.mdx`
-- [ ] [BAE-FDE-090] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-production-deployment.mdx`
-- [ ] [BAE-FDE-091] | Retrofit FDE + Section 18: `tools-and-actions/api-tools-rest-graphql.mdx`
-- [ ] [BAE-FDE-092] | Retrofit FDE + Section 18: `tools-and-actions/code-execution-sandboxes.mdx`
-- [ ] [BAE-FDE-093] | Retrofit FDE + Section 18: `tools-and-actions/database-tools.mdx`
-- [ ] [BAE-FDE-094] | Retrofit FDE + Section 18: `tools-and-actions/function-calling-deep-dive.mdx`
-- [ ] [BAE-FDE-095] | Retrofit FDE + Section 18: `tools-and-actions/tool-design-principles.mdx`
-- [ ] [BAE-FDE-096] | Retrofit FDE + Section 18: `tools-and-actions/tool-error-handling-and-retries.mdx`
 
 ### IN PROGRESS
 _Empty_
@@ -77,6 +64,19 @@ _Empty_
 _Empty_
 
 ### DONE
+- [x] [BAE-FDE-084] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-tools-and-dependencies.mdx`
+- [x] [BAE-FDE-085] | Retrofit FDE + Section 18: `pydantic-ai/pydantic-ai-type-safe-agents.mdx`
+- [x] [BAE-FDE-086] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-fundamentals.mdx`
+- [x] [BAE-FDE-087] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-memory-and-embeddings.mdx`
+- [x] [BAE-FDE-088] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-planners.mdx`
+- [x] [BAE-FDE-089] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-plugins-and-functions.mdx`
+- [x] [BAE-FDE-090] | Retrofit FDE + Section 18: `semantic-kernel/semantic-kernel-production-deployment.mdx`
+- [x] [BAE-FDE-091] | Retrofit FDE + Section 18: `tools-and-actions/api-tools-rest-graphql.mdx`
+- [x] [BAE-FDE-092] | Retrofit FDE + Section 18: `tools-and-actions/code-execution-sandboxes.mdx`
+- [x] [BAE-FDE-093] | Retrofit FDE + Section 18: `tools-and-actions/database-tools.mdx`
+- [x] [BAE-FDE-094] | Retrofit FDE + Section 18: `tools-and-actions/function-calling-deep-dive.mdx`
+- [x] [BAE-FDE-095] | Retrofit FDE + Section 18: `tools-and-actions/tool-design-principles.mdx`
+- [x] [BAE-FDE-096] | Retrofit FDE + Section 18: `tools-and-actions/tool-error-handling-and-retries.mdx`
 - [x] [BAE-FDE-074] | Retrofit FDE + Section 18: `openai-agents-sdk/openai-sdk-tracing.mdx`
 - [x] [BAE-FDE-075] | Retrofit FDE + Section 18: `protocols/a2a-agent-cards.mdx`
 - [x] [BAE-FDE-076] | Retrofit FDE + Section 18: `protocols/a2a-protocol-deep-dive.mdx`
@@ -376,6 +376,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-FDE-084 through BAE-FDE-096 | Retrofitted 13 agentic frameworks topics (Pydantic AI, Semantic Kernel, Tools) with FDE scenarios and Section 18. |
 | BAE-FDE-074 through BAE-FDE-083 | Retrofitted 10 topics (Tracing, A2A, MCP, Pydantic AI) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-064 through BAE-FDE-073 | Retrofitted 10 topics (Multi-Agent Systems, OpenAI Agents SDK) with FDE scenarios and Section 18 AI Agent Instructions. |
 | BAE-FDE-054 through BAE-FDE-063 | Retrofitted 10 topics (LangChain/LangGraph, Memory & State, Multi-Agent Systems) with FDE scenarios and Section 18 AI Agent Instructions. |

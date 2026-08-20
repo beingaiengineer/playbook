@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, you just gave your LLM agent access to an API tool that deletes a user account. The tool requires a user ID, but the agent hallucinates a string instead of an integer, and the API crashes. Then, the agent tries again, passing the string 'all', and somehow bypasses a check, deleting multiple records. This is a catastrophic production incident caused by poor tool design. When exposing tools to AI agents, you cannot design them the same way you design APIs for human developers. Agents are unpredictable and prone to hallucinations. You must engineer your tools with strict type validation, comprehensive error messaging that tells the agent how to fix its mistake, and bulletproof guardrails to prevent destructive actions.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, you just gave your LLM agent access to an API tool that deletes a user account. The tool requires a user ID, but the agent hallucinates a string instead of an integer, and the API crashes. Then, the agent tries again, passing the string 'all', and somehow bypasses a check, deleting multiple records. This is a catastrophic production incident caused by poor tool design. When exposing tools to AI agents, you cannot design them the same way you design APIs for human developers. Agents are unpredictable and prone to hallucinations. You must engineer your tools with strict type validation, comprehensive error messaging that tells the agent how to fix its mistake, and bulletproof guardrails to prevent destructive actions.
+
 
 ## 3. Real-World Analogy
 
@@ -147,7 +148,7 @@ When scaling this in production, watch out for context window token limits and A
 - Agent Frameworks Basics
 - LangChain vs CrewAI
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -156,3 +157,12 @@ When scaling this in production, watch out for context window token limits and A
 | [joaomdmoura/crewAI](https://github.com/joaomdmoura/crewAI) | ⭐ 15k+ | Role-playing agents | Excellent role-based memory handling |
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 35k+ | Data framework for LLMs | Best for RAG and vector memory |
 | [phidatahq/phidata](https://github.com/phidatahq/phidata) | ⭐ 10k+ | Memory and tools for agents | Focuses heavily on state and DB tools |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Tool Design Principles. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Tool Design Principles API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Tool Design Principles. | Tests must be deterministic and run without network access. |

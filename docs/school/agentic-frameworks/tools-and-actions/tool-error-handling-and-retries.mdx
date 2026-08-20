@@ -20,7 +20,8 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 ## 2. Engineering Story
 
-Bro, your agent calls a third-party API to fetch stock prices, but the API returns a 503 Service Unavailable error due to rate limiting. Your agent, not knowing what to do, just outputs 'Error 503' to the user and gives up. This is a terrible user experience. In distributed systems, APIs fail all the time. When building agentic tools, you cannot just pass raw HTTP errors back to the LLM. You must engineer robust error handling and retry mechanisms. The tool needs to catch the error, implement exponential backoff, or return a clear, semantic error message to the agent (e.g., 'The API is busy, wait 5 seconds and try again'), enabling the agent to self-correct and complete the task reliably.
+Bro, imagine you are a senior engineer deployed to a client site, and you have to integrate legacy systems. Bro, your agent calls a third-party API to fetch stock prices, but the API returns a 503 Service Unavailable error due to rate limiting. Your agent, not knowing what to do, just outputs 'Error 503' to the user and gives up. This is a terrible user experience. In distributed systems, APIs fail all the time. When building agentic tools, you cannot just pass raw HTTP errors back to the LLM. You must engineer robust error handling and retry mechanisms. The tool needs to catch the error, implement exponential backoff, or return a clear, semantic error message to the agent (e.g., 'The API is busy, wait 5 seconds and try again'), enabling the agent to self-correct and complete the task reliably.
+
 
 ## 3. Real-World Analogy
 
@@ -148,8 +149,17 @@ Used extensively in systems like AutoGPT or Devin, where agents must recover fro
 - Function Calling Deep Dive
 - Agent Debugging
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description |
 |---|---|---|
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | Great built-in tool error handling strategies |
+
+
+## 18. AI Agent Instructions
+
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Code Generation | Always use type-safe dependencies and validated schemas when implementing Tool Error Handling And Retries. | Prevents silent failures in production due to unstructured outputs or missing dependencies. |
+| Error Handling | Implement robust error handling and retries for Tool Error Handling And Retries API calls. | External APIs fail constantly in client environments. |
+| Testing | Mock all external dependencies when testing Tool Error Handling And Retries. | Tests must be deterministic and run without network access. |
