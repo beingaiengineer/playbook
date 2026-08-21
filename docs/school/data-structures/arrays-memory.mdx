@@ -18,7 +18,7 @@ sidebar_label: "Arrays & Memory Layout"
 During a massive data migration for a Fortune 500 retailer, our ingestion pipeline was choking on a list of 50 million transaction objects. The CPU was spinning, but throughput was garbage. We profiled the system and realized we were suffering from terrible cache misses because the data was scattered across memory as object references. By packing the primitive values into contiguous arrays (a struct-of-arrays approach), we saturated the CPU cache lines and the ingestion job finished 40x faster, bro.
 
 ## 3. The Real-World Analogy
-{/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A visual representation of Arrays & Memory Layout in a real-world scenario. */}
+{/* TODO: [BAE-DS-001] | docs/school/data-structures/arrays-memory.mdx | bae-ds-001.png | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. A visual representation of Arrays & Memory Layout in a real-world scenario like a continuous row of numbered post office boxes, where Bae is directly accessing a specific box without checking the others, showing Bae helping out. */}
 
 | Real World | Technical Concept |
 |---|---|
