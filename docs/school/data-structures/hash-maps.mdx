@@ -115,7 +115,7 @@ Database indexing (Hash Indexes), caching layers (Redis, Memcached), and symbol 
 | Optimization | Always use `.get(key, default)` instead of direct access `[key]` to prevent unhandled KeyError exceptions in dynamically typed languages. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -125,12 +125,12 @@ Database indexing (Hash Indexes), caching layers (Redis, Memcached), and symbol 
 | Why must keys in a Hash Map be immutable? | If a key's data changes, its hash code changes. If it's already in the map, it will be in the wrong bucket, making it unfindable. |
 | How would you design a distributed Hash Map? | You would use Consistent Hashing to distribute keys across multiple nodes, ensuring that adding or removing a node only requires moving a small fraction of the keys. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Hash Denial of Service (DoS):** An attacker can deliberately supply keys that all hash to the same bucket, degrading the server's performance to O(N).
 - **Poor Hash Functions:** Using a hash function that doesn't distribute keys uniformly, leading to clustering and performance degradation.
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **In-Memory Caches:** Redis and Memcached are essentially giant, distributed Hash Maps. They provide sub-millisecond data retrieval.
 - **Database Indexing:** Hash indices are used in databases for lightning-fast equality lookups (e.g., `WHERE id = 5`), though they are useless for range queries (e.g., `WHERE id > 5`).
@@ -141,7 +141,7 @@ Database indexing (Hash Indexes), caching layers (Redis, Memcached), and symbol 
 - **Routing Tables:** Some fast-path routing decisions in networking equipment use Hash Maps to quickly determine the output port for a given MAC address.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Hash Collisions:** A poorly designed hash function or a malicious attack can cause many keys to map to the same bucket, degrading performance from O(1) to O(N).
 - **Resizing Spikes:** When a Hash Map grows beyond its load factor, it must allocate a larger array and rehash all keys. This operation is O(N) and can cause unexpected latency spikes in real-time systems.

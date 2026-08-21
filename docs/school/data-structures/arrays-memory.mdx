@@ -112,7 +112,7 @@ High-performance computing, game engines (Entity Component Systems), and financi
 | Optimization | When generating code that iterates over large collections of primitive data types, prioritize array-based structures like NumPy arrays over list of objects to improve cache locality. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -122,12 +122,12 @@ High-performance computing, game engines (Entity Component Systems), and financi
 | What is the difference between an Array and a Tuple in languages that support both? | Arrays (or lists) are typically mutable, meaning they can be changed after creation. Tuples are immutable; once created, their elements and size cannot be changed. |
 | How do multi-dimensional arrays map to flat linear memory? | They are usually flattened either in Row-Major order (C, C++, Python) where consecutive elements of a row are contiguous, or Column-Major order (Fortran, MATLAB). |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Memory Leaks in Dynamic Arrays:** If a dynamic array grows huge and then most elements are deleted, the underlying buffer might not shrink automatically, holding onto gigabytes of unused RAM.
 - **False Sharing:** In multi-threaded environments, if two threads frequently update different variables that happen to share the same cache line in an array, it causes severe performance degradation.
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Image Processing:** A digital image is fundamentally a 2D or 3D array of pixels. Operations like blurring, edge detection, and color inversion are just mathematical operations on array elements.
 - **Mathematical Matrices:** Linear algebra operations heavily rely on arrays. Machine learning frameworks (like TensorFlow or PyTorch) are built entirely around highly optimized multi-dimensional arrays (tensors).
@@ -138,7 +138,7 @@ High-performance computing, game engines (Entity Component Systems), and financi
 - **Game Boards:** Chess, Tic-Tac-Toe, and almost all grid-based games represent the game state internally as a 1D or 2D array.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Array Out Of Bounds:** This is one of the most common and dangerous errors in software engineering. In languages like C/C++, it leads to reading or writing arbitrary memory locations, causing crashes, silent data corruption, or severe security vulnerabilities (Buffer Overflows).
 - **Resizing Pauses:** Dynamic arrays must occasionally reallocate and copy all their data when they grow. This O(N) operation can cause unacceptable latency spikes in real-time systems (like trading platforms or games).

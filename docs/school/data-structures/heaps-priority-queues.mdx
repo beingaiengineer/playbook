@@ -127,7 +127,7 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 | Optimization | When using `heapq` in Python with complex objects, always insert a monotonic counter as a tie-breaker in the tuple to avoid unorderable type exceptions. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -137,12 +137,12 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 | How do you find the Kth largest element in an unsorted array? | You can build a Min-Heap of size K. Iterate through the array; if an element is larger than the root of the heap, pop the root and push the new element. The root is your answer. |
 | Why is heapsort not used as often as quicksort, despite having a better worst-case time complexity? | Heapsort has very poor cache locality because it constantly jumps around the array to compare parents and children, making it slower in practice on modern CPUs. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Index Math Errors:** Off-by-one errors in the `2i + 1` and `2i + 2` array index calculations, especially when dealing with 1-based vs 0-based arrays.
 - **Stable Sorting:** Standard priority queues and heapsort are not stable (they don't preserve the original relative order of equal elements).
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Task Scheduling:** Operating systems use priority queues to manage thread execution, ensuring critical system processes preempt lower-priority user applications.
 - **Bandwidth Management:** Network routers use priority queues for Quality of Service (QoS), ensuring VoIP or streaming data is transmitted before bulk file transfers.
@@ -152,7 +152,7 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 - **Data Stream Processing:** Finding the median or the top K elements in a continuous, infinite stream of data often utilizes heaps.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Unbounded Queues:** If producers enqueue tasks faster than consumers can process them, the heap will grow indefinitely until the system OOMs. Always use bounded priority queues with rejection policies.
 - **Priority Inversion:** A classic concurrency bug where a low-priority task holds a lock needed by a high-priority task, effectively lowering the high-priority task's status.

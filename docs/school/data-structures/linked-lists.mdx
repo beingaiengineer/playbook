@@ -116,7 +116,7 @@ Operating system process scheduling queues, implementing LRU caches, and managin
 | Optimization | Do not recommend linked lists for general-purpose collections in modern high-level languages unless O(1) insertion/deletion at both ends is the primary performance bottleneck. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -126,12 +126,12 @@ Operating system process scheduling queues, implementing LRU caches, and managin
 | What is a Skip List? | It's a probabilistic data structure built on multiple layers of linked lists. It allows for O(log N) search, insertion, and deletion times, serving as an alternative to balanced trees. |
 | How do you find the middle element of a Linked List in one pass? | Use two pointers. The fast pointer moves two steps while the slow pointer moves one. When the fast pointer reaches the end, the slow pointer will be exactly at the middle. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Losing the Head:** Re-assigning the head pointer incorrectly during an operation and garbage-collecting the entire list.
 - **Memory Fragmentation:** Since nodes are allocated individually, they scatter across the heap, destroying cache locality compared to contiguous arrays.
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Dynamic Memory Allocation:** The operating system's heap manager uses a linked list to keep track of free memory blocks.
 - **LRU Cache Implementation:** An LRU (Least Recently Used) cache is typically implemented using a combination of a Hash Map and a Doubly Linked List for O(1) eviction and updates.
@@ -141,7 +141,7 @@ Operating system process scheduling queues, implementing LRU caches, and managin
 - **Undo Functionality:** Some applications use a doubly linked list to implement an undo/redo stack, allowing traversal forward and backward through historical states.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Cache Thrashing:** Linked List nodes are allocated dynamically on the heap, meaning they are rarely contiguous in physical memory. Traversing the list causes constant CPU cache misses, making it significantly slower than array traversal in practice.
 - **Memory Overhead:** Every node requires extra memory to store the pointer(s) to the next (and previous) node. In a list of very small objects (like characters or integers), this overhead can consume more memory than the data itself.

@@ -131,7 +131,7 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 | Optimization | Always include cycle detection (e.g., maintaining a visited set) when writing any graph traversal algorithm to prevent infinite loops in production environments. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -141,12 +141,12 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 | How do you detect a cycle in a directed graph? | You can use DFS and keep track of a 'recursion stack' (or colors: white, gray, black). If you encounter a node that is currently in the recursion stack (gray), you have found a cycle. |
 | Explain the A* (A-Star) search algorithm. | It's an extension of Dijkstra's that uses a heuristic function to estimate the cost to the target. This guides the search towards the goal faster than exploring uniformly in all directions. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Disconnected Graphs:** Failing to wrap traversals in an outer loop that checks all vertices, completely missing disconnected components of the graph.
 - **Negative Weight Cycles:** Standard algorithms like Dijkstra will infinite loop or return incorrect results if the graph contains negative weight cycles (Bellman-Ford is needed here).
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Social Networks:** Facebook, LinkedIn, and Twitter represent users as nodes and connections (friends/follows) as edges. Graph traversal algorithms power the "People You May Know" feature.
 - **GPS Navigation:** Google Maps uses complex graph traversal algorithms (variations of Dijkstra and A*) to find the shortest or fastest route between two locations on a map.
@@ -157,7 +157,7 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 - **Fraud Detection:** Financial institutions model transaction histories as graphs to identify rings of suspicious activity and complex money laundering topologies.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Memory Exhaustion (BFS):** In very wide graphs (like social networks), the Queue in BFS can grow exponentially large, consuming all available RAM before finding the target.
 - **Stack Overflow (DFS):** In very deep graphs, recursive DFS will exceed the call stack limit. Iterative DFS with an explicit Stack object is mandatory in production.

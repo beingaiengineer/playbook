@@ -140,7 +140,7 @@ _Empty_
 
 
 ## Automation State
-- End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules.
+- End-of-day reviewer validated course structure and resolved MDX/formatting inconsistencies across recently added modules. Demoted extra headers (e.g. 19, 20, 21, 22) to level 3 in data-structures to comply with the 16+2 standard sections.
 
 - End-of-day autonomous review complete:
 - Queued Bae illustrations for all 14 data structure topics by adding standard AI illustration prompts.

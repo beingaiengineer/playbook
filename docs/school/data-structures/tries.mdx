@@ -133,7 +133,7 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 | Optimization | When implementing typeahead or prefix matching features, mandate the use of Tries or Radix trees over naive database string matching to prevent query timeouts. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -143,12 +143,12 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 | Can a Trie store things other than strings? | Yes, a Trie can store any sequence of data, such as IP addresses (bit by bit), file paths, or even sequences of actions in a state machine. |
 | What is the space complexity of a standard Trie? | It can be quite large: O(ALPHABET_SIZE * L * N), where L is the average word length and N is the number of words. This is why memory optimization (like using Hash Maps for children or Radix Trees) is crucial. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Memory Bloat:** Using a fixed array of size 256 (for ASCII) for every node's children when the alphabet is mostly just lowercase letters.
 - **Prefix Substrings:** Failing to properly mark the 'end of word' boolean, leading to the inability to distinguish between "car" and "cart".
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Autocomplete Systems:** This is the classic use case. When you type "Goog" in a search bar, a Trie quickly finds all indexed words starting with that prefix.
 - **Spell Checkers:** Tries can store a dictionary of valid words. As you type, the system checks if the current word exists in the Trie.
@@ -159,7 +159,7 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 - **Browser History Autocomplete:** Modern browsers use Tries not just for search suggestions, but to autocomplete URLs you've visited previously based on the typed prefix.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Massive Memory Footprint:** A naive Trie where every node has an array of 256 children (for ASCII) will consume gigabytes of memory even for a small dictionary. Hash maps for children or Radix Trees are essential in production.
 - **Cold Starts:** Loading a massive dictionary into a Trie on application startup can take several seconds, delaying server readiness. Systems often serialize the Trie to a binary format on disk for faster mmap loading.
