@@ -120,7 +120,7 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 | Optimization | When generating code that requires a queue in Python, always import `collections.deque`. Never use a standard list with `.pop(0)`. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -130,12 +130,12 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 | How do you evaluate a postfix expression using a stack? | You iterate through the expression: if it's a number, push it onto the stack. If it's an operator, pop the top two numbers, apply the operator, and push the result back onto the stack. |
 | Explain the difference between blocking and non-blocking queues. | A blocking queue will wait (block the thread) if you try to dequeue from an empty queue or enqueue to a full queue. Non-blocking queues will return an error or null immediately. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Priority Inversion:** In concurrent queues, a lower-priority task might hold a lock needed by a higher-priority task.
 - **Queue Overflow:** Failing to handle backpressure when producers are faster than consumers.
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Call Stack:** Every modern programming language uses a stack to keep track of active subroutines. When a function is called, its local variables are pushed; when it returns, they are popped.
 - **Undo/Redo Mechanisms:** Text editors and graphic design software use stacks. Every action is pushed. Undo pops from the action stack and pushes to the redo stack.
@@ -147,7 +147,7 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 - **Rate Limiting:** Algorithms like the Token Bucket or Leaky Bucket often utilize queues to manage incoming request traffic and prevent server overload.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Queue Build-Up:** If a consumer service crashes or slows down, the queue can fill up quickly, eventually causing Out-Of-Memory (OOM) errors if unbounded.
 - **Dead-Letter Queues:** Failing to handle messages that cannot be processed successfully. These 'poison pills' can block the queue indefinitely if not moved to a Dead-Letter Queue (DLQ).

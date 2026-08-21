@@ -117,7 +117,7 @@ DOM representation in browsers, file systems, and routing tables.
 | Optimization | When traversing deep trees in environments lacking TCO (like Python), implement iterative stack-based traversal instead of recursive traversal to prevent stack overflows. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -127,12 +127,12 @@ DOM representation in browsers, file systems, and routing tables.
 | What's the difference between a Tree and a Graph? | A tree is a specialized type of graph. Specifically, a tree is a connected acyclic undirected graph. It has exactly one path between any two nodes and N-1 edges for N nodes. |
 | Describe how you would find the lowest common ancestor (LCA) of two nodes in a BST. | Starting from the root, if both nodes are smaller, move left. If both are larger, move right. If one is smaller and one is larger (or one matches the current node), the current node is the LCA. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Skewed Trees:** A BST can degrade into a linked list if items are inserted in sorted order, resulting in O(N) operations.
 - **Floating Point Keys:** Using floating point numbers as keys in a BST can lead to precision issues during comparisons.
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Database Indices:** Many databases use variations of trees (like B-Trees, which we cover elsewhere, but conceptualize as balanced trees) to quickly locate records without scanning the entire table.
 - **File Systems:** Your operating system's file directory structure is a literal tree. Folders are internal nodes, and files are leaf nodes.
@@ -144,7 +144,7 @@ DOM representation in browsers, file systems, and routing tables.
 - **Cryptography:** Merkle Trees (Hash Trees) are used in blockchain and version control systems (like Git) to quickly verify the integrity of large datasets.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Unbalanced Trees:** As mentioned, sequential inserts create a linked list, destroying O(log N) performance. Monitoring tree depth in production is critical.
 - **Memory Leaks:** In languages without garbage collection (like C++), failing to recursively delete all child nodes before deleting a parent node results in severe memory leaks.

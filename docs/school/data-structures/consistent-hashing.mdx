@@ -122,7 +122,7 @@ Distributed databases (Cassandra, DynamoDB), Content Delivery Networks (CDNs), a
 | Optimization | When generating sharding or caching logic for distributed systems, enforce consistent hashing over simple modulo hashing to prevent massive cache invalidation upon topology changes. | Prevents massive performance degradations in deployed systems. |
 
 
-## 19. Advanced Interview Questions
+### Advanced Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -132,12 +132,12 @@ Distributed databases (Cassandra, DynamoDB), Content Delivery Networks (CDNs), a
 | How does Consistent Hashing handle server failures? | When a server dies, its virtual nodes are removed from the ring. The keys that previously mapped to it will simply be routed to the next available server clockwise on the ring. |
 | Where is Consistent Hashing actually used in production? | It's used heavily in distributed caching (like Memcached), distributed databases (like Cassandra and DynamoDB), and CDN load balancers. |
 
-## 20. Tricky Edge Cases
+### Tricky Edge Cases
 - **Cascading Failures:** If a server fails, its load is shifted to the next server. If that server is already near capacity, it might fail too, causing a domino effect.
 - **Heterogeneous Hardware:** If servers have different capacities, assigning them all the same number of vnodes will overload weaker machines.
 
 
-## 21. Real-World Applications
+### Real-World Applications (Extended)
 
 - **Distributed Caches:** Memcached clients use consistent hashing to determine which cache server should store a specific key. This prevents massive cache misses when a server is added or removed.
 - **NoSQL Databases:** Apache Cassandra and Amazon DynamoDB use consistent hashing as the core mechanism to partition data across a massive cluster of commodity hardware.
@@ -146,7 +146,7 @@ Distributed databases (Cassandra, DynamoDB), Content Delivery Networks (CDNs), a
 - **Distributed File Systems:** Systems like GlusterFS use a variant of consistent hashing (elastic hashing) to distribute files across storage bricks without requiring a centralized metadata server.
 
 
-## 22. Common Production Issues
+### Common Production Issues
 
 - **Uneven Load Distribution:** Even with virtual nodes, hash functions might not distribute keys perfectly, leading to some servers handling slightly more load than others.
 - **Cascading Failures:** If a server fails and its load is distributed to neighboring servers, those neighbors might become overloaded and fail as well, causing a domino effect.
