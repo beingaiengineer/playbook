@@ -7,7 +7,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # What is CI/CD?
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -17,7 +17,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Treating CI/CD as an afterthought rather than integrating it from day one of a project. |
 | Performance | Reduces deployment time from days/weeks to minutes; enables hundreds of safe deployments per day. |
 
-### 2. Real-World Analogy
+## 2. Real-World Analogy
 
 ![Real-World Analogy](./assets/what-is-cicd.png)
 
@@ -36,7 +36,7 @@ If you rely on humans to test the milk, pack it, and put it on the trucks manual
 
 > **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-### 3. Concept Explanation
+## 3. Concept Explanation
 
 CI/CD stands for Continuous Integration and Continuous Deployment (or Delivery).
 
@@ -46,7 +46,7 @@ CI/CD stands for Continuous Integration and Continuous Deployment (or Delivery).
 
 Why does it exist? Because manual deployments are terrifying, bro. You don't want a single point of failure where only one senior engineer knows the "magic commands" to deploy a service on Friday night. CI/CD democratizes and standardizes the deployment process.
 
-### 4. Syntax Table
+## 4. Syntax Table
 
 Here is a quick look at the core concepts across different CI/CD platforms.
 
@@ -57,7 +57,7 @@ Here is a quick look at the core concepts across different CI/CD platforms.
 | Commands | `steps` | `steps` | `script` | The actual bash commands to run (e.g., `npm install`). |
 | When to Run | `on: push` | `triggers` | `rules` / `only` | The event that starts the pipeline (like a push to `main`). |
 
-### 5. Beginner Example
+## 5. Beginner Example
 
 A simple GitHub Actions pipeline to test a Node.js app when someone pushes code.
 
@@ -87,7 +87,7 @@ jobs:
         run: npm test
 ```
 
-### 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Bro, in a real startup, your pipeline doesn't just run tests. It sets up a database, caches dependencies, runs integration tests, builds a Docker image, and alerts Slack if it fails.
 
@@ -146,7 +146,7 @@ jobs:
           ./deploy-to-prod.sh myapp:${{ github.sha }}
 ```
 
-### 7. Internal Working
+## 7. Internal Working
 
 How does a CI server actually execute your code? When you push to GitHub, a webhook is fired. The CI system reads your YAML file and requests a fresh Virtual Machine (a "Runner"). The Runner pulls your code, executes the bash commands defined in your YAML line by line, captures the exit codes (0 for success, non-zero for failure), and reports back.
 
@@ -169,7 +169,7 @@ How does a CI server actually execute your code? When you push to GitHub, a webh
   ]}
 />
 
-### 8. Performance Table
+## 8. Performance Table
 
 | Metric | Bad Pipeline | Excellent Pipeline |
 |---|---|---|
@@ -178,7 +178,7 @@ How does a CI server actually execute your code? When you push to GitHub, a webh
 | Dependency Resolution | Downloads the internet every run | Aggressive caching (`actions/cache`) |
 | Feedback Loop | "I'll check it tomorrow" | Notifies Slack in 2 minutes |
 
-### 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -188,7 +188,7 @@ How does a CI server actually execute your code? When you push to GitHub, a webh
 | Why should pipelines be treated as "Infrastructure as Code"? | So the deployment process is version-controlled alongside the application code. If the code rolls back, the deployment logic rolls back with it. |
 | How do you handle database passwords in a pipeline? | Never hardcode them. Use CI/CD secrets management (like GitHub Secrets or AWS Parameter Store) to inject them as environment variables at runtime. |
 
-### 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 **The "Flaky Test" Trap:**
 Imagine your CI pipeline passes 80% of the time, but randomly fails 20% of the time because a test relies on the network or time of day.
@@ -197,11 +197,11 @@ Imagine your CI pipeline passes 80% of the time, but randomly fails 20% of the t
 **The Dependency Poisoning Attack:**
 If your pipeline runs `npm install` directly on production without a lockfile (`package-lock.json`), a malicious package published 5 minutes ago could be pulled into your build, bypassing human review. Always use `npm ci` (which strictly obeys the lockfile) in pipelines.
 
-### 11. Real-World Usage
+## 11. Real-World Usage
 
 Companies like **Netflix** deploy thousands of times a day using internal CD tools like Spinnaker. At **Uber**, a developer merging a PR triggers a massive CI matrix that runs thousands of tests on different mobile architectures in parallel. Without CI/CD, managing thousands of microservices is literally impossible.
 
-### 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -209,12 +209,12 @@ Companies like **Netflix** deploy thousands of times a day using internal CD too
 | Use caching for dependencies to keep pipelines under 5 mins. | Redownload 2GB of Node modules on every commit. |
 | Make pipelines ephemeral (fresh VM every time). | Run Jenkins on an old laptop under a desk that accumulates state. |
 
-### 13. Production Notes
+## 13. Production Notes
 
 > **Warning: Secrets Spillage**
 > A common disaster is a developer writing `echo ${{ secrets.PROD_DB_PASSWORD }}` to debug a pipeline, accidentally printing the production password into the public CI logs. Most modern CI tools mask secrets with `***`, but complex scripts can still leak them if written to files. Never log secrets.
 
-### 14. Common Mistakes
+## 14. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -222,7 +222,7 @@ Companies like **Netflix** deploy thousands of times a day using internal CD too
 | Not caching dependencies | 10-minute wait just to run a 5-second test. | Use the platform's cache action/step. |
 | Monolithic pipelines | A tiny frontend typo triggers a 30-minute backend compilation. | Split pipelines by directory (e.g., `paths: ['frontend/**']`). |
 
-### 15. Related Topics
+## 15. Related Topics
 - GitHub Actions Fundamentals
 - Automated Testing in CI
 - Code Quality Gates

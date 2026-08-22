@@ -7,7 +7,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Building Your First Pipeline
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -17,7 +17,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Copy-pasting massive pipelines from Stack Overflow without understanding what each step does. |
 | Performance | Start simple. A basic test pipeline should run in under 2 minutes. |
 
-### 2. Real-World Analogy
+## 2. Real-World Analogy
 
 ![Real-World Analogy](./assets/building-your-first-pipeline.png)
 
@@ -37,7 +37,7 @@ You write the instructions once, and the assistant (GitHub Actions) follows them
 
 > **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-### 3. Concept Explanation
+## 3. Concept Explanation
 
 Building a pipeline is simply translating developer commands into a structured YAML file.
 
@@ -52,7 +52,7 @@ A CI pipeline is just a robot doing exactly those five steps in an isolated virt
 
 Bro, you don't need to learn every YAML feature on day one. Start by just making the pipeline checkout your code and print "Hello World." Then add dependency installation. Then add tests. Build it incrementally.
 
-### 4. Syntax Table
+## 4. Syntax Table
 
 Here are the core properties you need to structure your first pipeline.
 
@@ -65,7 +65,7 @@ Here are the core properties you need to structure your first pipeline.
 | `steps:` | The exact sequence of tasks. | `- uses: actions/checkout@v4` |
 | `run:` | A raw shell command. | `run: npm run test` |
 
-### 5. Beginner Example
+## 5. Beginner Example
 
 Let's build a minimalist pipeline that just checks out the code and lists the files. It's the best way to verify your YAML syntax is correct.
 
@@ -97,7 +97,7 @@ jobs:
         run: cat /etc/os-release
 ```
 
-### 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Bro, now let's build a real pipeline for a standard TypeScript/Node.js application. This pipeline installs dependencies, checks formatting, checks types, and runs tests.
 
@@ -143,7 +143,7 @@ jobs:
         run: npm run test:coverage
 ```
 
-### 7. Internal Working
+## 7. Internal Working
 
 How does the runner process this file? It reads top-to-bottom. If Step 3 (`npm ci`) fails because the lockfile is corrupt, the runner immediately stops execution. Steps 4 and 5 are completely skipped, the job is marked as "Failed," and the GitHub Pull Request gets a giant red 'X'.
 
@@ -166,7 +166,7 @@ How does the runner process this file? It reads top-to-bottom. If Step 3 (`npm c
   ]}
 />
 
-### 8. Performance Table
+## 8. Performance Table
 
 | Action | Time Cost | Why? |
 |---|---|---|
@@ -175,7 +175,7 @@ How does the runner process this file? It reads top-to-bottom. If Step 3 (`npm c
 | `npm install` (No Cache) | ~40-120 seconds | Downloading megabytes of JS over the internet. |
 | `npm ci` (With Cache) | ~10-20 seconds | Restores from local disk, skips resolution. |
 
-### 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -185,7 +185,7 @@ How does the runner process this file? It reads top-to-bottom. If Step 3 (`npm c
 | If a step fails, how can you force the next step to run anyway? | You can use `if: always()` on the subsequent step, often used to upload failure logs or send a Slack alert even if tests fail. |
 | How do you test a pipeline without pushing 100 commits to GitHub? | Use local tools like `act` (nektos/act) which runs GitHub Actions locally using Docker. |
 
-### 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 **The "Phantom Dependency" Trap:**
 Bro, your code works locally but fails in the pipeline saying `Module not found`. Why? Because you installed the module locally but forgot to save it to `package.json`. The pipeline runner is a completely clean computer. It only knows what is in the repository. If it's not tracked in Git, it doesn't exist.
@@ -193,11 +193,11 @@ Bro, your code works locally but fails in the pipeline saying `Module not found`
 **The Case Sensitive File System:**
 You import `import User from './components/user.js'` (lowercase 'u'). Locally on macOS or Windows, it works because their file systems are mostly case-insensitive. But the GitHub runner is Linux (case-sensitive). The pipeline will crash with a `File not found` error. Always respect case sensitivity!
 
-### 11. Real-World Usage
+## 11. Real-World Usage
 
 When you join a company like Swiggy, the first thing you'll do on a new microservice is establish the CI pipeline. Without it, you cannot merge PRs, because the repository is protected. The pipeline acts as the objective, emotionless judge of your code's quality.
 
-### 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -205,12 +205,12 @@ When you join a company like Swiggy, the first thing you'll do on a new microser
 | Fail fast. Put fast checks (linting/types) before slow checks (e2e tests). | Run 20 minutes of UI tests only to fail at the end because of a missing semicolon. |
 | Use branch protection rules to enforce that the pipeline MUST pass before merging. | Make the pipeline optional. |
 
-### 13. Production Notes
+## 13. Production Notes
 
 > **Warning: Runner OS Mismatch**
 > Be careful if you build native binaries (like C++ extensions, Rust wrappers, or certain Python ML libraries). If your runner is `ubuntu-latest`, the compiled binary is for Linux. If you try to take that artifact and run it on a Windows server, it will fail. Always match the `runs-on` OS to your target deployment OS.
 
-### 14. Common Mistakes
+## 14. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -218,7 +218,7 @@ When you join a company like Swiggy, the first thing you'll do on a new microser
 | Forgetting Node setup | `npm: command not found` | Always use `actions/setup-node` before running npm commands. |
 | Committing `node_modules` | Pipeline takes 10 minutes to checkout code. | Ensure `node_modules` is in your `.gitignore` file. |
 
-### 15. Related Topics
+## 15. Related Topics
 - GitHub Actions Fundamentals
 - Automated Testing in CI
 - Code Quality Gates

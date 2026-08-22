@@ -7,7 +7,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Artifact Management
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -17,7 +17,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Building code from source on production servers instead of deploying a pre-built artifact. |
 | Performance | Downloading a 50MB artifact takes seconds; recompiling source code takes minutes. |
 
-### 2. Real-World Analogy
+## 2. Real-World Analogy
 
 ![Real-World Analogy](./assets/artifact-management.png)
 
@@ -37,7 +37,7 @@ You do not take raw vegetables to the wedding hall and cook there. That is slow,
 
 > **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-### 3. Concept Explanation
+## 3. Concept Explanation
 
 An **Artifact** is any file or collection of files produced during a CI/CD pipeline.
 
@@ -47,7 +47,7 @@ There are two main types of artifacts:
 
 **Artifact Registries** (like JFrog Artifactory, Nexus, AWS ECR, or GitHub Packages) are secure storage systems designed specifically to hold these Release Artifacts. They version them (e.g., `myapp-v1.2.zip`) so you can easily deploy them, or roll back to an older version if the new one crashes.
 
-### 4. Syntax Table
+## 4. Syntax Table
 
 Here is how you handle pipeline artifacts in GitHub Actions.
 
@@ -59,7 +59,7 @@ Here is how you handle pipeline artifacts in GitHub Actions.
 | `actions/download-artifact` | Downloads a previously uploaded artifact into a new job runner. | `uses: actions/download-artifact@v4` |
 | `retention-days` | How long GitHub stores the temporary file before deleting it. | `retention-days: 5` |
 
-### 5. Beginner Example
+## 5. Beginner Example
 
 Passing a text file between two completely isolated jobs using pipeline artifacts.
 
@@ -94,7 +94,7 @@ jobs:
         run: cat my-message.txt
 ```
 
-### 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Bro, here is a real production workflow. We build a React Single Page Application (SPA), zip the `dist` folder into a release artifact, and upload it to an AWS S3 bucket for deployment.
 
@@ -135,7 +135,7 @@ jobs:
           aws s3 cp frontend-release-${{ github.ref_name }}.zip s3://my-company-artifacts/frontend/
 ```
 
-### 7. Internal Working
+## 7. Internal Working
 
 Why do we need to upload and download files? Because Jobs in GitHub Actions run on entirely separate virtual machines. Job 1 runs on Runner A. Job 2 runs on Runner B. They do not share a hard drive. To pass data, Runner A uploads the file to GitHub's internal blob storage via an API. Runner B then queries that API and downloads the file to its own local disk.
 
@@ -156,7 +156,7 @@ Why do we need to upload and download files? Because Jobs in GitHub Actions run 
   ]}
 />
 
-### 8. Performance Table
+## 8. Performance Table
 
 | Storage Location | Speed | Best Used For |
 |---|---|---|
@@ -164,7 +164,7 @@ Why do we need to upload and download files? Because Jobs in GitHub Actions run 
 | GitHub Pipeline Artifacts | ~5-15 seconds | Passing coverage reports, logs, or zipped builds between jobs. |
 | External Artifact Registry (AWS S3, JFrog) | Varies by network | Storing final production releases long-term. |
 
-### 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -174,7 +174,7 @@ Why do we need to upload and download files? Because Jobs in GitHub Actions run 
 | Why must you build an artifact ONCE and promote it? | If you rebuild the code in staging and rebuild it again in production, differences in the runner environment might cause the production build to behave differently. Build once, test that artifact, deploy that exact artifact. |
 | What is an Artifact Registry? | A centralized server (like JFrog Artifactory or AWS ECR) designed to store, version, and secure compiled binaries and Docker images. |
 
-### 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 **The "Path Mismatch" Trap:**
 Bro, when you upload an artifact from `path: src/build/`, and download it in the next job, the runner recreates that folder structure. If you just run `ls`, you won't see your files. You have to `cd src/build/` to find them.
@@ -185,11 +185,11 @@ A junior engineer creates a pipeline that runs `npm run build` and deploys to St
 Bro, this is a fatal flaw. What if a library updated its minor version between the two builds? Staging and Prod are now running different code!
 *The Senior Way:* Build the artifact once, save it to S3. Deploy that exact zip file to Staging. If approved, take that *exact same zip file* and push it to Prod.
 
-### 11. Real-World Usage
+## 11. Real-World Usage
 
 At enterprises, nothing goes to production without being securely stored in a registry like JFrog Artifactory. Before a Docker image (a type of artifact) is pushed to the production Kubernetes cluster, the registry scans the image for vulnerabilities. If a critical CVE (Common Vulnerabilities and Exposures) is found, the registry automatically blocks the deployment.
 
-### 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -197,12 +197,12 @@ At enterprises, nothing goes to production without being securely stored in a re
 | Reduce artifact retention days (e.g., 5 days) for temporary pipeline logs to save money. | Store millions of useless test logs forever. |
 | Build your artifact once and deploy it to all environments. | Recompile your code for every environment. |
 
-### 13. Production Notes
+## 13. Production Notes
 
 > **Warning: Artifact Size Limits**
 > GitHub Actions has storage limits for artifacts (e.g., 500MB per artifact, and total repo storage limits). If you try to upload a 5GB database dump as an artifact, your pipeline will fail, and you might get billed for storage overages. For massive files, upload directly to AWS S3 or Google Cloud Storage using their CLIs.
 
-### 14. Common Mistakes
+## 14. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -210,7 +210,7 @@ At enterprises, nothing goes to production without being securely stored in a re
 | Uploading `node_modules` | Pipeline artifact size explodes to 800MB and slows down the pipeline. | Exclude `node_modules` from zip files. Use `actions/cache` for dependencies instead. |
 | Hardcoding paths | Scripts fail on Windows runners because they use `\` instead of `/`. | Use relative paths and let the action handle cross-OS path translation. |
 
-### 15. Related Topics
+## 15. Related Topics
 - Building Your First Pipeline
 - Pipeline Optimization
 - Dockerfile Fundamentals

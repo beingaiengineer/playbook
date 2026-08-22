@@ -7,7 +7,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Code Quality Gates
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -17,7 +17,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Introducing strict gates to a massive legacy codebase all at once, blocking all development. |
 | Performance | Fast for linters (seconds); can be slow for deep static analysis tools (minutes). |
 
-### 2. Real-World Analogy
+## 2. Real-World Analogy
 
 ![Real-World Analogy](./assets/code-quality-gates.png)
 
@@ -37,7 +37,7 @@ If your face doesn't match, or your visa is fake, the officer rejects you immedi
 
 > **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-### 3. Concept Explanation
+## 3. Concept Explanation
 
 A **Quality Gate** is a milestone in your CI pipeline. It defines a set of boolean (pass/fail) conditions that the code must meet. If the code fails any condition, the pipeline stops, and the Pull Request is blocked from merging.
 
@@ -49,7 +49,7 @@ Typically, a gate includes:
 3. **Security Scans (SAST):** (Bandit, Snyk, CodeQL) Did you hardcode a password or leave an SQL injection vulnerability?
 4. **Coverage Thresholds:** Did you write tests for the new lines of code you added?
 
-### 4. Syntax Table
+## 4. Syntax Table
 
 Here are common tools used to establish gates in a pipeline.
 
@@ -61,7 +61,7 @@ Here are common tools used to establish gates in a pipeline.
 | Security (SAST) | GitHub CodeQL | `uses: github/codeql-action/analyze@v3` |
 | Dependencies | Snyk | `snyk test` |
 
-### 5. Beginner Example
+## 5. Beginner Example
 
 A simple GitHub Actions step that acts as a quality gate by failing if the code isn't formatted with Prettier.
 
@@ -85,7 +85,7 @@ jobs:
         run: npx prettier --check "src/**/*.js"
 ```
 
-### 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Bro, here is a professional quality gate using SonarCloud. It checks for bugs, vulnerabilities, and enforces that test coverage must be > 80%.
 
@@ -121,7 +121,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # Needed to auth with Sonar
 ```
 
-### 7. Internal Working
+## 7. Internal Working
 
 How does a tool like SonarQube block a PR?
 1. The CI runner executes tests and generates a coverage report (e.g., XML/LCOV).
@@ -146,7 +146,7 @@ How does a tool like SonarQube block a PR?
   ]}
 />
 
-### 8. Performance Table
+## 8. Performance Table
 
 | Scan Type | Time Cost | Impact on Pipeline |
 |---|---|---|
@@ -154,7 +154,7 @@ How does a tool like SonarQube block a PR?
 | Deep Static Analysis (Sonar) | 2 - 10 minutes | Moderate. Often run only on PRs, not every push. |
 | SAST (CodeQL) | 5 - 20 minutes | High. Heavy computation. Often run asynchronously. |
 
-### 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -164,7 +164,7 @@ How does a tool like SonarQube block a PR?
 | What is Code Coverage? | The percentage of your application's source code lines that are executed during automated tests. |
 | Why shouldn't you enforce 100% test coverage? | Chasing 100% coverage leads to developers writing useless, low-quality tests just to satisfy the robot, ignoring edge cases. 80% is the industry standard sweet spot. |
 
-### 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 **The Legacy Codebase Trap:**
 Bro, imagine taking a 5-year-old React codebase with 0 tests and suddenly adding a SonarQube quality gate demanding 80% coverage. Nobody will be able to merge a PR ever again!
@@ -173,11 +173,11 @@ Bro, imagine taking a 5-year-old React codebase with 0 tests and suddenly adding
 **The False Positive Danger:**
 SAST tools (like security scanners) often flag false positives (e.g., flagging a dummy test password as a leaked production secret). If your gate is too strict, developers will get frustrated. You must establish a workflow for human reviewers to mark certain findings as "Won't Fix" or "False Positive" to unblock the pipeline.
 
-### 11. Real-World Usage
+## 11. Real-World Usage
 
 Financial tech companies (like Stripe, Razorpay, or banks) cannot afford security vulnerabilities. They use extremely strict quality gates. A developer cannot merge code unless it passes ESLint, Type checking, 85% test coverage, Snyk dependency vulnerability checks, and Veracode/CodeQL SAST scans. It sounds annoying, but it prevents massive financial disasters.
 
-### 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -185,12 +185,12 @@ Financial tech companies (like Stripe, Razorpay, or banks) cannot afford securit
 | Auto-format code (`prettier --write`) locally using Git pre-commit hooks (Husky) before pushing to CI. | Make developers manually fix 50 space/tab errors found by the CI linter. |
 | Fail fast! Run the 5-second linter before the 5-minute Sonar scan. | Run the 5-minute scan first and fail later. |
 
-### 13. Production Notes
+## 13. Production Notes
 
 > **Warning: Token Expiry and Third-Party Downtime**
 > If your pipeline relies on SonarCloud or Snyk, and those services go down (or your API token expires), your Quality Gate will fail, blocking all deployments. Have an emergency "break-glass" procedure (like Admin override for Branch Protection) to push critical hotfixes if the analysis tool is offline.
 
-### 14. Common Mistakes
+## 14. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -198,7 +198,7 @@ Financial tech companies (like Stripe, Razorpay, or banks) cannot afford securit
 | Not integrating with GitHub PRs | Developers have to dig through terminal logs to find lint errors | Use tools like `reviewdog` to post lint errors as inline PR comments. |
 | Ignoring vulnerable dependencies | Shipping an old log4j version to prod | Use `npm audit` or `snyk` as a blocking gate. |
 
-### 15. Related Topics
+## 15. Related Topics
 - Automated Testing in CI
 - Pipeline Security
 - Pipeline Optimization

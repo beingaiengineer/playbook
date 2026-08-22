@@ -7,7 +7,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Docker Compose in CI
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -17,7 +17,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Hardcoding sleep timers (`sleep 30`) instead of health checks to wait for databases to boot. |
 | Performance | Heavy. Pulling multiple images and starting them takes 1-3 minutes before tests even begin. |
 
-### 2. Real-World Analogy
+## 2. Real-World Analogy
 
 ![Real-World Analogy](./assets/docker-compose-in-ci.png)
 
@@ -37,7 +37,7 @@ You don't want to manually start a Postgres database, a Redis cache, and a backe
 
 > **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-### 3. Concept Explanation
+## 3. Concept Explanation
 
 While a `Dockerfile` builds a single application image, **Docker Compose** is a tool for defining and running multi-container Docker applications. You use a `docker-compose.yml` file to configure your app's services.
 
@@ -45,7 +45,7 @@ In a CI pipeline, your unit tests are fast because they mock everything. But for
 
 Instead of configuring a complex Postgres server directly on the CI runner, you simply run `docker-compose up -d`. This spins up your entire production-like architecture as interconnected containers on the CI runner. You run your tests against this temporary environment, and when the pipeline finishes, you run `docker-compose down` to destroy it cleanly.
 
-### 4. Syntax Table
+## 4. Syntax Table
 
 Here are the key directives in a `docker-compose.yml` file used for CI testing.
 
@@ -58,7 +58,7 @@ Here are the key directives in a `docker-compose.yml` file used for CI testing.
 | `ports` | Maps host runner ports to container ports. | `ports: - "5432:5432"` |
 | `depends_on` | Boot order and readiness checks. | `depends_on: db: condition: service_healthy` |
 
-### 5. Beginner Example
+## 5. Beginner Example
 
 A simple Compose file spinning up a Postgres database and a Redis cache for testing.
 
@@ -87,7 +87,7 @@ npm run test:integration
 docker-compose -f docker-compose.test.yml down
 ```
 
-### 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Bro, in reality, databases take a few seconds to boot. If your tests start immediately after `docker-compose up`, they will crash with a "Connection Refused" error. You must use **Health Checks**.
 
@@ -136,7 +136,7 @@ steps:
     run: docker-compose -f docker-compose.ci.yml down -v
 ```
 
-### 7. Internal Working
+## 7. Internal Working
 
 How does Compose orchestrate this? When you run `docker-compose up`, the Docker daemon creates a private internal Virtual Network. It then boots the containers and attaches them to this network. By default, containers can talk to each other using their service names as hostnames (e.g., the API connects to `http://db:5432`).
 
@@ -160,7 +160,7 @@ How does Compose orchestrate this? When you run `docker-compose up`, the Docker 
   ]}
 />
 
-### 8. Performance Table
+## 8. Performance Table
 
 | Strategy | Speed | Reliability |
 |---|---|---|
@@ -169,7 +169,7 @@ How does Compose orchestrate this? When you run `docker-compose up`, the Docker 
 | Using `alpine` images for DBs | Fast to pull over network | Standard |
 | Retaining volumes between runs | Faster boot (no schema creation) | Bad (State leaks between CI runs) |
 
-### 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -179,7 +179,7 @@ How does Compose orchestrate this? When you run `docker-compose up`, the Docker 
 | What happens if `depends_on` is used without `condition: service_healthy`? | Compose will wait for the DB container to *start*, but it won't wait for the DB software inside to be *ready to accept connections*. Your API will likely crash trying to connect to a booting DB. |
 | Can you use multiple Compose files? | Yes. You can have a `docker-compose.yml` for local dev, and an override file `docker-compose.ci.yml` that overrides ports or adds testing tools specifically for the pipeline. |
 
-### 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 **The Port Conflict Trap:**
 Bro, if your CI runner is executing multiple jobs concurrently on the same machine (like self-hosted runners), and two jobs run `docker-compose up` mapping Postgres to `5432:5432`, the second job will crash with `address already in use`.
@@ -189,11 +189,11 @@ Bro, if your CI runner is executing multiple jobs concurrently on the same machi
 If your E2E tests fail, the pipeline step exits with code `1`. If the next step is `docker-compose down`, it might be skipped because the previous step failed! The containers are left running forever.
 *The Fix:* Always put the teardown step under an `if: always()` block to guarantee cleanup, or run ephemeral CI runners that get destroyed entirely.
 
-### 11. Real-World Usage
+## 11. Real-World Usage
 
 When you build a microservices architecture, you can't test one service in isolation. If you work on the "Cart Service," your integration tests might require the "User Service" and a "Redis Cache" to be running. Teams use Docker Compose in CI to pull the `latest` images of adjacent microservices, spin them all up, and run tests against the whole cluster.
 
-### 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -201,12 +201,12 @@ When you build a microservices architecture, you can't test one service in isola
 | Run `docker-compose down -v` in an `always()` block. | Leave containers running and corrupt the next pipeline run. |
 | Use separate Compose files for dev (`docker-compose.yml`) and CI (`docker-compose.ci.yml`). | Clutter your dev environment with CI-specific testing tools. |
 
-### 13. Production Notes
+## 13. Production Notes
 
 > **Warning: Do NOT use Compose for Production Deployments**
 > Docker Compose is amazing for local development and CI testing. It is **terrible** for production at scale. It has no self-healing, no auto-scaling, and no rolling updates. For actual production deployments, you must graduate from Compose to orchestration systems like Kubernetes (K8s) or Amazon ECS.
 
-### 14. Common Mistakes
+## 14. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -214,7 +214,7 @@ When you build a microservices architecture, you can't test one service in isola
 | Using `.env` files blindly | Dev passwords leak into CI or Prod. | Pass environment variables explicitly in the CI configuration, not via committed `.env` files. |
 | Forgetting `-d` flag | `docker-compose up` blocks the terminal; the next pipeline step never runs. | Always use `docker-compose up -d` (detached mode) in CI pipelines. |
 
-### 15. Related Topics
+## 15. Related Topics
 - Automated Testing in CI
 - Dockerfile Fundamentals
 - Pipeline Optimization

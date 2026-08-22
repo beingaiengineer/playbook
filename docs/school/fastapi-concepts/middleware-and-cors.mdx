@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Middleware & CORS: The Gateway Guards
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Forgetting to configure CORS, causing the frontend to silently fail on API calls |
 | Performance | Heavy middleware (like doing a DB lookup for every request) will throttle the entire application |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 You've built a beautiful FastAPI backend and deployed it to AWS. A separate frontend team has built a React app hosted on Vercel. They try to call your `/login` endpoint, and nothing happens. The React console is screaming: *"Blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present"*. You frantically Google the error and install a random package that sets `Allow-Origin: *`. The frontend starts working!
 
@@ -29,7 +29,7 @@ You've stumbled into the two most common global API problems: browser security (
 
 **FDE Scenario:** You are integrating your SaaS product into a hospital's heavily firewalled intranet. The hospital's strict IT policy blocks all traffic unless it has specific CORS headers, and they require every single API request to be stamped with a unique trace ID for their audit logs. Instead of modifying 200 individual endpoints, you deploy global CORS middleware to satisfy their firewall and a custom request-tracing middleware that injects the required headers automatically. You solve a massive compliance nightmare at the architecture level in just 20 lines of code.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A massive corporate office building where every single employee, regardless of their destination, must pass through a metal detector (Middleware) before entering and when leaving. */}
 
@@ -45,7 +45,7 @@ Think of Middleware like the security checkpoint at the entrance of a massive co
 
 Every single person (request) must go through the checkpoint, regardless of which meeting room (endpoint) they are visiting.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 **Middleware** is a function that sits between the web server receiving the raw HTTP request and your actual route handler function processing it.
 It intercepts the request before it reaches your code, and intercepts the response before it goes back to the client.
@@ -55,7 +55,7 @@ It intercepts the request before it reaches your code, and intercepts the respon
 **When to use Middleware:** For global concerns: adding CORS headers, calculating request execution time, logging IP addresses, or modifying all outgoing responses.
 **When NOT to use Middleware:** For business logic that only applies to a few routes (use Dependency Injection instead), or for heavy database operations (it will slow down every single route in your app).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 How to implement Middleware and CORS in FastAPI.
 
@@ -67,7 +67,7 @@ How to implement Middleware and CORS in FastAPI.
 | **Call Next** | `response = await call_next(request)` | Passes the request down the chain to the route. |
 | **Modifying Headers**| `response.headers["X-Time"] = "1ms"` | Adding custom data to the outbound response. |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 The absolute minimum required to fix the dreaded CORS error for a React frontend.
 
@@ -97,7 +97,7 @@ def read_root():
     return {"message": "CORS is configured!"}
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you often need to track how long requests take and attach a unique "Trace ID" to every request so you can track a single user's action through millions of log lines. Here is a custom middleware to do exactly that.
 
@@ -146,7 +146,7 @@ async def heavy_work():
     return {"result": "Done"}
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 The lifecycle of an HTTP request passing through the middleware stack.
 
@@ -169,7 +169,7 @@ The lifecycle of an HTTP request passing through the middleware stack.
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Middleware Type | Performance Impact | Note |
 |---|---|---|
@@ -177,7 +177,7 @@ The lifecycle of an HTTP request passing through the middleware stack.
 | **Timing/Logging** | Very Low | `time.time()` is extremely fast. Standard logging might cause minor I/O block if not async. |
 | **Auth/DB Checks** | High | Doing a database query inside middleware slows down *every* route, even public ones like `/health`. Use Dependency Injection instead. |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -186,18 +186,18 @@ The lifecycle of an HTTP request passing through the middleware stack.
 | What is the difference between Middleware and Dependency Injection in FastAPI? | Middleware runs globally on *every* request (e.g., logging). Dependencies are injected locally into *specific* routes (e.g., fetching the current user from the DB for protected routes). |
 | Why is `allow_origins=["*"]` dangerous? | It tells the browser to allow any website on the internet to make requests to your API on behalf of the user. If the API uses cookies for auth, a malicious site could perform CSRF (Cross-Site Request Forgery) attacks. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: A request fails validation in the CORS middleware. Does your Route Handler still execute?**
 No. The middleware stack acts like an onion. If the CORS middleware rejects the request (e.g., unauthorized origin), it immediately returns an HTTP 403 or 400 response. `call_next()` is never invoked, meaning the inner layers (your other middleware and your route handler) are completely protected from the request.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Datadog / New Relic APM:** Application Performance Monitoring tools work by installing heavy middleware that intercepts every request, calculates performance metrics, and ships them to a dashboard.
 - **Rate Limiting:** APIs like GitHub or Twitter use middleware to track the incoming IP address and instantly reject requests with a `429 Too Many Requests` if the user exceeds their quota.
 - **Sentry:** Error tracking tools use middleware to wrap `call_next()` in a massive `try/except` block, catching unhandled exceptions globally and sending the stack trace to Sentry before returning a generic 500 error to the client.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -205,13 +205,13 @@ No. The middleware stack acts like an onion. If the CORS middleware rejects the 
 | Keep middleware as light and fast as possible. | DON'T do heavy synchronous network requests or database writes in middleware. |
 | Wrap `call_next(request)` in a try/except block if you want to handle global 500 errors gracefully. | DON'T swallow exceptions in middleware without logging them. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="Middleware Ordering Matters">
 In FastAPI, the order you add middleware is the *reverse* order of execution. The last middleware added is the first one to receive the incoming request. Ensure that CORS middleware is added at the very end of your setup (so it executes first) so it can handle `OPTIONS` requests before your custom logging or auth middleware tries to process them.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
@@ -219,11 +219,11 @@ In FastAPI, the order you add middleware is the *reverse* order of execution. Th
 | **Blocking Middleware** | `def middleware(): time.sleep(1)` (Hangs the server) | `async def middleware(): await asyncio.sleep(1)` |
 | **Forgetting to return** | `await call_next(request)` but missing `return response` | `return await call_next(request)` |
 
-### 16. Related Topics
+## 16. Related Topics
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - [Error Handling in APIs](./error-handling-in-apis)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
