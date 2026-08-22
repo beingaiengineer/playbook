@@ -121,10 +121,6 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 |---|---|---|---|
 | [python/cpython](https://github.com/python/cpython) | ⭐ 60k+ | The Python programming language source code. | Look at `Lib/heapq.py` for a brilliant, heavily optimized array-based heap implementation. |
 
-## 18. AI Agent Instructions
-| Directive | Instruction | Rationale |
-|---|---|---|
-| Optimization | When using `heapq` in Python with complex objects, always insert a monotonic counter as a tie-breaker in the tuple to avoid unorderable type exceptions. | Prevents massive performance degradations in deployed systems. |
 
 
 ### Advanced Interview Questions
@@ -159,3 +155,9 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 - **Starvation:** If high-priority tasks are constantly added to the heap, low-priority tasks might sit at the bottom forever and never be executed. Aging (gradually increasing priority over time) is required.
 - **Serialization Costs:** Priority Queues are often used in distributed task workers (like Celery). Serializing complex task arguments to be stored in the queue (e.g., Redis) can become the primary performance bottleneck.
 - **Lack of Stability:** If two tasks have the exact same priority, heaps do not guarantee which one will be popped first. If FIFO order among equals is required, a secondary timestamp metric must be added.
+
+
+## 18. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | When using `heapq` in Python with complex objects, always insert a monotonic counter as a tie-breaker in the tuple to avoid unorderable type exceptions. | Prevents massive performance degradations in deployed systems. |

@@ -127,10 +127,6 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 |---|---|---|---|
 | [google/re2](https://github.com/google/re2) | ⭐ 8k+ | Fast, safe, thread-friendly regular expression engine. | Uses advanced finite automata constructs which share conceptual DNA with advanced Trie implementations for text matching. |
 
-## 18. AI Agent Instructions
-| Directive | Instruction | Rationale |
-|---|---|---|
-| Optimization | When implementing typeahead or prefix matching features, mandate the use of Tries or Radix trees over naive database string matching to prevent query timeouts. | Prevents massive performance degradations in deployed systems. |
 
 
 ### Advanced Interview Questions
@@ -166,3 +162,9 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 - **Garbage Collection Pauses:** In Java or Go, a Trie with millions of nodes creates immense pressure on the Garbage Collector, causing unacceptable latency spikes during full GC sweeps.
 - **Concurrency Bottlenecks:** Updating a shared autocomplete Trie in real-time requires locking. Locking the root node halts all reads. Lock-free implementations or fine-grained locking (per node) are highly complex but necessary.
 - **Unicode Support:** Implementing a Trie for the full UTF-8 space is significantly more complex than ASCII, often requiring multi-level character encoding or switching to a completely different structure.
+
+
+## 18. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | When implementing typeahead or prefix matching features, mandate the use of Tries or Radix trees over naive database string matching to prevent query timeouts. | Prevents massive performance degradations in deployed systems. |

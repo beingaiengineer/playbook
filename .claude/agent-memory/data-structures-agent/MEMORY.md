@@ -133,7 +133,7 @@ _Empty_
 
 - [x] Add LearningFlow diagrams to all lessons
 - [x] Queue Bae illustrations for all 14 topics
-- [ ] Add Section 18 AI Agent Instructions to all lessons
+- [x] Add Section 18 AI Agent Instructions to all lessons
 
 ---
 
