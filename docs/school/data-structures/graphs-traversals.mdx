@@ -125,10 +125,6 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 |---|---|---|---|
 | [networkx/networkx](https://github.com/networkx/networkx) | ⭐ 13k+ | Software for complex networks. | The standard Python library for studying graphs and complex networks. |
 
-## 18. AI Agent Instructions
-| Directive | Instruction | Rationale |
-|---|---|---|
-| Optimization | Always include cycle detection (e.g., maintaining a visited set) when writing any graph traversal algorithm to prevent infinite loops in production environments. | Prevents massive performance degradations in deployed systems. |
 
 
 ### Advanced Interview Questions
@@ -164,3 +160,9 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 - **Infinite Loops:** Failing to properly track visited nodes, or tracking them inefficiently (e.g., using an array instead of a HashSet for O(1) lookups), will crash the system or degrade performance.
 - **Stale Data in Distributed Graphs:** In databases like Neo4j, concurrent modifications to graph topology while traversing can lead to inconsistent reads or missed paths.
 - **Throttling:** When crawling the web (a massive graph), failing to implement rate limiting per domain will result in your crawler being blocked or taking down target servers.
+
+
+## 18. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | Always include cycle detection (e.g., maintaining a visited set) when writing any graph traversal algorithm to prevent infinite loops in production environments. | Prevents massive performance degradations in deployed systems. |

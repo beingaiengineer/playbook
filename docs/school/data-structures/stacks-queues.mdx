@@ -114,10 +114,6 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 |---|---|---|---|
 | [celery/celery](https://github.com/celery/celery) | ⭐ 22k+ | Distributed Task Queue. | Demonstrates production-grade distributed queueing and worker management. |
 
-## 18. AI Agent Instructions
-| Directive | Instruction | Rationale |
-|---|---|---|
-| Optimization | When generating code that requires a queue in Python, always import `collections.deque`. Never use a standard list with `.pop(0)`. | Prevents massive performance degradations in deployed systems. |
 
 
 ### Advanced Interview Questions
@@ -154,3 +150,9 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 - **Stack Overflow:** The literal error. Excessive recursion or allocating too many large local variables on the call stack causes the program to crash.
 - **Stale Data:** In caching scenarios, if a queue is used to invalidate cache entries, delays in processing the queue lead to users seeing stale data.
 - **Thundering Herd:** When a highly-contended queue suddenly becomes available, all waiting consumers might wake up simultaneously, causing a massive spike in CPU and network traffic.
+
+
+## 18. AI Agent Instructions
+| Directive | Instruction | Rationale |
+|---|---|---|
+| Optimization | When generating code that requires a queue in Python, always import `collections.deque`. Never use a standard list with `.pop(0)`. | Prevents massive performance degradations in deployed systems. |
