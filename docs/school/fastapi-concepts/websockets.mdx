@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # WebSockets: Real-Time Bidirectional Communication
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Not handling disconnected clients, leading to memory leaks on the server |
 | Performance | O(1) message delivery overhead per connected client after initial handshake |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 You are working at a fast-growing stock trading platform. Initially, the dashboard used traditional HTTP polling to get live prices: the frontend would send an HTTP GET request to the server every 2 seconds. As the user base grew to 100,000 active traders, the server was slammed with 50,000 requests per second just asking, "Any new price?" Most of the time, the answer was "No," wasting massive amounts of bandwidth and CPU on opening and closing TCP connections and parsing HTTP headers. The API gateways started crashing.
 
@@ -26,7 +26,7 @@ You realize HTTP is the wrong tool for real-time streams. You rewrite the live-t
 
 **FDE Scenario:** As a Forward Deployed Engineer (FDE), you will often deploy real-time applications into strict corporate environments where firewalls aggressively terminate long-lived TCP connections. If you don't implement robust client-side reconnection logic and server-side heartbeats (ping/pong) over your WebSockets, your application will silently disconnect, leaving users staring at stale data without knowing it.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] `docs/school/fastapi-concepts/assets/websockets.png` | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae operating a two-way walkie-talkie link (WebSocket full-duplex connection) between ground control and an airborne drone, streaming real-time bidirectional messages without re-establishing connections. Rich control room, walkie-talkie handsets, drone monitors, and signal antennas in clean line art on pure white background. */}
 
@@ -36,13 +36,13 @@ Imagine ordering food at a busy local *dhaba* (roadside restaurant) during peak 
 |---|---|
 | You place your order. Every two minutes, you walk up to the counter and ask, "Is my paneer tikka ready?" The waiter says "No." You walk back to your table. Two minutes later, you ask again. It’s exhausting for you and annoying for the waiter. | You place your order and the waiter gives you a vibrating pager. You sit at your table and relax. When the paneer tikka is ready, the waiter simply buzzes the pager, pushing the notification directly to you. A single persistent connection is maintained. |
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 WebSockets provide full-duplex communication channels over a single TCP connection. Unlike HTTP, where the client must initiate every request and the server responds, WebSockets allow the server to send data to the client independently, at any time, once the connection is established.
 
 You should use WebSockets when low latency and high frequency of messages are required, such as in chat applications, live sports scores, or financial tickers. You should NOT use WebSockets for standard CRUD operations (fetching a user profile, submitting a form), as the overhead of managing stateful connections is unnecessary for infrequent, one-off interactions where stateless HTTP excels.
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | FastAPI Syntax | Explanation |
 |---|---|---|
@@ -52,7 +52,7 @@ You should use WebSockets when low latency and high frequency of messages are re
 | Send Text | `await websocket.send_text("Message")` | Pushes a string message to the connected client |
 | Close Connection | `await websocket.close()` | Gracefully terminates the connection |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 ```python
 from fastapi import FastAPI, WebSocket
@@ -74,7 +74,7 @@ async def websocket_endpoint(websocket: WebSocket):
         print(f"Connection closed: {e}")
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you rarely have just one client. You have many, and you often need to broadcast a message to all of them (e.g., a chat room). This requires a Connection Manager.
 
@@ -117,7 +117,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
         await manager.broadcast(f"Client #{client_id} left the chat")
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow steps={[
     { id: 'client', type: 'core', label: 'Web Browser / Client', position: { x: 0, y: 100 } },
@@ -131,7 +131,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 3. **The Connection:** The HTTP connection is replaced by a persistent WebSocket connection over the same underlying TCP socket.
 4. **Data Frames:** Data is now exchanged as lightweight "frames" (text or binary) rather than heavy HTTP requests with large headers.
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Operation | Time Complexity | Notes |
 |---|---|---|
@@ -140,7 +140,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 | Broadcasting | O(N) | Where N is the number of active connections |
 | Server Memory per Client | ~10KB - 50KB | Varies by framework, but stateful connections consume RAM |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -150,19 +150,19 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 | How do you handle dropped connections? | Use exception handling (`try...except WebSocketDisconnect`) to catch client disconnects and cleanly remove them from your active connection manager. |
 | Can WebSockets be load balanced? | Yes, but it requires sticky sessions or a centralized pub/sub system (like Redis) so messages can be routed to the correct server holding the stateful connection. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **"What happens if you deploy multiple FastAPI workers (e.g., using Gunicorn/Uvicorn) with WebSockets?"**
   If Client A connects to Worker 1, and Client B connects to Worker 2, they cannot easily chat with each other because the memory (ConnectionManager list) is isolated per worker process. You *must* introduce a central broker like Redis Pub/Sub to pass messages between the worker processes.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Slack/Discord:** Real-time messaging and presence (who is online).
 - **Binance/Coinbase:** Live cryptocurrency price tickers and order book updates.
 - **Figma:** Multiplayer collaborative cursor movements and canvas updates.
 - **Uber:** Real-time driver location tracking on the map.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -170,27 +170,27 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 | Implement a ping/pong heartbeat mechanism to detect dead connections. | Do NOT blindly append to a connection list without a robust `try/except` to remove dead connections (memory leak). |
 | Secure your WebSocket endpoints using token authentication during the initial connection handshake. | Do NOT pass sensitive tokens in the URL query string if possible; use headers or early message exchange. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="The Statefulness Trap">
 Unlike stateless HTTP REST APIs, WebSockets are stateful. This means they break the traditional rules of horizontal scaling. If you have 5 server instances behind a load balancer, and a server goes down for deployment, all clients connected to that server will immediately disconnect and have to reconnect. You must design your frontend to handle automatic, exponential backoff reconnections seamlessly.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Trap | Code Example | Solution |
 |---|---|---|
 | **Memory Leaks** | Forgetting to remove disconnected clients from the connection manager list. | Always use `try...except WebSocketDisconnect` to explicitly remove the `websocket` object from your lists. |
 | **Blocking the Loop** | `time.sleep(5)` inside the websocket loop. | Use `await asyncio.sleep(5)` or avoid blocking operations entirely. |
 
-### 16. Related Topics
+## 16. Related Topics
 
 - FastAPI Fundamentals
 - Error Handling in APIs
 - Middleware and CORS
 - Background Tasks
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -201,7 +201,7 @@ Unlike stateless HTTP REST APIs, WebSockets are stateful. This means they break 
 | [centrifugal/centrifugo](https://github.com/centrifugal/centrifugo) | ⭐ 7k+ | Real-time Messaging Server | Often used alongside APIs to handle massive WebSocket scaling externally. |
 
 
-### 18. AI Agent Instructions
+## 18. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

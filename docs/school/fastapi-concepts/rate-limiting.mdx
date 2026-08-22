@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Rate Limiting: Protecting Your API
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using in-memory rate limiting when running multiple server instances behind a load balancer |
 | Performance | Minimal overhead (O(1) lookups) when using fast distributed caches like Redis |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 You are maintaining the backend for a popular e-commerce platform during the massive Diwali Diwali festival sale. At midnight, the flash sales go live. Suddenly, database CPU usage spikes to 100%, and the site crashes. You scramble to check the logs and discover that a competitor has deployed an army of automated bots to scrape your discounted prices, hitting your `/api/products` endpoint 5,000 times a second.
 
@@ -27,7 +27,7 @@ Your system was trying to fulfill every single request fairly. You realize that 
 
 **FDE Scenario:** Your startup just signed a massive enterprise client. They integrate your API into their system, but their developers make a mistake and write an infinite loop that calls your service 10,000 times a second. Your database melts down, and your other clients experience a total outage. By implementing strict rate limiting based on API keys, you isolate the rogue client. The next time they loop, they just get a wall of `429 Too Many Requests`, and the rest of your system remains completely stable.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] docs/school/fastapi-concepts/assets/rate-limiting.png | A highly relatable Indian real-world scenario explaining Rate Limiting. */}
 
@@ -37,13 +37,13 @@ Imagine the IRCTC Tatkal (last-minute train ticket booking) system in India at e
 |---|---|
 | One aggressive travel agent with an auto-clicker script submits 500 booking forms per second. He hogs the entire booking clerk's time. Normal families standing in line never get a ticket, and the booking office descends into chaos. | The booking clerk institutes a strict rule: "One person can only submit two forms per minute." When the travel agent tries to hand over a stack of 500 forms, the clerk processes two, and throws the remaining 498 back in his face, saying "Wait 60 seconds." Normal families now get a fair chance. |
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 Rate Limiting is the process of controlling the amount of traffic sent to or received by a network interface. In API design, it restricts the number of API calls a client can make within a specified time window (e.g., 100 requests per minute).
 
 You should use rate limiting to protect your infrastructure from denial-of-service (DoS) attacks, to prevent brute-force attacks on login endpoints, and to enforce usage quotas in monetized SaaS products (e.g., Free tier: 100 req/day, Pro tier: 10,000 req/day). You should NOT apply overly aggressive rate limits to critical public webhook endpoints where dropped requests mean lost transactional data (unless a retry mechanism is in place).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 *Note: FastAPI does not have built-in rate limiting, so we typically use the excellent `slowapi` library.*
 
@@ -53,7 +53,7 @@ You should use rate limiting to protect your infrastructure from denial-of-servi
 | Decorator | `@limiter.limit("5/minute")` | Enforces a limit of 5 requests per minute on a specific endpoint |
 | Exception Handler | `app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)` | Catches the violation and returns a standard 429 response |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 ```python
 from fastapi import FastAPI, Request
@@ -75,7 +75,7 @@ async def login(request: Request):
     return {"message": "Please provide credentials"}
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, relying on the client's IP address (`get_remote_address`) is dangerous because many users might share the same NAT/IP (like a corporate office), and you might accidentally block an entire company. Instead, you rate limit based on authenticated user IDs, and store the hit counts in Redis so the limits are enforced globally across all your API servers.
 
@@ -111,7 +111,7 @@ async def generate_heavy_report(request: Request, user_id: str = Depends(get_cur
     return {"message": f"Report generation started for user {user_id}"}
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 <LearningFlow steps={[
     { id: 'request', type: 'core', label: 'Incoming Request', position: { x: 0, y: 100 } },
@@ -127,7 +127,7 @@ When a request arrives, the rate limiter intercepts it:
 3. If the count is below the threshold, it increments the counter and allows the request to proceed to your FastAPI route.
 4. If the count exceeds the threshold, it aborts the request and immediately returns an HTTP 429 status code.
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Strategy | Speed | Scalability | Notes |
 |---|---|---|---|
@@ -135,7 +135,7 @@ When a request arrives, the rate limiter intercepts it:
 | Redis (Centralized) | Fast (< 1ms) | Excellent | The industry standard for distributed rate limiting. |
 | Database (SQL) | Very Slow | Poor | Never use a relational database for rate limiting counters; it will crash under load. |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -145,45 +145,45 @@ When a request arrives, the rate limiter intercepts it:
 | How do you communicate limits to the client? | Using standard HTTP response headers: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset` (time until quota refreshes). |
 | What happens to rate limits when you restart your FastAPI server? | If using in-memory rate limiting, all counters are wiped to zero. If using Redis, the counters persist securely. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **"If a user is rate-limited and gets a 429 error, should that 429 request also count against their quota?"**
   Generally, no. Once the limit is reached, further requests are blocked and the counter is not incremented, otherwise the user might permanently lock themselves out by continuing to spam the endpoint before the reset window.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Twitter API:** Limits developers to a certain number of tweet reads/writes per month based on their pricing tier.
 - **Auth0 / Okta:** Strictly rate limits login endpoints to prevent password brute-forcing and credential stuffing.
 - **OpenAI (ChatGPT API):** Limits based on Tokens-Per-Minute (TPM) and Requests-Per-Minute (RPM) to manage massive GPU compute costs.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Apply different limits based on the route's cost. A static `/ping` route can have a high limit, but a heavy `/export-pdf` route needs a strict limit. | Do NOT apply a single blanket rate limit across the entire API. |
 | Provide clear error messages indicating exactly *when* the user can try again (using the Retry-After header). | Do NOT return vague 500 Internal Server Errors when a user hits a limit. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="The Load Balancer Trap">
 If your FastAPI application is sitting behind a load balancer or reverse proxy (like Nginx, AWS ALB, or Cloudflare), the `request.client.host` property will often be the IP address of the *load balancer*, not the actual user! If you rate limit by IP in this setup, you will instantly block all traffic to your site. You must configure your proxy to forward the `X-Forwarded-For` header and instruct your rate limiter to read the IP from that header instead.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Trap | Code Example | Solution |
 |---|---|---|
 | **Relying on Local Memory in Multi-Worker Setups** | Running `gunicorn -w 4 ...` with local memory rate limits. | If you have 4 workers, a "5 per minute" limit effectively becomes "20 per minute" because each worker has its own isolated memory bucket. Use Redis. |
 | **Silent Failures** | Dropping requests without headers. | Always include `Retry-After` or `X-RateLimit-Reset` headers so well-behaved client apps know exactly how long to sleep before retrying. |
 
-### 16. Related Topics
+## 16. Related Topics
 
 - FastAPI Fundamentals
 - Middleware and CORS
 - Background Tasks
 - Error Handling in APIs
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

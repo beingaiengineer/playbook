@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # REST API Design: The Rules of the Web
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using verbs in URLs (e.g., `/getUsers`) instead of nouns (`/users`) |
 | Performance | Caching standard HTTP GET requests drastically improves read throughput |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 You're a backend engineer at a rapidly scaling SaaS company. Your team built an API a year ago, but it grew organically. You have endpoints like `/createUser`, `/updateUserNow`, `/deleteUserById`, and `/fetchUserDataWithPosts`. Mobile engineers are complaining because every endpoint returns a different JSON structure. To get a user's profile and their recent posts, they have to make four different API calls. The API gateway's caching layer is useless because every URL includes unpredictable verbs, and `POST` is being used for everything just to hide parameters.
 
@@ -27,7 +27,7 @@ The system isn't scaling, and developer velocity has ground to a halt because no
 
 **FDE Scenario:** You are integrating your product with a massive government agency. Their internal developers rely on predictable, standard interfaces because they use automated API generation tools. If your API uses random verbs like `/getTheUsersNow` or `/deleteUserAction`, their automation tools break, and the integration project stalls for months. By strictly adhering to RESTful noun-based resource paths and standard HTTP verbs, your API acts as a universal adapter that plugs seamlessly into their rigid enterprise architecture.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A well-organized library where books are organized by clear resource paths (Aisle/Shelf/Book) rather than having complex action verbs attached to them. */}
 
@@ -44,7 +44,7 @@ Think of REST API design like the filing system in a massive government registry
 
 In a bad system, you'd have to fill out a form saying "Action=ReadBook, Target=123". In REST, the action is built into the method (GET), and the target is the URL path. It's an elegant, universally understood standard.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 **REST (Representational State Transfer)** is an architectural style for distributed hypermedia systems, defined by Roy Fielding in 2000. It's not a protocol; it's a set of constraints built on top of HTTP.
 
@@ -59,7 +59,7 @@ Key REST Constraints:
 **When to use REST:** For almost all standard web and mobile APIs where resource-oriented CRUD operations dominate.
 **When NOT to use REST:** When you need real-time bi-directional communication (use WebSockets), or when clients need highly specific, nested, and variable data structures in a single request (use GraphQL).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 Here is the standard mapping of HTTP methods to CRUD operations on REST resources.
 
@@ -71,7 +71,7 @@ Here is the standard mapping of HTTP methods to CRUD operations on REST resource
 | **PATCH** (Modify)| *Usually error (405)* | Partially update user 123 (e.g., just email) |
 | **DELETE** (Remove)| Delete all users (Dangerous!) | Delete user 123 |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 A good vs. bad example of designing a URL endpoint for getting a specific user's orders.
 
@@ -85,7 +85,7 @@ GET /users/123/orders
 POST /users/123/orders
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Here is a Python FastAPI implementation of a fully RESTful `Product` resource, demonstrating proper use of status codes and paths.
 
@@ -136,7 +136,7 @@ def delete_product(product_id: int):
     return None
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 How a REST request routes through a framework like FastAPI or Django.
 
@@ -165,7 +165,7 @@ How a REST request routes through a framework like FastAPI or Django.
 4. **Serialization:** The raw database object (or ORM model) is serialized into a JSON representation.
 5. **Response Construction:** The framework constructs a valid HTTP response with the correct headers (Content-Type) and Status Code (200 OK).
 
-### 9. Performance Table
+## 9. Performance Table
 
 | REST Constraint | Performance Impact | Why |
 |---|---|---|
@@ -174,7 +174,7 @@ How a REST request routes through a framework like FastAPI or Django.
 | **JSON Serialization** | Moderate overhead | JSON parsing is fast, but sending massive nested JSON trees consumes network bandwidth. |
 | **Over-fetching** | Negative impact | REST often returns the *entire* resource even if the client only needed one field (unlike GraphQL). |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -184,7 +184,7 @@ How a REST request routes through a framework like FastAPI or Django.
 | Is `POST` idempotent? | No. Making the same `POST /orders` request twice will create two distinct orders. `GET`, `PUT`, and `DELETE` are expected to be idempotent. |
 | What is HATEOAS? | Hypermedia As The Engine Of Application State. It's the highest level of REST maturity where API responses include links to related actions, allowing the client to discover the API dynamically. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: How do you design a REST endpoint for an action that doesn't fit neatly into CRUD, like "logging in" or "calculating a complex tax rate"?**
 REST purists try to find the hidden resource.
@@ -192,13 +192,13 @@ REST purists try to find the hidden resource.
 - Instead of `/calculateTax`, use `POST /tax-calculations` (treating the calculation request itself as a resource you create).
 If it completely fails to map to a resource, it's acceptable to use a verb in the URL for an RPC-style endpoint as an exception (e.g., `POST /users/123/ban`), but keep it rare.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **GitHub API v3:** One of the most famous and well-designed REST APIs. It strictly uses nouns (`/repos`, `/pulls`), proper status codes, and hypermedia links for pagination.
 - **Stripe API:** Exemplifies REST principles combined with excellent developer experience, using standard HTTP methods and standardizing error response structures globally.
 - **Twitter/X API v2:** Heavily REST-oriented, using extensive query parameters (`?expansions=author_id`) to solve the over-fetching problem inherent in standard REST.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -207,14 +207,14 @@ If it completely fails to map to a resource, it's acceptable to use a verb in th
 | Use query parameters for filtering, sorting, and pagination (`/users?role=admin&sort=desc`). | DON'T use query parameters for things that identify a unique resource. |
 | Return standard error payloads with a message and error code. | DON'T return an HTML error page when a JSON client makes a bad request. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="Handling Long-Running Processes">
 If a `POST` request triggers a 5-minute video encoding job, do not make the HTTP request hang for 5 minutes. The network will time out.
 **Solution (The 202 Accepted Pattern):** The `POST` should return immediately with a `202 Accepted` status code and a `Location` header pointing to a status URL (e.g., `/jobs/987`). The client then polls that URL (using `GET`) until the status changes from `pending` to `completed`.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
@@ -222,12 +222,12 @@ If a `POST` request triggers a 5-minute video encoding job, do not make the HTTP
 | **Wrong Status Code** | Returning `200 OK` when `\{\"error\": \"User not found\"\}\` is in the body. | Returning `404 Not Found`. |
 | **Using GET for mutations** | `GET /deleteUser?id=123` (Dangerous: Browsers or CDNs might pre-fetch this URL and accidentally delete data!) | `DELETE /users/123` |
 
-### 16. Related Topics
+## 16. Related Topics
 - [What is an API?](./what-is-an-api)
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - [Error Handling in APIs](./error-handling-in-apis)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

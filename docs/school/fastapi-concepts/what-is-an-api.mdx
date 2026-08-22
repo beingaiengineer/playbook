@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # What is an API? The Digital Contract
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Treating APIs as raw database queries rather than designed contracts |
 | Performance | Typically bottlenecked by network latency and payload size |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 Imagine you've just joined a fast-growing e-commerce startup. The frontend team has built a beautiful React app, and the database team has set up a highly optimized PostgreSQL cluster holding millions of products. But there's a problem: the frontend needs to show products to users, and direct database access from the browser is a massive security risk and architectural nightmare.
 
@@ -26,7 +26,7 @@ You need a middleman. A standardized, secure way for the React app to say, "Give
 
 **FDE Scenario:** As a Forward Deployed Engineer (FDE), you will often encounter legacy client systems that cannot cleanly consume modern REST APIs. They might drop connections prematurely, send mangled JSON, or lack proper routing. Establishing a strict API contract with strong validation at the gateway is crucial to prevent these messy integrations from bringing down your backend database.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] `docs/school/fastapi-concepts/assets/what-is-an-api.png` | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae as a waiter in a Swiggy/Zomato cloud kitchen: taking customer order slips at the dining counter (Frontend), passing them through the pass window to master chefs (Backend), and returning with food without customers entering the kitchen. Rich cloud kitchen pass, order tickets, serving trays, and chef stations in clean line art on pure white background. */}
 
@@ -42,7 +42,7 @@ Think of a bustling Swiggy or Zomato partner restaurant.
 
 Just as a customer never walks into the kitchen to cook their own food, a client application never accesses the database directly. The API (the menu and the waiter) provides a strict interface: you ask for something on the menu, and the kitchen fulfills it, hiding all the messy details of *how* the butter chicken is actually prepared.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 An **Application Programming Interface (API)** is a set of rules, protocols, and tools that allows different software applications to talk to each other. It defines the *contract* between a service provider and a consumer.
 
@@ -56,7 +56,7 @@ APIs are everywhere in modern software:
 **When to use an API:** Whenever you need to expose functionality or data to another system across a boundary (network, process, or module level) securely and reliably.
 **When NOT to use an API:** When tight coupling is acceptable and performance is so critical that the overhead of serialization/deserialization or network latency is unacceptable (e.g., extremely high-frequency trading loops within the same memory space).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 Here are common components of a typical HTTP/REST API request:
 
@@ -68,7 +68,7 @@ Here are common components of a typical HTTP/REST API request:
 | **Body (Payload)** | The data sent with the request (usually for POST/PUT). | `\{\"name\": \"Rahul\", \"role\": \"Engineer\"\}` |
 | **Status Code** | The result of the request. | `200 OK`, `404 Not Found`, `500 Server Error` |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 Let's look at how you might consume a simple API using Python's `requests` library.
 
@@ -91,7 +91,7 @@ else:
     print(f"Failed to fetch data: {response.status_code}")
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a production environment, interacting with an API isn't just about making a request; it's about handling timeouts, retries, and rate limits. Here's a robust example of a service fetching user data from an external API.
 
@@ -146,7 +146,7 @@ class UserService:
 # profile = service.get_user_profile("USR-123")
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 When a client makes an API request over the internet, several layers of the network stack are involved.
 
@@ -178,7 +178,7 @@ When a client makes an API request over the internet, several layers of the netw
 6. **Serialization**: Data from the database is serialized into JSON.
 7. **Response**: The JSON payload is sent back through the network to the client.
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Metric | Typical Latency | Bottleneck Source | Optimization Strategy |
 |---|---|---|---|
@@ -188,7 +188,7 @@ When a client makes an API request over the internet, several layers of the netw
 | **Backend Processing** | 20ms - 500ms+ | DB queries, business logic | Caching (Redis), Query optimization |
 | **JSON Parsing** | 1ms - 10ms | CPU, Payload complexity | Return only needed fields (GraphQL/Sparse fields) |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -198,19 +198,19 @@ When a client makes an API request over the internet, several layers of the netw
 | How do you secure a public API? | Using HTTPS (TLS), implementing Authentication (OAuth2, JWT, API Keys), enforcing Rate Limiting, validating inputs to prevent injection, and configuring CORS. |
 | What is a webhook compared to an API? | An API is typically pull-based (client asks server for data). A webhook is push-based (server sends data to a client URL when an event occurs, like a payment succeeding). |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: What happens if an API request succeeds on the backend, but the network drops before the response reaches the client?**
 The client receives a timeout error and assumes the request failed. If the request was a `POST` (e.g., "charge credit card"), the client might retry it, resulting in a double charge. This is why API operations that modify state must be designed to be **idempotent** (safe to retry safely without unintended side effects).
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 Every major tech company relies heavily on APIs:
 - **Stripe:** Their core product *is* an API. They provide a beautiful, developer-friendly REST API for processing payments, complete with versioning and idempotency keys.
 - **Netflix:** Uses a complex microservices architecture where hundreds of internal APIs communicate to render a single user page. They popularized the concept of an API Gateway to handle varying client needs (TV vs. Mobile).
 - **Twilio:** Built a massive business simply by exposing telecom infrastructure (SMS, Voice) as easy-to-use HTTP APIs.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -219,14 +219,14 @@ Every major tech company relies heavily on APIs:
 | Implement rate limiting from day one to protect your backend infrastructure. | DON'T assume API clients will behave reasonably; they will retry aggressively. |
 | Provide clear, up-to-date documentation (like Swagger/OpenAPI). | DON'T introduce breaking changes without versioning. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="warning" title="The N+1 Problem in APIs">
 When designing APIs, beware of "chatty" client behavior. If a client fetches a list of 100 users, and then makes 100 separate API calls to fetch the profile picture for each user, you have an N+1 problem. This will crush your network and database.
 **Solution:** Design your API endpoints to allow fetching related resources in a single call (e.g., `GET /users?include=profile_picture`), or use a technology like GraphQL to let the client specify its data needs upfront.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
@@ -234,12 +234,12 @@ When designing APIs, beware of "chatty" client behavior. If a client fetches a l
 | **Ignoring Pagination** | `GET /users` returning 10,000 records in one 50MB JSON payload, crashing the client. | `GET /users?page=1&limit=50` returning a manageable chunk with `next_page` cursors. |
 | **Missing Timeouts on Client** | `requests.get("https://slow-api.com")` hanging indefinitely, blocking the main thread. | `requests.get("https://slow-api.com", timeout=3.0)` failing fast and degrading gracefully. |
 
-### 16. Related Topics
+## 16. Related Topics
 - [REST API Design](./rest-api-design)
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - [Authentication and JWTs](./authentication-jwt)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -250,7 +250,7 @@ When designing APIs, beware of "chatty" client behavior. If a client fetches a l
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI framework, high performance, easy to learn, fast to code, ready for production. | The modern framework we will use to build APIs. |
 
 
-### 18. AI Agent Instructions
+## 18. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

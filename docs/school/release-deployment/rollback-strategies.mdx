@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Rollback Strategies
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Assuming `git revert` is all you need to roll back a production system |
 | Performance | The goal is minimizing MTTR (Mean Time To Recovery) |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 **FDE Scenario:** As a Forward Deployed Engineer (FDE), bro, you often face legacy systems with complex deployments. You need strategies to release safely, test efficiently, and roll back quickly without breaking client environments. These tools keep your deployments clean and predictable.
 
@@ -27,7 +27,7 @@ Bro, you just merged the biggest refactor of the year. The CI/CD pipeline turns 
 
 Fifteen minutes pass. The site is still down. When the reverted code finally deploys, the app crashes immediately. Why? Because the bad deployment included a database migration that dropped a column, and the old code you just reverted to is still trying to query that missing column. The database is corrupted. You just learned the hard way that rolling back software is infinitely harder than rolling it forward.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of a rollback like trying to un-bake a cake, bro.
 
@@ -38,13 +38,13 @@ Think of a rollback like trying to un-bake a cake, bro.
 | Realizing you threw away the original recipe | Losing the previous artifact state |
 | Just buying a backup cake you kept in the fridge | Blue-Green routing flip |
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 A rollback is the process of returning a production environment to its previous stable state after a failed deployment.
 
 We care about this because every minute of downtime costs money and user trust. A robust rollback strategy ensures that when (not if) a bad deployment happens, the system can be restored in seconds, not hours. True rollbacks require careful planning of stateful data (databases) and stateless code (the application).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 | Rollback Type | Description |
 |---|---|
@@ -53,7 +53,7 @@ We care about this because every minute of downtime costs money and user trust. 
 | Traffic Flip | Instantly routing traffic back to the old environment (Blue-Green/Canary). |
 | Data Rollback | Restoring a database from a backup or running a `down` migration. (Extremely dangerous). |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 The slowest, but most common rollback for beginners is using Git to "roll forward."
 
@@ -69,7 +69,7 @@ git revert a1b2c3d4
 git push origin main
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In Kubernetes, you don't rebuild the code. You just tell the cluster to immediately use the previous ReplicaSet. This takes seconds.
 
@@ -84,7 +84,7 @@ kubectl rollout undo deployment/payment-service
 kubectl rollout undo deployment/payment-service --to-revision=3
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 This diagram shows how different components are rolled back. Notice the database is the hardest part.
 
@@ -106,7 +106,7 @@ This diagram shows how different components are rolled back. Notice the database
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Strategy | Speed to Recover | Risk of Data Loss |
 |---|---|---|
@@ -115,7 +115,7 @@ This diagram shows how different components are rolled back. Notice the database
 | Git Revert & Rebuild | 5 - 20 minutes | Zero |
 | Database Restore | Hours | HIGH (Lose all data written since backup) |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -125,41 +125,41 @@ This diagram shows how different components are rolled back. Notice the database
 | What does `kubectl rollout undo` actually do? | It scales down the current bad ReplicaSet and scales up the previous known-good ReplicaSet using the old container image. |
 | Why should you test your rollback plan? | Because during a Sev-1 outage, adrenaline is high and people make mistakes. If the rollback script has a bug, you won't know until it's too late. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, V2 introduced a new required database column `user_age`. V2 crashes, so you roll the code back to V1. Now V1 is crashing. Why?**
 Because V1 doesn't know about `user_age`. When V1 tries to insert a new user, the database rejects it, saying "Error: `user_age` cannot be null." The database schema moved forward, but the code moved backward. You must make all new columns nullable initially, or V1 will break during a rollback.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 Amazon's deployment pipelines automatically monitor CloudWatch alarms during a rollout. If error rates cross a threshold, the pipeline automatically halts the deployment and initiates a rollback without a human ever touching a keyboard.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Use the "Expand and Contract" pattern for databases so V1 and V2 can safely coexist during rollbacks. | Rename or delete database columns in a single deployment. |
 | Ensure your artifacts (Docker images) are immutable and tagged with specific versions. | Rely on the `latest` tag, which makes it impossible to know what you are rolling back to. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="Never run 'Down' Migrations">
 Most ORMs offer a "down" or "rollback" migration script (e.g., `DROP TABLE`). Running these in production is incredibly dangerous because they destroy user data. It is almost always better to write a new "up" migration that safely patches the data.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
 | Rolling back the code but forgetting the config | If V2 required a new environment variable, and you roll back to V1 but leave the new variable, V1 might crash. Version control your configurations alongside your code. |
 | Panicking and running manual SQL queries | Stick to the runbook. Manual SQL during an outage usually leads to accidentally deleting the wrong rows. |
 
-### 16. Related Topics
+## 16. Related Topics
 - Deployment Strategies
 - Blue-Green Deployment
 - Feature Flags
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

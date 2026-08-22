@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Release Management
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Treating release management merely as "clicking the deploy button" |
 | Performance | Measured by release cadence (how often) and failure rate |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 **FDE Scenario:** As a Forward Deployed Engineer (FDE), bro, you often face legacy systems with complex deployments. You need strategies to release safely, test efficiently, and roll back quickly without breaking client environments. These tools keep your deployments clean and predictable.
 
@@ -27,7 +27,7 @@ Bro, you've got five different engineering squads working on a single massive mo
 
 The engineers are pointing fingers. "My code worked locally!" they all shout. This chaos is exactly what happens when you don't have Release Management. Releasing software isn't just about compiling code; it is a highly orchestrated process of testing, coordinating dependencies, communicating with stakeholders, and managing risk across multiple moving parts.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of Release Management like launching a space shuttle, bro.
 
@@ -39,13 +39,13 @@ Think of Release Management like launching a space shuttle, bro.
 | "Liftoff" | Hitting the deploy button |
 | Aborting the launch if a sensor fails | Canceling a release due to a failed staging test |
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 Release Management is the process of managing, planning, scheduling, and controlling a software build through different stages and environments, including testing and deploying software releases.
 
 We care about this because as an engineering organization scales from 5 to 500 engineers, deploying code becomes a massive coordination problem. Release management ensures that incompatible changes aren't deployed together, that marketing knows when to send the launch emails, that customer support is trained on the new features, and that there is a solid rollback plan if things fail.
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 | Concept | Description |
 |---|---|
@@ -54,7 +54,7 @@ We care about this because as an engineering organization scales from 5 to 500 e
 | Release Candidate (RC) | A specific build of the software that has the potential to be released to production. |
 | Runbook | A documented set of procedures detailing exactly how to execute the release and how to roll it back. |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 A release is often tracked via Git tags and GitHub releases, summarizing what changed.
 
@@ -68,7 +68,7 @@ git tag -a v2.4.0 -m "Official Production Release v2.4.0"
 git push origin v2.4.0
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In modern GitOps workflows, a release is often declared by updating a manifest file in a centralized repository, which an automated controller (like ArgoCD) then syncs to production.
 
@@ -85,7 +85,7 @@ database:
   migration_version: "20231024_add_user_preferences"
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 This diagram shows a typical Release Train process.
 
@@ -105,7 +105,7 @@ This diagram shows a typical Release Train process.
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Metric (DORA Metrics) | Elite Performers | Low Performers |
 |---|---|---|
@@ -113,7 +113,7 @@ This diagram shows a typical Release Train process.
 | Lead Time for Changes | Less than 1 hour | Between 1 and 6 months |
 | Change Failure Rate | 0% - 15% | 46% - 60% |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -123,41 +123,41 @@ This diagram shows a typical Release Train process.
 | What should be included in a release runbook? | Pre-deployment checks, the exact deployment commands, verification steps, and detailed rollback procedures. |
 | How do microservices complicate release management? | You must manage dependencies. If Service A requires the new version of Service B, the release manager must ensure Service B is deployed first, in a backward-compatible way. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, a critical security vulnerability is found in production. The normal release process takes 3 days of QA. What do you do?**
 You need a "Hotfix" process. A hotfix bypasses the standard release train. You branch off the *current production tag*, fix the bug, run minimal automated tests, and deploy immediately. Never try to push a hotfix through a messy `main` branch full of half-finished features.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 Apple's iOS releases are massive, coordinated events. They don't just push code. A release involves coordinating hardware support, app store developer SDK updates, marketing campaigns, and global CDN caching. They use a strict Release Candidate (RC) model where the RC is given to beta testers weeks in advance.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Automate the creation of release notes using commit messages (e.g., Semantic Release). | Write release notes manually by asking engineers "what did you build this week?" |
 | Decouple deployments from feature releases using Feature Flags. | Rely on the deployment script as the only way to turn a feature on. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="The Friday Afternoon Deploy">
 Never execute a major release on a Friday afternoon unless you have a fully automated, instant rollback mechanism and your team is willing to work the weekend. If it breaks at 5 PM, nobody is around to fix it.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
 | Releasing without notifying Customer Support | Always provide Support with training and FAQs days before the release so they can handle user confusion. |
 | Relying on manual QA for every release | Manual QA doesn't scale. If you release daily, you must invest heavily in automated End-to-End (E2E) testing. |
 
-### 16. Related Topics
+## 16. Related Topics
 - Rollback Strategies
 - Environments (Dev/Staging/Prod)
 - Feature Flags
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

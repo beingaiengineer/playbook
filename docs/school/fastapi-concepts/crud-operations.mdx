@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # CRUD Operations: The Bread and Butter of APIs
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using `PUT` when you actually meant `PATCH`, leading to data erasure |
 | Performance | Fast for single records; requires pagination for massive `GET` queries to avoid memory spikes |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 You're a junior engineer assigned to build the backend for an inventory management app. You write endpoints like `/add-item`, `/show-items`, `/change-item-price`, and `/remove-item`. It works on your machine. But a week later, the frontend team files ten Jira tickets. They complain that `/add-item` sometimes updates existing items, `/change-item-price` wiped out the item's description, and `/remove-item` returns a 500 error if the item doesn't exist.
 
@@ -27,7 +27,7 @@ You've reinvented the wheel, and it's a square. You didn't realize that the soft
 
 **FDE Scenario:** You are deployed to integrate a modern dashboard with a client's legacy mainframe proxy. Their old system uses `POST` for everything and encodes the action in the payload (`{"action": "delete"}`). This makes it impossible to cache read requests at the API Gateway or set up strict WAF (Web Application Firewall) rules. You have to write an adapter layer that translates standard RESTful CRUD operations from your dashboard into their chaotic legacy format, ensuring that your modern system remains predictable and cacheable.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A highly organized warehouse where a clerk performs four basic actions on boxes: Creating a new label, Reading a label, Updating a label, and Destroying a box. */}
 
@@ -42,7 +42,7 @@ Think of a massive, highly organized warehouse.
 
 No matter how complex a system is—whether it's Facebook, Amazon, or a tiny blog—90% of the actions boil down to these four basic warehouse operations.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 **CRUD** stands for **Create, Read, Update, Delete**. It represents the four fundamental operations for managing persistent data in a database. In web development, CRUD is mapped directly to standard HTTP methods.
 
@@ -56,7 +56,7 @@ No matter how complex a system is—whether it's Facebook, Amazon, or a tiny blo
 **When to use CRUD:** For managing standard entities (Users, Products, Orders, Comments).
 **When NOT to use CRUD:** For complex business transactions that affect many resources simultaneously, or actions that don't fit a resource model (like "Calculate Tax" or "Trigger Deployment").
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 Mapping CRUD to FastAPI routing and standard HTTP status codes.
 
@@ -67,7 +67,7 @@ Mapping CRUD to FastAPI routing and standard HTTP status codes.
 | **Update** | `PUT` / `PATCH`| `@app.put(...)` or `.patch(...)` | 200 OK | 404 Not Found, 400 Bad Request |
 | **Delete** | `DELETE` | `@app.delete(..., status_code=204)`| 204 No Content | 404 Not Found |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 A simple in-memory CRUD API for managing a list of tasks.
 
@@ -122,7 +122,7 @@ def delete_task(task_id: int):
     return None
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you don't use dictionaries. You use a database (via an ORM like SQLAlchemy), Dependency Injection for the DB session, and distinct Request/Response models. Here is a production-grade PATCH (partial update) example.
 
@@ -172,7 +172,7 @@ def partially_update_user(user_id: int, update_data: UserUpdate, db: dict = Depe
     return {"id": db_user.id, "name": db_user.name, "email": db_user.email}
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 How a complete CRUD lifecycle interacts with the database layer.
 
@@ -197,7 +197,7 @@ How a complete CRUD lifecycle interacts with the database layer.
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Operation | Database Action | Performance Concern | Solution |
 |---|---|---|---|
@@ -206,7 +206,7 @@ How a complete CRUD lifecycle interacts with the database layer.
 | **Update (PATCH)**| `UPDATE` | Locking rows causes bottlenecks | Use optimistic concurrency control (version checks). |
 | **Delete (DELETE)**| `DELETE` | Cascading deletes can lock entire tables | Use "Soft Deletes" (setting `is_deleted=True` instead of dropping). |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -215,7 +215,7 @@ How a complete CRUD lifecycle interacts with the database layer.
 | How do you handle pagination in a GET request? | Never return the entire table. Accept `limit` and `offset` (or a cursor) as query parameters, e.g., `/users?limit=10&page=2`. |
 | Why should DELETE return a 204 No Content? | Because once the resource is successfully deleted, there is no resource left to represent in the response body. 204 indicates success with no body. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: If a client sends a `DELETE` request for a resource that has already been deleted, what status code should you return?**
 There are two valid schools of thought:
@@ -223,13 +223,13 @@ There are two valid schools of thought:
 2. Return `204 No Content` because `DELETE` is idempotent—the end state the client wants (the resource is gone) is true, so just report success.
 Many major APIs prefer returning `204` to prevent clients from writing unnecessary error-handling code for resources that are already gone.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Blogging Platforms (Medium):** The entire core is CRUD. Create a post, read a feed, update a typo, delete the post.
 - **Shopify / E-Commerce:** Managing product catalogs is pure CRUD. Admin panels are essentially massive, beautiful CRUD interfaces over a database.
 - **Internal Microservices:** Often, one microservice exists solely to provide a CRUD interface to a specific database table for other services to consume safely without writing raw SQL.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -237,13 +237,13 @@ Many major APIs prefer returning `204` to prevent clients from writing unnecessa
 | Validate that the resource belongs to the user before updating or deleting it. | DON'T allow `DELETE /users/1` without verifying the token belongs to User 1 or an Admin. |
 | Implement Soft Deletes for important data (flag as `deleted_at=timestamp`). | DON'T hard delete financial or compliance records. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="warning" title="The Over-Fetching GET Trap">
 A common mistake in beginner APIs is writing a `GET /users` endpoint that simply executes `SELECT * FROM users` and returns it. In production, when that table hits 1,000,000 rows, a single API call will attempt to load 1GB of data into Python's memory, serialize it, and send it. It will instantly crash your server (OOM Error). **Always enforce a maximum pagination limit (e.g., max 100 items per request).**
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
@@ -251,12 +251,12 @@ A common mistake in beginner APIs is writing a `GET /users` endpoint that simply
 | **Hard Deletes** | `db.execute("DELETE FROM users WHERE id=1")` | `db.execute("UPDATE users SET is_deleted=True WHERE id=1")` |
 | **PUT wiping data** | `user.email = request.email` (Client didn't send email, sets to Null) | Use PATCH, or carefully merge PUT payload with existing DB data. |
 
-### 16. Related Topics
+## 16. Related Topics
 - [REST API Design](./rest-api-design)
 - [Request & Response Models](./request-response-models)
 - [Pydantic Validation](./pydantic-validation)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Request & Response Models: Controlling the Boundary
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Leaking sensitive data (like passwords) by not using a separate response model |
 | Performance | Fast JSON serialization via Pydantic; filters out excess data before network transmission |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 Your team just launched a new feature allowing users to update their profile. A frontend engineer builds the form and sends a `PUT` request containing the user's name, bio, and—accidentally—an `is_admin: true` flag that they copied from a testing script.
 
@@ -29,7 +29,7 @@ You've suffered both a privilege escalation attack and a massive data leak in on
 
 **FDE Scenario:** You are deployed to a healthcare client bound by strict HIPAA regulations. Their database stores patient records containing sensitive health data and billing info. A junior frontend dev asks for a quick endpoint to display patient names. If you blindly return the raw database model, you will leak protected health information to the frontend. By creating a specific `PatientPublicResponse` Pydantic model, you guarantee that only the `name` and `id` are ever serialized and sent over the wire, physically preventing compliance breaches.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A high-security corporate building where a receptionist (Request Model) strict checks what visitors bring in, and an exit scanner (Response Model) ensures employees don't accidentally walk out with confidential documents. */}
 
@@ -44,7 +44,7 @@ Think of a highly secure corporate building.
 
 You never trust what comes in, and you strictly filter what goes out.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 In API design, **Request Models** and **Response Models** are strict definitions (usually classes) that dictate exactly what data shapes an endpoint will accept and return.
 
@@ -54,7 +54,7 @@ In API design, **Request Models** and **Response Models** are strict definitions
 **When to use them:** Always. Every `POST`, `PUT`, or `PATCH` request should have a defined request model. Every single endpoint should have a defined response model.
 **When NOT to use them:** When building a purely internal proxy that blindly forwards dynamic, unknown JSON payloads to another system (and even then, validation is preferred).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 Here is how Pydantic models are used in FastAPI.
 
@@ -66,7 +66,7 @@ Here is how Pydantic models are used in FastAPI.
 | **Decorator Param** | `@app.post("/", response_model=UserOut)` | Enforces the response filter. |
 | **Field Options** | `email: str = Field(..., max_length=50)` | Adds strict constraints. |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 A simple implementation separating the incoming data from the outgoing data.
 
@@ -106,7 +106,7 @@ def create_user(user: UserCreate):
     return db_user_dict
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you often have a base model, and inherit from it to create distinct Request, Response, and DB models to keep your codebase DRY (Don't Repeat Yourself).
 
@@ -163,7 +163,7 @@ def register_user(user_in: UserCreate):
     return db_user
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 How FastAPI and Pydantic process the boundary layer.
 
@@ -191,7 +191,7 @@ How FastAPI and Pydantic process the boundary layer.
 4. **Output Filtering:** When you `return` data, FastAPI passes it to the `response_model` class. Pydantic creates a new instance of the response model, extracting *only* the declared fields from your raw return data.
 5. **Outbound JSON:** The filtered object is serialized back to JSON and sent to the client.
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Step | Overhead | Optimization |
 |---|---|---|
@@ -199,7 +199,7 @@ How FastAPI and Pydantic process the boundary layer.
 | **Pydantic Validation** | Moderate | Pydantic V2 is written in Rust, making validation 5-50x faster than V1. |
 | **Data Filtering (Output)** | Moderate | Defining exact `response_model` saves network bandwidth by dropping huge unneeded fields. |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -208,17 +208,17 @@ How FastAPI and Pydantic process the boundary layer.
 | Can a `response_model` be a List? | Yes. You can declare `@app.get("/", response_model=List[UserOut])` to ensure every item in the returned list is filtered correctly. |
 | What is a Data Leak in this context? | When an API inadvertently exposes sensitive internal data (passwords, internal IPs, API keys) because a raw database object was returned without a Response Model filtering it. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: If you return a Python dictionary that is missing a field required by the `response_model`, what happens?**
 FastAPI will throw a 500 Internal Server Error. The `response_model` is a strict contract. If you promise the client an `email` field in the response model, but your database query fails to retrieve it, FastAPI catches this internal bug and fails safely rather than returning an invalid contract to the client.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Fintech APIs (Plaid):** Strictly enforce response models to ensure bank account numbers are never fully transmitted unless explicitly requested and authenticated, returning masked strings (e.g., `****1234`) instead.
 - **Social Media (Instagram/Meta):** When fetching a post, the request model is simple (post ID), but the response model is massive, dictating exactly which nested user data (avatar, username) is safe to expose alongside the post.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -226,25 +226,25 @@ FastAPI will throw a 500 Internal Server Error. The `response_model` is a strict
 | Inherit from a `BaseModel` for shared fields (like email, name) to keep code DRY. | DON'T copy-paste 20 fields across 3 different models. |
 | Use `response_model_exclude_unset=True` if you want to omit fields the user didn't explicitly request. | DON'T leak internal database IDs if the client only needs UUIDs. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="info" title="Response Model vs. Return Type Hint">
 In FastAPI, you can use standard Python return type hints `-> UserOut:` instead of `@app.get(response_model=UserOut)`. In modern FastAPI, they do the exact same thing (filtering and documentation), but `response_model` in the decorator allows you to return a database object and have FastAPI convert it, whereas strict static type checkers (like `mypy`) will yell at you if you return a DB object when the hint says `-> UserOut`.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
 | **Missing Response Model** | `@app.get("/users")`<br/>`def get(): return db.query(User)` (Leaks password!) | `@app.get("/users", response_model=List[UserOut])` |
 | **Trusting Client Input** | `db.update(user.id, request.json())` (Mass assignment attack) | `db.update(user.id, validated_pydantic_model.model_dump())` |
 
-### 16. Related Topics
+## 16. Related Topics
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - [Pydantic Validation](./pydantic-validation)
 - [CRUD Operations](./crud-operations)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

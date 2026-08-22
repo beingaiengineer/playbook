@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Infrastructure as Code (IaC)
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Clicking around in the AWS console to fix a broken server |
 | Performance | Massive time savings when scaling from 1 to 100 servers |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 **FDE Scenario:** As a Forward Deployed Engineer (FDE), bro, you often face legacy systems with complex deployments. You need strategies to release safely, test efficiently, and roll back quickly without breaking client environments. These tools keep your deployments clean and predictable.
 
@@ -27,7 +27,7 @@ Bro, you just joined a startup. The lead engineer tells you, "We need a Staging 
 
 Worse, nobody knows *who* clicked it, *when* they clicked it, or *what* the previous setting was. Your infrastructure is a fragile house of cards built on undocumented manual actions. Infrastructure as Code (IaC) fixes this by forcing you to define every server, network, and database in code, review it in Git, and deploy it automatically.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of Infrastructure as Code like ordering a custom house, bro.
 
@@ -38,13 +38,13 @@ Think of Infrastructure as Code like ordering a custom house, bro.
 | Can't review changes before they happen | The city approves the blueprint before construction begins |
 | Difficult to build 10 identical houses | Just photocopy the blueprint 10 times |
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 Infrastructure as Code (IaC) is the management of infrastructure (networks, virtual machines, load balancers, and connection topology) in a descriptive model, using the same versioning as DevOps team uses for source code.
 
 We care about this because it eliminates "Configuration Drift" (where environments slowly become mismatched). It allows infrastructure to be reviewed via Pull Requests, tested automatically, and destroyed to save money when not needed. Instead of clicking buttons in a UI, you write a configuration file, and a tool provisions exactly what you described.
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 | IaC Type | Focus | Example Tools |
 |---|---|---|
@@ -52,7 +52,7 @@ We care about this because it eliminates "Configuration Drift" (where environmen
 | Configuration Management | "Install Nginx and Python on these existing servers" | Ansible, Chef, Puppet |
 | Programmatic | Write standard code (Python/TS) to generate infra | AWS CDK, Pulumi |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 Instead of logging into a console to create a server, you define it in a file. Here is a simple Terraform example to create an AWS EC2 instance.
 
@@ -74,7 +74,7 @@ resource "aws_instance" "my_web_server" {
 }
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In the real world, you combine resources into reusable modules. Here, we define a Load Balancer that routes traffic to a specific security group.
 
@@ -99,7 +99,7 @@ resource "aws_elb" "web_elb" {
 }
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 This diagram shows the IaC lifecycle from code to cloud.
 
@@ -119,7 +119,7 @@ This diagram shows the IaC lifecycle from code to cloud.
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Activity | Manual (ClickOps) | IaC |
 |---|---|---|
@@ -127,7 +127,7 @@ This diagram shows the IaC lifecycle from code to cloud.
 | Finding who opened port 22 | Impossible | Check `git blame` |
 | Disaster Recovery | Extremely slow and risky | Fast and repeatable |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -137,41 +137,41 @@ This diagram shows the IaC lifecycle from code to cloud.
 | Can you test Infrastructure as Code? | Yes. Tools like `terratest` or `tfsec` allow you to write unit tests and security scans against your infrastructure code before it is deployed. |
 | Why use Pulumi or CDK instead of Terraform? | If your team hates learning domain-specific languages (like HCL) and prefers writing infrastructure using Python or TypeScript, Pulumi/CDK provides that programmatic flexibility. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, you delete the state file by accident. Your infrastructure code is safe in Git, and the servers are still running in AWS. What happens when you run `apply`?**
 Chaos. Because the state file is gone, the IaC tool forgets that it built those servers. It reads your code (which says "create 3 servers") and attempts to create 3 brand *new* servers, potentially causing name collisions or double billing. The state file is critical and must be stored securely (e.g., in an S3 bucket with locking).
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 When scaling up for a massive event (like a Black Friday sale), companies don't manually launch 100 new servers. They simply change a variable `server_count = 100` in their IaC repository, merge the PR, and the pipeline automatically provisions the exact infrastructure needed. After the sale, they change it back to `10`, and the extra servers are cleanly destroyed.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Revoke human write access to the Cloud Console. All changes must go through the IaC pipeline. | Allow "just one quick manual fix" in production. |
 | Store state files remotely (S3, Terraform Cloud) with state locking enabled so two pipelines don't run at once. | Commit state files (which contain plain-text database passwords) into Git. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="The Blast Radius">
 Because IaC makes it easy to build 1,000 servers in a minute, it also makes it easy to delete 1,000 servers in a minute with a single typo. Always run a "plan" (dry-run) and review what resources will be destroyed before executing the "apply".
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
 | Hardcoding secrets in IaC | Use a secrets manager (AWS Secrets Manager, HashiCorp Vault) and reference them dynamically in your code. |
 | Putting the entire company's infrastructure in one file | Break infrastructure down into smaller modules (e.g., Networking, Databases, App Servers) to limit the blast radius. |
 
-### 16. Related Topics
+## 16. Related Topics
 - Terraform Basics
 - Environments (Dev/Staging/Prod)
 - Rollback Strategies
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

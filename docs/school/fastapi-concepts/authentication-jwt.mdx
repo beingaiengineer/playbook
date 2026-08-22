@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Authentication & JWT: The Digital Bouncer
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Storing sensitive data (like passwords) inside the JWT payload |
 | Performance | Fast verification (no database lookup required), but large tokens increase HTTP header size |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 Your startup just launched its API. Initially, you used simple session cookies. It worked great when you had one backend server. But as traffic spiked, you scaled to 10 servers behind a load balancer. Suddenly, users are complaining they keep getting logged out.
 
@@ -29,7 +29,7 @@ You need a way for the user to prove who they are to *any* server, instantly, wi
 
 **FDE Scenario:** You are deployed to a massive legacy enterprise client. Their internal identity provider is a clunky 20-year-old on-prem system that takes 5 seconds to respond. Your modern microservices cannot wait for this system on every request. By issuing a short-lived JWT after the initial slow login, your APIs can mathematically verify user claims autonomously, completely bypassing the legacy system for subsequent requests while adhering to strict corporate compliance standards.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict security guard at a luxury society apartment building in India. He checks a digitally signed visitor pass (JWT) that contains the visitor's name and allowed flat number, verifying the building manager's signature without needing to call the manager. */}
 
@@ -45,7 +45,7 @@ Think of JWTs like the security guard system at a large, luxury society apartmen
 
 The crucial part is the stamp (the cryptographic signature). Because the block guard trusts the stamp, the system is completely stateless.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 **Authentication** is the process of verifying *who* a user is (usually via username and password).
 A **JSON Web Token (JWT)** is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
@@ -60,7 +60,7 @@ A JWT consists of three parts separated by dots (`xxxxx.yyyyy.zzzzz`):
 **When to use JWT:** For stateless API authentication, Single Sign-On (SSO), and microservice-to-microservice communication.
 **When NOT to use JWT:** For traditional server-rendered web apps (use secure cookies/sessions), or when you need the ability to instantly revoke a user's access globally (JWTs cannot be easily revoked before they expire without stateful workarounds).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 Key JWT concepts and libraries (using PyJWT and FastAPI).
 
@@ -72,7 +72,7 @@ Key JWT concepts and libraries (using PyJWT and FastAPI).
 | **Auth Header** | `Authorization: Bearer <token>` | Standard HTTP header for sending JWTs. |
 | **FastAPI OAuth2** | `OAuth2PasswordBearer(tokenUrl="...")` | FastAPI utility to extract token from header. |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 Generating and decoding a JWT using the `PyJWT` library.
 
@@ -104,7 +104,7 @@ except jwt.InvalidTokenError:
     print("Invalid token signature!")
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Here is how you protect an endpoint in FastAPI using Dependency Injection to extract and verify a JWT from the HTTP header.
 
@@ -150,7 +150,7 @@ def read_users_me(current_user_id: str = Depends(get_current_user)):
     return {"user_id": current_user_id, "secret_data": "Top Secret"}
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 The flow of stateless JWT authentication.
 
@@ -175,7 +175,7 @@ The flow of stateless JWT authentication.
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Auth Type | Lookup Speed | CPU Overhead | Scalability |
 |---|---|---|---|
@@ -183,7 +183,7 @@ The flow of stateless JWT authentication.
 | **Session (Redis)** | Fast (Cache query) | Low | Good (Requires managing Redis cluster) |
 | **JWT (Stateless)** | Instant (No query) | Moderate (Crypto Math) | Infinite (Servers just need the secret key) |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -192,18 +192,18 @@ The flow of stateless JWT authentication.
 | What is the difference between Access Tokens and Refresh Tokens? | Access Tokens are short-lived JWTs used to access APIs. Refresh Tokens are long-lived, opaque strings stored in the database, used to request a new Access Token without forcing the user to log in again. |
 | What happens if your server's SECRET_KEY is leaked? | It's a catastrophe. A hacker can forge JWTs for any user (including admins) and your server will accept them as valid. You must immediately rotate the key, which invalidates all existing user sessions. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: What is the "None Algorithm" vulnerability in JWTs?**
 In early JWT libraries, the header could specify `"alg": "none"`. If a server blindly trusted the header's algorithm choice, a hacker could remove the signature, set `alg` to `none`, modify the payload to be an admin, and the server would accept it. Modern libraries (like PyJWT) require you to explicitly whitelist the algorithms (e.g., `algorithms=["HS256"]`) you accept during decoding to prevent this.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **Auth0 / Okta:** Massive identity providers whose entire business revolves around generating standardized JWTs for SSO (Single Sign-On).
 - **Microservices Architecture:** When Service A calls Service B, it passes a JWT. Service B doesn't need to ask the Auth Service if the token is valid; it just mathematically verifies it, drastically reducing network traffic.
 - **Mobile Apps:** Mobile clients heavily favor JWTs with refresh tokens over traditional cookie-based sessions, as handling headers is easier in iOS/Android native networking libraries.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -211,14 +211,14 @@ In early JWT libraries, the header could specify `"alg": "none"`. If a server bl
 | Use a strong, long, cryptographically random string for your `SECRET_KEY`. | DON'T hardcode your secret key in the source code; use Environment Variables. |
 | Use standard claims like `sub` (subject/user_id) and `iat` (issued at). | DON'T store massive amounts of data in the payload; it balloons every HTTP request. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="The Refresh Token Architecture">
 Because Access Tokens cannot be revoked, they must expire quickly. But logging users out every 15 minutes is terrible UX.
 **Solution:** The login endpoint returns two tokens: a 15-minute JWT (Access Token) and a 30-day random string (Refresh Token, stored in the DB). When the JWT expires, the client sends the Refresh Token to a `/refresh` endpoint. The server checks if the Refresh Token is still valid in the DB, and if so, issues a new 15-minute JWT. If a user's account is compromised, you simply delete the Refresh Token in the DB.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code | Good Code |
 |---|---|---|
@@ -226,12 +226,12 @@ Because Access Tokens cannot be revoked, they must expire quickly. But logging u
 | **Trusting Client Headers** | `alg = jwt.get_unverified_header(token)['alg']`<br/>`jwt.decode(token, key, alg)` | `jwt.decode(token, key, algorithms=["HS256"])` (Force the algorithm) |
 | **Missing Expiration** | `payload = {"user_id": 1}` (Token lives forever) | `payload = {"user_id": 1, "exp": time_in_future}` |
 
-### 16. Related Topics
+## 16. Related Topics
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - [Middleware and CORS](./middleware-and-cors)
 - [Security in CI/CD](../app-security/security-in-cicd) (External Link)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Terraform Basics
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Losing or corrupting the `.tfstate` file |
 | Performance | Fast execution, but limited by cloud provider API speeds |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 **FDE Scenario:** As a Forward Deployed Engineer (FDE), bro, you often face legacy systems with complex deployments. You need strategies to release safely, test efficiently, and roll back quickly without breaking client environments. These tools keep your deployments clean and predictable.
 
@@ -27,7 +27,7 @@ Bro, you've convinced the team to stop manually clicking in the AWS console and 
 
 The next day, a junior developer accidentally deletes the server manually via the AWS UI. Panic? No. You run `terraform plan`. Terraform looks at the cloud, realizes the server is missing, looks at your code which says "the server must exist," and immediately proposes to recreate it. You run `terraform apply` again, and the server is back. You just experienced the power of declarative state management.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 Think of Terraform like a GPS navigation system, bro.
 
@@ -39,13 +39,13 @@ Think of Terraform like a GPS navigation system, bro.
 | Driving the car to the destination | Running `terraform apply` (Executing changes) |
 | Rerouting if you take a wrong turn | Running `apply` again after configuration drift |
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 Terraform is an open-source Infrastructure as Code tool created by HashiCorp. It allows you to define both cloud and on-premise resources in human-readable configuration files (HCL - HashiCorp Configuration Language) that you can version, reuse, and share.
 
 We care about this because Terraform is cloud-agnostic. While AWS CloudFormation only works for AWS, Terraform can manage AWS, Google Cloud, Azure, DataDog, GitHub, and hundreds of other services through its provider ecosystem. It uses a declarative approach: you describe the *desired end state*, and Terraform figures out the API calls needed to get there.
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 | HCL Block Type | Purpose | Example Use Case |
 |---|---|---|
@@ -55,7 +55,7 @@ We care about this because Terraform is cloud-agnostic. While AWS CloudFormation
 | `variable` | Input values for your module | `variable "instance_size" { type = string }` |
 | `output` | Values to print out after execution | `output "server_ip" { value = aws_instance.web.public_ip }` |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 The absolute basic workflow of Terraform requires just three commands.
 
@@ -81,7 +81,7 @@ terraform plan
 terraform apply
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you use variables to make your code reusable across Dev, Staging, and Prod environments.
 
@@ -112,7 +112,7 @@ resource "aws_dynamodb_table" "users" {
 ```
 You would apply this for production using: `terraform apply -var="environment_name=prod"`
 
-### 8. Internal Working
+## 8. Internal Working
 
 This diagram visualizes how Terraform connects your code to the cloud using State.
 
@@ -132,7 +132,7 @@ This diagram visualizes how Terraform connects your code to the cloud using Stat
   ]}
 />
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Phase | Speed | Bottleneck |
 |---|---|---|
@@ -140,7 +140,7 @@ This diagram visualizes how Terraform connects your code to the cloud using Stat
 | `terraform plan` | Medium (10s - 2m) | Cloud API rate limits (querying current state) |
 | `terraform apply` | Slow (1m - 20m) | Cloud provider execution time (e.g., RDS takes 15 mins to boot) |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -150,40 +150,40 @@ This diagram visualizes how Terraform connects your code to the cloud using Stat
 | What is the difference between a `resource` and a `data` block? | A `resource` block CREATES new infrastructure. A `data` block READS information about infrastructure that already exists. |
 | What is a Terraform Module? | A collection of `.tf` files in a folder that package related resources together, acting like a reusable function for infrastructure. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, you change the name of an S3 bucket in your `.tf` file from `my-bucket` to `my-new-bucket`. Does Terraform just rename it?**
 No, bro. AWS S3 buckets cannot be renamed. When you run `plan`, Terraform will explicitly state that it must DESTROY the old bucket (and all its contents!) and CREATE a new one. Always read the `plan` output carefully before typing `yes`.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 Companies use Terraform to provision identical environments globally. If a company wants to expand from the US to Europe, they don't rebuild everything manually. They take their existing Terraform modules, change `region = "us-east-1"` to `region = "eu-central-1"`, run `apply`, and an exact replica of their entire stack spins up in Germany.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Always run `terraform plan` and review the output before running `terraform apply`. | blindly run `terraform apply --auto-approve` in production. |
 | Use remote state backends (S3 + DynamoDB locking, or Terraform Cloud). | Store state files locally on your laptop. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="Importing Existing Infrastructure">
 If you already created a server manually in the AWS console, you cannot just write the Terraform code for it and run `apply` (Terraform will try to create a duplicate). You must use the `terraform import` command to pull the existing server into your state file first.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
 | Modifying resources manually in the AWS Console | This creates Configuration Drift. The next time Terraform runs, it will likely overwrite or destroy your manual changes to make the cloud match the code. |
 | Hardcoding provider credentials | Never put your AWS Access Keys in the `.tf` files. Use environment variables (`AWS_ACCESS_KEY_ID`) or IAM roles. |
 
-### 16. Related Topics
+## 16. Related Topics
 - Infrastructure as Code (IaC)
 - Environments (Dev/Staging/Prod)
 
-### Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

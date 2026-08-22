@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Pydantic Validation: The Data Bouncer
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using Pydantic for complex database lookups instead of purely structural validation |
 | Performance | V2 is written in Rust (pydantic-core), making it incredibly fast for data parsing |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 Your team is running a massive e-commerce API. Yesterday, the system crashed during a flash sale. Why? A mobile client bug sent the `price` field as the string `"free"` instead of a float `0.00`. The JSON payload hit your API, bypassed the routing, and crashed deep inside the PostgreSQL database layer when it tried to insert a string into a numeric column.
 
@@ -29,7 +29,7 @@ You need a bouncer at the front door of your API. A tool that looks at the incom
 
 **FDE Scenario:** You are consuming a data feed from a client's legacy CRM that is notoriously dirty. Sometimes the "age" field is an integer, sometimes it's a string like "25", and sometimes it's completely missing. If this bad data hits your core logic, the system crashes. By forcing all incoming data through strict Pydantic models at the API boundary, you sanitize, coerce, and validate the chaotic legacy data into clean Python objects. The chaos stops at the front door.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A strict passport control officer (Pydantic) inspecting documents. If a date of birth is written as "yesterday" (invalid type) instead of a standard date, the officer instantly rejects it before the passenger enters the country. */}
 
@@ -45,7 +45,7 @@ Think of Pydantic as a strict Passport Control Officer at an international airpo
 
 Just as a country doesn't want to deal with invalid travelers internally, your API business logic doesn't want to deal with malformed data. Pydantic handles the rejection at the border.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 **Pydantic** is a data validation and settings management library using Python type annotations. It enforces type hints at runtime.
 
@@ -59,7 +59,7 @@ Key concepts:
 **When to use Pydantic:** To validate all incoming API payloads, load environment variables, and serialize data to JSON.
 **When NOT to use Pydantic:** Inside a tight, high-frequency internal loop where the data is already guaranteed to be clean, as the parsing overhead (though small) will add up.
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 | Feature | Syntax | Description |
 |---|---|---|
@@ -70,7 +70,7 @@ Key concepts:
 | **Email Validation** | `email: EmailStr` | Validates standard email format. |
 | **Custom Validator** | `@field_validator('name')` | Runs a custom Python function. |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 A simple Pydantic model demonstrating basic types and the `Field` constraint.
 
@@ -97,7 +97,7 @@ except ValidationError as e:
     # Outputs detailed JSON explaining exactly which fields failed and why
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you often need cross-field validation (e.g., checking two passwords match, or ensuring a date range makes sense). Here is a real-world example of an Event booking model.
 
@@ -133,7 +133,7 @@ class EventBooking(BaseModel):
 ```
 *Note: In FastAPI, if this model fails validation, FastAPI catches the `ValidationError` and automatically returns a 422 HTTP response to the client.*
 
-### 8. Internal Working
+## 8. Internal Working
 
 How Pydantic processes raw data into a validated object.
 
@@ -162,7 +162,7 @@ How Pydantic processes raw data into a validated object.
 4. **Custom Logic:** If base parsing succeeds, it hands control back to Python to run your custom `@field_validator` and `@model_validator` methods.
 5. **Success or Failure:** If everything passes, you get a clean Python object. If anything fails, it halts and aggregates all errors into a single `ValidationError`.
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Metric | Pydantic V1 | Pydantic V2 (Rust) | Note |
 |---|---|---|---|
@@ -170,7 +170,7 @@ How Pydantic processes raw data into a validated object.
 | **JSON Serialization** | Uses Python `json` | Uses Rust `serde_json` | Drastic reduction in CPU load for large API responses. |
 | **Custom Validators** | Moderate overhead | Moderate overhead | Dropping into Python execution (custom validators) slows down the Rust engine. Use standard `Field()` constraints when possible. |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -179,18 +179,18 @@ How Pydantic processes raw data into a validated object.
 | How do you validate a list of items in Pydantic? | By using Python's `List` type hint. E.g., `tags: List[str] = Field(max_items=5)`. Pydantic will validate every item in the list. |
 | Should you do database lookups inside a Pydantic validator? | Generally, no. Pydantic is for synchronous *structural* and *business* validation. Database lookups require I/O (often async), which should be handled in the FastAPI route or dependency injection layer. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: If you have a Pydantic model with `timestamp: datetime` and you pass it the string `"2023-10-01"`, what happens?**
 Pydantic parses the string into a native Python `datetime` object. The edge case is timezone awareness. By default, it might parse it as naive. You must be very careful with datetime configurations in Pydantic if your API requires strict UTC enforcement.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **OpenAI Python SDK:** Heavily utilizes Pydantic under the hood to validate the structure of prompts and function-calling schemas before sending them over the network.
 - **Hugging Face:** Uses Pydantic to validate model configuration files and dataset schemas.
 - **Any FastAPI App:** Pydantic is the lifeblood of FastAPI. Every request parameter and JSON body in FastAPI is a Pydantic model operation.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -198,13 +198,13 @@ Pydantic parses the string into a native Python `datetime` object. The edge case
 | Use `EmailStr` (requires `email-validator` package) instead of writing your own Regex for emails. | DON'T write custom validators for things `Field` can do (like `gt=0`). |
 | Set `extra = "forbid"` in model config if you want to aggressively reject unknown fields. | DON'T silently ignore extra fields if they indicate a major client-side bug. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="info" title="Strict Mode">
 In highly sensitive applications (like banking APIs), Pydantic's default "coercion" (converting `"1"` to `1`) is dangerous. In Pydantic V2, you can enforce strict mode: `age: StrictInt`. If the client sends `"25"` instead of `25`, it will be rejected. This forces frontend teams to send proper JSON types.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
@@ -212,12 +212,12 @@ In highly sensitive applications (like banking APIs), Pydantic's default "coerci
 | **Missing Optional** | `bio: str = None` (Mypy will complain) | `bio: Optional[str] = None` |
 | **Re-inventing the wheel**| `@field_validator('url')` writing custom URL parsing | `website: HttpUrl` (Pydantic built-in) |
 
-### 16. Related Topics
+## 16. Related Topics
 - [Request & Response Models](./request-response-models)
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - [Error Handling in APIs](./error-handling-in-apis)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

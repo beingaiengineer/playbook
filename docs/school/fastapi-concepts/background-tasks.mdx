@@ -8,7 +8,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Background Tasks: Fire and Forget
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -18,7 +18,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using built-in background tasks for heavy, long-running ML jobs instead of a robust queue like Celery |
 | Performance | Drastically reduces API latency for the client, increasing perceived application speed |
 
-### 2. Engineering Story
+## 2. Engineering Story
 
 You are building a user registration flow. When a user signs up, your code saves them to the database, generates a welcome PDF, makes a network call to SendGrid to email the PDF, and makes another network call to Salesforce to log the new lead.
 
@@ -29,7 +29,7 @@ The client doesn't need to wait for Salesforce to respond before they are allowe
 
 **FDE Scenario:** You are integrated into a legacy client's infrastructure where the only way to log audit events is via a fragile, rate-limited SOAP API that often times out. If you make this call synchronously, your modern FastAPI service will freeze, angering the client's mobile users. By pushing these unreliable legacy network calls into FastAPI background tasks, your core API remains blazing fast and responsive, isolating the client's frontend from their own backend's instability.
 
-### 3. Real-World Analogy
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A busy Indian restaurant where a customer pays the cashier. The cashier hands them a receipt instantly (HTTP Response) and tosses the order ticket to the kitchen (Background Task). The customer walks away happy without waiting for the food to actually be cooked at the counter. */}
 
@@ -44,7 +44,7 @@ Think of Background Tasks like ordering food at a busy fast-food restaurant.
 
 If the system didn't have background tasks, the cashier would have to stand there and wait 10 minutes for the chefs to finish cooking before handing you your receipt. No other customers could be served.
 
-### 4. Concept Explanation
+## 4. Concept Explanation
 
 A **Background Task** is a function that is scheduled to run *after* the API has already returned a response to the client.
 
@@ -53,7 +53,7 @@ In modern web architecture, you must return an HTTP response as quickly as possi
 **When to use FastAPI Background Tasks:** For lightweight, fast-running operations that are okay to lose if the server crashes (e.g., sending a welcome email, updating a non-critical counter in a DB, logging to an external service).
 **When NOT to use them:** For mission-critical jobs that *must* run (like processing a payment), or heavy jobs taking minutes/hours (like ML video rendering). For those, you must use a dedicated message queue (like Celery, RabbitMQ, or AWS SQS).
 
-### 5. Syntax Table
+## 5. Syntax Table
 
 Using FastAPI's built-in `BackgroundTasks` class.
 
@@ -64,7 +64,7 @@ Using FastAPI's built-in `BackgroundTasks` class.
 | **Task Function**| `def send_email(email: str, msg: str):` | The actual Python function. |
 | **Return** | `return {"message": "Processing"}` | The route returns immediately. |
 
-### 6. Beginner Example
+## 6. Beginner Example
 
 Sending a mock email in the background.
 
@@ -89,7 +89,7 @@ async def send_notification(email: str, background_tasks: BackgroundTasks):
     return {"message": "Notification scheduled"}
 ```
 
-### 7. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you often need to perform multiple background operations and update a database based on their success.
 
@@ -136,7 +136,7 @@ async def register_user(
     }
 ```
 
-### 8. Internal Working
+## 8. Internal Working
 
 How FastAPI and Starlette manage the execution flow.
 
@@ -163,7 +163,7 @@ How FastAPI and Starlette manage the execution flow.
 4. FastAPI sends the HTTP response over the network and closes the connection to the client.
 5. Immediately after closing the connection, Starlette iterates over the internal list and executes the queued functions in the same event loop (or threadpool, if they are standard `def` functions).
 
-### 9. Performance Table
+## 9. Performance Table
 
 | Task Runner | Best For | Persistence (If server crashes) | Setup Complexity |
 |---|---|---|---|
@@ -171,7 +171,7 @@ How FastAPI and Starlette manage the execution flow.
 | **Celery (with Redis/RabbitMQ)** | Video processing, ML inference, scheduled cron jobs | **Preserved.** Stored in a queue until processed. | High (Requires external servers) |
 | **RQ (Redis Queue)** | Medium-complexity async Python jobs | **Preserved.** | Medium |
 
-### 10. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -180,18 +180,18 @@ How FastAPI and Starlette manage the execution flow.
 | How is `BackgroundTasks` different from Python's `asyncio.create_task()`? | `BackgroundTasks` guarantees the HTTP response is fully sent and the connection is closed *before* the task starts. `create_task` starts running immediately and might compete with your route handler for resources before the response is sent. |
 | How do you return the result of a background task to the user? | You can't. The HTTP connection is already closed. You must either update a database flag that the user can poll (e.g., GET `/job-status`), or push a notification to the user via WebSockets when the task completes. |
 
-### 11. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Tricky Question: If you inject a database session via `Depends(get_db)` into your route, and pass that `db` object into a Background Task, what happens?**
 It will crash with a "Session is closed" error. FastAPI cleans up dependencies (like closing the DB connection) immediately after the HTTP response is sent. By the time the background task runs, the connection is gone. You must create a *new* database session *inside* the background task itself.
 
-### 12. Real-World Usage
+## 12. Real-World Usage
 
 - **E-Commerce:** Generating invoices. The user sees "Payment Successful" instantly, while the server generates a PDF and emails it in the background.
 - **Analytics:** The client requests a resource. The server returns the resource immediately, and uses a background task to increment the "view count" in the database so the user's read speed isn't delayed by the analytics write speed.
 - **Webhooks:** When an event happens, you return 200 OK to the trigger, and use background tasks to blast HTTP requests to 50 subscribed URLs.
 
-### 13. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -199,13 +199,13 @@ It will crash with a "Session is closed" error. FastAPI cleans up dependencies (
 | Catch and log exceptions inside your background task function. | DON'T let background tasks fail silently. |
 | Create fresh DB connections inside the task if it needs to hit the database. | DON'T pass scoped dependencies (like an active HTTP request object) into the task. |
 
-### 14. Production Notes
+## 14. Production Notes
 
 <Admonition type="caution" title="The Memory Leak Trap">
 Do not use FastAPI Background Tasks for infinite loops (e.g., a background worker that polls a database forever). They are designed to be short-lived tasks attached to a specific HTTP request lifecycle. If you need a permanent background worker, run a separate Python script or use Celery.
 </Admonition>
 
-### 15. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Bad Code (Conceptual) | Good Code (Conceptual) |
 |---|---|---|
@@ -213,11 +213,11 @@ Do not use FastAPI Background Tasks for infinite loops (e.g., a background worke
 | **Using for heavy CPU loads** | `bg_tasks.add(train_ml_model, data)` (Will choke the API server) | Send the task to a Celery worker on a different server. |
 | **Assuming Retries** | Assuming FastAPI will retry if SendGrid returns a 500 error. | Implementing custom `try/except/retry` loops inside the task. |
 
-### 16. Related Topics
+## 16. Related Topics
 - [FastAPI Fundamentals](./fastapi-fundamentals)
 - WebSockets (External concept for pushing results)
 
-### 17. Top GitHub Repositories
+## 17. Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

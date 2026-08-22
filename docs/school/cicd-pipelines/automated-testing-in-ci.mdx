@@ -7,7 +7,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 # Automated Testing in CI
 
-### 1. Quick Summary
+## 1. Quick Summary
 
 | Area | Details |
 |---|---|
@@ -17,7 +17,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Running slow End-to-End (E2E) tests on every single commit, causing pipeline bottlenecks. |
 | Performance | Fast unit tests take seconds; heavy database integration tests take minutes. |
 
-### 2. Real-World Analogy
+## 2. Real-World Analogy
 
 ![Real-World Analogy](./assets/automated-testing-in-ci.png)
 
@@ -36,7 +36,7 @@ If you wait until the whole bike is built to test the spark plug, you waste hour
 
 > **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-### 3. Concept Explanation
+## 3. Concept Explanation
 
 Automated testing in CI is the process of executing a suite of scripts against your code to verify it behaves exactly as expected. Without tests, your CI pipeline is just a glorified code downloader.
 
@@ -47,7 +47,7 @@ A strong CI pipeline implements the **Testing Pyramid**:
 
 Bro, if your pipeline doesn't have tests, you are deploying on hope and prayers.
 
-### 4. Syntax Table
+## 4. Syntax Table
 
 Here is how you typically invoke different testing phases in a CI YAML file.
 
@@ -58,7 +58,7 @@ Here is how you typically invoke different testing phases in a CI YAML file.
 | E2E | `npx playwright test` | Requires a browser engine and full app running. |
 | Coverage | `go test -coverprofile=c.out` | Measures what percentage of code was tested. |
 
-### 5. Beginner Example
+## 5. Beginner Example
 
 A simple Node.js pipeline running Jest unit tests.
 
@@ -83,7 +83,7 @@ jobs:
         run: npm test
 ```
 
-### 6. Real-World Engineering Example
+## 6. Real-World Engineering Example
 
 Bro, in a real system, you often need a database to run integration tests. In GitHub Actions, you can use `services` to spin up temporary Docker containers right next to your code.
 
@@ -135,7 +135,7 @@ jobs:
         run: npm run test:integration
 ```
 
-### 7. Internal Working
+## 7. Internal Working
 
 How does the runner handle a failing test? Testing frameworks (Jest, PyTest, JUnit) exit the Node/Python process with a specific code. If all tests pass, they exit with code `0`. If even one test fails, they exit with code `1` (or another non-zero code). The runner intercepts this exit code and instantly marks the step as failed.
 
@@ -157,7 +157,7 @@ How does the runner handle a failing test? Testing frameworks (Jest, PyTest, JUn
   ]}
 />
 
-### 8. Performance Table
+## 8. Performance Table
 
 | Test Type | Target Execution Time | Optimization Strategy |
 |---|---|---|
@@ -165,7 +165,7 @@ How does the runner handle a failing test? Testing frameworks (Jest, PyTest, JUn
 | Integration | 1 - 5 minutes | Use an in-memory DB or a fresh Docker DB container. |
 | E2E | 5 - 15 minutes | Run them in parallel using matrix strategies or Playwright sharding. |
 
-### 9. Top Interview Questions
+## 9. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -175,7 +175,7 @@ How does the runner handle a failing test? Testing frameworks (Jest, PyTest, JUn
 | What is a "Flaky" test? | A test that sometimes passes and sometimes fails without changing any code. Usually caused by race conditions, relying on network speed, or bad state cleanup between tests. |
 | Should you test the database in CI? | Yes, via Integration tests. Use CI service containers (like a Postgres Docker image) to spin up a clean database strictly for the pipeline run. |
 
-### 10. Tricky Questions & Edge Cases
+## 10. Tricky Questions & Edge Cases
 
 **The Timezone Trap:**
 Bro, your local machine is in India (IST). The GitHub Actions runner defaults to UTC time. If you have a test that says `expect(date.getHours()).toBe(10)`, it will pass on your machine and fail in CI because UTC is 5.5 hours behind.
@@ -184,11 +184,11 @@ Bro, your local machine is in India (IST). The GitHub Actions runner defaults to
 **The Shared DB State Trap:**
 If Test A inserts a user, and Test B expects the database to be empty, Test B will fail if it runs after Test A. Tests in CI must be totally isolated. Run database transactions that rollback after every single test, or truncate tables in a `beforeEach` block.
 
-### 11. Real-World Usage
+## 11. Real-World Usage
 
 At companies like **Zomato**, a pull request triggers thousands of unit tests immediately. If those pass, integration tests run against a staging database. If those pass, Playwright boots up headless browsers to simulate a user adding a biryani to the cart and checking out. Merging is physically impossible until the robot proves the biryani can be ordered.
 
-### 12. Best Practices
+## 12. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -196,12 +196,12 @@ At companies like **Zomato**, a pull request triggers thousands of unit tests im
 | Fail the pipeline if code coverage drops significantly. | Ignore coverage metrics entirely. |
 | Generate XML/HTML test reports and upload them as pipeline artifacts. | Force developers to read 10,000 lines of raw terminal logs to find the error. |
 
-### 13. Production Notes
+## 13. Production Notes
 
 > **Warning: API Rate Limiting**
 > If your integration tests hit a real external API (like a mapping service or weather API), and your team opens 50 PRs a day, you will get rate-limited or billed heavily. Always mock external APIs in CI, or use dedicated, isolated sandbox environments.
 
-### 14. Common Mistakes
+## 14. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -209,7 +209,7 @@ At companies like **Zomato**, a pull request triggers thousands of unit tests im
 | Not archiving test results | When tests fail, you have no visual report to debug. | Use `actions/upload-artifact` to save the `/coverage` or `/playwright-report` folder. |
 | Hardcoding localhost | E2E tests fail because the frontend tries to reach `localhost:3000` but it's not running. | Ensure a step actually starts the development server before running E2E tests. |
 
-### 15. Related Topics
+## 15. Related Topics
 - Code Quality Gates
 - Building Your First Pipeline
 - Docker Compose in CI
