@@ -80,6 +80,16 @@ _Empty_
 - [x] [BAE-APP-008] | Create `dependency-security.mdx`
 - [x] [BAE-APP-009] | Create `security-in-cicd.mdx`
 - [x] [BAE-APP-010] | Create `data-protection.mdx`
+- [x] [BAE-FDE-097] | Retrofit FDE + Section 18: `api-security.mdx`
+- [x] [BAE-FDE-098] | Retrofit FDE + Section 18: `authentication-deep-dive.mdx`
+- [x] [BAE-FDE-099] | Retrofit FDE + Section 18: `authorization-rbac-abac.mdx`
+- [x] [BAE-FDE-100] | Retrofit FDE + Section 18: `data-protection.mdx`
+- [x] [BAE-FDE-101] | Retrofit FDE + Section 18: `dependency-security.mdx`
+- [x] [BAE-FDE-102] | Retrofit FDE + Section 18: `owasp-top-10.mdx`
+- [x] [BAE-FDE-103] | Retrofit FDE + Section 18: `secrets-management.mdx`
+- [x] [BAE-FDE-104] | Retrofit FDE + Section 18: `security-in-cicd.mdx`
+- [x] [BAE-FDE-105] | Retrofit FDE + Section 18: `security-mindset.mdx`
+- [x] [BAE-FDE-106] | Retrofit FDE + Section 18: `threat-modeling.mdx`
 
 ---
 
@@ -120,6 +130,7 @@ _Empty_
 | BAE ID | What's Done (High Level) |
 |---|---|
 | `[BAE-APP-1]` | Created app-security batch topics (mindset through data protection) |
+| `BAE-FDE-097 through BAE-FDE-106` | Retrofitted FDE Scenario into Section 2 and added Section 18 Agent Instructions for all 10 topics in the App Security course. |
 
 ---
 
@@ -129,7 +140,7 @@ _Empty_
 - [ ] Improve engineering story
 - [x] Expand interview questions
 - [ ] Improve SEO
-- [ ] Better analogy
+- [x] Better analogy
 - [ ] Add benchmarks
 
 ---
@@ -141,18 +152,12 @@ End-of-day autonomous review complete:
 - Fixed duplicate interview questions in `security-mindset.mdx` and `threat-modeling.mdx` while preserving formatting.
 - Replaced incorrect `## 17. Top GitHub Repos` heading with `## 17. Top GitHub Repositories` in `data-protection.mdx` to follow CONTENT.md conventions.
 
-### Next Task
-- [x] [BAE-FDE-097] | Retrofit FDE + Section 18: `api-security.mdx`
-- [x] [BAE-FDE-098] | Retrofit FDE + Section 18: `authentication-deep-dive.mdx`
-- [x] [BAE-FDE-099] | Retrofit FDE + Section 18: `authorization-rbac-abac.mdx`
-- [x] [BAE-FDE-100] | Retrofit FDE + Section 18: `data-protection.mdx`
-- [x] [BAE-FDE-101] | Retrofit FDE + Section 18: `dependency-security.mdx`
-- [x] [BAE-FDE-102] | Retrofit FDE + Section 18: `owasp-top-10.mdx`
-- [x] [BAE-FDE-103] | Retrofit FDE + Section 18: `secrets-management.mdx`
-- [x] [BAE-FDE-104] | Retrofit FDE + Section 18: `security-in-cicd.mdx`
-- [x] [BAE-FDE-105] | Retrofit FDE + Section 18: `security-mindset.mdx`
-- [x] [BAE-FDE-106] | Retrofit FDE + Section 18: `threat-modeling.mdx`
+End-of-day autonomous review complete:
+- Generated and embedded illustration prompts in Section 3 for all 10 App Security topics.
+- Marked the 'Better analogy' task as complete.
 
+### Next Task
+_Empty_
 
 End-of-day autonomous review complete:
 - Ensured all mandatory structural headings (Section 1 to Section 18) strictly use Level 2 `##` headings, fixing formatting issues across various documents.
