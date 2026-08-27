@@ -117,6 +117,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| `BAE-TEA-A-001 through BAE-TEA-A-009` | Completed Better analogy tasks by extracting existing specific analogy scenarios to generate contextual illustration prompts. |
 | `[BAE-TEA-001] through [BAE-TEA-009]` | Created 9 topics covering team structure, roles, and collaboration for the course. |
 | `BAE-FDE-359 through BAE-FDE-367` | Retrofitted FDE Scenario into Section 2 and added Section 18 Agent Instructions for all 9 topics in the Team Structure course. |
 
@@ -128,7 +129,7 @@ _Empty_
 - [ ] Improve engineering story
 - [x] Expand interview questions
 - [x] Improve SEO
-- [ ] Better analogy
+- [x] Better analogy
 - [ ] Add benchmarks
 
 ---
