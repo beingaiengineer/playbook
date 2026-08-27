@@ -119,6 +119,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-GIT-A-001 through BAE-GIT-A-010 | Completed Better analogy tasks by extracting existing specific analogy scenarios to generate contextual illustration prompts. |
 | `[BAE-GIT-1]` | Created initial 10 topics for Git & Workflows course, covering fundamentals, branching, PRs, and monorepos. |
 
 ---
@@ -129,7 +130,7 @@ _Empty_
 - [ ] Improve engineering story
 - [ ] Expand interview questions
 - [ ] Improve SEO
-- [ ] Better analogy
+- [x] Better analogy
 - [ ] Add benchmarks
 
 ---
