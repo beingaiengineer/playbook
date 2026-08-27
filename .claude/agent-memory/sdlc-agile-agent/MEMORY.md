@@ -118,6 +118,7 @@ No reusable insights recorded yet.
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-SDL-A-001 through BAE-SDL-A-010 | Completed Better analogy tasks by extracting existing specific analogy scenarios to generate contextual illustration prompts. |
 | `[BAE-SDL-001]` through `[BAE-SDL-010]` | Generated all 10 modules for SDLC & Agile course following BAE rules. |
 
 ---
@@ -128,7 +129,7 @@ No reusable insights recorded yet.
 - [ ] Improve engineering story
 - [ ] Expand interview questions
 - [ ] Improve SEO
-- [ ] Better analogy
+- [x] Better analogy
 - [ ] Add benchmarks
 
 ---
