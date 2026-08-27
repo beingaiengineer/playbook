@@ -119,6 +119,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-CIC-A-001 through BAE-CIC-A-010 | Completed Better analogy tasks by extracting existing specific analogy scenarios to generate contextual illustration prompts. |
 | `[BAE-CIC-1]` | Created 10 topics for CI/CD pipelines including GitHub Actions, Docker, Testing and Security |
 
 ---
@@ -129,7 +130,7 @@ _Empty_
 - [ ] Improve engineering story
 - [ ] Expand interview questions
 - [ ] Improve SEO
-- [ ] Better analogy
+- [x] Better analogy
 - [ ] Add benchmarks
 
 ---
