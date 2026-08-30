@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Copying everything (`COPY . .`) without a `.dockerignore` file, bloating the image with `node_modules` and secrets. |
 | Performance | Optimized Dockerfiles leverage caching, building in seconds instead of minutes. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+An FDE often encounters scenarios where the local development environment works perfectly, but the deployment crashes because the client's servers use an outdated Linux distribution. By containerizing your application with a Dockerfile, you eliminate the 'it works on my machine' paradox entirely, shipping the application code and its required operating system dependencies as a single, immutable unit.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-CIC-A-006] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with packing a specialized Mumbai Dabbawala tiffin box (dabba). */}
 
@@ -38,9 +42,8 @@ A Dockerfile is just a recipe. It tells the kitchen exactly how to pack the dabb
 
 
 
-> **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A **Dockerfile** is a plain text file containing a list of instructions that the Docker daemon reads to automatically build a **Docker Image**.
 
@@ -52,7 +55,7 @@ Why do we use Dockerfiles? Because of the classic "It works on my machine" probl
 
 Bro, in modern engineering, your CI pipeline doesn't upload zip files anymore. It runs `docker build`, creates an image, and pushes that image to a registry.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the essential Dockerfile commands you need to know.
 
@@ -66,7 +69,7 @@ Here are the essential Dockerfile commands you need to know.
 | `EXPOSE` | Documents which port the app listens on (doesn't actually publish it). | `EXPOSE 3000` |
 | `CMD` | The command that runs *when the container starts*. | `CMD ["npm", "start"]` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A simple Dockerfile for a basic Node.js Express server.
 
@@ -90,7 +93,7 @@ EXPOSE 8080
 CMD ["node", "server.js"]
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, the beginner example above is terrible for production. It copies everything (including local `node_modules`), doesn't use caching efficiently, and runs as the root user.
 
@@ -132,7 +135,7 @@ EXPOSE 80
 # Nginx starts automatically, no CMD needed
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does Docker process this file? Docker builds images in **Layers**. Every `RUN`, `COPY`, and `ADD` command creates a new read-only layer on top of the previous one. Docker caches these layers locally.
 
@@ -157,7 +160,7 @@ If you change your `server.js` file, Docker knows `package.json` didn't change. 
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Practice | Bad Performance | Excellent Performance |
 |---|---|---|
@@ -166,7 +169,7 @@ If you change your `server.js` file, Docker knows `package.json` didn't change. 
 | Artifact Size | Shipping compilers (gcc/python) to Prod | Multi-stage builds (ship only compiled binaries) |
 | `.dockerignore` | Missing (Copies massive `.git` and `node_modules`) | Present (Excludes local garbage) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -175,8 +178,9 @@ If you change your `server.js` file, Docker knows `package.json` didn't change. 
 | What is a `.dockerignore` file? | It tells Docker which files and folders to ignore when running the `COPY . .` command, preventing local files (like `.env`, `.git`, or `node_modules`) from bloating the image or leaking secrets. |
 | What is a Multi-Stage Dockerfile? | A Dockerfile with multiple `FROM` statements. It allows you to use a heavy image with compilers to build the code, and then copy only the final artifact into a tiny, secure production image. |
 | Why use Alpine images (e.g., `node:alpine`)? | Alpine Linux is a security-oriented, lightweight Linux distribution (~5MB). It dramatically reduces the final image size and minimizes the attack surface area for hackers. |
+| Why is it a security risk to run Docker containers as the root user? | If an attacker breaks out of the container, running as root might give them elevated privileges on the host system. Always create and switch to a non-root user in the Dockerfile. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **The Root User Trap:**
 By default, Docker containers run as the `root` user. If an attacker finds a vulnerability in your Node.js app, they gain root access inside the container, making it easier to break out into the host server.
@@ -186,11 +190,11 @@ By default, Docker containers run as the `root` user. If an attacker finds a vul
 If you start your app with `CMD ["npm", "start"]`, npm runs as Process ID (PID) 1. npm does not pass system termination signals (like `SIGTERM`) to your Node app. When Kubernetes tries to shut down your container, it won't die cleanly, resulting in 30-second delays and dropped HTTP requests.
 *The Fix:* Use `CMD ["node", "server.js"]` directly, or use an init system like `dumb-init`.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like Swiggy and Uber run tens of thousands of containers orchestrated by Kubernetes. Every single microservice they deploy begins its life as a Dockerfile. The CI pipeline builds the Dockerfile, tags it with the Git commit hash (e.g., `uber/rides:abc1234`), and pushes it to an internal registry. Kubernetes then pulls that exact image to scale up the service.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -198,12 +202,12 @@ Companies like Swiggy and Uber run tens of thousands of containers orchestrated 
 | Group related `RUN` commands with `&&` to reduce layer count. | Write 10 different `RUN apt-get install` lines. |
 | Create a `.dockerignore` file immediately. | Copy your `.env` file containing local database passwords into the image. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Hardcoded Secrets in Dockerfiles**
 > Bro, never put `ENV DB_PASSWORD=secret` in a Dockerfile. Anyone who downloads the image can run `docker inspect` and see the password in plain text. Docker images are easily reverse-engineered. Always pass secrets at *runtime* using container orchestration tools (like Docker Compose or Kubernetes Secrets).
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -211,7 +215,7 @@ Companies like Swiggy and Uber run tens of thousands of containers orchestrated 
 | Running `apt-get upgrade` | Builds become unpredictable and break randomly. | Pin specific package versions; never upgrade the whole OS blindly in a Dockerfile. |
 | Listening on localhost (`127.0.0.1`) | The container runs, but you can't reach it from your browser. | Bind your server to `0.0.0.0` inside the container so traffic can route into it. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Artifact Management
 - Docker Compose in CI
 - Pipeline Security

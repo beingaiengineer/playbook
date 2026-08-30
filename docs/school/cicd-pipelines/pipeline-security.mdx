@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Giving a CI/CD token "Admin" access to AWS instead of using the principle of least privilege. |
 | Performance | Deep security scans (SAST/SCA) add significant time (5-20 minutes) to the pipeline. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+An FDE deployed to a financial client might find that developers have access to the production database credentials simply by viewing the CI server's raw text logs. If an attacker compromises the pipeline, they effectively compromise production. Pipeline security enforces strict secrets management, ensuring that sensitive environment variables are masked and rotated correctly.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-CIC-A-009] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with highly secure bank vault (Production). */}
 
@@ -38,9 +42,8 @@ If the armored truck (your pipeline) is compromised, the hackers don't need to b
 
 
 
-> **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 **Pipeline Security** (often called DevSecOps) focuses on securing the automation servers that build and deploy your code.
 
@@ -52,7 +55,7 @@ There are two main areas of pipeline security:
 
 Bro, the most critical shift in modern CI/CD security is moving from long-lived passwords (like an AWS Access Key that lasts 5 years) to short-lived, identity-based tokens using **OIDC (OpenID Connect)**.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the key tools and concepts used to secure pipelines.
 
@@ -64,7 +67,7 @@ Here are the key tools and concepts used to secure pipelines.
 | **Secrets Management** | Storing passwords securely, injecting them at runtime. | `${{ secrets.DB_PASS }}` |
 | **OIDC** | Cloud authentication without long-lived passwords. | `aws-actions/configure-aws-credentials` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 The absolute basics: Storing a secret correctly and scanning your Node.js dependencies for known vulnerabilities before building.
 
@@ -93,7 +96,7 @@ jobs:
         run: ./deploy.sh
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, here is a senior-level, highly secure AWS deployment pipeline. Notice that there are **no AWS Access Keys stored in GitHub Secrets**. Instead, we use OIDC. GitHub securely proves its identity to AWS, and AWS issues a temporary token that expires in 1 hour.
 
@@ -149,7 +152,7 @@ jobs:
           docker push myapp:latest
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does OIDC (OpenID Connect) actually work between GitHub and AWS?
 GitHub acts as an Identity Provider (like Google Login). When the pipeline runs, GitHub generates a signed JSON Web Token (JWT) containing the repo name and branch. The runner sends this JWT to AWS. AWS validates the cryptographic signature. If it matches the rules defined in AWS IAM (e.g., "Only allow the `main` branch of `my-org/my-app`"), AWS replies with short-lived, temporary session keys.
@@ -171,7 +174,7 @@ GitHub acts as an Identity Provider (like Google Login). When the pipeline runs,
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Security Check | Execution Time | Frequency Recommendation |
 |---|---|---|
@@ -180,7 +183,7 @@ GitHub acts as an Identity Provider (like Google Login). When the pipeline runs,
 | Container Scanning (Trivy) | ~1-3 minutes | Every PR that modifies `Dockerfile` or dependencies. |
 | Deep SAST Scan (CodeQL) | ~5-15 minutes | Nightly scheduled build or strictly on PRs to `main`. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -189,8 +192,9 @@ GitHub acts as an Identity Provider (like Google Login). When the pipeline runs,
 | How do you prevent developers from printing secrets in the pipeline logs? | Most modern CI tools auto-mask known secrets with `***`. However, you must also strictly audit pipeline code to ensure developers don't write scripts that export secrets to files or external endpoints. |
 | What is the difference between SAST and DAST? | **SAST** (Static) scans your source code without running it to find bad patterns. **DAST** (Dynamic) attacks your running application from the outside (like a simulated hacker) to find live vulnerabilities. |
 | What happens if a third-party GitHub Action is compromised? | If you used `uses: random/action@v1`, the pipeline pulls the malicious code and executes it with access to your secrets. You should pin actions to specific SHA hashes (e.g., `uses: random/action@f4c...`) to prevent this. |
+| What is 'shift-left' security in the context of CI/CD? | 'Shift-left' means integrating security checks (like SAST and secret scanning) early in the development process, typically right after a developer pushes code, rather than waiting for a pre-release security audit. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **The "Malicious Pull Request" Trap:**
 Bro, imagine your pipeline automatically runs tests and builds the code whenever a PR is opened. A hacker forks your public repo, modifies `package.json` to include a script that sends all environment variables to their server, and opens a PR. If your pipeline blindly executes `npm install` on their code with production secrets injected, you are hacked.
@@ -200,11 +204,11 @@ Bro, imagine your pipeline automatically runs tests and builds the code whenever
 You scan your Python code, and it's perfect. But your Dockerfile starts with `FROM python:3.6`. That OS image hasn't been updated in years and has 500 known Linux vulnerabilities.
 *The Fix:* Always scan the final Docker image (using Trivy/Grype), not just the application code.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At strict tech companies, developers have zero direct access to production servers (No SSH). The CI/CD pipeline is the *only* entity allowed to modify production. Therefore, the pipeline's security posture must be identical to the production database's security posture. Every deployment is cryptographically signed, and every dependency is scanned.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -212,12 +216,12 @@ At strict tech companies, developers have zero direct access to production serve
 | Run fast SCA tools (`npm audit`, Snyk) on every PR. | Wait until the night before release to run security scans. |
 | Isolate environments. Dev pipelines should only have Dev secrets. | Let a staging pipeline read the production database password. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: The "Ignore Unfixed" Dilemma**
 > When you introduce container scanning (like Trivy), it will likely find 100 vulnerabilities in your base Ubuntu image that have no patch available yet. If you set the scanner to fail the build on *any* vulnerability, your pipeline will be permanently blocked. Configure your scanners to only fail on "Fixable" or "Critical" CVEs, or establish an allowed baseline.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -225,7 +229,7 @@ At strict tech companies, developers have zero direct access to production serve
 | Hardcoded secrets in code | Git history permanently records the password. | Use a tool like `git-secrets` or `trufflehog` to scan for secrets before commits. |
 | Blindly trusting third-party actions | Malicious code runs inside your CI environment. | Pin third-party GitHub Actions to specific commit SHAs, not mutable tags like `@v2`. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Code Quality Gates
 - Dockerfile Fundamentals
 - Artifact Management
