@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using bad indentation in YAML files causing parsing errors. |
 | Performance | Fast spin-up for Linux runners, Windows/macOS runners take longer to boot. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Modern cloud infrastructure demands that infrastructure changes, application deployments, and security scans happen concurrently across dozens of repositories. Attempting to manage this complexity with a centralized, monolithic Jenkins server often leads to massive queue bottlenecks. GitHub Actions decentralizes this by putting the CI configuration right next to the code it executes.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-CIC-A-007] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with Swiggy delivery kitchen. */}
 
@@ -38,9 +42,8 @@ Just like a Swiggy kitchen doesn't start cooking until an order is placed, GitHu
 
 
 
-> **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 GitHub Actions is a CI/CD platform deeply integrated into GitHub. Instead of running a separate server like Jenkins, GitHub lets you define your automation directly in your repository using YAML files placed in the `.github/workflows/` directory.
 
@@ -50,7 +53,7 @@ Inside a Job, you have **Steps**. Steps run sequentially on that same Runner. A 
 
 Bro, this is why Actions is so powerful: You don't have to reinvent the wheel. Need to install Node? There's an Action for it. Need to deploy to AWS? There's an Action for it. It's like npm or pip, but for CI/CD tasks.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the critical YAML blocks you will use 99% of the time.
 
@@ -63,7 +66,7 @@ Here are the critical YAML blocks you will use 99% of the time.
 | `steps` | A list of commands or Actions to execute. | `steps: - uses: actions/checkout@v4` |
 | `env` | Environment variables accessible to steps. | `env: NODE_ENV: production` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 This is the "Hello World" of GitHub Actions. It runs whenever someone pushes code.
 
@@ -86,7 +89,7 @@ jobs:
         run: ls -la
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at how a real engineering team lints and tests a Python application across multiple versions simultaneously using a matrix strategy.
 
@@ -133,7 +136,7 @@ jobs:
         run: pytest
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you push code, GitHub's internal event bus detects the `push` event. It scans your `.github/workflows` folder. If it finds a YAML file matching the event, it queues the workflow. GitHub then provisions an ephemeral (temporary) virtual machine (a Runner). The runner executes the steps, streams the console logs back to the GitHub UI in real-time, and then destroys itself when finished.
 
@@ -155,7 +158,7 @@ When you push code, GitHub's internal event bus detects the `push` event. It sca
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Resource | Limits (GitHub Hosted Free Tier) | Implications |
 |---|---|---|
@@ -164,7 +167,7 @@ When you push code, GitHub's internal event bus detects the `push` event. It sca
 | Runner Specs | 2-core CPU, 7GB RAM | Memory-heavy Java/Webpack builds might crash. |
 | Cache Size | 10GB per repo | Old caches are evicted; manage cache keys carefully. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -173,8 +176,9 @@ When you push code, GitHub's internal event bus detects the `push` event. It sca
 | What does `needs:` do in GitHub Actions? | It defines job dependencies. E.g., `deploy-job` needs `test-job`. If `test-job` fails, `deploy-job` is skipped. |
 | What is the `secrets` context? | It is a secure way to access encrypted variables stored in repository settings (e.g., $\\\{\\\{ secrets.AWS_KEY \\\}\\\}). They are masked in logs. |
 | What is the `GITHUB_TOKEN`? | An automatically generated token provided by GitHub Actions to authenticate API calls against the repository (like creating a release or commenting on a PR). |
+| How do you securely pass a database password to a GitHub Action? | You store it in GitHub Secrets and reference it using the `${{ secrets.DB_PASSWORD }}` syntax, ensuring it is masked in the runner's logs. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **The "Pull Request Target" Trap:**
 Bro, there are two events for PRs: `pull_request` and `pull_request_target`. `pull_request` runs the code *from the contributor's fork*, which is safe but doesn't have access to your repository secrets. `pull_request_target` runs the code *from your base branch* but gives access to secrets.
@@ -183,11 +187,11 @@ Bro, there are two events for PRs: `pull_request` and `pull_request_target`. `pu
 **Mutable vs Immutable Actions:**
 When using an action, e.g., `uses: actions/checkout@v4`, you are pulling a branch/tag. If the author of that Action pushes malicious code to the `v4` tag, your pipeline is compromised. In highly secure environments, pin the exact commit SHA: `uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11`.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Almost every modern open-source project (like React, Tailwind, Vite) uses GitHub Actions for CI. Stripe uses it to run linting and security scans on pull requests before human review. It is the de-facto standard because it lives exactly where the code lives, reducing context switching for developers.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -195,12 +199,12 @@ Almost every modern open-source project (like React, Tailwind, Vite) uses GitHub
 | Pin Action versions using SHAs for security-critical pipelines. | Blindly use `uses: some-random-dev/action@master`. |
 | Add a `concurrency` block to cancel outdated pipeline runs on the same PR. | Let 5 obsolete pipelines run and eat up your free minutes when you rapidly push commits. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Runner IP Blacklisting**
 > GitHub-hosted runners share IP addresses. If your pipeline runs integration tests against a third-party API (like a payment gateway sandbox) 50 times an hour, the third party might rate-limit or IP ban the GitHub runner, causing random pipeline failures. You may need to mock external APIs or use Self-Hosted Runners with static IPs.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -208,7 +212,7 @@ Almost every modern open-source project (like React, Tailwind, Vite) uses GitHub
 | Forgetting `actions/checkout` | Job fails saying "file not found" | You must explicitly check out your code as the first step in almost every job. |
 | Storing secrets in plain text YAML | Anyone can read your database password | Use `${{ secrets.MY_SECRET }}` and configure it in Repo Settings. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Building Your First Pipeline
 - Artifact Management
 - Pipeline Optimization

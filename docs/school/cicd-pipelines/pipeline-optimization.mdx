@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Running a 20-minute backend integration test suite because someone fixed a typo in the `README.md`. |
 | Performance | Drops pipeline times from 30+ minutes down to under 5 minutes using caching and concurrency. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, if your CI pipeline takes 45 minutes to run, developers will stop pushing small, iterative changes and instead batch massive, risky commits at the end of the day to avoid waiting. This completely destroys the 'Continuous' part of CI/CD. Optimizing pipelines via intelligent caching and parallelization is critical for maintaining high engineering velocity.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-CIC-A-008] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with busy Indian post office sorting center. */}
 
@@ -38,9 +42,8 @@ If the post office processes everything manually and sequentially, the system cl
 
 
 
-> **FDE Scenario:** In Forward Deployed Engineering environments, relying on manual processes is a huge risk. Automation eliminates the human element of error, enforcing consistency across every deployment and validating that the artifacts meet strict compliance and quality standards.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Pipeline Optimization is the engineering practice of making CI/CD workflows fast, cheap, and efficient.
 
@@ -52,7 +55,7 @@ The core strategies for optimization are:
 3. **Path Filtering:** If a PR only changes the `docs/` folder, completely bypass the backend compilation step.
 4. **Concurrency Control:** If a developer pushes 5 commits in 5 minutes, cancel the first 4 pipelines. Only the latest commit matters.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the key YAML directives used to optimize GitHub Actions.
 
@@ -64,7 +67,7 @@ Here are the key YAML directives used to optimize GitHub Actions.
 | `strategy.matrix` | Run the same job multiple times concurrently. | `node-version: [18, 20, 22]` |
 | `concurrency:` | Cancel previous runs if a new commit is pushed. | `cancel-in-progress: true` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's use **Path Filtering** and **Concurrency** to save money and time.
 
@@ -92,7 +95,7 @@ jobs:
       - run: echo "Running fast linting..."
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, here is a highly optimized Node.js pipeline. It caches `~/.npm` correctly, and runs Linting, Typechecking, and Tests in **parallel** instead of sequentially.
 
@@ -140,7 +143,7 @@ jobs:
       - run: npm run test
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does caching actually work across ephemeral (temporary) runners?
 When `actions/cache` runs, it generates a unique hash based on your lockfile (e.g., `hashFiles('package-lock.json')`). It queries the GitHub Blob Storage. If the hash exists (Cache Hit), it downloads a compressed tarball of your dependencies and unzips it into the runner. If it doesn't exist (Cache Miss), it proceeds with the build. At the very end of the job, it zips the newly downloaded dependencies and uploads them to blob storage for the *next* pipeline run.
@@ -162,7 +165,7 @@ When `actions/cache` runs, it generates a unique hash based on your lockfile (e.
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Optimization Technique | Before | After | Compute Saved |
 |---|---|---|---|
@@ -171,7 +174,7 @@ When `actions/cache` runs, it generates a unique hash based on your lockfile (e.
 | Parallel Jobs | Lint (1m) + Test (3m) = 4m | Max(1m, 3m) = 3m total | Moderate |
 | Path Filtering | Backend builds on Doc changes | Pipeline skips entirely | Massive |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -180,8 +183,9 @@ When `actions/cache` runs, it generates a unique hash based on your lockfile (e.
 | What is the danger of parallelizing too many jobs? | While wall-clock time decreases, you are consuming more CI minutes. If your company uses self-hosted runners, running 10 jobs in parallel might exhaust the hardware resources of the runner pool, creating a queue bottleneck for other developers. |
 | How do you handle long-running E2E tests? | Use test sharding. Split the 100 tests across 5 parallel runners (20 tests each). The total time drops by 80%. |
 | What does `concurrency: cancel-in-progress: true` do? | If a developer pushes commit A, the pipeline starts. If they realize they made a typo and push commit B one minute later, the pipeline for commit A is immediately killed to save resources, and a new pipeline starts for B. |
+| When should you NOT use caching in a CI pipeline? | Avoid caching when you are building the final production artifact or running a security scan, as you want absolute certainty that no stale cached dependencies are included. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **The "Poisoned Cache" Trap:**
 Bro, imagine your build tool accidentally corrupts a file, and that file gets uploaded to the cache at the end of the run. Now, every subsequent pipeline run downloads that corrupted cache and fails instantly.
@@ -191,11 +195,11 @@ Bro, imagine your build tool accidentally corrupts a file, and that file gets up
 If you have a backend in Go and a frontend in React inside the same repository, pushing a change to the React code shouldn't trigger the Go database tests.
 *The Fix:* Use strict path filtering, or advanced tools like Nx or Turborepo that calculate the "affected" graph and only run CI tasks for the microservices that actually changed.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At massive companies like Google or Meta, building the entire codebase takes hours. They use distributed caching systems (like Bazel) where if Developer A compiles a C++ library, the compiled binary is cached globally. When Developer B needs that library, their CI pipeline just downloads the binary instead of recompiling it. Milliseconds matter at scale.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -203,12 +207,12 @@ At massive companies like Google or Meta, building the entire codebase takes hou
 | Put your fastest checks (Linting) first, or run them in parallel. | Put slow E2E tests first, making developers wait 10 mins to find a syntax error. |
 | Use Docker layer caching for `docker build` steps. | Re-download OS packages in Docker on every single build. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Cache Miss Penalty**
 > When you optimize heavily around caching, remember that a cache miss will eventually happen (e.g., when a new developer adds a package). Ensure your pipeline still succeeds on a cache miss, even if it runs slower. Caching should be an optimization, not a strict dependency.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Consequence | The Fix |
 |---|---|---|
@@ -216,7 +220,7 @@ At massive companies like Google or Meta, building the entire codebase takes hou
 | Caching `node_modules` directly | Cache restores are slow or broken due to OS differences. | It is safer and faster to let `actions/setup-node` manage caching the global `~/.npm` folder instead. |
 | Missing Concurrency | 10 rapid commits trigger 10 simultaneous AWS deployments. | Add the `concurrency` block tied to the PR/branch reference. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Building Your First Pipeline
 - Artifact Management
 - Dockerfile Fundamentals
