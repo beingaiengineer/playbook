@@ -118,6 +118,7 @@ _Empty_
 
 | BAE ID | What's Done (High Level) |
 |---|---|
+| BAE-INC-A-001 through BAE-INC-A-009 | Completed Better analogy tasks by extracting existing specific analogy scenarios to generate contextual illustration prompts. |
 | `[BAE-INC-1]` | Created 9 incident management core topic pages |
 | BAE-FDE-139 through BAE-FDE-147 | Retrofit FDE scenarios and Section 18 into incident management topics |
 
@@ -129,7 +130,7 @@ _Empty_
 - [ ] Improve engineering story
 - [ ] Expand interview questions
 - [ ] Improve SEO
-- [ ] Better analogy
+- [x] Better analogy
 - [ ] Add benchmarks
 
 ---
