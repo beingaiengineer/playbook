@@ -5,7 +5,7 @@ When Jules runs in an autonomous/headless server environment where the `generate
 
 An agent in an interactive chat session can then read this file, generate the images, save them to their asset paths, insert the proper image tag replacing the comment marker in the MDX files, and clear the entries from this queue.
 
-## Total Pending Illustrations: 128
+## Total Pending Illustrations: 137
 
 ## Queue
 
@@ -30,10 +30,19 @@ An agent in an interactive chat session can then read this file, generate the im
 | Topic | File Path | Target Image Path | Prompt |
 |---|---|---|---|
 
-### Course: Incident Management (0 topics pending)
+### Course: Incident Management (9 topics pending)
 
 | Topic | File Path | Target Image Path | Prompt |
 |---|---|---|---|
+| Blameless Postmortems | docs/school/incident-management/blameless-postmortems.mdx | docs/school/incident-management/assets/blameless-postmortems.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a post-match cricket analysis scenario: the match is over (we lost) |
+| Incident Commander Role | docs/school/incident-management/incident-commander-role.mdx | docs/school/incident-management/assets/incident-commander-role.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a fire brigade scenario: fire chief |
+| Incident Communication | docs/school/incident-management/incident-communication.mdx | docs/school/incident-management/assets/incident-communication.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a delayed train scenario: the train breaks down |
+| Incident Response Process | docs/school/incident-management/incident-response-process.mdx | docs/school/incident-management/assets/incident-response-process.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a emergency room (er) scenario: paramedic brings patient in |
+| Incident Tools | docs/school/incident-management/incident-tools.mdx | docs/school/incident-management/assets/incident-tools.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a fire department tools scenario: smoke detector |
+| On Call Culture | docs/school/incident-management/on-call-culture.mdx | docs/school/incident-management/assets/on-call-culture.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a night watch scenario: guarding the fort while everyone sleeps |
+| Runbooks | docs/school/incident-management/runbooks.mdx | docs/school/incident-management/assets/runbooks.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a medical emergency scenario: paramedic arrives at the scene |
+| Severity Levels | docs/school/incident-management/severity-levels.mdx | docs/school/incident-management/assets/severity-levels.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a medical triage scenario: cardiac arrest (immediate life threat) |
+| What Is An Incident | docs/school/incident-management/what-is-an-incident.mdx | docs/school/incident-management/assets/what-is-an-incident.png | A grayscale line-art illustration of Bae, a software engineer, interacting with a fire emergency scenario: a burnt toast in the kitchen |
 
 ### Course: Python (109 topics pending)
 
