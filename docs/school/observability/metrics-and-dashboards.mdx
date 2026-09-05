@@ -34,7 +34,7 @@ Instead, the pilot looks at a dashboard with gauges: Fuel Level, Altitude, Engin
 
 Metrics tell you *what* is happening right now. Logs tell you *why* it happened.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, metrics are simply numbers that represent the state of your system over time. While logs record discrete events (e.g., "User A logged in", "User B failed to log in"), metrics aggregate those events (e.g., "We had 500 logins and 12 failures in the last minute").
 
@@ -42,7 +42,7 @@ Because metrics are just numbers (counters, gauges, histograms), they are incred
 
 Dashboards are the visual representation of these metrics. A good dashboard provides a 10,000-foot view of your system's health at a single glance.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 There are four primary types of metrics you need to know:
 
@@ -53,7 +53,7 @@ There are four primary types of metrics you need to know:
 | Histogram | Tracks the distribution of values into "buckets" | HTTP response times (e.g., 95% of requests are < 200ms) |
 | Summary | Similar to a histogram, but calculates quantiles locally | Exact 99th percentile response time |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at how you define a Counter metric in a simple Python app using the `prometheus_client` library.
 
@@ -81,7 +81,7 @@ while True:
 If you curl `http://localhost:8000`, you'll see the raw metric data:
 `http_requests_total{endpoint="/api/users"} 45.0`
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you usually use a middleware or an interceptor to automatically track metrics for every request, rather than doing it manually inside your business logic.
 
@@ -135,7 +135,7 @@ def health_check():
     return {"status": "ok"}
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, there are two ways metrics get from your app to the Time-Series Database (TSDB): **Push** and **Pull**.
 
@@ -158,7 +158,7 @@ In a **Pull** model (like Prometheus), your app exposes a `/metrics` HTTP endpoi
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Activity | Performance Impact | Why? |
 |---|---|---|
@@ -166,7 +166,7 @@ In a **Pull** model (like Prometheus), your app exposes a `/metrics` HTTP endpoi
 | Exposing `/metrics` | Very Low | Rendering a plain text string every 15 seconds is trivial. |
 | Time-Series Storage | Highly Optimized | TSDBs use heavy compression; storing millions of data points takes megabytes, not gigabytes. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -176,7 +176,7 @@ In a **Pull** model (like Prometheus), your app exposes a `/metrics` HTTP endpoi
 | What is high cardinality and why is it dangerous? | Cardinality is the number of unique label combinations. If you use `user_id` as a label, you create a new memory series for every user. A million users = a million series. It will crash your app's memory and the TSDB. |
 | How do you monitor a metric that only goes up, like a Counter? | You use a rate function. You don't care that total requests = 1,000,000. You care about `rate(http_requests_total[5m])`, which tells you the requests *per second* over the last 5 minutes. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, a major gotcha is **Counter Resets**.
 
@@ -184,11 +184,11 @@ Imagine you have a Counter tracking total errors. It says `500`. Then, you deplo
 
 If your dashboard just shows the raw value, it will look like your errors miraculously disappeared. You must *always* wrap Counters in a `rate()` or `increase()` function in your query language (like PromQL). These functions are smart enough to detect when a number drops from 500 to 0 and handle the math correctly to show the true ongoing rate.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At companies like Shopify during Black Friday, dashboards are projected onto massive TVs in the engineering war room. They aren't looking at logs. They are watching a few golden metrics: Checkout Success Rate, Database CPU, and Payment Gateway Latency. If the Checkout Success Rate drops below 99%, an alert fires, and the team immediately dives into the traces to find the bottleneck.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -196,13 +196,13 @@ At companies like Shopify during Black Friday, dashboards are projected onto mas
 | DO use Histograms to track latency (p95, p99). | DON'T use simple averages for latency. |
 | DO keep dashboards simple. 4 to 6 critical graphs per service. | DON'T create massive dashboards with 50 graphs. Nobody will look at them. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution The Trap of Averages
 Never rely on the `average` (mean) for latency in production. The average hides outliers. Always use the 95th percentile (p95) or 99th percentile (p99). If your p99 latency is 2 seconds, it means 1 out of every 100 users is waiting 2 seconds for a page to load. That is the metric that actually impacts user experience.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

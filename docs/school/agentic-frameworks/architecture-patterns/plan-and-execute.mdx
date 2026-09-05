@@ -44,7 +44,7 @@ That is exactly what the Plan-and-Execute pattern is for your AI agents.
 | The construction workers | Executor Agent(s) running tools to solve one task at a time |
 | Crossing off finished phases | State management tracking completed steps |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The Plan-and-Execute pattern explicitly separates the "thinking/planning" phase from the "doing" phase.
 
@@ -54,7 +54,7 @@ Plan-and-Execute solves this by first having an LLM act as a Planner. It takes t
 
 Use this when the task requires strict sequential steps or has a long time horizon where a standard agent would drift off-topic. Don't use this for simple, single-step lookups because the extra planning overhead adds unnecessary latency and token cost.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here is a conceptual breakdown of the state components required for Plan-and-Execute using LangGraph state types.
 
@@ -65,7 +65,7 @@ Here is a conceptual breakdown of the state components required for Plan-and-Exe
 | `response` | `str` | The final synthesized answer provided to the user. |
 | `objective` | `str` | The original user request that must be fulfilled. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at the basic conceptual loop in standard Python.
 
@@ -91,7 +91,7 @@ def replanner_node(state):
     return {"plan": new_plan}
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at a production scenario: A Data Research Agent that needs to find a company's SEC filings, extract their Q3 revenue, and compare it to their competitors.
 
@@ -150,7 +150,7 @@ def execute_step(state: PlanExecuteState):
     }
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Under the hood, the framework manages a tight graph where the state dictates the flow. The Planner generates an array of strings. The system routes to the Executor as long as the array is not empty. The Executor runs a tool, appends the result to `past_steps`, and pops the step off the `plan` array. Then it hits the Replanner, which decides if the remaining steps are still valid or if the goal is met.
 
@@ -180,7 +180,7 @@ Here is how that flow looks:
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Characteristic | Why |
 |---|---|---|
@@ -189,7 +189,7 @@ Here is how that flow looks:
 | **Reliability** | Very High | Breaking tasks down mathematically reduces LLM hallucination and context loss. |
 | **Recovery** | Excellent | If a step fails, the Replanner can catch the error and generate a new path without restarting. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -199,7 +199,7 @@ Here is how that flow looks:
 | **How do you force the Planner to output a usable plan?** | Use Structured Outputs (like Pydantic models). Bind the LLM to a schema that requires returning a `List[str]` of steps. Parsing raw text for bullet points is fragile and breaks in production. |
 | **What are the cost implications of this pattern?** | It is expensive. Every sub-task requires a separate LLM invocation, and the Replanner must process the accumulated history on every cycle. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if the Executor completely fails a step? Let's say step 3 is "Download the PDF", but the URL returns a 404.
 
@@ -209,13 +209,13 @@ The edge case is handling **Execution Failures**. The Replanner must be explicit
 
 Another tricky scenario is **Infinite Replanning Loops**. If a tool consistently fails, the Replanner might just keep scheduling retries forever. You must implement a `max_steps` or `recursion_limit` in your graph execution to hard-stop the agent.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Top tier companies use Plan-and-Execute for heavy asynchronous workloads.
 - **Devin / Auto-coding Agents**: They don't just start typing code. They generate a plan: 1. Read README, 2. Run tests to see failures, 3. Edit file X, 4. Re-run tests.
 - **Financial Research Bots (Bloomberg/Morgan Stanley)**: When asked to compare three companies, the bot first plans to fetch 10-K filings for company A, then B, then C, then extract the revenue table from each, before finally synthesizing the data.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -223,13 +223,13 @@ Top tier companies use Plan-and-Execute for heavy asynchronous workloads.
 | **DO** keep the Executor's system prompt narrowly focused on solving the immediate task. | **DON'T** pass the entire 10-page objective to the Executor; only pass the specific step it needs to run. |
 | **DO** implement a Replanner to handle unexpected tool failures or dynamic environment changes. | **DON'T** use Plan-and-Execute for simple Q&A or single-tool queries; the latency overhead is unjustified. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠️ **State Bloat Warning**
 > In long-running Plan-and-Execute graphs, the `past_steps` array can grow massive. If an executor retrieves a 5,000-token webpage and appends it to `past_steps`, your next Replanner call might exceed the context window or cost a fortune.
 > **Production Fix**: Implement a summarization step. Before appending to `past_steps`, have a cheap model summarize the execution result down to 200 tokens.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Impact | The Fix (Code) |
 |---|---|---|
@@ -237,12 +237,12 @@ Top tier companies use Plan-and-Execute for heavy asynchronous workloads.
 | Forgetting to remove completed steps | The system loops infinitely, repeating step 1 forever | `new_plan = state["plan"][1:]` (Pop the step off the array) |
 | Assuming the Planner is perfect | If the environment changes, the rigid plan becomes useless | Add a Replanner node that evaluates `past_steps` and modifies `plan` dynamically. |
 
-## 15. Related Topics
+## 16. Related Topics
 - [ReAct Pattern](./react-pattern.mdx)
 - [LangGraph State Machines](../langchain-langgraph/langgraph-state-machines.mdx)
 - [Function Calling Deep Dive](#)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

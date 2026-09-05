@@ -167,7 +167,7 @@ The script will freeze on both ends! One agent will wait for you to type somethi
 
 ---
 
-## 17. Advanced Agent Configuration
+### Advanced Agent Configuration
 1. **Multiple LLM Backends**: A `ConversableAgent` can accept a list of models in `config_list`. It will attempt to use the first model (e.g. GPT-4o). If it hits a rate limit or a 500 error, it automatically falls back to the next model in the list (e.g. Gemini 1.5 Pro).
 2. **Reply Functions**: You can completely override how an agent thinks by registering a custom reply function using `agent.register_reply()`. This allows you to bypass the LLM entirely for specific message types and insert custom deterministic logic (like looking up an ID in a database before passing it to the LLM).
 
@@ -186,7 +186,7 @@ The script will freeze on both ends! One agent will wait for you to type somethi
 | [microsoft/autogen](https://github.com/microsoft/autogen) | ⭐ 30k+ | AutoGen Core | Where the ConversableAgent source code lives. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

@@ -38,7 +38,7 @@ Bro, imagine you are a senior engineer debugging an agent that keeps making stup
 
 Bro, have you ever lost your keys? You don't just magically *know* where they are. You stand in the hallway and say out loud: "Okay, I came in through the back door. Then I went to the kitchen. Let me check the counter." That internal monologue—talking to yourself to figure out the next step—is exactly how an AI agent thinks. We literally force the LLM to write out its thoughts before it takes an action.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 LLMs are not sentient; they are next-token predictors. If you ask an LLM a complex question, and it tries to answer immediately in the very next token, it often fails. It hasn't given itself "space" to process.
 
@@ -51,7 +51,7 @@ Instead of answering immediately, the system prompt forces the LLM to output a s
 
 This loop continues until the LLM decides no more tools are needed and outputs the final answer.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 *The core structure of a ReAct prompt.*
 
@@ -63,7 +63,7 @@ This loop continues until the LLM decides no more tools are needed and outputs t
 | **Observation (System)**| `Observation: {"user_id": 992}` |
 | **Final (LLM)** | `Final Answer: Alice's ID is 992. I will now check billing...` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at the raw text of an agent's "internal monologue" during a loop. You don't write this code; this is what the LLM generates under the hood.
 
@@ -84,7 +84,7 @@ Thought: I have the answer from the calculator. I can now respond to the user.
 Final Answer: There are 71 days until Christmas!
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in production, you don't parse raw text for actions anymore. You use **Function Calling** (or Tool Calling) APIs provided by OpenAI, Anthropic, or Gemini. The model is fine-tuned to emit structured JSON when it "thinks" it needs a tool.
 
@@ -133,7 +133,7 @@ def run_agent_loop(user_query, tools_list):
         # The loop restarts, allowing the LLM to think about the new Observation
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 This flowchart shows the cognitive loop. Notice how the LLM doesn't actually "execute" anything; it just generates text or JSON, and the *host system* executes the tool and feeds the data back.
 
@@ -157,7 +157,7 @@ This flowchart shows the cognitive loop. Notice how the LLM doesn't actually "ex
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Cognitive Step | Time Cost | Token Cost |
 |---|---|---|
@@ -165,7 +165,7 @@ This flowchart shows the cognitive loop. Notice how the LLM doesn't actually "ex
 | **Generating JSON Tool Call** | Low | Low |
 | **Ingesting Tool Observation** | Very Low | High (context window grows) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -174,43 +174,43 @@ This flowchart shows the cognitive loop. Notice how the LLM doesn't actually "ex
 | How do models like OpenAI's `o1` change agent thinking? | `o1` models handle the "Chain of Thought" internally and invisibly. You don't need to prompt them to use ReAct; they reason in a hidden loop before outputting the final tool call or answer. |
 | What causes an agent to get stuck in an infinite reasoning loop? | Usually, a tool returns an unhelpful error (e.g., `500 Server Error`). The LLM sees the error, tries the exact same tool again, gets the same error, and loops forever because it lacks the capacity to try a new strategy. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what if you give the agent a tool that returns 10 megabytes of JSON data?
 The LLM will try to "think" about that observation, but it will blow out the context window limit (e.g., 128k tokens) and crash.
 **The Edge Case Fix:** The host system must intercept large tool observations and truncate, summarize, or chunk them before feeding them back into the LLM's context. The agent can only think about what fits in its short-term memory.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Self-Correction:** An agent writes a SQL query, runs it, gets a syntax error, *reads the error*, and rewrites the query perfectly on the second loop.
 - **Multi-step Planning:** An agent is asked to "Deploy this code to AWS." It thinks: "First, I need to lint it. Second, I need to build the Docker image. Third, I need to push to ECR." It executes these one by one.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Use models fine-tuned for tool use and structured output (GPT-4o, Claude 3.5 Sonnet). | Don't try to build complex agents with older/smaller models that struggle with JSON formatting. |
 | Provide explicit error messages back to the LLM so it can learn why a tool failed. | Don't just return `False` when a tool fails; return `"Error: user ID not found, try searching by email."` |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, thinking takes time. If an agent loops 5 times before finding the answer, the user is staring at a loading spinner for 15 seconds. You MUST implement UI patterns like streaming the agent's internal "Thoughts" to the frontend (e.g., "Agent is checking the database...", "Agent is calculating...") so the user doesn't bounce.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Hiding tool execution errors from the LLM | The LLM doesn't know *why* it didn't get data, so it hallucinates an answer. | Catch exceptions in python and append them to the message array as a `tool` role message. |
 | Assuming the LLM will follow a 20-step plan perfectly | LLMs have short attention spans. By step 5, it forgets the overall goal. | Break tasks down using a Supervisor agent, or force the agent to re-read the original goal every 3 loops. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Anatomy of an Agent
 - Prompt Engineering for Agents
 - Tools & Actions Overview
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

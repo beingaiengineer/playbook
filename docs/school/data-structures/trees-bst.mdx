@@ -90,13 +90,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 Deleting a node in a BST that has two children requires finding the in-order successor (or predecessor), swapping values, and then deleting the successor node.
 
 ## 12. Real-World Usage
 DOM representation in browsers, file systems, and routing tables.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use self-balancing trees (AVL, Red-Black) in production to avoid O(N) worst-case scenarios. | Use recursion for traversing extremely deep trees in languages without tail-call optimization, as it will cause a stack overflow. |
@@ -156,7 +156,7 @@ DOM representation in browsers, file systems, and routing tables.
 - **Serialization Overhead:** Converting a complex tree structure into JSON or XML for network transmission is computationally expensive and significantly inflates the payload size.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When traversing deep trees in environments lacking TCO (like Python), implement iterative stack-based traversal instead of recursive traversal to prevent stack overflows. | Prevents massive performance degradations in deployed systems. |

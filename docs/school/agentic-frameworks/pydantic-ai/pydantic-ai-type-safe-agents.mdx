@@ -149,7 +149,7 @@ By default, Pydantic ignores extra fields (they are stripped out silently). If y
 
 ---
 
-## 17. Advanced Type Safety Features
+### Advanced Type Safety Features
 1. **Annotated Types**: You can use `Annotated` from Python's typing module to add massive constraints without writing custom validators. E.g., `age: Annotated[int, Field(ge=18, le=100)]` forces the LLM to provide an integer between 18 and 100.
 2. **Generics**: You can build reusable generic Pydantic models (e.g. `class PaginatedResponse[T](BaseModel): items: list[T]`) and pass them dynamically to the LLM agent, allowing for highly modular architecture.
 
@@ -164,7 +164,7 @@ By default, Pydantic ignores extra fields (they are stripped out silently). If y
 - Static Type Checking in Python
 - Python Dataclasses
 
-## 17. Top GitHub Repositories
+### Top GitHub Repositories
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
@@ -172,7 +172,7 @@ By default, Pydantic ignores extra fields (they are stripped out silently). If y
 | [microsoft/pyright](https://github.com/microsoft/pyright) | ⭐ 12k+ | Static type checker | Essential for verifying your Agent types in CI/CD pipelines. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

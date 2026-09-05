@@ -168,7 +168,7 @@ By default, the subprocess will hang forever and eat your server's CPU. You MUST
 
 ---
 
-## 17. Advanced Code Execution (Jupyter)
+### Advanced Code Execution (Jupyter)
 1. **Stateful Execution**: The standard Command Line Executor treats every script as isolated. If Script A declares `x = 5`, Script B cannot access `x`.
 2. **Jupyter Code Executor**: AutoGen provides a `JupyterCodeExecutor` that maintains state across turns. Just like a Jupyter Notebook, if the agent defines a dataframe in the first message, it can plot that same dataframe in the second message without reloading the CSV!
 
@@ -188,7 +188,7 @@ By default, the subprocess will hang forever and eat your server's CPU. You MUST
 | [jupyter/jupyter](https://github.com/jupyter/jupyter) | ⭐ 15k+ | Interactive computing | The backbone technology for the stateful JupyterCodeExecutor. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

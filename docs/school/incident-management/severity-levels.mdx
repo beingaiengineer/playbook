@@ -40,13 +40,13 @@ Bro, just like a doctor won't drop a heart surgery to look at your paper cut, we
 
 ![Illustration of Bae prioritizing hospital emergency triage severity levels](./assets/severity-levels.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Severity levels (often abbreviated as SEV or P for Priority) are a standardized way to communicate the impact of an incident. They dictate who gets paged, how quickly they need to respond, and what the communication strategy should be.
 
 Most companies use a scale from 1 (most severe) to 4 or 5 (least severe). When an incident is declared, assigning the correct SEV is the first critical decision the Incident Commander makes.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Level | Name | Description | Response Expectation |
 |---|---|---|---|
@@ -55,7 +55,7 @@ Most companies use a scale from 1 (most severe) to 4 or 5 (least severe). When a
 | **SEV-3** | Minor Issue | Non-critical feature broken or partial degradation. | Handled during business hours, next day fix. |
 | **SEV-4** | Cosmetic/Trivial | Typo, minor UI glitch, no functional impact. | Added to backlog, fixed in a future sprint. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Defining SEV levels in an incident response runbook or tooling configuration:
 
@@ -76,7 +76,7 @@ Defining SEV levels in an incident response runbook or tooling configuration:
 }
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a production environment, alerting rules are often tied directly to SEV levels based on the magnitude of the metric violation.
 
@@ -100,7 +100,7 @@ groups:
       summary: "WARNING: Payments are slow, but completing"
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is how an incident's severity level dictates the routing and escalation process within an organization.
 
@@ -122,7 +122,7 @@ Here is how an incident's severity level dictates the routing and escalation pro
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Severity | Target Response Time (Acknowledge) | Target Resolution Time |
 |---|---|---|
@@ -131,7 +131,7 @@ Here is how an incident's severity level dictates the routing and escalation pro
 | SEV-3 | Next business day | Next sprint |
 | SEV-4 | N/A | Backlog |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -141,16 +141,16 @@ Here is how an incident's severity level dictates the routing and escalation pro
 | Why shouldn't we treat every issue as a SEV-1 to get it fixed faster? | Because you will burn out your engineers, cause alert fatigue, and when a real SEV-1 happens, people will ignore it. |
 | How do you handle a SEV-1 at 3 AM? | The on-call is paged. They wake up, join a bridge/war room, assess the situation, and mitigate the impact. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Downgrade Dilemma**: You declare a SEV-1 because the site looked down, but 5 minutes later you realize it's just a caching issue affecting 1% of users. Do you keep it SEV-1? No, bro. Downgrade it to SEV-3 immediately to release the emergency resources.
 - **The Boiling Frog**: A memory leak slowly degrading performance over a week might start as a SEV-4, become a SEV-3, and suddenly cause a massive crash (SEV-1). Trend analysis is needed to catch these before they explode.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like Stripe and Shopify have incredibly strict definitions for SEV levels. For Stripe, a SEV-1 means API requests are failing, directly impacting global commerce. For a video game company, a SEV-1 might mean the matchmaking servers are down on launch day. The definition depends entirely on your business.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -158,11 +158,11 @@ Companies like Stripe and Shopify have incredibly strict definitions for SEV lev
 | Allow the Incident Commander to change the SEV level at any time. | Argue about the SEV level while the system is burning down. Fix it first. |
 | Review SEV assignments during the postmortem to ensure they were accurate. | Use SEV-1 to get around standard product management prioritization. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: Never argue about whether something is a SEV-1 or a SEV-2 during the heat of the moment. If it feels like a SEV-1, treat it like a SEV-1, mitigate the issue, and argue about the classification later during the postmortem.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -170,7 +170,7 @@ Companies like Stripe and Shopify have incredibly strict definitions for SEV lev
 | Delaying incident declaration because you aren't sure of the SEV. | Declare it as SEV-2 or SEV-3; you can always change it later. |
 | Using SEV levels to measure developer performance. | SEVs measure *system impact*, not *developer competence*. |
 
-## 15. Related Topics
+## 16. Related Topics
 - What is an Incident?
 - Incident Commander Role
 - Alert Fatigue

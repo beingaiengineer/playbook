@@ -151,7 +151,7 @@ If OpenAI is down, your agent will hang and eventually timeout. If you don't cat
 
 ---
 
-## 17. Advanced Top Patterns for Agents
+### Advanced Top Patterns for Agents
 1. **Dependency Injection**: Pass request-scoped variables (like the current user's ID or database session) into the agent using `agent.run(deps=...)`. This ensures your tools don't accidentally leak data between concurrent users.
 2. **Observability**: Wrap your agent runs in OpenTelemetry spans or use Logfire (Pydantic's observability tool) to track exactly how long each tool call and LLM generation took.
 3. **Graceful Degradation**: If the primary model (e.g. GPT-4) fails or rate-limits, write fallback logic that catches the exception and immediately retries the request with a cheaper, faster model (e.g. GPT-3.5 or Claude Haiku).
@@ -176,7 +176,7 @@ If OpenAI is down, your agent will hang and eventually timeout. If you don't cat
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 65k+ | FastAPI framework | The industry standard for deploying async Python agents. |
 | [pydantic/logfire](https://github.com/pydantic/logfire) | ⭐ 2k+ | Observability for Pydantic | Essential for tracing LLM calls in production. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

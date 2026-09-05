@@ -34,7 +34,7 @@ A badly configured smoke detector (bad alerting) goes off every time you toast a
 
 A well-configured smoke detector only goes off if the room fills with thick, toxic smoke that actually threatens the house. It's symptom-based. It doesn't care that the toaster element is hot (the cause); it only cares if the house is burning down (the symptom).
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, nobody stares at Grafana dashboards 24/7. When things break at 3 AM on a Sunday, a machine needs to wake you up.
 
@@ -45,7 +45,7 @@ The golden rule of modern SRE (Site Reliability Engineering) is to **alert on sy
 **Cause:** The database CPU is at 95%. (Who cares? If the DB is handling the load and users are getting fast responses, the DB is just doing its job efficiently).
 **Symptom:** The API response time is > 2 seconds for 5% of users. (This is a real problem. Users are angry. Page the engineer!). Once the engineer wakes up, they look at the dashboard and say, "Ah, the symptom is slow responses, and the cause is the DB CPU."
 
-## 4. Syntax Table (Prometheus Alert Rules)
+## 5. Syntax Table (Prometheus Alert Rules)
 
 In Prometheus, alerting rules are defined in YAML using PromQL.
 
@@ -57,7 +57,7 @@ In Prometheus, alerting rules are defined in YAML using PromQL.
 | `labels` | Metadata (e.g., `severity: critical`, `team: frontend`) |
 | `annotations` | Human-readable text for the Slack/PagerDuty message |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a basic Prometheus alerting rule that fires if a specific instance goes down.
 
@@ -78,7 +78,7 @@ groups:
       description: "The instance has not responded to scrapes for 5 minutes."
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In the real world, you want symptom-based alerts. Let's alert if the error rate of our HTTP API exceeds 5% over the last 5 minutes.
 
@@ -104,7 +104,7 @@ groups:
 ```
 Notice the `runbook_url`? Bro, an alert without a runbook is just a panic attack. Always link to a document telling the engineer exactly what commands to run to fix the issue.
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, Prometheus evaluates the `expr` periodically (e.g., every 15s). If the expression is true, the alert goes into a `PENDING` state. Once it remains true for the `for` duration, it changes to `FIRING` and is sent to the Alertmanager. Alertmanager then groups similar alerts and sends them to PagerDuty.
 
@@ -124,14 +124,14 @@ Bro, Prometheus evaluates the `expr` periodically (e.g., every 15s). If the expr
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Component | CPU/Memory Cost | Why? |
 |---|---|---|
 | Evaluating Rules | Medium | Prometheus has to run the PromQL query across the TSDB memory every 15 seconds. Very complex regex queries can slow it down. |
 | Alertmanager Routing | Very Low | It just processes JSON events and makes HTTP POSTs to webhooks. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -141,7 +141,7 @@ Bro, Prometheus evaluates the `expr` periodically (e.g., every 15s). If the expr
 | What makes a "Good" alert? | It is actionable (requires human intervention), urgent (cannot wait until morning), and links to a runbook. |
 | If you shouldn't alert on CPU, how do you know if you need to scale up? | You alert on symptoms! If CPU gets high, it will eventually cause *latency* or *errors*. You alert on the latency. For scaling, you use Autoscaling policies based on CPU, not human alerts. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, a major edge case is **Silencing during deployments**.
 
@@ -149,11 +149,11 @@ When you deploy a new version of an app, the container stops, Kubernetes shifts 
 
 To fix this, CI/CD pipelines should make an API call to Alertmanager to create a "Silence" for that specific service for 5 minutes during the deployment. Alternatively, ensure your `for:` duration is longer than the longest possible deployment time.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At companies like Stripe, alerts are ruthlessly pruned. If an alert fires and the on-call engineer just looks at it and says "Ah, it's fine, ignore it," they are legally required by team policy to delete or tune that alert the next morning. An alert that requires no action is a noisy lie that destroys trust in the system.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -161,13 +161,13 @@ At companies like Stripe, alerts are ruthlessly pruned. If an alert fires and th
 | DO use `severity: page` for things that wake people up, and `severity: ticket` for things that create Jira tasks for the morning. | DON'T wake people up at 3 AM because a hard drive is at 70% capacity. It can wait until morning. |
 | DO group alerts by environment (Staging vs Prod). | DON'T page the on-call engineer because Staging is down. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution The "No Data" Trap
 If your application completely crashes, it might stop emitting metrics entirely. If your alert rule is `error_rate > 5`, and the app stops emitting data, the metric disappears. Prometheus will see "No Data", the expression evaluates to null, and **the alert will not fire!** You must always have a separate alert that checks `absent(metric_name)` to catch complete metric blackouts.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

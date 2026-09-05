@@ -151,7 +151,7 @@ Because the default `ConversableAgent` keeps history in Python lists in memory, 
 
 ---
 
-## 17. Advanced Deployment (Observability)
+### Advanced Deployment (Observability)
 1. **AgentOps Integration**: When running agents in the cloud, you can't just `print()` to terminal to see what they are doing. Integrate tools like AgentOps or LangSmith. AutoGen provides callback hooks so you can stream every agent message, token count, and LLM latency metric to a centralized tracing dashboard.
 2. **Cost Control Middleware**: In production, wrap your LLM API calls in a middleware that strictly caps token usage. An infinite loop in production can consume thousands of dollars overnight.
 
@@ -171,7 +171,7 @@ Because the default `ConversableAgent` keeps history in Python lists in memory, 
 | [celery/celery](https://github.com/celery/celery) | ⭐ 25k+ | Distributed Task Queue | The gold standard for running async agent loops in python. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

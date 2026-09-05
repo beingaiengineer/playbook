@@ -40,7 +40,7 @@ Bro, a burnt toast is just a bug. But when the kitchen catches fire, that's an i
 
 ![Illustration of Bae comparing burnt toast (bug) to kitchen fire (incident)](./assets/what-is-an-incident.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 An incident is an unplanned disruption or degradation of service that affects users or core business functions. It requires immediate attention and a coordinated response to restore normal operations.
 
@@ -48,7 +48,7 @@ Why does this matter? If everything is an incident, nothing is. We need a clear 
 
 Do NOT use incident processes for routine bugs that can wait for the next sprint.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Concept | Description |
 |---|---|
@@ -57,7 +57,7 @@ Do NOT use incident processes for routine bugs that can wait for the next sprint
 | **Bug** | A flaw in code causing incorrect behavior. (Usually not an incident unless it completely breaks a core flow). |
 | **Outage** | A type of incident where a service is completely unavailable. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 This is a mindset, not code. But here is how you might configure a simple alert rule that *could* trigger an incident:
 
@@ -75,7 +75,7 @@ groups:
       summary: "High 500 error rate detected"
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, we don't just alert on "CPU is high". We alert on user impact. This is called Service Level Indicator (SLI) based alerting.
 
@@ -90,7 +90,7 @@ def route_alert(alert):
         jira.create_ticket(project="DATA", summary=alert.message)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is how an alert transitions into a declared incident in a typical modern engineering setup.
 
@@ -110,7 +110,7 @@ Here is how an alert transitions into a declared incident in a typical modern en
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Action | Time Cost |
 |---|---|
@@ -119,7 +119,7 @@ Here is how an alert transitions into a declared incident in a typical modern en
 | Acknowledging the page | Target: < 5 minutes |
 | Resolving the incident | Target: Varies by severity (SLO based) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -129,16 +129,16 @@ Here is how an alert transitions into a declared incident in a typical modern en
 | What happens immediately after an incident is declared? | The primary on-call engineer is paged and begins investigation. |
 | Why not page on CPU > 90%? | Because high CPU alone doesn't mean users are impacted. Page on symptoms (latency, errors), not causes (CPU, memory). |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Boy Who Cried Wolf**: If you set your thresholds too low, you get alert fatigue. Engineers will start ignoring pages, and when a real incident happens, bro, nobody will respond.
 - **Silent Failures**: Sometimes, the monitoring system itself goes down. Who monitors the monitor? Always have an external ping service (like Pingdom) checking your endpoints from the outside.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like Netflix and Uber have dedicated Site Reliability Engineering (SRE) teams. However, the modern standard is "You build it, you run it." The developers who wrote the code are the ones who get paged when it breaks as an incident.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -146,11 +146,11 @@ Companies like Netflix and Uber have dedicated Site Reliability Engineering (SRE
 | Page only for actionable, user-impacting issues. | Page for informational alerts that require no action. |
 | Make it easy for anyone in the company to declare an incident. | Have a complex approval process to start fixing a fire. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: Alert Fatigue is the number one killer of on-call morale. If an engineer gets paged at 3 AM for something that "can wait until morning", your incident definition is broken.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -158,7 +158,7 @@ Companies like Netflix and Uber have dedicated Site Reliability Engineering (SRE
 | Calling a slow but working API an "incident" without SLI context. | Measure against defined Service Level Objectives (SLOs). |
 | Having 50 active "incidents" simultaneously. | Most of those are bugs. Reclassify them. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Severity Levels
 - On-Call Culture
 - Service Level Objectives (SLOs)

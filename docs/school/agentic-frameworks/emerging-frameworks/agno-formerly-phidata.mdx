@@ -152,7 +152,7 @@ No. Agno uses memory windowing. By default, it might only inject the last 10 mes
 
 ---
 
-## 17. Advanced Tooling & Structured Output
+### Advanced Tooling & Structured Output
 1. **Structured Output (Pydantic)**: You can force an Agno agent to return strict JSON by setting `response_model=MyPydanticClass`. Agno natively hooks into OpenAI's Structured Outputs feature, guaranteeing that the agent will return parseable JSON instead of conversational text.
 2. **Agent Teams**: While Agno shines at single agents, you can pass a list of agents to a central "Team Leader" agent. The leader can delegate tasks to sub-agents (e.g., a Writer and a Researcher) to solve complex workflows, though it is less rigid than AutoGen's GroupChat.
 
@@ -171,7 +171,7 @@ No. Agno uses memory windowing. By default, it might only inject the last 10 mes
 | [agno-agi/agno](https://github.com/agno-agi/agno) | ⭐ 15k+ | The official Agno (formerly Phidata) repository. | Contains all code for memory, storage, and agents. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

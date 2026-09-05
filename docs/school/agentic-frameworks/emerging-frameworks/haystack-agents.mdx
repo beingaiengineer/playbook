@@ -178,7 +178,7 @@ Haystack's `.connect()` method performs strict validation *before* the pipeline 
 
 ---
 
-## 17. Advanced RAG & Reranking
+### Advanced RAG & Reranking
 1. **Rerankers**: In advanced Haystack pipelines, you don't just trust the Vector Database. You retrieve 50 documents, then pass them through a `SentenceTransformersRanker` (a specialized cross-encoder model). It re-scores and re-orders the 50 documents against the user's query, returning only the top 3 most relevant ones to the LLM. This drastically reduces hallucinations.
 2. **WebSearch Integration**: You can add a `SerperDevWebSearch` component alongside your Vector Database retriever, and use a `DocumentJoiner` to merge internet results with your private company data before feeding it to the prompt.
 
@@ -197,7 +197,7 @@ Haystack's `.connect()` method performs strict validation *before* the pipeline 
 | [deepset-ai/haystack](https://github.com/deepset-ai/haystack) | ⭐ 15k+ | The official Haystack repository. | The premier open-source orchestrator for production RAG. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

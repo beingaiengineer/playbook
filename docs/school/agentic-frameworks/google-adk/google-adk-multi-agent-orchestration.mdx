@@ -155,7 +155,7 @@ This is a **Routing Loop**. Google ADK mitigates this by enforcing `max_hops` (u
 
 ---
 
-## 17. Advanced Orchestration Patterns
+### Advanced Orchestration Patterns
 1. **The Supervisor Pattern**: Instead of agents handing off linearly, you create a Supervisor Agent. The Supervisor looks at the task, breaks it down into sub-tasks, assigns them to Worker Agents in parallel, waits for all results, and synthesizes the final answer. Google ADK supports this via `asyncio` `gather` combined with multiple agent runs.
 2. **Dynamic Tool Provisioning**: Instead of hardcoding tools into an agent, a highly advanced Orchestrator can query a Datastore of available tools, and inject only the necessary tools into the Worker Agent at runtime before handing off the task.
 
@@ -175,7 +175,7 @@ This is a **Routing Loop**. Google ADK mitigates this by enforcing `max_hops` (u
 | [joaomdmoura/crewai](https://github.com/joaomdmoura/crewai) | ⭐ 15k+ | Role-playing AI agents | Excellent for sequential multi-agent workflows. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

@@ -172,7 +172,7 @@ If the Python function crashes, the Kernel catches the exception, formats it as 
 
 ---
 
-## 17. Advanced Plugin Mechanics
+### Advanced Plugin Mechanics
 1. **YAML Prompt Templates**: In enterprise, you don't define Semantic Prompts in python strings. You define them in `.yaml` files containing the prompt text, the temperature, and the expected input variables. The Kernel can load entire directories of these YAML files automatically.
 2. **Context Variables**: Native Functions can accept a special `KernelArguments` object. This allows the function to access the entire shared state of the current execution chain, read variables set by previous plugins, and inject new variables for downstream plugins to consume.
 
@@ -185,13 +185,13 @@ If the Python function crashes, the Kernel catches the exception, formats it as 
 - Semantic Kernel Planners
 - Guardrails & Prompt Injection
 
-## 17. Top GitHub Repositories
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | The official Semantic Kernel repo | Review the `core_plugins` folder to see how Microsoft writes native plugins (Math, Time, HTTP). |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

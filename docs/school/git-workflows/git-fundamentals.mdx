@@ -38,13 +38,13 @@ Bro, think of Git like taking a series of snapshots of your house while you reno
 ![Illustration of Bae taking snapshots of a house renovation](./assets/git-fundamentals.png)
 {/* TODO: [BAE-GIT-A-005] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with taking a series of snapshots of your house while you renovate it. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Git is a distributed version control system. It exists so that you can track exactly what changed in your code, who changed it, and why. Without it, you are just renaming files like `app_final_v2_really_final.js`.
 
 In a corporate environment, Git gives you the safety net to experiment without breaking the production code. Every developer has a full copy of the entire history locally, which means you can work offline and operations are incredibly fast. The key to mastering Git is understanding its three states: Modified (Working Directory), Staged (Staging Area/Index), and Committed (Local Repository).
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Command | What it does |
 |---|---|
@@ -57,7 +57,7 @@ In a corporate environment, Git gives you the safety net to experiment without b
 | `git pull` | Downloads and merges changes from the remote repository. |
 | `git log` | Shows the commit history. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's say you just created a new Python script. Here is how you save it to Git.
 
@@ -78,7 +78,7 @@ git add main.py
 git commit -m "feat: add main script"
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you never commit directly to the `main` branch. You create a feature branch, do your work, stage specific files (not just `git add .`), commit with a descriptive message, and push.
 
@@ -103,7 +103,7 @@ git commit -m "feat(auth): implement JWT based login
 git push -u origin feature/user-authentication
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Under the hood, Git is a key-value data store. When you commit, Git doesn't save a "diff" (what changed); it takes a snapshot of exactly what all files look like at that moment.
 
@@ -127,7 +127,7 @@ If a file didn't change, Git just stores a reference to the previous identical f
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Time Complexity | Note |
 |---|---|---|
@@ -136,7 +136,7 @@ If a file didn't change, Git just stores a reference to the previous identical f
 | `git clone` | O(N) | N is the size of the repo history. Can be slow for massive monorepos. |
 | `git status` | O(N) | N is the number of files in the working directory. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -147,7 +147,7 @@ If a file didn't change, Git just stores a reference to the previous identical f
 | How do you change the message of the very last commit? | You can run `git commit --amend -m "New message"` to rewrite the last commit message. However, you should only do this if you haven't pushed the commit to a remote server yet. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **What happens if you accidentally delete the `.git` hidden folder?**
 Bro, you just deleted all your Git history. Your code files are still there in the working directory, but it is no longer a Git repository. It's just a regular folder now.
@@ -155,11 +155,11 @@ Bro, you just deleted all your Git history. Your code files are still there in t
 **Can you commit an empty folder?**
 No. Git tracks file contents, not directories. If you need an empty folder, the standard trick is to add an empty hidden file inside it named `.gitkeep`.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like Netflix and Uber rely on Git for everything. Their CI/CD pipelines are triggered entirely by Git events. When a developer pushes a commit or merges a branch, the Git server fires a webhook to systems like Jenkins or GitHub Actions, which then run tests, build Docker images, and deploy the code to AWS or Kubernetes. Git isn't just for code; it's the control plane for modern infrastructure (GitOps).
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -167,12 +167,12 @@ Companies like Netflix and Uber rely on Git for everything. Their CI/CD pipeline
 | Commit often and keep commits small and logically grouped. | Don't commit everything at the end of the week in one massive commit. |
 | Review your changes with `git diff` before staging. | Don't blindly run `git add .` without checking what you are adding. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Large Files**
 > Do not commit large binary files (like `.mp4` videos, massive `.csv` datasets, or compiled `.jar` files) to Git. Git keeps a copy of every version of every file forever. Committing large binaries will cause your repository size to bloat exponentially, slowing down `git clone` for everyone on your team. Use `.gitignore` for build artifacts and Git LFS (Large File Storage) for necessary large media.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
@@ -180,7 +180,7 @@ Companies like Netflix and Uber rely on Git for everything. Their CI/CD pipeline
 | Committing secrets (API keys, passwords) | Use tools like BFG Repo-Cleaner or `git filter-repo` to rewrite history and remove them, then rotate the keys immediately. |
 | Adding files you didn't mean to (`git add .`) | Unstage them using `git reset HEAD <file>`. |
 
-## 15. Related Topics
+## 16. Related Topics
 - branching-strategies
 - pull-requests
 - conventional-commits

@@ -40,7 +40,7 @@ Bro, the Fire Chief doesn't hold the hose. They stand back, look at the whole bu
 
 ![Illustration of Bae as Fire Chief directing firefighters](./assets/incident-commander-role.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The Incident Commander (IC) is the single source of truth and authority during a major incident. They do not fix the problem; they coordinate the people who are fixing the problem.
 
@@ -48,7 +48,7 @@ Their job is to maintain situational awareness, delegate tasks, enforce discipli
 
 If you are the IC, your primary tools are your voice, a notebook, and a clock. Not a terminal.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Role | Responsibilities |
 |---|---|
@@ -57,7 +57,7 @@ If you are the IC, your primary tools are your voice, a notebook, and a clock. N
 | **Scribe** | Takes notes in a document with timestamps. Critical for the postmortem. |
 | **Communications Lead** | Drafts status page updates and emails to executives. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A typical command from an IC in a Slack war room:
 
@@ -72,7 +72,7 @@ Alice: It's at 30 seconds and climbing.
 IC: Copy. @bob, execute the rollback script now.
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a highly mature organization, the IC role can be transferred if the current IC gets overwhelmed or needs a break during a multi-hour incident. This is called a formal handoff.
 
@@ -82,7 +82,7 @@ Current IC: Diana, the current status is: rollback failed, DB is locked. We are 
 New IC (@diana): I acknowledge. I am now the IC. Everyone, direct updates to me.
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is the communication flow managed by the Incident Commander.
 
@@ -102,7 +102,7 @@ Here is the communication flow managed by the Incident Commander.
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | IC Action | Expected Timeframe |
 |---|---|
@@ -111,7 +111,7 @@ Here is the communication flow managed by the Incident Commander.
 | Get initial status | Within first 5 minutes |
 | Cycle updates (check-ins) | Every 10-15 minutes |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -121,16 +121,16 @@ Here is the communication flow managed by the Incident Commander.
 | What is a "timebox"? | A specific amount of time the IC gives an SME to investigate before they must report back (e.g., "Take 5 minutes to check logs, then report back"). |
 | How do you become an IC? | Through shadowing, training, and practicing in low-severity incidents or game days. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Overriding Executive**: The CTO joins the bridge and starts giving direct orders to engineers, bypassing the IC. The IC must firmly but politely assert control: "CTO, I am the IC. Please direct your suggestions to me so we don't have conflicting actions."
 - **The Missing Expertise**: The IC realizes nobody on the call understands the broken system. The IC must aggressively escalate, paging secondary on-calls or managers to find the right SME immediately.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 The Incident Command System (ICS) wasn't invented by software engineers. It was invented by firefighters in California in the 1970s to manage massive wildfires where multiple departments had to coordinate. PagerDuty and Google SRE adapted this exact system for software.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -138,11 +138,11 @@ The Incident Command System (ICS) wasn't invented by software engineers. It was 
 | Use clear, direct language (use people's names). | Ask vague questions to the room ("Can someone check the logs?"). |
 | Regularly summarize the current state for everyone. | Assume everyone knows what is going on. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: The IC role requires high psychological safety. An IC must feel empowered to make a potentially expensive call (like failing over a database) without fear of being fired if it turns out to be the wrong choice in hindsight.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -150,7 +150,7 @@ The Incident Command System (ICS) wasn't invented by software engineers. It was 
 | Letting the war room become chaotic with 20 people talking. | The IC must mute everyone except the active SMEs working the problem. |
 | Forgetting to update the status page. | Assign a Communications Lead immediately so the IC doesn't have to worry about external updates. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Incident Response Process
 - Incident Communication
 - Blameless Postmortems

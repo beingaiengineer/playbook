@@ -100,13 +100,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 If two items have the same priority in Python's heapq, it attempts to compare the objects themselves, which can crash if they lack a `__lt__` method. Always include a tiebreaker.
 
 ## 12. Real-World Usage
 Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-driven simulation systems.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use Python's `heapq` module for fast, C-optimized heap operations. | Use a sorted list as a priority queue; inserting into a sorted list takes O(N), while a heap takes O(log N). |
@@ -164,7 +164,7 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 - **Lack of Stability:** If two tasks have the exact same priority, heaps do not guarantee which one will be popped first. If FIFO order among equals is required, a secondary timestamp metric must be added.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When using `heapq` in Python with complex objects, always insert a monotonic counter as a tie-breaker in the tuple to avoid unorderable type exceptions. | Prevents massive performance degradations in deployed systems. |

@@ -32,7 +32,7 @@ Think of traveling the world, bro. If you go to France, you need a French dictio
 
 OpenTelemetry is like a Universal Translator. You write your application code once using the OpenTelemetry API. The OTel Collector sits on your server, takes that universal data, and translates it into whatever language your backend wants—whether that is Datadog, Prometheus, Splunk, or Jaeger. You are no longer locked into one vendor.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, before OpenTelemetry, the observability space was a mess. There was OpenTracing and OpenCensus, and a dozen proprietary agents.
 
@@ -43,7 +43,7 @@ It provides three things:
 2. **Auto-Instrumentation** libraries that magically add tracing to popular frameworks (like Express, Django, FastAPI) without changing your code.
 3. The **OTel Collector**, a highly optimized proxy that receives data from your apps, processes it (filtering, batching), and exports it to *any* backend you choose.
 
-## 4. Syntax Table (OTel Architecture)
+## 5. Syntax Table (OTel Architecture)
 
 | Component | What it does | Real-World Equivalent |
 |---|---|---|
@@ -53,7 +53,7 @@ It provides three things:
 | OTel Collector | A standalone proxy that receives, processes, and routes data | A traffic cop routing cars to different highways |
 | OTLP | OpenTelemetry Protocol (The standard network format) | The standardized shape of shipping containers |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at how easy it is to use OTel Auto-Instrumentation in Node.js. You literally don't even touch your application code.
 
@@ -79,7 +79,7 @@ env OTEL_SERVICE_NAME="my-express-app" \
 ```
 Bro, without writing a single line of tracing code, OTel will automatically intercept every HTTP request, generate a Trace ID, create Spans for the request lifecycle, and print them to the console!
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you use the **OTel Collector**. Your apps send OTLP data to the collector, and the collector is configured via a YAML file to route that data to your actual backends.
 
@@ -126,7 +126,7 @@ service:
       exporters: [prometheus]
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, the OTel Collector is the secret sauce of enterprise observability. By putting the collector on the same node as your app (as a DaemonSet or sidecar), your app's network calls are ultra-fast local calls. The collector handles the heavy lifting of batching, retrying, and encrypting the data before sending it over the public internet to a SaaS vendor.
 
@@ -146,14 +146,14 @@ Bro, the OTel Collector is the secret sauce of enterprise observability. By putt
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Strategy | App Performance Impact | Reliability |
 |---|---|---|
 | App sends direct to Vendor SaaS | High (Network latency, blocking calls) | Low (Data lost if network drops) |
 | App sends to Local OTel Collector | Very Low (Localhost gRPC) | High (Collector buffers and retries) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -163,7 +163,7 @@ Bro, the OTel Collector is the secret sauce of enterprise observability. By putt
 | What is auto-instrumentation? | It's a feature where OTel dynamically injects telemetry logic into standard libraries (like `requests`, `express`, `psycopg2`) at runtime, so you get distributed traces without modifying your app's code. |
 | Why use the OTel Collector instead of sending directly to the backend? | The collector offloads CPU-heavy tasks like batching, retrying, encrypting, and filtering (e.g., dropping health check traces) away from your application. It also provides a single point of egress from your cluster. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, a major gotcha is the difference between the **OTel API** and the **OTel SDK**.
 
@@ -171,13 +171,13 @@ If you are writing a reusable library (like an open-source database driver), you
 
 It's the *application developer* who imports the OTel SDK and configures the exporters. If an app doesn't configure the SDK, your library's API calls just safely do nothing, adding zero overhead. If you accidentally import the SDK into your open-source library, you force dependencies on the user.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Imagine your startup uses Jaeger for tracing because it's free. Two years later, the company gets rich and decides to buy Datadog.
 Before OTel: A team of 5 engineers spends two months ripping out Jaeger code and installing Datadog SDKs across 40 microservices.
 With OTel: One engineer opens `otel-collector-config.yaml`, changes `exporters: [jaeger]` to `exporters: [datadog]`, restarts the collector, and goes to lunch.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -185,13 +185,13 @@ With OTel: One engineer opens `otel-collector-config.yaml`, changes `exporters: 
 | DO deploy the OTel Collector as a DaemonSet (one per node) in Kubernetes. | DON'T have apps send OTLP data directly over the public internet to a SaaS provider. |
 | DO standardize on the OTLP protocol for all internal telemetry communication. | DON'T use legacy formats like Zipkin or Jaeger Thrift unless strictly necessary. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Context Propagation Headers
 If you put an API Gateway, Load Balancer, or Nginx proxy in front of your microservices, you must ensure they are configured to forward the `traceparent` HTTP headers! If Nginx strips unknown headers for security reasons, it will silently destroy all your distributed traces.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

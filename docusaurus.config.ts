@@ -71,9 +71,6 @@ const config: Config = {
             { type: 'docSidebar', sidebarId: 'sliSloSidebar', label: '📈 SLIs & SLOs' },
             { type: 'docSidebar', sidebarId: 'softwareTestingSidebar', label: '🧪 Software Testing' },
             { type: 'docSidebar', sidebarId: 'teamStructureSidebar', label: '👥 Team Structure' },
-            { type: 'docSidebar', sidebarId: 'systemDesignSidebar', label: '🏗️ System Design' },
-            { type: 'docSidebar', sidebarId: 'cloudInfrastructureSidebar', label: '☁️ Cloud Infrastructure' },
-            { type: 'docSidebar', sidebarId: 'aiDataInfraSidebar', label: '🧠 AI & Data Infra' },
           ],
         },
         {

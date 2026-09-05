@@ -156,7 +156,7 @@ LLMs struggle heavily with ambiguous `Union` types because the schema becomes `a
 
 ---
 
-## 17. Advanced Structured Output Patterns
+### Advanced Structured Output Patterns
 1. **Dynamic Schemas**: Sometimes you don't know the exact schema until runtime (e.g. a user defines a custom table). You can use Pydantic's `create_model()` to dynamically generate a `BaseModel` on the fly and pass it to `result_type`.
 2. **Discriminators**: When using `Union` types, always use a `Discriminator` (e.g. a `type` field). This makes it infinitely easier for the LLM to choose the right schema branch rather than guessing based on fields.
 
@@ -180,7 +180,7 @@ LLMs struggle heavily with ambiguous `Union` types because the schema becomes `a
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 20k+ | Data validation using Python type hints | The engine behind the structured outputs. |
 | [jxnl/instructor](https://github.com/jxnl/instructor) | ⭐ 8k+ | Structured outputs for LLMs | A fantastic alternative/companion library specifically built just for structured extraction. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

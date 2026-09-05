@@ -83,13 +83,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 Updating an indexed column requires the database to re-balance the B-Tree on disk. Heavy indexing can slow down INSERTs and UPDATEs significantly.
 
 ## 12. Real-World Usage
 Relational databases (PostgreSQL, MySQL, Oracle) and file systems (NTFS, ext4).
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Index columns frequently used in WHERE, JOIN, and ORDER BY clauses. | Over-index your database. Every B-Tree index slows down INSERT and UPDATE operations because the tree must be maintained. |
@@ -153,7 +153,7 @@ Relational databases (PostgreSQL, MySQL, Oracle) and file systems (NTFS, ext4).
 - **Sequential I/O:** While B-Trees optimize random access, sequential scans on SSDs/HDDs are still faster.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When writing SQL schema generation scripts, always analyze query patterns to propose appropriate composite B-Tree indexes, and explicitly warn against over-indexing. | Prevents massive performance degradations in deployed systems. |

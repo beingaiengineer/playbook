@@ -40,13 +40,13 @@ Git is smart, but it refuses to guess which logic is correct. It makes you decid
 
 {/* TODO: [BAE-GIT-A-008] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with two people trying to edit the exact same paragraph in a shared Google Doc at the exact same time, but offline. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A merge conflict happens when Git encounters competing changes that it cannot resolve automatically. This usually occurs when two branches modify the exact same lines in a file, or if one branch deletes a file while another branch modifies it.
 
 When this happens, the merge process pauses. Git modifies the conflicting files in your working directory, injecting special "conflict markers" (`<<<<<<<`, `=======`, `>>>>>>>`). Your job is to open those files, delete the markers, keep the code you want, and complete the merge with a new commit. Don't panic; it is a normal part of daily engineering.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Command | What it does |
 |---|---|
@@ -56,7 +56,7 @@ When this happens, the merge process pauses. Git modifies the conflicting files 
 | `git add <file>` | Marks a resolved file as ready. |
 | `git commit` | Concludes the merge after all conflicts are resolved. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at what an actual conflict looks like inside a file.
 
@@ -78,7 +78,7 @@ const buttonColor = 'purple';
 ```
 Then run `git add index.js` and `git commit`.
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a real project, you'll often resolve conflicts using an IDE tool (like VS Code's merge editor) rather than doing it raw in the terminal.
 
@@ -105,7 +105,7 @@ git add src/api.js
 git commit -m "Merge main into feature/new-api and resolve api.js conflict"
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Git uses a three-way merge algorithm. To figure out if there is a conflict, Git doesn't just look at Branch A and Branch B. It looks at the **Base Commit**—the common ancestor where the two branches originally diverged.
 
@@ -130,7 +130,7 @@ If Branch A changed line 10 from the Base, and Branch B *also* changed line 10 f
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Phase | Speed | Bottleneck |
 |---|---|---|
@@ -138,7 +138,7 @@ If Branch A changed line 10 from the Base, and Branch B *also* changed line 10 f
 | Resolving Conflict | Unknown | **Human dependent.** Can take seconds or hours. |
 | Committing | O(1) | Instant. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -149,7 +149,7 @@ If Branch A changed line 10 from the Base, and Branch B *also* changed line 10 f
 | Why do merge conflicts happen in `package-lock.json` and how do you fix them? | They happen when two branches install different NPM packages. You should never resolve lockfile conflicts manually; instead, resolve the `package.json` conflicts, then run `npm install` again to regenerate the lockfile cleanly. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, I resolved the conflict, typed `git commit`, and Vim opened with a pre-filled message. What do I do?**
 This is normal! Git auto-generates a merge commit message. Just type `:wq` and hit Enter to save and exit.
@@ -157,11 +157,11 @@ This is normal! Git auto-generates a merge commit message. Just type `:wq` and h
 **What if I made a mistake resolving the conflict and already committed it?**
 If you haven't pushed, you can run `git reset --hard HEAD~1` to undo the merge commit entirely, and then re-do the merge process carefully.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 In large teams working on monorepos (like at Meta or Google), merge conflicts are an hourly reality. The standard workflow is to always pull `main` into your feature branch *before* you open a Pull Request. This ensures you resolve any conflicts locally on your machine, rather than the CI/CD pipeline blocking your PR on GitHub with a "Cannot merge automatically" error.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -169,19 +169,19 @@ In large teams working on monorepos (like at Meta or Google), merge conflicts ar
 | Use a visual merge tool (VS Code, IntelliJ, Beyond Compare). | Don't try to resolve massive JSON file conflicts in a raw text editor. |
 | Communicate! If you conflict on a complex logic file, call the other dev. | Don't blindly "Accept Incoming Change" if you don't understand the other developer's code. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: package-lock.json Conflicts**
 > Merge conflicts in lockfiles (`package-lock.json` or `yarn.lock`) are notoriously awful. **Do not attempt to fix lockfile conflicts by hand.** Delete the lockfile, run `npm install` to regenerate it, and commit the newly generated lockfile. Alternatively, some teams use `npm ci` strategies or rely on Dependabot to handle dependency merges to avoid human error in lockfiles.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
 | Leaving conflict markers (`<<<<<<<`) in the code | Your code will not compile. Search your project for `<<<<<<<` before committing. |
 | Overwriting a teammate's critical bugfix during a merge | If you aren't sure which logic is correct, get on a call with the teammate who wrote the other branch. |
 
-## 15. Related Topics
+## 16. Related Topics
 - branching-strategies
 - git-rebase-vs-merge
 - pull-requests

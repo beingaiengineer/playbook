@@ -158,7 +158,7 @@ It might call `SearchJira`, fail, call `SearchJira` again, fail, forever. To pre
 
 ---
 
-## 17. Advanced Planner Concepts
+### Advanced Planner Concepts
 1. **Human-in-the-Loop (HITL)**: You can write a Native Plugin called `RequestHumanApproval`. If the Planner decides it needs to delete a database table, it calls that plugin, which halts execution, emails an admin, and waits for a webhook callback before the Planner resumes.
 2. **Custom Prompts**: Planners rely on massive under-the-hood system prompts. If the planner is failing to utilize your specific plugins correctly, you can customize the planner's prompt template via the options configuration to give it specific instructions (e.g., "Always use the Database Plugin before the Email Plugin").
 
@@ -171,13 +171,13 @@ It might call `SearchJira`, fail, call `SearchJira` again, fail, forever. To pre
 - Function Calling / Tool Use
 - LangChain Agents vs SK Planners
 
-## 17. Top GitHub Repositories
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | ⭐ 20k+ | The official Semantic Kernel repo | Contains the core Planner implementations. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

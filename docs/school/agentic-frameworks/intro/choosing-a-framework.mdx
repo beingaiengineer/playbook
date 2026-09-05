@@ -36,7 +36,7 @@ Bro, imagine you are a senior engineer who just got approval to build a new agen
 
 Bro, choosing a framework is like buying a vehicle. If you just need to go down the street, don't buy a tour bus (CrewAI). If you need to transport 50 people on a schedule, don't build a bicycle from scratch (Raw SDK). Pick the tool that matches the journey.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The agentic framework ecosystem is fragmented. Different frameworks solve different problems.
 
@@ -46,7 +46,7 @@ The agentic framework ecosystem is fragmented. Different frameworks solve differ
 
 The real question is not "which is best." The real question is: "what does my production system actually need?"
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Framework | Core Abstraction | Best Use Case |
 |---|---|---|
@@ -56,7 +56,7 @@ The real question is not "which is best." The real question is: "what does my pr
 | **AutoGen** | `ConversableAgent`, `GroupChat`| Complex simulated conversations, code execution |
 | **Pydantic AI** | `Agent`, `RunContext`, `BaseModel` | Strict JSON extraction and type-safe tool execution |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at how the exact same concept (Defining an Agent with a Tool) looks across different frameworks to see the abstraction level.
 
@@ -87,7 +87,7 @@ def search_tool(query: str) -> str:
 # Focuses heavily on the python types of the tool
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, how do you decide? Let's use a decision matrix coded as a simple Python router to illustrate the logic a senior engineer uses when evaluating a project.
 
@@ -115,7 +115,7 @@ def choose_framework(project_requirements: dict) -> str:
         return "Start with LangGraph as the default scalable choice."
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 This diagram represents the decision tree for choosing a framework based on project requirements.
 
@@ -144,7 +144,7 @@ This diagram represents the decision tree for choosing a framework based on proj
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Framework | Setup Speed | Execution Overhead | Debuggability |
 |---|---|---|---|
@@ -153,7 +153,7 @@ This diagram represents the decision tree for choosing a framework based on proj
 | **LangGraph** | Medium (Steeper learning curve) | Low | Excellent (with LangSmith) |
 | **Pydantic AI**| Fast | Low | High (Python tracebacks) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -162,44 +162,44 @@ This diagram represents the decision tree for choosing a framework based on proj
 | Why is "Human-in-the-Loop" (HITL) easier in LangGraph? | LangGraph has built-in state checkpointing (saving the exact state to Postgres/SQLite). You can pause the graph, wait days for a human to approve a payload, and resume exactly where you left off. |
 | Is AutoGen dead? | No, but it is heavily focused on academic and research use cases (swarms, complex negotiation). For deterministic enterprise backends, the industry is leaning heavily toward graph-based state machines. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens when an agent framework updates and changes its core abstractions?
 This happens *constantly*. LangChain changed its syntax drastically between v0.1 and v0.2.
 **The Edge Case Fix:** Isolate your business logic. Do not put your API connection logic *inside* a CrewAI task definition. Write standard Python functions, test them independently, and only pass them to the framework as tools. If the framework breaks, your core logic survives.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **CrewAI:** Used by marketing teams and rapid-prototyping squads to spin up "content generation crews" in a weekend.
 - **LangGraph:** Used by enterprise engineering teams building automated infrastructure remediators or customer support agents that require strict compliance and audit trails.
 - **Raw SDK:** Used by companies with massive scale (e.g., millions of requests) where saving 10ms of framework overhead and avoiding dependency hell is critical.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Build a simple proof of concept with the Raw SDK first to understand the underlying problem before wrapping it in a framework. | Don't choose a framework just because you saw a cool demo on Twitter. |
 | Use standard Python types and Pydantic models for all tool definitions, regardless of framework. | Don't rely on framework-specific string parsing for tool arguments. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, framework lock-in is a real threat in AI right now. If you tightly couple your Prompts, Tool Logic, and Routing Logic into one framework's specific classes, migrating off it will require a total rewrite. Keep your prompts in separate config files and your tools as pure functions.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Building a simple RAG app using LangGraph | It adds massive complexity (state schemas, node compilation) for a linear process. | Use LangChain Expression Language (LCEL) or raw SDK for linear pipelines. |
 | Assuming a Multi-Agent framework is inherently "smarter" | Splitting a dumb prompt into 3 dumb agents just costs 3x more tokens and takes 3x longer. | Optimize your base model and prompt before throwing more agents at the problem. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Agent Types & Taxonomies
 - React Pattern
 - LangChain & LangGraph Overview
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

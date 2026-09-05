@@ -39,13 +39,13 @@ Bro, imagine you are a senior engineer explaining to the VP of Engineering why a
 
 Bro, think about when a new employee joins. You don’t write a script that does everything perfectly in one go. You give the IT guy a goal ("Onboard Bob") and a set of tools (Active Directory, Google Workspace admin, Slack API). The IT guy *reasons* about what to do first, *uses a tool*, *observes* the result, and then decides what to do next. That’s exactly what an AI agent is.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 An AI Agent is a system where a Large Language Model (LLM) acts as the central reasoning engine, directing a loop of thought, action, and observation. It doesn't just generate text; it makes decisions about *which* tools to use, *when* to use them, and *how* to interpret their output to progress toward a goal.
 
 Why do we need this? Because LLMs are frozen in time and trapped in a box. They don't know today's weather, they can't query your production database, and they can't restart a server. By wrapping the LLM in an agentic loop and giving it tools (APIs, calculators, code interpreters), you give it hands and eyes in the real world.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 *Note: Since "Agents" are a conceptual pattern, the syntax depends heavily on the framework. Here's a high-level pseudo-code pattern.*
 
@@ -55,7 +55,7 @@ Why do we need this? Because LLMs are frozen in time and trapped in a box. They 
 | **Tool Definition** | `@tool def get_weather(location: str): ...` |
 | **Agent Loop** | `while not task_complete: action = llm.think(); result = execute(action)` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a conceptual look at how an agent might be invoked using a typical framework like LangChain.
 
@@ -79,7 +79,7 @@ agent = initialize_agent(
 agent.run("What is the current stock price of Apple divided by 2?")
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's talk production. Imagine an automated Incident Response agent. It shouldn't just guess; it needs to check Datadog, read logs, and maybe page someone.
 
@@ -144,7 +144,7 @@ if response.choices[0].message.tool_calls:
     print("Agent decided to take an action:", response.choices[0].message.tool_calls[0].function.name)
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does the agent actually "think"? It’s all about prompting and loops. We feed the LLM a system prompt that says: "You must output a JSON command to use a tool, or output your final answer."
 
@@ -168,7 +168,7 @@ Here is the lifecycle of a single agentic action:
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Typical Latency | Notes |
 |---|---|---|
@@ -177,7 +177,7 @@ Here is the lifecycle of a single agentic action:
 | Full Agent Loop | 5s - 20s | Multiple LLM calls + multiple tool executions |
 | Complex Multi-Agent | 30s+ | Handoffs between specialized agents take serious time |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -187,21 +187,21 @@ Here is the lifecycle of a single agentic action:
 | What is the ReAct pattern? | Reason + Act. The prompt forces the LLM to output its "Thought", then its "Action", then observe the result before continuing. |
 | Why might an agent fail even if the LLM is smart? | Poor tool descriptions, bad system prompts, external API failures, or context window limits being exceeded during the loop. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens when a tool returns an error?
 A naive implementation just crashes. A proper agent takes the error string (e.g., `TimeoutException from DB`), feeds it *back* into the LLM as an observation, and the LLM reasons: *"Ah, the DB timed out. Let me try a different query or retry."*
 
 Another tricky case: The context window filling up. If an agent loops 20 times, the conversation history grows massively. Eventually, the LLM forgets the original goal, or you hit token limits.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies use agents to automate complex backend workflows.
 - **DevOps:** Agents that trigger on PagerDuty alerts, read logs, summarize the blast radius, and propose rollback commands.
 - **Customer Support:** Resolving tickets by actually calling refund APIs in Stripe, not just generating polite apologies.
 - **Data Engineering:** Agents that take natural language questions, generate SQL, run it against Snowflake, fix any syntax errors, and generate a chart.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -209,25 +209,25 @@ Companies use agents to automate complex backend workflows.
 | Implement timeouts and hard limits on loop iterations. | Don't let an agent loop indefinitely if a tool keeps failing. |
 | Use structured output (JSON/Pydantic) for tool arguments. | Don't parse raw text with regex to trigger functions. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, agents are inherently non-deterministic. A simple prompt tweak can completely change the path an agent takes. You MUST have robust observability. Log every thought, every tool input, and every tool output. If your agent goes rogue and deletes a user record, you need the exact trace of *why* it decided to do that.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Assuming the LLM will format JSON perfectly every time | It will eventually hallucinate a missing comma or quote. | Use a framework (like Pydantic AI or OpenAI Structured Outputs) that enforces schema. |
 | Giving the agent destructive tools (like `DROP TABLE`) without humans in the loop | The agent might misunderstand a prompt and execute a catastrophic action. | Implement "Human-in-the-loop" (HITL) approval steps before critical tool execution. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Agent vs Chatbot vs RAG
 - Anatomy of an Agent
 - ReAct Pattern
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

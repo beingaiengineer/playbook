@@ -36,7 +36,7 @@ Bro, think of integrating code like writing a book with a co-author.
 ![Illustration of Bae co-authoring a book](./assets/git-rebase-vs-merge.png)
 {/* TODO: [BAE-GIT-A-007] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with writing a book with a co-author. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Both `git merge` and `git rebase` solve the exact same problem: getting changes from one branch into another.
 
@@ -44,7 +44,7 @@ Both `git merge` and `git rebase` solve the exact same problem: getting changes 
 
 **Rebase** takes your commits, sets them aside, updates your branch to the tip of `main`, and then replays your commits one by one on top. It creates a perfectly straight, linear history. But it *rewrites* history—the commit hashes change. If you rewrite history on a public branch, you will destroy your teammates' local repos.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Command | What it does |
 |---|---|
@@ -54,7 +54,7 @@ Both `git merge` and `git rebase` solve the exact same problem: getting changes 
 | `git rebase --continue` | Resumes the rebase after you resolve a conflict. |
 | `git rebase --abort` | Panicked? Cancels the rebase entirely. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's say you are on `feature-branch` and `main` has moved ahead.
 
@@ -73,7 +73,7 @@ git rebase main
 git push origin feature-branch --force-with-lease
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In top-tier engineering teams, you often use **Interactive Rebase** before opening a PR to clean up your messy local history into one beautiful commit.
 
@@ -97,7 +97,7 @@ git rebase -i HEAD~4
 git push origin feature-branch --force-with-lease
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you run `git rebase main` from your feature branch, Git finds the common ancestor. It saves your feature commits to temporary files. It resets your branch to exactly match `main`. Then, it applies your saved commits one-by-one.
 
@@ -120,14 +120,14 @@ Because the parent commit has changed, the SHA-1 hash of every rebased commit ch
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Action | Performance | Note |
 |---|---|---|
 | `git merge` | O(1) | Extremely fast. Just creates one new commit pointing to two parents. |
 | `git rebase` | O(N) | Slower. Must re-apply N commits. If N is 100, you might have to resolve conflicts 100 times. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -138,35 +138,35 @@ Because the parent commit has changed, the SHA-1 hash of every rebased commit ch
 | What happens if you run `git pull` by default? | By default, `git pull` performs a fetch followed by a merge, which creates an extra merge commit if your local branch diverged. You can configure it to rebase instead using `git config pull.rebase true`. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, I'm stuck in a rebase conflict loop. Every time I fix it, it gives me another conflict!**
 When you merge, you resolve conflicts once for the whole branch. When you rebase, you are applying commits *one by one*. If 5 commits touched the same file, you might have to resolve conflicts 5 times in a row. If it gets too messy, run `git rebase --abort` and just use `git merge` instead!
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Many open-source projects (like the Linux Kernel) explicitly ban `git merge` from contributors. They require a perfectly linear history, meaning contributors must `git rebase` their PRs against the latest `main` before the maintainer will accept them. Conversely, inside enterprise corporations with fast CI/CD pipelines, "Squash and Merge" (a GitHub UI feature that combines rebasing and merging) is the standard to keep `main` clean while letting developers do whatever they want locally.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Rebase your local, private branch against `main` to keep it updated. | Don't rebase `main` onto your feature branch. |
 | Use `git pull --rebase` to avoid useless merge commits when updating your local `main`. | Don't use `git push --force`. Always use `--force-with-lease`. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: The Golden Rule of Rebase**
 > Never, ever, ever rebase commits that exist outside your local repository. If you push a branch, your teammate pulls it, and then you rebase and force push, your teammate's Git tree will violently diverge. They will experience "Git Hell" trying to reconcile their timeline with yours.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
 | Rebasing `main` | Just don't. Only rebase feature branches onto `main`. |
 | Panicking during a rebase conflict | Run `git status` to see what file is conflicting, fix it, `git add`, and run `git rebase --continue`. Don't commit! |
 
-## 15. Related Topics
+## 16. Related Topics
 - merge-conflicts
 - pull-requests
 - conventional-commits

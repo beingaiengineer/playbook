@@ -104,13 +104,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(V) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 A node can be visited multiple times in DFS if it's reachable via different paths, unless you maintain a global `visited` set.
 
 ## 12. Real-World Usage
 Social networks, routing algorithms (Google Maps), recommendation engines, and dependency resolvers (npm, pip).
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Always keep a `visited` set during traversal to prevent infinite loops. | Represent dense graphs (many edges) as adjacency lists; use an adjacency matrix instead for O(1) edge lookups. |
@@ -169,7 +169,7 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 - **Throttling:** When crawling the web (a massive graph), failing to implement rate limiting per domain will result in your crawler being blocked or taking down target servers.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | Always include cycle detection (e.g., maintaining a visited set) when writing any graph traversal algorithm to prevent infinite loops in production environments. | Prevents massive performance degradations in deployed systems. |

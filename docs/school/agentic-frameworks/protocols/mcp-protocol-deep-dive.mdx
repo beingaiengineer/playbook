@@ -175,7 +175,7 @@ If you are using `stdio`, the subprocess dies, the pipes break, and the Client r
 
 ---
 
-## 17. Advanced Protocol Mechanics
+### Advanced Protocol Mechanics
 1. **Notifications**: The MCP protocol supports bidirectional, asynchronous notifications. An MCP server can send a `notifications/resources/updated` message to the client, telling the LLM: "Hey, the file you were looking at just changed, you might want to re-read it!"
 2. **Pagination**: For Resources (like listing thousands of files in a directory), the `list_resources` request supports cursor-based pagination to prevent overloading the JSON-RPC message payload limits.
 
@@ -194,7 +194,7 @@ If you are using `stdio`, the subprocess dies, the pipes break, and the Client r
 | [modelcontextprotocol/specification](https://github.com/modelcontextprotocol/specification) | ⭐ 10k+ | Official MCP Spec | The definitive guide to the protocol format. |
 | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | ⭐ 3k+ | Python SDK | The library you use to build clients and servers in Python. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

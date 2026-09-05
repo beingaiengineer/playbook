@@ -34,13 +34,13 @@ The **Liveness Check** is the doctor checking for a pulse. Are you alive? If you
 
 The **Readiness Check** is the doctor asking, "Are you ready to run a marathon?" You might be alive (you have a pulse), but you just woke up from surgery and need 10 minutes to recover. The doctor won't kill you, but they won't put you in the marathon yet (Kubernetes won't send you HTTP traffic until you say you are ready).
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, in a modern cloud environment, you don't manually route traffic to servers. A Load Balancer or Kubernetes does it automatically. But how does Kubernetes know if your Python script has finished loading its massive machine learning model into RAM? How does it know if your app is stuck in a `while (true)` deadlock?
 
 It uses Health Checks. These are dedicated HTTP endpoints (like `/healthz` or `/ready`) that your application exposes. Infrastructure tools constantly ping these endpoints. If your app returns a `200 OK`, traffic flows. If it times out or returns a `500`, the infrastructure reacts instantly to protect the users.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Type | Purpose | Kubernetes Reaction on Failure |
 |---|---|---|
@@ -48,7 +48,7 @@ It uses Health Checks. These are dedicated HTTP endpoints (like `/healthz` or `/
 | Readiness Probe | Answers: Is the app ready to handle user requests? | Stops sending HTTP traffic to this pod until it recovers. |
 | Startup Probe | Answers: Has the app finished its initial boot sequence? | Disables liveness/readiness checks until boot is done (prevents killing slow-booting apps). |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A basic health check in an Express.js app is just a route that returns a 200.
 
@@ -78,7 +78,7 @@ app.get('/health/ready', (req, res) => {
 app.listen(3000);
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you define these probes in your Kubernetes deployment YAML so the infrastructure knows where to look.
 
@@ -113,7 +113,7 @@ spec:
           periodSeconds: 5
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, the magic of health checks is how they prevent users from ever seeing an error during deployments. When a new version of your app is deployed, the Load Balancer pings the Readiness endpoint. Only when it gets a `200 OK` does it start sending user traffic to the new version.
 
@@ -133,14 +133,14 @@ Bro, the magic of health checks is how they prevent users from ever seeing an er
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Performance Impact | Risk |
 |---|---|---|
 | Shallow Check (Return 200) | Zero | None. Perfectly safe to run every 1 second. |
 | Deep Check (Ping Database) | Low/Medium | High risk. If 50 pods ping the DB every 5 seconds, they might DDoS their own database! |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -149,7 +149,7 @@ Bro, the magic of health checks is how they prevent users from ever seeing an er
 | Should a Readiness probe check the database? | Yes, usually. If the database is unreachable, the pod cannot serve traffic anyway, so it should be removed from the load balancer until the connection is restored. |
 | How do you handle a slow-booting application (like a massive Java Spring app)? | Use a Startup Probe. It runs first and gives the app a long time (e.g., 2 minutes) to boot. Once the startup probe succeeds, it hands control over to the Liveness/Readiness probes. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, a major gotcha is **Cascading Failures due to Deep Health Checks**.
 
@@ -162,11 +162,11 @@ Now Service A is offline. The API Gateway sees Service A is offline, and fails a
 
 A 5-second blip in a downstream service caused your entire frontend to go down! Health checks should only check the *local* health of the container. Never do deep network calls in a liveness probe.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At companies like Amazon, deployments happen every second. When you write code and push it, Kubernetes spins up the new container. Kubernetes polls `/ready`. The moment `/ready` returns 200, Kubernetes flips the traffic from the old container to the new one. The health check is the literal switch that enables zero-downtime deployments.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -174,13 +174,13 @@ At companies like Amazon, deployments happen every second. When you write code a
 | DO use readiness checks to verify local dependencies (like a local cache is populated). | DON'T check external SaaS APIs (like Stripe) in your readiness probe. If Stripe goes down, your pods shouldn't be taken out of rotation. |
 | DO use `/healthz` or `/ping` as standard naming conventions. | DON'T put health checks behind authentication. The load balancer must be able to hit them anonymously. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Keep Health Checks Fast
 A health check is called constantly (often every 5 or 10 seconds per pod). If your health check takes 2 seconds to run, and you have 100 pods, you are wasting massive amounts of compute just proving the app is alive. A health check should return in under 10 milliseconds.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

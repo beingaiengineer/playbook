@@ -40,7 +40,7 @@ Bro, you don't want the same guard working 24/7. They will fall asleep on duty. 
 
 ![Illustration of Bae handing off the on-call pager](./assets/on-call-culture.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 On-call culture defines how an organization manages the responsibility of supporting production systems outside of (and during) normal business hours.
 
@@ -48,7 +48,7 @@ The modern standard is "You build it, you run it." The developers who write the 
 
 A healthy culture ensures on-call is a shared, supported, and compensated responsibility, not a burden dumped on the junior dev.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Term | Description |
 |---|---|
@@ -57,7 +57,7 @@ A healthy culture ensures on-call is a shared, supported, and compensated respon
 | **Rotation** | The schedule dictating who is on-call and when (e.g., weekly shifts). |
 | **Shift Handoff** | A meeting/sync where the outgoing on-call updates the incoming on-call. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A typical weekly on-call schedule configuration in a tool like PagerDuty:
 
@@ -76,7 +76,7 @@ A typical weekly on-call schedule configuration in a tool like PagerDuty:
 }
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you don't want alerts going into a black hole if someone sleeps through their alarm. You build escalation policies.
 
@@ -98,7 +98,7 @@ rules:
     timeout: "30 minutes"
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is how a page travels through an escalation policy to ensure someone always responds.
 
@@ -122,7 +122,7 @@ Here is how a page travels through an escalation policy to ensure someone always
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Healthy Culture | Toxic Culture |
 |---|---|---|
@@ -131,7 +131,7 @@ Here is how a page travels through an escalation policy to ensure someone always
 | Sleep Interruption | Rare (1-2 times a month) | Frequent (multiple times a week) |
 | Post-Incident Action | Blameless review, fix root cause | Blame the engineer, fix nothing |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -141,16 +141,16 @@ Here is how a page travels through an escalation policy to ensure someone always
 | What is the purpose of an on-call handoff? | To pass context to the next person: ongoing issues, disabled alerts, and pending deployments. |
 | Should managers be in the on-call rotation? | They should be the final escalation point to handle coordination, but usually shouldn't be the primary technical responder. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Hero Developer**: One engineer knows everything and always fixes things fast. Is this good? No. That's a single point of failure. If they quit or go on vacation, the team is doomed. Share the knowledge.
 - **Off-Hours Deployments**: If a team in India deploys code at 2 PM IST, but it breaks a service owned by a US team at 3 AM EST, who gets paged? The US team. To fix this, teams must coordinate global rollouts or own services geographically.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like Amazon mandate that every software engineer goes on call. It forces developers to care about operability, logging, and metrics. If your code is hard to debug, you will be the one suffering at 2 AM trying to figure it out.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -158,11 +158,11 @@ Companies like Amazon mandate that every software engineer goes on call. It forc
 | Have a clear, structured handoff meeting. | Put new hires on call without a shadowing period. |
 | Ensure there is always a secondary on-call as backup. | Rely on one "hero" to solve every incident. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: Burnout is real. If your on-call engineers are getting paged more than 2-3 times a week outside of working hours, your system is too unstable. Stop building new features and fix the reliability.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -170,7 +170,7 @@ Companies like Amazon mandate that every software engineer goes on call. It forc
 | Silent handoffs with no context. | Implement a 15-minute handoff sync every week. |
 | Blaming the engineer who broke production. | Blame the system that *allowed* the engineer to break production. |
 
-## 15. Related Topics
+## 16. Related Topics
 - What is an Incident?
 - Runbooks
 - Blameless Postmortems

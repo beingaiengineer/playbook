@@ -166,7 +166,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | How does Git use Merkle Trees? | Git uses a Directed Acyclic Graph (DAG) of objects, heavily inspired by Merkle Trees, where commits point to trees (directories), which point to blobs (files), all identified by SHA-1 hashes. |
 | Why use cryptographic hashes (like SHA-256) instead of fast hashes (like MurmurHash) for Merkle Trees? | Because Merkle Trees are primarily used for *security and cryptographic integrity*, ensuring malicious actors cannot easily engineer hash collisions to fake data verification. |
 
-## 13. Best Practices
+## 11. Best Practices
 
 Bro, a major gotcha is the "second preimage attack". If your Merkle Tree implementation doesn't distinguish between leaf nodes and internal nodes (e.g., by prepending a `0x00` byte for leaves and `0x01` for internal nodes before hashing), an attacker could submit an internal node hash as a leaf node, tricking the verifier. Always salt or explicitly type your nodes before hashing in production implementations.
 
@@ -174,7 +174,7 @@ Bro, a major gotcha is the "second preimage attack". If your Merkle Tree impleme
 
 Merkle Trees are the backbone of modern distributed systems. Apache Cassandra uses them for "anti-entropy" repairs: nodes exchange Merkle Trees to quickly figure out exactly which rows are out of sync without sending the actual data. IPFS uses them to verify distributed files. Bitcoin uses them to efficiently summarize all transactions in a block, allowing "Light Clients" to verify a payment without downloading the entire 500GB blockchain using a Merkle Proof.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 
 | DO | DON'T |
 |---|---|
@@ -205,7 +205,7 @@ Bro, in massive databases (like DynamoDB or Cassandra), recalculating a massive 
 | [Tierion/merkle-tools](https://github.com/Tierion/merkle-tools) | ⭐ 500+ | Tools for creating Merkle trees, generating proofs, and verifying proofs. | Good practical implementation reference. |
 | [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) | ⭐ 70k+ | The Bitcoin source code. | See how Merkle Trees are used in the core protocol for transaction verification. |
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

@@ -32,7 +32,7 @@ Think of a massive corporate office building, bro. Every department on every flo
 
 Instead, you have a Central Security Desk. Every time someone signs a clipboard on a floor, a copy of that signature is instantly sent down a pneumatic tube to the central desk. If security needs to find "John Doe", they search *one* master database, and they know exactly which floor he is on. That's centralized logging.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, when you have a monolithic app on one server, you can just SSH into that server and run `tail -f /var/log/app.log`.
 
@@ -40,7 +40,7 @@ But in a modern Kubernetes cluster, you might have 50 copies of your authenticat
 
 Centralized logging solves this by treating logs as a stream of events. Applications do not manage log files. They simply write their logs to `stdout` (standard output). A background agent (a log shipper) reads that output and securely forwards it to a massive, highly-indexed central database (like Elasticsearch, Datadog, or Splunk). You search one place, and you see the logs of your entire fleet.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Component | Responsibility | Examples |
 |---|---|---|
@@ -49,7 +49,7 @@ Centralized logging solves this by treating logs as a stream of events. Applicat
 | Log Indexer | Stores and indexes logs for rapid search | Elasticsearch, Loki |
 | Dashboard | UI for querying and visualizing logs | Kibana, Grafana, Splunk |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 At the application level, centralized logging actually makes your code *simpler*. You don't configure complex file rotators or database connections. You just print to standard output.
 
@@ -75,7 +75,7 @@ def process_data(job_id):
 process_data("job_999")
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In the real world, the complexity lies in the infrastructure configuration. Here is an example of what a Fluentd (Log Shipper) configuration file might look like to collect local logs and forward them to a central Elasticsearch cluster.
 
@@ -112,7 +112,7 @@ In the real world, the complexity lies in the infrastructure configuration. Here
 </match>
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, the flow is totally decoupled. If the central logging database goes down, your application doesn't crash. The log shipper simply buffers the logs locally on disk and retries sending them when the database comes back up.
 
@@ -134,14 +134,14 @@ Bro, the flow is totally decoupled. If the central logging database goes down, y
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Architecture | App Performance | Network Impact | Data Durability |
 |---|---|---|---|
 | App writes direct to DB | Terrible (Blocks on network I/O) | High (Many small connections) | High |
 | App writes to File/Stdout -> Shipper reads | Excellent (No blocking) | Optimized (Shipper batches payloads) | Medium (Logs lost if node explodes before shipper reads) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -151,7 +151,7 @@ Bro, the flow is totally decoupled. If the central logging database goes down, y
 | What is log buffering? | It's when the log shipper temporarily saves logs to local disk if it cannot reach the central database, preventing data loss during network blips. |
 | How do you prevent sensitive data (PII) from entering centralized logs? | You must mask or drop PII either inside the application code before logging, or configure the Log Shipper (e.g., Fluentd) to regex-replace sensitive fields like credit card numbers before forwarding. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, a major edge case is **Log Spam causing DDoS**.
 
@@ -159,11 +159,11 @@ Imagine you deploy a bug that causes a `while (true)` loop to print an error. Ac
 
 To prevent this, you must configure **Rate Limiting** or **Log Dropping** at the Log Shipper level. The shipper should say, "If I see more than 10,000 logs a second from Container A, I will drop the rest to protect the central cluster."
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At Netflix, they generate petabytes of logs per day. They use Kafka as a massive buffer in the middle of their centralized logging pipeline. The Log Shippers send logs to Kafka, and then Elasticsearch consumes from Kafka. If Elasticsearch needs to be restarted for maintenance, Kafka simply holds the logs for a few hours. No logs are lost, and the applications never notice.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -171,13 +171,13 @@ At Netflix, they generate petabytes of logs per day. They use Kafka as a massive
 | DO use the Twelve-Factor App methodology: treat logs as event streams written to `stdout`. | DON'T configure your application to manage file rotation (like logrotate); let the infrastructure handle it. |
 | DO ensure your log shippers add metadata like `hostname`, `pod_name`, and `region`. | DON'T rely on the application to know its own hostname or region. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Beware of Log Ingestion Costs
 Commercial centralized logging platforms (like Datadog or Splunk) charge based on the *volume* of data you ingest. If a junior engineer accidentally leaves `DEBUG` logging turned on in production for a high-traffic service, it can literally cost the company tens of thousands of dollars in a single weekend. Always default to `INFO` or `WARN` in production.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

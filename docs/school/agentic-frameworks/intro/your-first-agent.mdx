@@ -36,7 +36,7 @@ Bro, imagine you are a senior engineer who needs to prototype a simple autonomou
 
 Bro, you don't learn to drive by hopping into a self-driving Tesla. You learn on a manual transmission in an empty lot. If you build your first agent using CrewAI or LangGraph, you won't actually know how it works. Today, we are building an agent using just the raw OpenAI SDK. We are building the engine from scratch.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 To build your first agent, we need to assemble the core anatomy we discussed previously:
 1. **The Brain:** The OpenAI API.
@@ -46,7 +46,7 @@ To build your first agent, we need to assemble the core anatomy we discussed pre
 
 By doing this without abstractions, you will understand exactly what "Function Calling" actually looks like under the hood.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Step | Code |
 |---|---|
@@ -55,7 +55,7 @@ By doing this without abstractions, you will understand exactly what "Function C
 | **3. Check for Action** | `if response.tool_calls: ...` |
 | **4. Append Result** | `messages.append({"role": "tool", "content": result})` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Before the full engineering example, here is the tool we will give the agent. It's just a dummy python function.
 
@@ -68,7 +68,7 @@ def get_weather(location: str):
     return "Sunny and 75 degrees."
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, here is the complete, runnable code for an agent from scratch. Copy this, put in your OpenAI API key, and run it.
 
@@ -152,7 +152,7 @@ while True:
     print("Agent: Thinking about the tool result...")
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 This diagram traces the exact execution path of the code above.
 
@@ -180,7 +180,7 @@ This diagram traces the exact execution path of the code above.
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Component of our script | Time taken | Notes |
 |---|---|---|
@@ -189,7 +189,7 @@ This diagram traces the exact execution path of the code above.
 | API Call 2 (Formatting) | ~1.5s | Generating the final text answer based on the weather data |
 | **Total Turnaround** | **~2.3s** | |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -197,45 +197,45 @@ This diagram traces the exact execution path of the code above.
 | What happens if `json.loads(tool_call.function.arguments)` fails? | The agent crashes. In a robust system, you would wrap that in a `try/except` block, catch the `JSONDecodeError`, and pass the error string back to the LLM as a tool result so it can try again. |
 | Why is `tool_call.id` required when passing the observation back? | OpenAI allows parallel tool calling (calling 3 tools at once). The ID maps the specific tool result to the specific tool request so the LLM doesn't get confused. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what if the user says: "What's the weather in Chicago and Miami?"
 With standard function calling, the LLM might generate *two* `tool_calls` in a single response array.
 Our `for tool_call in response_msg.tool_calls:` loop handles this beautifully! It will execute both, append two tool results to the memory, and only then loop back to the LLM.
 **Edge case warning:** If your loop just executes `tool_calls[0]` and ignores the rest, your agent will silently fail to check Miami.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 This exact raw SDK loop is used in production by teams who are allergic to framework bloat.
 - Vercel AI SDK uses a very similar raw loop under the hood for their TS/JS implementations.
 - Teams building high-throughput data extraction agents often stick to the raw SDK to minimize latency.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Print `[TOOL EXECUTED]` logs to your terminal so you can see exactly when the agent is acting vs thinking. | Don't assume the LLM will always return valid JSON in the arguments. Always handle parse errors. |
 | Give your tools highly descriptive `description` fields. This is how the LLM knows when to use it. | Don't write descriptions like "Does a thing." Write "Calculates the exact weather for a given US city." |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, this script loops `while True`. If you give the agent a bad tool that always returns an error, the LLM will just keep trying to call it forever, draining your API credits. In production, always implement a `loop_count` variable and break if `loop_count > 5`.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Forgetting the `"role": "tool"` message format | The OpenAI API will reject your request with a 400 error because the message history is malformed. | Strictly follow the `{"tool_call_id": id, "role": "tool", "name": name, "content": result}` schema. |
 | Returning a Python dictionary directly as `content` | The API expects the tool `content` to be a string. | Always cast your tool results using `str(result)` or `json.dumps(result)` before appending. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Anatomy of an Agent
 - How Agents Think
 - Choosing a Framework
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

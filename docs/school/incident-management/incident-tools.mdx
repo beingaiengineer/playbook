@@ -40,14 +40,14 @@ Bro, if the smoke detector works but the alarm bell is broken, the building stil
 
 ![Illustration of Bae checking smoke detector and alarm bell integration](./assets/incident-tools.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The modern incident management stack is a chain of specialized tools.
 First, an **Observability** tool watches the system. When a threshold is crossed, it sends a webhook to an **Alerting** tool. The Alerting tool looks up the on-call schedule and pages the human. The human then uses a **Communication** tool to coordinate, and eventually logs the learnings in a **Documentation** tool.
 
 You don't need the most expensive tools, but you absolutely need the integration between them to be seamless.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Tool Category | Purpose | Popular Examples |
 |---|---|---|
@@ -57,7 +57,7 @@ You don't need the most expensive tools, but you absolutely need the integration
 | **Status Pages** | Communicate externally with customers. | Atlassian Statuspage, Instatus |
 | **Runbook Automation** | Execute predefined mitigation scripts. | AWS Systems Manager, Rundeck, Ansible |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Connecting an observability tool (Prometheus) to a paging tool (PagerDuty) via a YAML config snippet:
 
@@ -76,7 +76,7 @@ route:
   group_interval: 5m
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Many engineering teams build custom Slack bots to act as the "glue" between these tools. This is known as ChatOps.
 
@@ -97,7 +97,7 @@ def declare_incident(user, text):
     return f"War room created: #{channel}. Ticket: {ticket}. IC has been paged."
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is the flow of data through the incident toolchain.
 
@@ -117,7 +117,7 @@ Here is the flow of data through the incident toolchain.
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Tooling Setup | Time to Detect (TTD) | Time to Assemble |
 |---|---|---|
@@ -125,7 +125,7 @@ Here is the flow of data through the incident toolchain.
 | Basic (Email alerts) | 15 - 30 mins | 15 - 30 mins |
 | Mature (Prometheus -> PagerDuty -> Slack Bot) | < 2 mins | < 5 mins |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -135,16 +135,16 @@ Here is the flow of data through the incident toolchain.
 | What is a Status Page? | A public-facing website hosted independently of your main infrastructure to communicate outages to users. |
 | What happens if Datadog goes down? | You need a secondary, simple external monitor (like Pingdom) that just checks if your homepage returns a 200 OK. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Circular Dependency**: Your company uses the internal SSO (Single Sign-On) to log into the incident management tools. But the SSO goes down. Now you can't log into PagerDuty to page the SSO team. Solution: Core incident tools must bypass internal SSO (using generic break-glass accounts) or be hosted externally.
 - **The Flood of Webhooks**: Datadog detects 1,000 errors a second and sends 1,000 webhooks to PagerDuty. PagerDuty rate-limits you and drops the alerts. Solution: Observability tools must aggregate and debounce alerts before sending them to the paging system.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Almost every unicorn tech company uses some variation of the "Holy Trinity": Datadog (or Prometheus/Grafana) for metrics, PagerDuty (or Opsgenie) for routing, and Slack for communication. The companies with the best incident response times are the ones that have invested heavily in connecting these three tools seamlessly.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -152,11 +152,11 @@ Almost every unicorn tech company uses some variation of the "Holy Trinity": Dat
 | Use PagerDuty schedules to ensure someone is always on call. | Rely on someone checking their email at night. |
 | Automate the creation of the war room and Jira tickets. | Force the IC to spend 10 minutes doing administrative clicking. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: Tools are useless if they are misconfigured. If an engineer leaves the company but is still the primary on-call in PagerDuty, the alerts will go to a dead phone. Automate the syncing of your HR directory with your on-call scheduling tool.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -164,7 +164,7 @@ Almost every unicorn tech company uses some variation of the "Holy Trinity": Dat
 | Using WhatsApp or personal iMessage for incident comms. | Use an enterprise chat tool where logs can be audited for the postmortem. |
 | Ignoring tool fatigue (too many dashboards). | Consolidate dashboards. The IC should only need to look at 1 or 2 screens. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Incident Response Process
 - Incident Communication
 - Runbooks

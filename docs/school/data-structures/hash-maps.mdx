@@ -88,13 +88,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(n) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 If the hash function is poor or malicious users intentionally send keys that cause collisions (Hash DOS), a hash map can degrade to O(N) performance.
 
 ## 12. Real-World Usage
 Database indexing (Hash Indexes), caching layers (Redis, Memcached), and symbol tables in compilers.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Always provide a default value when accessing keys using `.get(key, default)`. | Use mutable objects as dictionary keys; their hash value will change, leading to silent data loss. |
@@ -154,7 +154,7 @@ Database indexing (Hash Indexes), caching layers (Redis, Memcached), and symbol 
 - **Cache Misses:** Because entries are scattered randomly across the heap based on their hash code, iterating through a Hash Map often results in frequent CPU cache misses compared to array iteration.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | Always use `.get(key, default)` instead of direct access `[key]` to prevent unhandled KeyError exceptions in dynamically typed languages. | Prevents massive performance degradations in deployed systems. |
