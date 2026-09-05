@@ -106,10 +106,18 @@ def is_valid_url(url: str) -> bool:
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="TDD Red-Green-Refactor Loop"
+  nodes={[
+    { id: '1', type: 'warning', label: 'Write Failing Test (Red)', position: { x: 50, y: 100 } },
+    { id: '2', type: 'core', label: 'Write Minimum Code (Green)', position: { x: 300, y: 100 } },
+    { id: '3', type: 'process', label: 'Refactor Code', position: { x: 300, y: 250 } },
+    { id: '4', type: 'output', label: 'Clean, Tested Code', position: { x: 550, y: 100 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', label: 'makes pass', animated: true, type: 'smoothstep' },
+    { id: 'e2-3', source: '2', target: '3', label: 'optimize', type: 'smoothstep' },
+    { id: 'e3-1', source: '3', target: '1', label: 'next cycle', type: 'step' },
+    { id: 'e3-4', source: '3', target: '4', label: 'done', type: 'smoothstep' }
   ]}
 />
 

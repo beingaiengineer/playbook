@@ -19,7 +19,11 @@ Bro, if you fire the engineer who dropped the production database, you just fire
 | Common Mistake | Using the postmortem to find out *who* caused the outage |
 | Performance | Reduces the frequency of repeat incidents |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine an intern accidentally drops the production database, causing a 4-hour outage. In a traditional, toxic company culture, the VP of Engineering immediately fires the intern to "make an example of them." What happens next? Every other engineer on the team becomes terrified. When they make a mistake, they hide it, secretly patching servers in the middle of the night to avoid being fired. The system becomes a fragile house of cards built on fear. In a strong engineering culture, you hold a Blameless Postmortem. You don't ask "Who dropped the database?" You ask "Why was it possible for a junior engineer's local script to access production credentials?" and "Why did our backup system fail to restore in under an hour?" Blameless postmortems fix the system, not the person.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A grayscale line-art illustration of Bae, a software engineer, interacting with a post-match cricket analysis scenario: the match is over (we lost) */}
 

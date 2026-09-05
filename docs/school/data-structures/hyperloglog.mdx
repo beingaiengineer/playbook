@@ -15,11 +15,11 @@ sidebar_label: "HyperLogLog"
 | Common Mistake | Using it when you need an exact count, not an estimate |
 | Performance | O(1) time complexity per element, O(1) space complexity (typically kilobytes) |
 
-## 2. The Engineering Story
+## 2. Engineering Story
 
 Bro, you're deployed to an analytics client that tracks user clicks across thousands of websites. They need to know the *exact* number of unique visitors per day. Their current solution uses a massive Hash Set, storing every single user ID. It’s eating up gigabytes of RAM per server and constantly hitting Out-Of-Memory (OOM) errors. They ask you to optimize the memory usage. This is where you introduce them to HyperLogLog. You explain that if they can accept a tiny margin of error (like 2%), they can estimate the number of unique visitors using just a few kilobytes of memory, regardless of whether they have a million or a billion visitors.
 
-## 3. The Real-World Analogy
+## 3. Real-World Analogy
 
 Imagine you are standing at a busy intersection in Bangalore, trying to count the number of *unique* car models passing by.
 
@@ -31,13 +31,13 @@ Imagine you are standing at a busy intersection in Bangalore, trying to count th
 | Harmonic Mean | Averaging out your estimates across the different categories to get a more accurate total count. |
 | The Final Estimate | Your educated guess of the total unique car models based on the longest sequences you observed. |
 
-## 4. How It Works
+## 4. Concept Explanation
 
 HyperLogLog (HLL) is a probabilistic algorithm used for the count-distinct problem (estimating the cardinality of a multiset). It works on the principle of analyzing the binary representation of hashed values. If you hash your items, they should ideally distribute evenly. HLL looks at the longest sequence of leading zeros in the binary representation of the hashed values. If you see a hash value with a lot of leading zeros, it’s a statistically rare event, which implies you must have processed a very large number of unique items to encounter it. HLL divides the hash space into multiple buckets (registers) to average out anomalies and uses harmonic mean to provide a remarkably accurate estimate (typically within 2% error) using a fixed, tiny amount of memory (often just 12-16 KB).
 
 You use HyperLogLog when you need to count unique items at massive scale (e.g., unique IPs, daily active users) and memory is a constraint. You do NOT use HLL if your business logic requires absolute precision (e.g., billing systems).
 
-## 5. Core Components
+## 5. Syntax Table
 
 | Operation | Description | Complexity |
 |---|---|---|
@@ -45,7 +45,7 @@ You use HyperLogLog when you need to count unique items at massive scale (e.g., 
 | `count()` | Calculates the cardinality estimate based on register values. | O(1) (relative to the number of registers) |
 | `merge(hll)` | Combines two HLLs by taking the max of their registers. | O(registers) |
 
-## 6. Types of Operations
+## 6. Beginner Example
 
 ```python
 # Using a popular python HLL implementation
@@ -61,7 +61,7 @@ hll.add("user1") # Duplicate
 print(len(hll)) # Output will be approximately 2
 ```
 
-## 7. Implementation Examples
+## 7. Real-World Engineering Example
 
 ```python
 import hashlib
@@ -112,7 +112,7 @@ class SimpleHyperLogLog:
         return int(E)
 ```
 
-## 8. The LearningFlow Diagram
+## 8. Internal Working
 
 import LearningFlow from "@site/src/components/LearningFlow";
 
@@ -140,7 +140,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
   ]}
 />
 
-## 9. Time and Space Complexity
+## 9. Performance Table
 
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
@@ -148,7 +148,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | Count | O(m) (where m is number of registers) | O(1) |
 | Merge | O(m) | O(1) |
 
-## 10. Senior Engineering Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -158,22 +158,22 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | Can you subtract an HLL from another HLL? | Generally, no. HLL supports unions (merging by taking the max of registers), but not intersections or subtractions natively, as information is irreversibly compressed. |
 | How do you handle small cardinalities in HLL? | For very small sets, the raw HLL estimate can be inaccurate. Implementations usually apply "Linear Counting" (using empty register counts) for small cardinalities to correct the estimate. |
 
-## 11. Production Best Practices
+## 13. Best Practices
 
 Bro, a major gotcha is assuming two identical datasets processed in different orders will yield identical HLL register states. They will! HLL is commutative and idempotent. Adding `A` then `B` results in the same internal state as adding `B` then `A`, or adding `A`, `B`, then `A` again. The state is purely a function of the max leading zeros observed per bucket for the unique items seen.
 
-## 12. Real-World Applications
+## 12. Real-World Usage
 
 Redis uses HyperLogLog extensively. You can use commands like `PFADD` and `PFCOUNT` to track millions of unique IP addresses visiting a site using only 12 KB of memory per key. Analytics platforms like Apache Druid and BigQuery use HLL to perform fast `COUNT(DISTINCT)` queries over massive datasets where exact precision isn't strictly necessary.
 
-## 13. Comparison with Alternatives
+## 11. Tricky Questions & Edge Cases
 
 | DO | DON'T |
 |---|---|
 | DO use HLL for analytics, monitoring, and trending where a small error margin is acceptable. | DON'T use HLL for billing, financial auditing, or any system requiring exact counts. |
 | DO leverage the mergeability of HLLs to calculate unique counts across distributed nodes independently. | DON'T try to intersect HLLs; they are designed for unions. |
 
-## 14. Recommended Tools or Libraries
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, the power of HLL is in its mergeability. In a distributed FDE scenario, you can have 10 different worker nodes building their own small HLLs independently for traffic they see. At the end of the day, you can merge those 10 HLLs together to get the total unique traffic across the entire cluster, without ever centralizing the raw data.
@@ -197,7 +197,7 @@ Bro, the power of HLL is in its mergeability. In a distributed FDE scenario, you
 | [antirez/redis](https://github.com/antirez/redis) | ⭐ 60k+ | The Redis source code. | Redis has one of the most famous and highly optimized HLL implementations in C. |
 | [ascv/HyperLogLog](https://github.com/ascv/HyperLogLog) | ⭐ 500+ | A Python implementation of HLL. | Good for understanding the algorithm structure in Python. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

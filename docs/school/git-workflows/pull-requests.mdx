@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Opening massive PRs with 2,000+ lines of code changes. |
 | Performance | Not a Git command, but a platform feature. Network dependent. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a junior developer tasked with deleting an unused column from the database schema. You write the migration script, commit it directly to the `main` branch, and it deploys. Unfortunately, you didn't realize that the billing microservice still relied on that column. The entire payment system crashes. The CEO is furious, and you feel terrible. A Pull Request (PR) is a safety net designed to prevent exactly this scenario. Instead of pushing to `main`, you push to a temporary branch and open a PR. The PR acts as a dedicated forum where automated tests run to verify the billing service, and a senior engineer manually reviews the code. They spot the error, leave a comment, and you fix it before the code ever touches production. PRs transform code from a solo effort into a collaborative, verified product.
+
+## 3. Real-World Analogy
 **FDE Scenario:** Your client's engineering team complains that PRs take forever to merge. You discover they are opening massive 3,000-line PRs spanning multiple weeks of work. You need to implement a strategy for small, atomic PRs.
 
 

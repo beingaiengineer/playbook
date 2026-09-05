@@ -119,10 +119,17 @@ def test_deactivate_user_cancels_subscriptions_good(db_session):
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="CI/CD Testing Pipeline"
+  nodes={[
+    { id: '1', type: 'data', label: 'Developer Push (PR)', position: { x: 50, y: 100 } },
+    { id: '2', type: 'tool', label: 'CI Server (GitHub Actions)', position: { x: 300, y: 100 } },
+    { id: '3', type: 'process', label: 'Run Full Test Suite', position: { x: 550, y: 100 } },
+    { id: '4', type: 'output', label: 'Merge Blocked / Approved', position: { x: 550, y: 200 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', animated: true, type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'result determines', type: 'smoothstep' }
   ]}
 />
 

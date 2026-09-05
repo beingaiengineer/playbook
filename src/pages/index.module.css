@@ -345,6 +345,29 @@
 /* Icons & Badges */
 .courseEmoji {
   font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.courseIconImg {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme='dark'] .courseIconImg {
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
+}
+
+.courseCardFeatured .courseIconImg {
+  width: 84px;
+  height: 84px;
+}
+
+.courseLink:hover .courseIconImg {
+  transform: scale(1.08) rotate(-2deg);
 }
 
 .liveBadge {

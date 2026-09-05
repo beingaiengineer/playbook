@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Treating the LLM as a magical brain instead of a text-prediction engine forced into a loop |
 | Performance | Deep reasoning requires high token consumption; complex thoughts = slower execution |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you ask a traditional LLM to "Calculate the square root of 948,201". It immediately tries to predict the next token and hallucinates an incorrect number, because neural networks are terrible at raw math. Now, imagine asking an AI Agent the same question. The agent uses the ReAct (Reason + Act) framework. It pauses and *thinks*: "I need to calculate a square root. I shouldn't guess. I have a Python execution tool." It then *acts* by writing `import math; print(math.sqrt(948201))` and running the tool. It *observes* the output. Finally, it uses that observation to generate the correct answer. This loop of Thought -> Action -> Observation is how agents "think." It forces the LLM to break complex tasks down, use tools to overcome its own weaknesses, and verify its work before responding.
+
+## 3. Real-World Analogy
 
 ![Illustration of Bae retracing his steps to find keys](../assets/intro/how-agents-think.png)
 

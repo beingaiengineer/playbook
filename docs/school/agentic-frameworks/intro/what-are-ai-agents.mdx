@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Confusing a simple LLM chat prompt with a true agentic workflow |
 | Performance | Varies wildly; dominated by network latency of LLM API calls and tool executions |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a customer support engineer. A user emails you asking for a refund. To process it, you read the email (understanding), open the Stripe dashboard (tool use), find the transaction (action), click 'Refund' (action), and write a polite reply (generation). A traditional Large Language Model (like ChatGPT) can read the email and draft the reply, but it is locked in a box. It cannot click the 'Refund' button in Stripe. An AI Agent breaks the LLM out of that box. An agent is an LLM equipped with tools (like API access, a web browser, or a Python terminal) and a loop that allows it to reason about a goal, choose a tool, observe the result, and decide what to do next. Agents transform AI from passive conversationalists into active digital workers capable of executing complex workflows in production systems.
+
+## 3. Real-World Analogy
 
 ![Real-World Analogy](../assets/intro/what-are-ai-agents.png)
 

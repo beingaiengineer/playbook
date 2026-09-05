@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Alerting on causes (e.g., "CPU > 80%") instead of symptoms (e.g., "Error rate > 5%") |
 | Performance | Evaluated periodically by the metric backend (e.g., Prometheus), very low overhead |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, it's 3:00 AM and your phone starts screaming. PagerDuty just fired an alert because CPU utilization on a background worker node hit 90%. You wake up, scramble to your laptop, and realize... the node was just running a scheduled nightly backup that is perfectly normal. You go back to sleep. A week later, another alert fires at 3:00 AM. This time you ignore it, assuming it's the backup again. But this time, it was a sudden spike in traffic that caused the database to crash. Because you had poorly tuned alerting rules that cried wolf over non-actionable metrics, you developed "alert fatigue" and ignored a critical production outage. Proper alerting rules don't just trigger when a metric goes up; they trigger when the user experience is actually degraded, ensuring that when an engineer is woken up, there is a real fire to fight.
+
+## 3. Real-World Analogy
 
 **FDE Scenario:** As an FDE, you will integrate with legacy client systems that can silently fail. Properly configured alerting rules are your first line of defense to detect failures before the client even notices, allowing you to proactively investigate the issue.
 

@@ -19,7 +19,11 @@ Bro, not all fires are the same. A candle falling over in the living room is bad
 | Common Mistake | Inflating SEV levels to get faster attention on a minor bug |
 | Performance | Dictates the expected response and resolution time |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine it's 8:00 PM on a Friday. The customer support channel in Slack starts lighting up because a typo in the footer of your website says "Copywrite 2023" instead of 2024. The support lead panics and hits the big red "Declare Incident" button. Suddenly, PagerDuty wakes up the Director of Engineering, the lead DevOps engineer, and the Database Admin, pulling them out of dinner with their families. They log on, expecting the database to be on fire, only to find a typo. They fix it in two seconds, but the trust in the incident system is broken. The next time a real database crash happens, people might ignore the page, assuming it's another typo. This is why strict Severity Levels (Sev-1, Sev-2, Sev-3) exist. They provide a universally understood triage system so that a typo (Sev-3) is handled on Monday morning, while a total payment failure (Sev-1) justifies waking up the entire team.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A grayscale line-art illustration of Bae, a software engineer, interacting with a medical triage scenario: cardiac arrest (immediate life threat) */}
 

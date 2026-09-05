@@ -115,10 +115,17 @@ def test_create_post_success(auth_headers):
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="API Test Execution"
+  nodes={[
+    { id: '1', type: 'tool', label: 'Test Client (requests)', position: { x: 50, y: 100 } },
+    { id: '2', type: 'data', label: 'HTTP Request (JSON)', position: { x: 300, y: 100 } },
+    { id: '3', type: 'core', label: 'API Endpoint Under Test', position: { x: 550, y: 100 } },
+    { id: '4', type: 'output', label: 'HTTP Response (Status/Body)', position: { x: 550, y: 200 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', label: 'sent to', animated: true, type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'returns', type: 'smoothstep' }
   ]}
 />
 

@@ -1,3 +1,4 @@
+
 ---
 sidebar_position: 8
 sidebar_label: "Code Coverage"
@@ -97,10 +98,17 @@ pytest --cov=src --cov-branch --cov-report=xml --cov-report=term-missing
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="Coverage Collection Flow"
+  nodes={[
+    { id: '1', type: 'tool', label: 'Coverage.py Tool', position: { x: 50, y: 100 } },
+    { id: '2', type: 'core', label: 'Test Suite Execution', position: { x: 300, y: 100 } },
+    { id: '3', type: 'data', label: 'AST Line Trace Data', position: { x: 550, y: 100 } },
+    { id: '4', type: 'output', label: 'HTML Coverage Report', position: { x: 550, y: 200 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', label: 'monitors', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', animated: true, type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'generates', type: 'smoothstep' }
   ]}
 />
 

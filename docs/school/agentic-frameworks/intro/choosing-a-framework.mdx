@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Picking a framework because it has high GitHub stars, without checking if it supports the specific architecture you need |
 | Performance | Framework overhead is usually negligible compared to network calls, but poor state management in bad frameworks can cause OOM errors |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine being tasked with building a simple internal Slack bot that checks the weather. You decide to use Langchain because you saw a cool YouTube tutorial. You spend three days writing complex `RunnableSequences` and parsing abstract `PromptTemplates` just to make an API call to a weather service. Your code is 500 lines long, impossible to debug, and fragile. A senior engineer looks at it and rewrites it using 20 lines of pure Python and the raw OpenAI API. Conversely, imagine trying to build a massive, multi-agent financial auditing system using raw Python. You'd spend months re-inventing state management, memory check-pointing, and human-in-the-loop pauses. The ecosystem of Agentic Frameworks (Langchain, LlamaIndex, CrewAI, AutoGen) is exploding, and choosing the wrong one for your specific use case will either bury you in unnecessary abstraction or leave you drowning in reinvented boilerplate.
+
+## 3. Real-World Analogy
 
 ![Illustration of Bae looking at a bicycle, sedan, tour bus, and race car](../assets/intro/choosing-a-framework.png)
 

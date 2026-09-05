@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Monitoring 50 random metrics instead of focusing on these four core user-experience indicators |
 | Performance | Extracted natively from standard metrics; zero extra performance cost |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you are a new Site Reliability Engineer on your first day. You open the company's Datadog account and are greeted by a dashboard with 400 different graphs: "Garbage Collection Pause Times", "L2 Cache Misses", "Kafka Partition Offsets". It is total information overload. When an outage happens, you have no idea which of the 400 graphs actually matters. This is why Google invented the Four Golden Signals: Latency (how long it takes), Traffic (how much demand there is), Errors (how often it fails), and Saturation (how "full" the system is). If you monitor nothing else in your entire infrastructure, monitoring just these four high-level signals will alert you to 99% of all critical user-facing production issues. They cut through the noise and focus entirely on the end-user experience.
+
+## 3. Real-World Analogy
 
 **FDE Scenario:** As an FDE, you are often dropped into unfamiliar client systems during active outages. Monitoring the Four Golden Signals (Latency, Traffic, Errors, and Saturation) gives you an immediate, high-level understanding of system health without needing to know the deep implementation details of their architecture.
 

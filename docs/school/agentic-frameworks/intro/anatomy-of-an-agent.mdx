@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Thinking the LLM *is* the agent, rather than just the brain of the agent |
 | Performance | Overall latency depends on the speed of the reasoning engine and the network latency of the tools |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine building a self-driving car. You wouldn't just slap a massive neural network on top of a steering wheel and hope for the best. You need distinct components: a camera (perception), a routing algorithm (planning), an engine controller (tool execution), and a memory module (state). Building an AI Agent is exactly the same. The "Anatomy of an Agent" consists of the core LLM (the brain), a memory module (to remember past interactions), a set of Tools (APIs, calculators, web browsers), and a control loop (like ReAct) that dictates how the brain interacts with the tools and memory over time. If you just rely on the LLM without explicitly designing the memory, tools, and control loop, you don't have an agent; you just have a chatbot.
+
+## 3. Real-World Analogy
 
 ![Illustration of Bae in a kitchen representing agent anatomy](../assets/intro/anatomy-of-an-agent.png)
 

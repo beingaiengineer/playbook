@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Using these tools without understanding the underlying commit graph. |
 | Performance | Operations like `bisect` save hours of manual debugging. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine you're a junior dev and you just committed the database password to the `main` branch. Panicking, you add a new commit that deletes the password, but the original commit is still permanently recorded in the Git history for anyone to steal. Standard git commands won't save you here. You need advanced Git operations. You use an interactive rebase (`git rebase -i`) to literally rewrite time, squashing or dropping the problematic commit as if it never existed. Then, you use a force push (`git push --force-with-lease`) to overwrite the remote repository. Later that week, you accidentally delete a critical branch. Again, you don't panic. You crack open `git reflog`, find the exact SHA of the deleted branch, and resurrect it instantly. Advanced Git is the difference between a minor scare and a career-ending disaster.
+
+## 3. Real-World Analogy
 **FDE Scenario:** A rogue script on a client's server just force-pushed over `main`, and 3 days of team work is missing. You have to SSH into the build server, use `git reflog`, and recover the lost commits before the deadline.
 
 

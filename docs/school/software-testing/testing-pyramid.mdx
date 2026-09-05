@@ -95,10 +95,17 @@ def test_user_registration_integration():
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="The Testing Pyramid"
+  nodes={[
+    { id: '1', type: 'core', label: 'Unit Tests (Base)', position: { x: 50, y: 200 } },
+    { id: '2', type: 'process', label: 'Integration Tests (Middle)', position: { x: 300, y: 150 } },
+    { id: '3', type: 'warning', label: 'E2E Tests (Top)', position: { x: 550, y: 100 } },
+    { id: '4', type: 'data', label: 'Cost / Speed Tradeoff', position: { x: 300, y: 250 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', label: 'fewer & slower', type: 'smoothstep' },
+    { id: 'e2-3', source: '2', target: '3', label: 'most brittle', type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'highest cost', animated: true, type: 'step' }
   ]}
 />
 
