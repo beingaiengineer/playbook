@@ -40,7 +40,7 @@ Bro, imagine you are a senior engineer migrating a messy, hardcoded LLM script i
 | Connecting pipes together | LangChain Expression Language (LCEL) `\|` operator |
 | Water filters | Output Parsers formatting the text into JSON |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 LangChain started as a framework to make working with LLMs easier. Its core value proposition is **standardization**. Every LLM provider has a different API, different parameters, and different message formats. LangChain provides a unified interface so you can write your code once and swap models instantly.
 
@@ -48,7 +48,7 @@ The most important concept in modern LangChain is **LCEL (LangChain Expression L
 
 **Important:** LangChain is for *Chains* (linear workflows). If you need *Agents* (cyclical, stateful, decision-making workflows), you must use LangGraph. LangChain's legacy `AgentExecutor` is deprecated.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the core components you will use daily in LangChain.
 
@@ -59,7 +59,7 @@ Here are the core components you will use daily in LangChain.
 | **OutputParser** | `StrOutputParser()` | Extracts the clean string or JSON from the raw LLM API response object. |
 | **Runnable / LCEL** | `chain = prompt \| model \| parser` | The declarative syntax to pipe components together. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is the most basic LCEL chain. Notice how clean it is to connect the prompt, the model, and the parser.
 
@@ -81,7 +81,7 @@ result = chain.invoke({"concept": "LangChain"})
 print(result)
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at a production scenario: forcing the LLM to return structured JSON so our downstream application doesn't crash.
 
@@ -122,7 +122,7 @@ except Exception as e:
     print(f"Bro, validation failed: {e}")
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you use the LCEL `|` operator, you aren't just passing data. Under the hood, LangChain wraps your components in a `RunnableSequence`.
 
@@ -148,7 +148,7 @@ This sequence automatically implements standard methods: `invoke()`, `batch()`, 
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Characteristic | Why |
 |---|---|---|
@@ -156,7 +156,7 @@ This sequence automatically implements standard methods: `invoke()`, `batch()`, 
 | **Execution Latency** | Near Zero | The framework overhead is negligible compared to the LLM network request. |
 | **Flexibility** | High | Every component implements the `Runnable` protocol, meaning they can all be hot-swapped. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -166,7 +166,7 @@ This sequence automatically implements standard methods: `invoke()`, `batch()`, 
 | **Why should you avoid LangChain's legacy `AgentExecutor`?** | It is essentially a black box. Debugging a failed tool call or modifying the internal routing logic of `AgentExecutor` is incredibly difficult. LangGraph solves this by making the control flow explicit. |
 | **How do you pass variables deeply into an LCEL chain?** | Using `RunnablePassthrough`. It allows you to pass the initial input dictionary through intermediate steps unchanged so later components can access it. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if your LCEL chain expects a string, but the previous component returned a dictionary?
 
@@ -177,26 +177,26 @@ chain.invoke("LangChain") # Wait, this crashes!
 
 The edge case is **Input Schema Mismatches**. The `prompt` component usually expects a dictionary (e.g., `{"concept": "LangChain"}`). If you pass a raw string, the prompt template fails to find the key it needs to format the text. You must ensure the output type of Component A matches the expected input type of Component B.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **RAG Pipelines**: LangChain is the industry standard for connecting Document Loaders -> Text Splitters -> Vector Stores -> Prompts -> LLMs.
 - **Model Agnosticism**: Enterprise teams use LangChain so they aren't locked into OpenAI. If Azure goes down, they change one line of code from `ChatOpenAI` to `ChatAnthropic` and the rest of the chain works perfectly.
 - **Data Extraction**: Using `with_structured_output` to scrape messy text from PDFs and enforce clean JSON responses for databases.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | **DO** use LCEL (`|`) instead of the legacy `LLMChain` class. It is the modern standard. | **DON'T** use LangChain for complex state machines. Move to LangGraph as soon as you need loops. |
 | **DO** use Pydantic models with `with_structured_output` to guarantee data types. | **DON'T** manually parse JSON strings using regex. Let LangChain's output parsers handle the errors. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠️ **The Wrapper Trap**
 > LangChain has hundreds of integrations (loaders, tools, vectorstores). Often, these wrappers obscure the underlying library's features or introduce bugs.
 > **Production Fix**: If a LangChain wrapper is missing a feature (e.g., a specific metadata filter for Pinecone), don't hack around it. Just write a custom Python function using the native Pinecone SDK and wrap it in a LangChain `@tool`.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Impact | The Fix (Code) |
 |---|---|---|
@@ -204,11 +204,11 @@ The edge case is **Input Schema Mismatches**. The `prompt` component usually exp
 | Using legacy chains | Deprecation warnings, no streaming support | Refactor to LCEL syntax (`prompt | model | parser`) |
 | Forgetting Output Parsers | Returning raw AIMessage objects to the frontend | Always end text chains with `StrOutputParser()` |
 
-## 15. Related Topics
+## 16. Related Topics
 - [LangGraph Intro](./langgraph-intro.mdx)
 - [Tool Use Pattern](../architecture-patterns/tool-use-pattern.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

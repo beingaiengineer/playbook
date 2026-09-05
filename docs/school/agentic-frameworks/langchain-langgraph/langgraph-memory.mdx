@@ -36,7 +36,7 @@ Bro, imagine you are a senior engineer dealing with user complaints that the age
 
 Bro, think of LangGraph memory like a good waiter. If you don't use memory (checkpointers), the waiter treats you like a stranger every single time you talk. With memory, the waiter has a notebook (the thread state) dedicated just to you, so they remember what you ordered 5 minutes ago.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 By default, standard LangChain agents or simple LangGraph graphs are stateless. They run, they finish, and they forget everything.
 
@@ -47,7 +47,7 @@ You need memory when:
 - Implementing human-in-the-loop (pausing and resuming).
 - Doing time-travel debugging (going back to a specific state and re-running).
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Syntax Example | Use Case |
 |---|---|---|
@@ -57,7 +57,7 @@ You need memory when:
 | Compiling with memory | `graph = builder.compile(checkpointer=checkpointer)` | Attaching memory to the graph |
 | Invoking with Thread ID | `graph.invoke(input, \{"configurable": \{"thread_id": "123"\}\})` | Resuming a specific session |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is the absolute simplest way to add memory to a graph using `MemorySaver`.
 
@@ -90,7 +90,7 @@ print(graph.invoke({"counter": 0}, config)) # Output: {'counter': 1}
 print(graph.invoke({}, config))             # Output: {'counter': 2}
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in production, `MemorySaver` won't cut it. Your servers will restart and wipe the memory. Here's how you use an asynchronous Postgres checkpointer for a real chatbot.
 
@@ -150,7 +150,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does LangGraph memory actually flow?
 
@@ -174,7 +174,7 @@ How does LangGraph memory actually flow?
 
 Every time a node finishes, the checkpointer serializes the graph's state and saves it to the database with a `checkpoint_id`. This creates a linked list of states, which enables features like time-travel (rewinding).
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Memory Type | Latency | Persistence | Use Case |
 |---|---|---|---|
@@ -183,7 +183,7 @@ Every time a node finishes, the checkpointer serializes the graph's state and sa
 | `AsyncPostgresSaver`| ~20-50ms | Distributed Database | Production, multi-node scaling |
 | `RedisSaver` (Custom)| ~5-10ms | Distributed Cache | High throughput, ephemeral sessions |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -193,20 +193,20 @@ Every time a node finishes, the checkpointer serializes the graph's state and sa
 | Why is `checkpoint_id` useful? | It allows "Time Travel". You can fetch a specific `checkpoint_id` from the past and fork the graph execution from that exact moment. |
 | What is a "Checkpoint Tuple"? | It's the core data structure returned by the checkpointer containing the `config` (with thread_id), the `checkpoint` (the actual state dict), and `metadata`. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if your agent state has a custom Python object (like an un-serializable database connection) and you use Postgres checkpointer?
 
 **Answer:** The checkpointer will crash. Checkpointers must serialize the state to JSON/Pickle to store it in the database. Custom objects without serializers will fail. Always keep your state pure — strings, dicts, lists, and Pydantic models.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies building complex customer support bots use Postgres checkpointers.
 - When a user chats, their `session_id` acts as the `thread_id`.
 - If the user closes the app and returns 3 days later, the backend fetches the same `thread_id`, and the bot seamlessly resumes the conversation.
 - If an agent hits an error, observability tools use the checkpointer's "time travel" feature to load the exact state that caused the crash for debugging.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -214,12 +214,12 @@ Companies building complex customer support bots use Postgres checkpointers.
 | Do use `add_messages` reducer for message histories so memory appends automatically. | Don't store large base64 documents in the graph state, it will bloat the database checkpoints. |
 | Do clear old checkpoints periodically if you have long-running sessions. | Don't mutate the state directly. Always return the new/appended state from nodes. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > Long conversations mean large checkpoints. If your chat goes on for 100 turns, LangGraph will save 100 checkpoints. Fetching the state will become slower, and your LLM will run out of context window. You MUST implement a node that summarizes older messages and truncates the state list, or your system will eventually OOM or hit token limits.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -227,12 +227,12 @@ Companies building complex customer support bots use Postgres checkpointers.
 | Passing thread_id directly in input | Pass it in the `config` dict | `graph.invoke(input, {"configurable": {"thread_id": "123"}})` |
 | Overwriting message history | Use `add_messages` in `TypedDict` | `messages: Annotated[list[BaseMessage], add_messages]` |
 
-## 15. Related Topics
+## 16. Related Topics
 - LangGraph State Machines
 - LangGraph Human in Loop (Relies heavily on checkpointers)
 - LangSmith Observability
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

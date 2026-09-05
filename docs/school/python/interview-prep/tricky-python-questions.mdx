@@ -112,7 +112,7 @@ Used in debugging rounds, senior reviews, and interviews that test practical Pyt
 
 ---
 
-## 17. Advanced Edge Cases and Traps
+### Advanced Edge Cases and Traps
 1. **Late Binding Closures**:
    - Code: `funcs = [lambda: i for i in range(3)]`
    - Trap: Calling `funcs[0]()` returns `2`, not `0`! Python binds closures by reference, not value. By the time you call the lambda, the loop finished and `i` is 2.
@@ -153,7 +153,7 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | [yasoob/intermediatePython](https://github.com/yasoob/intermediatePython) | ⭐ 15k+ | Python tips and tricks | Covers many concepts that often trip up developers in tricky interview questions. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

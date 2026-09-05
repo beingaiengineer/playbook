@@ -164,7 +164,7 @@ Because the chat is broadcasted, the very next turn will send those 10,000 token
 
 ---
 
-## 17. Advanced State Machine Transitions
+### Advanced State Machine Transitions
 1. **FSM (Finite State Machines)**: AutoGen allows you to pass a dictionary defining allowed transitions. `allowed_or_disallowed_speaker_transitions={pm: [coder, reviewer], coder: [reviewer]}`. This natively enforces that a Coder can NEVER talk back to the PM directly, they must go through the reviewer.
 2. **Nested Group Chats**: You can make a `GroupChatManager` act as an agent *inside* another `GroupChat`. This allows hierarchical organizations! (e.g. The "Executive Chat" delegates a task to the "Engineering Chat Manager", which figures it out with its sub-agents, and returns the result to the Executives).
 
@@ -184,7 +184,7 @@ Because the chat is broadcasted, the very next turn will send those 10,000 token
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | LangGraph | Shows how to do strict state machine routing instead of conversational routing. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

@@ -36,7 +36,7 @@ Grafana is the giant wall of TVs in the manager's office. The TVs can't collect 
 
 Prometheus stores the data. Grafana draws the pictures.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, Prometheus and Grafana are the peanut butter and jelly of open-source observability. You almost never see one without the other.
 
@@ -44,7 +44,7 @@ Bro, Prometheus and Grafana are the peanut butter and jelly of open-source obser
 
 **Grafana** is a visualization tool. It connects to Prometheus (and dozens of other databases), runs PromQL queries on your behalf, and renders the results as beautiful, interactive dashboards.
 
-## 4. Syntax Table (PromQL Basics)
+## 5. Syntax Table (PromQL Basics)
 
 PromQL (Prometheus Query Language) is how you extract data.
 
@@ -55,7 +55,7 @@ PromQL (Prometheus Query Language) is how you extract data.
 | `rate(http_requests_total[5m])` | Calculates the per-second rate of requests over the last 5 minutes. (Crucial for counters!) |
 | `sum(rate(http_requests_total[5m])) by (endpoint)` | Adds up the rate across all servers, grouped by the API endpoint. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 To use Prometheus, your app just needs to expose a text-based HTTP endpoint. It looks like this to humans:
 
@@ -78,7 +78,7 @@ scrape_configs:
       - targets: ['localhost:8000'] # IP and port of your app
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In Kubernetes, you don't use `static_configs` because pods change IPs constantly. You use Prometheus's **Service Discovery**, which automatically talks to the Kubernetes API to find new pods.
 
@@ -93,7 +93,7 @@ histogram_quantile(
 ```
 Grafana takes this query, sends it to Prometheus, gets the math back, and draws the line chart automatically.
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, the separation of concerns here is brilliant. Prometheus focuses purely on scraping and storage. Grafana focuses purely on UI. Alertmanager focuses purely on deduplicating alerts and sending them to PagerDuty or Slack.
 
@@ -115,7 +115,7 @@ Bro, the separation of concerns here is brilliant. Prometheus focuses purely on 
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Component | CPU/Memory Usage | Bottleneck Risk |
 |---|---|---|
@@ -123,7 +123,7 @@ Bro, the separation of concerns here is brilliant. Prometheus focuses purely on 
 | Prometheus Server | High Memory | Prometheus keeps recent data in RAM for fast queries. High cardinality metrics will OOM (Out of Memory) the server. |
 | Grafana Server | Low | Grafana delegates the heavy math to Prometheus. It just renders the UI. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -133,7 +133,7 @@ Bro, the separation of concerns here is brilliant. Prometheus focuses purely on 
 | Can Prometheus scale horizontally? | Not natively in a simple way. A single Prometheus server is highly efficient but represents a single point of failure. To scale out, companies use tools like Thanos or Cortex on top of Prometheus. |
 | What is High Cardinality? | It's when a metric has too many unique label combinations. E.g., adding `user_id` to a metric. Every unique `user_id` creates a new time-series in Prometheus's RAM, causing it to crash. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, one of the trickiest things in PromQL is understanding the difference between `rate()` and `irate()`.
 
@@ -142,11 +142,11 @@ Bro, one of the trickiest things in PromQL is understanding the difference betwe
 
 If you use `rate(errors[5m])`, a massive 2-second spike of 1000 errors will be "smoothed out" and averaged over 5 minutes, making it look like a tiny bump on the graph. You might miss the spike entirely! If you want to see fast spikes in a Grafana dashboard, use `irate`. If you are writing an alert, use `rate` to avoid false positives.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At literally almost every modern tech company (SoundCloud, where it was invented, to Docker, to DigitalOcean), this stack is the default. When an engineer deploys a new microservice to Kubernetes, they just add an annotation like `prometheus.io/scrape: "true"` to their deployment. Prometheus automatically discovers it, starts scraping, and the metrics instantly appear in Grafana.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -154,13 +154,13 @@ At literally almost every modern tech company (SoundCloud, where it was invented
 | DO organize Grafana dashboards with high-level aggregate graphs at the top, and detailed per-instance graphs at the bottom. | DON'T put 50 graphs on a single dashboard page. It will take 10 seconds to load and crash the browser. |
 | DO use variable templating in Grafana so you can switch between "Production" and "Staging" using a dropdown. | DON'T create separate duplicate dashboards for different environments. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Prometheus is not Long-Term Storage
 By default, Prometheus only stores data on local disk for 15 days. Do not treat Prometheus like a data warehouse. It is designed for operational, real-time alerting. If you need to keep metrics for 2 years for compliance or historical analysis, you need to configure "Remote Write" to send the data to a long-term storage system like Thanos, VictoriaMetrics, or AWS Timestream.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

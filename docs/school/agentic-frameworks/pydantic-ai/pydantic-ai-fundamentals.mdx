@@ -145,7 +145,7 @@ If you ask the LLM to output a UUID, but it keeps outputting "12345", Pydantic w
 
 ---
 
-## 17. Advanced Fundamentals Patterns
+### Advanced Fundamentals Patterns
 1. **Model Agnostic Abstraction**: Pydantic AI abstracts away the differences between OpenAI's tool calling and Anthropic's tool calling. You write standard Python functions, and the framework automatically translates them into the correct API format for whichever model you injected into the `Agent`.
 2. **Context Passing in Tools**: Pydantic AI's killer feature is `RunContext`. You can define a tool `@agent.tool` that takes `ctx: RunContext[MyDatabase]`. When the LLM calls the tool, it only provides the business arguments, while Pydantic AI automatically injects your live database connection!
 
@@ -167,7 +167,7 @@ If you ask the LLM to output a UUID, but it keeps outputting "12345", Pydantic w
 | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | ⭐ 5k+ | The official framework repo | The source of truth for all documentation. |
 | [pydantic/pydantic](https://github.com/pydantic/pydantic) | ⭐ 20k+ | The core validation engine | Understanding Pydantic is a prerequisite for Pydantic AI. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

@@ -40,13 +40,13 @@ If you just label every box "Stuff" (like `git commit -m "updates"`), unpacking 
 
 {/* TODO: [BAE-GIT-A-003] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with putting standard category stickers on moving boxes. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Conventional Commits is a lightweight specification on top of commit messages. It provides an easy set of rules for creating an explicit commit history.
 
 Why do we care? Because if machines can read your commit messages, machines can automate your job. By structuring your commits (e.g., `type(scope): description`), CI/CD pipelines can automatically bump SemVer (Semantic Versioning) numbers (v1.1.0 to v1.2.0) and auto-generate beautifully formatted `CHANGELOG.md` files for your users.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Type | When to use it | SemVer Impact |
 |---|---|---|
@@ -59,7 +59,7 @@ Why do we care? Because if machines can read your commit messages, machines can 
 | `chore:` | Updating build tasks, package manager configs, etc. | None |
 | `BREAKING CHANGE:` | (In the footer) Changing an API in a non-backwards compatible way. | Major version bump (1.0.0 -> 2.0.0) |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a standard, badly formatted commit compared to a Conventional Commit.
 
@@ -75,7 +75,7 @@ git commit -m "feat(ui): implement user login page"
 git commit -m "fix(header): correct spelling of 'Dashboard'"
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 When a PR is squash-merged, the title of the PR usually becomes the single commit on `main`. A production-ready PR title looks like this:
 
@@ -91,7 +91,7 @@ BREAKING CHANGE: The /api/v1/checkout endpoint now requires a valid JWT token.
 
 Because of the `BREAKING CHANGE` footer, the automated release tool will bump the project from `v2.4.1` to `v3.0.0` automatically.
 
-## 7. Internal Working
+## 8. Internal Working
 
 Conventional Commits don't change how Git works internally; they change how downstream tools read Git's internal log. Tools like `semantic-release` run `git log` to parse the history since the last Git Tag.
 
@@ -113,7 +113,7 @@ Conventional Commits don't change how Git works internally; they change how down
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Activity | Metric | Target |
 |---|---|---|
@@ -121,7 +121,7 @@ Conventional Commits don't change how Git works internally; they change how down
 | Automated Release | Time | Saves ~1-2 hours of manual release preparation. |
 | Changelog Generation | Accuracy | 100% accurate to the code merged. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -132,7 +132,7 @@ Conventional Commits don't change how Git works internally; they change how down
 | Is `chore:` a standard Conventional Commit type? | While not strictly defined in the core SemVer mapping (which focuses on `feat` and `fix`), `chore:` is a widely adopted community standard. It is used for maintenance tasks like updating dependencies or build scripts that don't affect production code. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, I wrote `Feat: new page` with a capital F, will it work?**
 No! The specification is case-sensitive by default in most tools. `feat:` is valid, `Feat:` is treated as a standard, non-conventional string, meaning it might be ignored by the changelog generator.
@@ -140,11 +140,11 @@ No! The specification is case-sensitive by default in most tools. `feat:` is val
 **Does a `refactor:` trigger a release?**
 By default in most tools (like semantic-release), no. Only `feat` and `fix` trigger releases (Minor and Patch). A `refactor` changes code internals without changing behavior, so the version number doesn't need to bump.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 The Angular team at Google actually invented this standard (originally called the "Angular Commit Guidelines"). Today, almost every major open-source library uses it. In enterprise CI/CD, tools like `commitlint` are installed as a Git Hook (`commit-msg` hook). If a developer tries to commit `git commit -m "fixed stuff"`, the hook intercepts it and throws an error directly in the terminal, forcing them to rewrite it to `fix(module): fixed stuff`.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -152,19 +152,19 @@ The Angular team at Google actually invented this standard (originally called th
 | Keep the first line under 72 characters. | Don't put paragraphs of explanation on the first line. Put it in the body. |
 | Enforce the rules using a CI linter or `husky` hook. | Don't rely on humans to "just remember" the rules. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Squash Merging**
 > If your team uses "Squash and Merge" for Pull Requests on GitHub, the default behavior is often to combine all the messy branch commits into one commit message. If the resulting PR squash commit message does not follow Conventional Commits, your automated release pipeline will fail or skip the release entirely. Always ensure the *PR Title* follows the convention, as that becomes the final commit message.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
 | Putting a space before the colon `feat : add button` | Remove the space: `feat: add button` |
 | Using custom, unrecognized types like `update:` or `change:` | Stick to the standard types (`feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `perf`, `test`). |
 
-## 15. Related Topics
+## 16. Related Topics
 - git-hooks-and-automation
 - pull-requests
 - branching-strategies

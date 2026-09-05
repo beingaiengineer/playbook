@@ -34,7 +34,7 @@ If you just look at the seller's log, it says "Package handed to courier at 9 AM
 
 Distributed Tracing is like the barcode tracking number on the box. Every single person who touches the box (the warehouse worker, the truck driver, the sorting facility, the local delivery guy) scans that exact same barcode. Later, you can go to a central website, type in that barcode, and see the exact timeline: It spent 2 hours in transit, 4 hours stuck at the sorting facility (the bottleneck!), and was finally loaded onto the wrong truck.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, in a monolithic app, if a request is slow, you just look at a stack trace or profile the code on that one machine.
 
@@ -42,7 +42,7 @@ In a modern architecture, a user clicking "Checkout" might hit the API Gateway, 
 
 Distributed tracing solves this by generating a unique `Trace ID` at the very edge of your system (the API gateway). Every single time Service A makes an HTTP or gRPC call to Service B, it passes that `Trace ID` in the request headers. Every service records its own start and stop times (called a `Span`) and sends them to a central backend (like Jaeger). The backend stitches all the spans together using the `Trace ID` to draw a beautiful "Flame Graph" showing exactly where time was spent.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Concept | Explanation |
 |---|---|
@@ -52,7 +52,7 @@ Distributed tracing solves this by generating a unique `Trace ID` at the very ed
 | Span ID | A unique 8-byte identifier for a specific operation. |
 | Context Propagation | The act of passing the Trace ID in HTTP headers to the next service. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at how you manually propagate a trace across an HTTP call using Python and `requests`.
 
@@ -91,7 +91,7 @@ def do_work():
     return "Done"
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In reality, bro, you don't manually write HTTP headers. You use libraries like OpenTelemetry that automatically monkey-patch your framework (like FastAPI or Flask) to inject and extract headers behind the scenes.
 
@@ -126,7 +126,7 @@ def checkout():
     return {"status": "success"}
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, the most critical part is Context Propagation. If the trace context is lost, the trace breaks into two disconnected halves, and it's useless.
 
@@ -149,7 +149,7 @@ Bro, the most critical part is Context Propagation. If the trace context is lost
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Activity | CPU/Memory Cost | Network Cost |
 |---|---|---|
@@ -157,7 +157,7 @@ Bro, the most critical part is Context Propagation. If the trace context is lost
 | Generating Spans | Low | Small objects in memory |
 | Sending Spans to Backend | High | If you trace 100% of traffic on a busy app, the sheer volume of UDP/TCP packets sent to Jaeger will saturate your network and cost a fortune. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -167,7 +167,7 @@ Bro, the most critical part is Context Propagation. If the trace context is lost
 | How do traces integrate with structured logs? | You include the `trace_id` as a field in every single structured JSON log. If you see an error log, you copy the `trace_id` and paste it into Jaeger to see the whole system state. |
 | What is a Flame Graph? | A visualization where time is the X-axis, and services/functions are stacked on the Y-axis. It instantly visually highlights which service took the most time. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, a massive gotcha in tracing is **Asynchronous Messaging (Queues/Kafka)**.
 
@@ -176,11 +176,11 @@ But what if Service A puts a message on a Kafka topic, and Service B reads it 5 
 
 If you don't propagate the trace ID inside the Kafka message payload (or Kafka headers), the trace breaks. You must explicitly extract the context from the message when consuming it, and start a new span linked to the original trace ID. Without this, your tracing completely fails for event-driven architectures.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At companies like Uber, a single ride request might touch over 100 microservices. Jaeger (which was actually created at Uber) allows an engineer to type in a `ride_id` (which was logged alongside the `trace_id`), open a massive flame graph, and instantly see: "Ah, the delay is exactly here—the Pricing Service spent 3 seconds waiting on a Redis cache miss." Without tracing, debugging this would take days of guessing.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -188,13 +188,13 @@ At companies like Uber, a single ride request might touch over 100 microservices
 | DO inject the `trace_id` into your application logs. | DON'T treat tracing and logging as separate, disconnected silos. |
 | DO set up Head-Based sampling (e.g., 1%) to keep costs under control. | DON'T try to trace 100% of traffic in a high-volume production system unless you have an infinite budget. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution The Cost of Tracing
 Trace data is massive. If you have 20 microservices, a single user request generates 20 spans. If you have 10,000 requests per second, you are generating 200,000 spans per second. If you don't sample heavily, your tracing backend will cost more to run than your actual application!
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

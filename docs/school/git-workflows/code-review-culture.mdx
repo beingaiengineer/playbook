@@ -40,13 +40,13 @@ If the inspector just screams "THIS IS TERRIBLE" and leaves, nothing gets built.
 
 {/* TODO: [BAE-GIT-A-002] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with an architectural inspection before building a house. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Code review is a human process, not a technical one. It happens inside a Pull Request. The goal is not just to find bugs—that is what automated tests are for. The goal of a code review is to ensure the code is maintainable, readable, and aligns with the company's architecture.
 
 More importantly, it is a knowledge-sharing mechanism. It is how junior engineers learn the "senior moves" and how senior engineers discover what the rest of the team is building. A toxic code review culture destroys a team's velocity; a healthy one acts as a force multiplier.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 *Note: Code review is conceptual, but here is the "syntax" of good communication.*
 
@@ -58,7 +58,7 @@ More importantly, it is a knowledge-sharing mechanism. It is how junior engineer
 | "Consider using an array here for better lookup speed." | Mentoring. |
 | "Nit: missing comma." | Minor formatting note (use a linter instead). |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A good review comment focuses on the code, not the person.
 
@@ -68,7 +68,7 @@ A good review comment focuses on the code, not the person.
 **Good Comment:**
 > "If `user` is null here, this will throw an exception. Should we add a guard clause at the top of the function to return early?"
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, you often leave actionable code suggestions directly in GitHub so the author can click one button to apply them.
 
@@ -81,7 +81,7 @@ const activeUsers = users.filter(user => user.isActive && user.hasPaid);
 ```
 ````
 
-## 7. Internal Working
+## 8. Internal Working
 
 The lifecycle of a review is asynchronous. It requires context switching, which is expensive for human brains.
 
@@ -104,7 +104,7 @@ The lifecycle of a review is asynchronous. It requires context switching, which 
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Activity | Metric | Target |
 |---|---|---|
@@ -112,7 +112,7 @@ The lifecycle of a review is asynchronous. It requires context switching, which 
 | PR Size | Lines of Code | Under 400 LOC. Larger PRs get poorer reviews. |
 | Comment Volume | Count | 1-5 major architectural notes > 50 nitpicks. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -123,7 +123,7 @@ The lifecycle of a review is asynchronous. It requires context switching, which 
 | What is the ideal size for a Pull Request? | Industry consensus is that PRs should be under 400 lines of code. Anything larger causes reviewer fatigue, meaning the reviewer will likely just skim the code and miss critical bugs. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Should you review code you don't understand?**
 Bro, if you are a junior and you don't understand the PR, *ask questions in the review!* "Hey, I'm trying to learn this part of the system, can you explain how this regex works?" A good PR should be readable. If you can't read it, that is valid review feedback.
@@ -131,11 +131,11 @@ Bro, if you are a junior and you don't understand the PR, *ask questions in the 
 **The PR has 3,000 lines. How do you review it?**
 Reject it gracefully. "This is too large for me to review effectively and guarantee no bugs slip through. Can we split this into 3 smaller PRs?"
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Google has one of the strictest code review cultures in the world. They enforce a concept called "Readability". Before you are allowed to approve PRs in a certain language (like C++ or Go), you must earn "Readability" status by having your own code heavily scrutinized by experts to prove you understand Google's exact idioms. Until then, every PR you write must be approved by someone who holds the Readability badge.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -143,19 +143,19 @@ Google has one of the strictest code review cultures in the world. They enforce 
 | Automate everything you can (formatting, linting) so humans focus on logic. | Don't argue about spaces vs. tabs in a code review. |
 | Praise good code! "This is a really elegant solution." | Don't just point out the negatives. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: The Rubber Stamp**
 > If your team culture is just clicking "Approve" without reading the code because everyone is "too busy," you are accumulating massive technical debt. This is how memory leaks and security vulnerabilities get shipped to production. Reviewing code is not a distraction from your job; it *is* your job.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
 | Reviewing code when you are angry/tired | Step away. Your tone will bleed into your text and damage team trust. |
 | Making 20 round-trips of comments | Jump on a 5-minute video call. Summarize the decision in the PR afterward. |
 
-## 15. Related Topics
+## 16. Related Topics
 - pull-requests
 - code-quality-gates (from CI/CD course)
 

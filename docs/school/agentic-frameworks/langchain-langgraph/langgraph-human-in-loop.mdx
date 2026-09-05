@@ -36,7 +36,7 @@ Bro, think of Human in the Loop like a train conductor checking tickets. The tra
 
 Bro, imagine you are a senior engineer building an agent that can execute database migrations. You absolutely cannot let it run autonomously; you need a way to pause execution and get manual approval before the destructive action occurs.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Sometimes, you do not want your AI agent to act completely autonomously. If your agent's job is to refund a customer, you probably want a human manager to click "Approve" before the Stripe API is called.
 
@@ -44,7 +44,7 @@ LangGraph implements HITL natively using **breakpoints**. Because LangGraph reli
 
 When the graph hits a breakpoint, it saves its state to the database and stops executing. The Python process literally yields. Hours or days later, the human can view the state, optionally edit the state, and then call `graph.invoke` again with the exact same `thread_id` to resume execution exactly where it left off.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Syntax Example | Use Case |
 |---|---|---|
@@ -54,7 +54,7 @@ When the graph hits a breakpoint, it saves its state to the database and stops e
 | Update state | `graph.update_state(config, \{"email": "Edited email"\})` | Human edits the agent's draft before resuming |
 | Resume graph | `graph.invoke(None, config)` | Tell the paused graph to continue |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here's how you pause before the agent executes a dangerous tool.
 
@@ -104,7 +104,7 @@ graph.update_state(config, {"is_approved": True})
 print("Second run:", graph.invoke(None, config))
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in a real FastAPI application, the human clicking "Approve" is a completely different HTTP request than the one that started the agent. Here's how that API structure looks.
 
@@ -155,7 +155,7 @@ async def approve_agent(req: ApproveRequest):
     return {"status": "resumed and email sent"}
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does the graph actually pause and resume?
 
@@ -180,7 +180,7 @@ How does the graph actually pause and resume?
 
 When LangGraph encounters an `interrupt_before` node during its loop, it throws an internal `GraphInterrupt` exception. This is caught by the runner, which immediately saves the current checkpoint, sets the `next` tuple in the state to indicate which node is queued, and exits the loop.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Operation | Overhead | Note |
 |---|---|---|
@@ -188,7 +188,7 @@ When LangGraph encounters an `interrupt_before` node during its loop, it throws 
 | Waiting | Zero | The state just sits in Postgres/SQLite safely |
 | Resuming Graph | Minimal (1 DB read) | Instant resumption based on `thread_id` |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -198,32 +198,32 @@ When LangGraph encounters an `interrupt_before` node during its loop, it throws 
 | Can a human edit the state before resuming? | Yes, using `graph.update_state(config, {"key": "new value"})`. This creates a new checkpoint overriding the previous values. |
 | What is the difference between `interrupt_before` and `interrupt_after`? | `interrupt_before=["A"]` pauses the graph *right before* node A runs. `interrupt_after=["A"]` lets node A finish, saves its state, and then pauses before whatever comes next. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what if you have a routing function (conditional edge) pointing to a node that has a breakpoint on it?
 
 **Answer:** It works perfectly. The conditional edge evaluates, determines the next node is `dangerous_node`, sees that `dangerous_node` is in the `interrupt_before` list, and pauses the graph. The `.next` state will show `dangerous_node`.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies use HITL for:
 - **Financial bots:** Agent researches stock, suggests trade, waits for portfolio manager to click "Buy".
 - **Social media bots:** Agent drafts 5 tweets, pauses. Human deletes 2, edits 1, and approves. Agent then posts the 3 approved tweets.
 - **Code reviewers:** Agent reviews a PR, suggests a fix, and pauses to let the original author review the fix before committing it.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do wrap your HITL logic in a separate frontend dashboard so non-engineers can approve actions. | Don't build HITL loops that block the main thread waiting for an `input()` in production. |
 | Do use `update_state` if the human needs to provide feedback like "Try again, but make it shorter". | Don't put breakpoints on every single tool; only on actions that have irreversible real-world impact. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > If an agent is paused and waiting for human approval, that state will sit in your Postgres database forever if the human never responds. You MUST implement a cron job or background worker that finds stale checkpoints (e.g., waiting > 48 hours) and either auto-rejects them or alerts a manager.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -231,12 +231,12 @@ Companies use HITL for:
 | Trying to resume without the exact `thread_id` | Keep track of the `thread_id` | `config = {"configurable": {"thread_id": "user_123"}}` |
 | Calling `update_state` without a specific node target (advanced) | Sometimes you need to specify which node authored the update | `graph.update_state(config, updates, as_node="human")` |
 
-## 15. Related Topics
+## 16. Related Topics
 - LangGraph Memory
 - LangGraph State Machines
 - LangGraph Multi-Agent
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

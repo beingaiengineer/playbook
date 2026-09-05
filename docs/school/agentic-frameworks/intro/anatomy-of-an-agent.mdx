@@ -36,7 +36,7 @@ Bro, imagine you are a senior engineer tasked with building a scalable internal 
 
 Bro, an agent is exactly like a kitchen. The LLM is just the chef's brain. If a genius chef has no memory of the order, no tools to cook with, and no rules to follow, they can't make a meal. You need all four components to run a working restaurant.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Every AI agent, whether it's a simple script or a complex framework like LangGraph, is built on four core anatomical parts:
 
@@ -45,7 +45,7 @@ Every AI agent, whether it's a simple script or a complex framework like LangGra
 3. **Tools (Actuators):** This is how the agent touches the outside world. An API to search the web, a Python sandbox to run code, or a Slack integration to send messages.
 4. **Orchestration Loop (The Skeleton):** The `while` loop that glues it all together. It passes the goal to the brain, takes the tool call, executes it, updates the memory, and asks the brain what to do next.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Component | Code Representation |
 |---|---|
@@ -54,7 +54,7 @@ Every AI agent, whether it's a simple script or a complex framework like LangGra
 | **Tools** | `@tool def search_db(query: str): ...` |
 | **Loop** | `agent = AgentExecutor(agent=brain, tools=tools, memory=memory)` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a raw, from-scratch representation of the anatomy without hiding behind a framework.
 
@@ -87,7 +87,7 @@ while True:
         break
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at how this anatomy translates to a production setup using LangGraph, where the anatomy is explicitly defined as a state machine.
 
@@ -130,7 +130,7 @@ workflow.add_edge("tools", "brain")
 app = workflow.compile()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 This diagram shows how the four anatomical parts interact during a single turn of execution.
 
@@ -149,7 +149,7 @@ This diagram shows how the four anatomical parts interact during a single turn o
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Component | Performance Bottleneck | How to Optimize |
 |---|---|---|
@@ -158,7 +158,7 @@ This diagram shows how the four anatomical parts interact during a single turn o
 | **Tools** | External network latency | Cache API responses, use parallel tool execution |
 | **Loop** | Number of reasoning steps | Use better prompting (few-shot) to reduce the number of loops |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -167,42 +167,42 @@ This diagram shows how the four anatomical parts interact during a single turn o
 | What is the difference between short-term and long-term memory in agents? | Short-term is the immediate message history array passed to the LLM. Long-term is usually a vector database where past interactions are stored and retrieved via semantic search. |
 | Why abstract the orchestration loop into a framework like LangGraph? | Writing the `while` loop manually gets messy when handling tool errors, retries, branching logic, and streaming. Frameworks provide robust state machines. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if the "Brain" decides to use a tool, but hallucinates the arguments? For example, the tool expects `{"user_id": 123}`, but the LLM outputs `{"user": "Bob"}`.
 If your "Orchestration Loop" isn't robust, the code throws a `KeyError` and the agent dies. A properly built agent catches that error, adds it to the "Memory" as an observation (`"Error: Missing user_id"`), and loops back to the "Brain" so it can self-correct.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Memory intensive:** Customer support agents that must recall context from a conversation that happened 3 months ago (requires vector DB long-term memory).
 - **Tool intensive:** Data analysis agents that write Python, execute it in a sandbox, view the error, and rewrite the code until it runs successfully.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Explicitly handle tool execution errors and feed them back to the LLM. | Don't let your orchestration loop crash on a simple API timeout. |
 | Keep the short-term memory strictly focused on the current task. | Don't blindly append 100 turns of conversation into the context window. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, the orchestration loop is where you must put your guardrails. Do not trust the Brain to follow safety rules perfectly. If a tool executes a database query, the Orchestration Loop must enforce permissions *before* running the tool, regardless of what the Brain decided.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Hardcoding logic inside tools that the LLM should decide | It removes the agent's autonomy and makes the system brittle. | Keep tools simple and atomic. Let the LLM do the complex orchestration. |
 | Forgetting to pass the system prompt on every loop | The LLM becomes "amnesic" and forgets its persona or rules mid-task. | Ensure the orchestration loop always prepends the system instructions to the memory stack. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Agent vs Chatbot vs RAG
 - How Agents Think
 - Memory & State Overview
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

@@ -155,7 +155,7 @@ The MCP Client is responsible for handling namespace collisions. Most intelligen
 
 ---
 
-## 17. Advanced Server Configurations
+### Advanced Server Configurations
 1. **GitHub Server Secrets**: The GitHub MCP server can do more than read code; it can review PRs and create branches. To do this securely, you must generate a Fine-Grained Personal Access Token (PAT) scoped strictly to the specific repositories you want the AI to manage.
 2. **Sequential Server Chains**: You can instruct the LLM to use servers in sequence. "Use the Fetch server to download this CSV url, then use the Filesystem server to save it to my downloads folder, then use the SQLite server to ingest the CSV into a table." The LLM can orchestrate these discrete tools autonomously.
 
@@ -173,7 +173,7 @@ The MCP Client is responsible for handling namespace collisions. Most intelligen
 |---|---|---|---|
 | [modelcontextprotocol/servers](https://github.com/modelcontextprotocol/servers) | ⭐ 15k+ | Official MCP Servers | The official repository maintained by Anthropic containing Postgres, GitHub, Slack, Filesystem, and more. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

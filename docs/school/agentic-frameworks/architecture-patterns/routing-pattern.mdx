@@ -42,7 +42,7 @@ If you press 1, you are routed to the Billing Team. That team ONLY has tools for
 | The specialized support desks | Sub-agents or specific tool-chains |
 | Transferring the call | Graph edge transitions |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The Routing pattern is the foundation of multi-agent systems and complex workflows. Instead of having one massive "God Agent" with 50 tools trying to solve everything (which leads to hallucinations and context blowouts), you use a Router.
 
@@ -55,7 +55,7 @@ You can implement routing in three ways:
 
 Use routing whenever your application has distinct "modes" or domains of operation.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here is how you typically define a routing condition in LangGraph.
 
@@ -65,7 +65,7 @@ Here is how you typically define a routing condition in LangGraph.
 | `router_function` | `Callable` | Analyzes state, returns a string literal matching a node name. |
 | `add_conditional_edges` | `Graph Method` | Maps the router function's output to actual nodes in the graph. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a basic LLM-based router in plain Python.
 
@@ -90,7 +90,7 @@ def route_query(user_query: str) -> str:
         return standard_rag_pipeline(user_query)
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at a production setup using LangGraph's conditional edges. We want to route between a specialized Math Expert, a Search Expert, and a General Chatbot.
 
@@ -153,7 +153,7 @@ builder.add_edge("general", END)
 graph = builder.compile()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Under the hood, a semantic router works by taking the user's string, embedding it into a vector, and comparing it against pre-computed vectors of "example queries" for each route. An LLM router works by generating a structured JSON object containing an Enum.
 
@@ -181,7 +181,7 @@ In a graph framework, the Router is just a node that executes, modifies the stat
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Characteristic | Why |
 |---|---|---|
@@ -190,7 +190,7 @@ In a graph framework, the Router is just a node that executes, modifies the stat
 | **Scalability** | Excellent | You can add 50 new routes without modifying existing downstream agents. |
 | **Reliability** | High | Specialized agents with 3 tools hallucinate far less than one agent with 30 tools. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -200,7 +200,7 @@ In a graph framework, the Router is just a node that executes, modifies the stat
 | **Can a Router route to another Router?** | Yes. This is a Hierarchical Architecture. A master router splits B2B vs B2C, and the B2B router splits Sales vs Support. |
 | **What is the difference between a Router and a Supervisor?** | A Router fires once and hands off control completely. A Supervisor acts as a manager, handing off tasks to workers but taking control back after they finish to review the work. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if the user query asks for two things at once? "Can you refund my last order, and also tell me how to reset my router?"
 
@@ -208,13 +208,13 @@ A standard Router forces a single path. It might pick Billing and ignore the tec
 
 The fix is **Multi-Routing or Plan-and-Execute integration**. Instead of returning a single literal string, the Router returns a `List[str]` of required sub-agents. The graph then spins up parallel branches (Parallelization Pattern) to handle both requests, and synthesizes the answers at the end.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Customer Support Triage (Klarna/Zendesk)**: Every inbound ticket hits a router. "Refunds" go to an automated agent. "Fraud" goes immediately to a human.
 - **Enterprise Search (Glean/Perplexity)**: When you type a query, a router decides if it should search the Web, search internal Google Drive, or just do pure math calculation.
 - **Voice Assistants (Siri/Alexa)**: The intent recognition layer is a massive semantic router directing your voice to the "Weather skill" vs the "Spotify skill".
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -222,13 +222,13 @@ The fix is **Multi-Routing or Plan-and-Execute integration**. Instead of returni
 | **DO** use structured outputs (Enums) so your router guarantees a valid edge name. | **DON'T** rely on regex parsing of a generic text response to determine the route. |
 | **DO** define clear, mutually exclusive categories in your routing prompt. | **DON'T** create overlapping categories (e.g., "Tech Support" and "IT Help"). The model will guess randomly. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠️ **Semantic Routing Drift**
 > If you use Semantic Routing (embeddings), be aware that user language changes. If users start calling a "refund" a "chargeback," your vector similarity might fail.
 > **Production Fix**: Maintain an active evaluation dataset of real user queries and periodically update the example vectors in your semantic router.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Impact | The Fix (Code) |
 |---|---|---|
@@ -236,12 +236,12 @@ The fix is **Multi-Routing or Plan-and-Execute integration**. Instead of returni
 | Missing a fallback route | Graph crashes when it encounters a string it doesn't recognize | `expert: Literal["math", "search", "fallback"]` |
 | Routing on massive documents | Token limits hit, router gets distracted | Route based on the *summary* or the first 500 characters of the document. |
 
-## 15. Related Topics
+## 16. Related Topics
 - [Supervisor Pattern](#)
 - [Parallelization Pattern](./parallelization-pattern.mdx)
 - [LangGraph State Machines](../langchain-langgraph/langgraph-state-machines.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

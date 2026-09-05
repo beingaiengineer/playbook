@@ -106,13 +106,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N * L) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 A standard Trie uses a lot of memory because every single character is a separate object with its own dictionary of children.
 
 ## 12. Real-World Usage
 Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use arrays instead of hash maps for child pointers if the alphabet is small and fixed (e.g., DNA sequences A, C, G, T) to save memory overhead. | Store massive amounts of related strings without path compression (Radix Trie), as standard Tries can consume a lot of memory. |
@@ -171,7 +171,7 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 - **Unicode Support:** Implementing a Trie for the full UTF-8 space is significantly more complex than ASCII, often requiring multi-level character encoding or switching to a completely different structure.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When implementing typeahead or prefix matching features, mandate the use of Tries or Radix trees over naive database string matching to prevent query timeouts. | Prevents massive performance degradations in deployed systems. |

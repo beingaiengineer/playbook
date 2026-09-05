@@ -172,7 +172,7 @@ In early versions, this was a huge problem. MetaGPT solves this by injecting an 
 
 ---
 
-## 17. Advanced Mechanics (Action Nodes)
+### Advanced Mechanics (Action Nodes)
 1. **ActionNodes**: To guarantee that an LLM outputs the exact format required by an SOP, MetaGPT uses ActionNodes. Under the hood, these map to OpenAI's structured JSON output or Pydantic parsers, ensuring the `Architect` doesn't just write a paragraph, but strictly returns a dictionary containing `{"mermaid_diagram": "..."}`.
 2. **Incremental Development**: Modern MetaGPT supports resuming projects. You can point the `Team` at an existing codebase, provide a new PRD ("Add a login page"), and the agents will read the existing code and apply diffs rather than generating from scratch.
 
@@ -191,7 +191,7 @@ In early versions, this was a huge problem. MetaGPT solves this by injecting an 
 | [geekan/MetaGPT](https://github.com/geekan/MetaGPT) | ⭐ 40k+ | The official MetaGPT repository. | One of the most starred AI agent frameworks in the world. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

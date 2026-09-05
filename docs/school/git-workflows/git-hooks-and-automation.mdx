@@ -41,13 +41,13 @@ If you don't pass the scanner, you don't get on the plane.
 
 {/* TODO: [BAE-GIT-A-006] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with the security scanner at an airport. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Git hooks are custom scripts that Git executes before or after events such as commit, push, and receive. They are a built-in feature of Git.
 
 In modern engineering, we rely heavily on client-side hooks (specifically `pre-commit` and `pre-push`) to catch silly mistakes *before* they leave your laptop. If everyone runs a linter and unit tests automatically via a hook, the Pull Request review can focus on actual logic instead of missing semicolons or broken build steps.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Hook Name | When it runs | Typical Use Case |
 |---|---|---|
@@ -56,7 +56,7 @@ In modern engineering, we rely heavily on client-side hooks (specifically `pre-c
 | `commit-msg` | After you save the message, before the commit is finalized. | Validate Conventional Commits format. |
 | `pre-push` | Before `git push` sends data to the remote. | Run the full unit test suite. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Git hooks are just executable shell scripts located in `.git/hooks/`. By default, Git creates sample files there.
 
@@ -78,7 +78,7 @@ git commit -m "test"
 # Bro, I am a Git Hook!
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Nobody writes bash scripts in `.git/hooks/` manually in production because `.git/hooks/` is not tracked by Git! It stays on your laptop.
 
@@ -103,7 +103,7 @@ npx husky add .husky/pre-commit "npm run lint && npm run test"
 # 3. If either fails, the commit is aborted.
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you execute a Git command, the Git binary explicitly looks for executable files in the configured hooks directory (default `.git/hooks/`). If a hook matching the event name exists, Git pauses, runs the script, and checks the exit code. If the exit code is `0` (success), Git continues. If the exit code is non-zero (failure), Git aborts the operation.
 
@@ -127,7 +127,7 @@ When you execute a Git command, the Git binary explicitly looks for executable f
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Hook Strategy | Performance | Developer Experience |
 |---|---|---|
@@ -135,7 +135,7 @@ When you execute a Git command, the Git binary explicitly looks for executable f
 | Linting ONLY staged files (`lint-staged`) | Fast O(1) | Excellent. Only lints what you actually modified. |
 | Running all E2E tests | Very Slow (Mins) | Terrible for a `pre-commit` hook. Move this to CI or `pre-push`. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -146,7 +146,7 @@ When you execute a Git command, the Git binary explicitly looks for executable f
 | What is the difference between `pre-commit` and `prepare-commit-msg`? | `pre-commit` runs before you even type a message, used for linting and tests. `prepare-commit-msg` runs right after the default message is created, allowing you to dynamically inject data like JIRA ticket numbers into the commit message. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, my hook works, but when my teammate clones the repo, the hook doesn't run for them. Why?**
 Because hooks in `.git/hooks` are not cloned! To fix this, you need a package manager (like `npm`) to "install" the hooks on their machine automatically after they run `npm install`.
@@ -154,30 +154,30 @@ Because hooks in `.git/hooks` are not cloned! To fix this, you need a package ma
 **I wrote a python script for my pre-commit hook, but Git ignores it!**
 Did you make it executable? Run `chmod +x .git/hooks/pre-commit`. Also, ensure the first line is a valid shebang (e.g., `#!/usr/bin/env python3`).
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 In almost all modern Web and Python stacks, developers do not trust humans to format code. Tools like **Prettier** (JS) or **Black** (Python) are hooked into `pre-commit`. When you type `git commit`, the hook automatically reformats your messy code, stages the formatted file, and then creates the commit. You literally never have to format code manually again.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Use `lint-staged` to only run hooks on files that actually changed. | Don't run a 5-minute test suite on every `git commit`. Devs will start using `--no-verify`. |
 | Track your hook configuration in version control (via Husky or `.pre-commit-config.yaml`). | Don't write manual bash scripts in `.git/hooks/` and expect your team to copy-paste them. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Server-Side vs Client-Side**
 > Client-side hooks (like `pre-commit` on your laptop) are for *developer convenience*. They are easily bypassed using `--no-verify`. You cannot rely on them for security. **Server-side validation** (CI/CD pipelines on GitHub Actions) is the only real source of truth for code quality and security gates before merging to production.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
 | Hook script is tracked, but not executable | On Linux/Mac, files must have the executable bit set. Git tracks this bit! Fix with `git update-index --chmod=+x script.sh`. |
 | CI Pipeline fails because a developer bypassed the pre-commit hook locally | This is expected. Ensure your CI runs the exact same lint/test commands as your local hooks. |
 
-## 15. Related Topics
+## 16. Related Topics
 - pull-requests
 - conventional-commits
 - code-quality-gates (from CI/CD course)

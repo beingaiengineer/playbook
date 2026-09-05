@@ -40,7 +40,7 @@ Bro, a paramedic doesn't invent a new way to do CPR on the spot. They follow the
 
 ![Illustration of Bae following a CPR manual step-by-step](./assets/runbooks.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A runbook (sometimes called a playbook) is a document containing step-by-step instructions on how to handle a specific alert or operational task.
 
@@ -48,7 +48,7 @@ When an alert fires, there should *always* be a link to a runbook attached to it
 
 If an alert doesn't have a runbook, it shouldn't be an alert.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Section | Description |
 |---|---|
@@ -58,7 +58,7 @@ If an alert doesn't have a runbook, it shouldn't be an alert.
 | **Mitigation** | Exact commands to run to stop the bleeding (e.g., rollback, restart). |
 | **Escalation** | Who to page if the mitigation doesn't work. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A typical markdown runbook for a "High CPU" alert.
 
@@ -85,7 +85,7 @@ If it is a traffic spike, auto-scaling should handle it. If auto-scaling failed:
 If CPU does not drop, page the `@network-platform-team`.
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Modern systems try to automate runbooks. Instead of a human reading markdown and running a bash script, a tool runs the script automatically.
 
@@ -106,7 +106,7 @@ jobs:
           echo "Service restarted automatically due to memory alert."
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is how a runbook connects the monitoring system to the human response.
 
@@ -127,7 +127,7 @@ Here is how a runbook connects the monitoring system to the human response.
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Scenario | Time to Mitigate |
 |---|---|
@@ -135,7 +135,7 @@ Here is how a runbook connects the monitoring system to the human response.
 | Manual Runbook (Reading markdown) | 5 - 15 minutes |
 | Automated Runbook (Scripted response) | < 1 minute |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -145,16 +145,16 @@ Here is how a runbook connects the monitoring system to the human response.
 | How do you ensure runbooks stay up to date? | Practice "Game Days" or chaos engineering where you follow the runbook in a controlled environment to verify it still works. |
 | What if the runbook fails? | The runbook must have an "Escalation" section telling the engineer exactly who to page next. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Stale Runbook**: An alert fires, the engineer runs the command in the runbook, and it destroys the database because the architecture changed 6 months ago but the runbook didn't. Solution: Treat runbooks as code. They must be reviewed and tested when the system changes.
 - **The "Automate Everything" Trap**: If a runbook is just "Run script X", why is a human doing it? The script should run automatically when the alert fires. Only page a human if the automated runbook fails.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like Netflix and Amazon rely heavily on automated runbooks. They use tools like AWS Systems Manager Run Command or Jenkins to execute predefined scripts when alerts fire, often resolving the issue before a human even sees the page.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -162,11 +162,11 @@ Companies like Netflix and Amazon rely heavily on automated runbooks. They use t
 | Include links directly to the relevant dashboards. | Assume the engineer knows where to find the metrics. |
 | Review runbooks during postmortems to see if they need updates. | Write a runbook once and never look at it again. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: Never put sensitive credentials or passwords inside a runbook document. Runbooks should reference secure secret managers or rely on the engineer's existing IAM permissions.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -174,7 +174,7 @@ Companies like Netflix and Amazon rely heavily on automated runbooks. They use t
 | Assuming domain knowledge. | Write the runbook so a new hire on their first day could execute it. |
 | Not linking the runbook in the alert. | Every single alerting rule configuration must have a `runbook_url` field. |
 
-## 15. Related Topics
+## 16. Related Topics
 - What is an Incident?
 - Incident Response Process
 - On-Call Culture

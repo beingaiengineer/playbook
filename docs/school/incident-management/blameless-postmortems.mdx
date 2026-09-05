@@ -41,13 +41,13 @@ Bro, imagine an intern accidentally drops the production database, causing a 4-h
 
 Bro, blaming Virat for dropping the catch doesn't win the next game. Giving him sunglasses does. Fix the environment, not the human.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A blameless postmortem is a written record of an incident, its impact, the actions taken to mitigate it, its root cause, and the follow-up actions needed to prevent it from happening again.
 
 "Blameless" means we assume everyone involved had good intentions and made the best decisions they could with the information they had at the time. If an engineer typed a command that broke the system, we don't ask "Why were you so careless?" We ask, "Why did the system allow a single typo to break production without warning?"
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Postmortem Section | Description |
 |---|---|
@@ -57,7 +57,7 @@ A blameless postmortem is a written record of an incident, its impact, the actio
 | **Resolution/Mitigation** | How the bleeding was stopped. |
 | **Action Items** | Concrete Jira tickets assigned to people to prevent recurrence. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A snippet from a blameless root cause analysis using the "5 Whys" technique:
 
@@ -72,7 +72,7 @@ A snippet from a blameless root cause analysis using the "5 Whys" technique:
 **Root Cause**: The internal DB library defaults to unlimited connections, allowing any new service to easily overwhelm the database.
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 The output of a postmortem must be actionable code changes. If your action item is "Engineers must be more careful," you have failed.
 
@@ -89,7 +89,7 @@ def delete_user(user_id):
     db.execute("DELETE FROM users WHERE id = ?", (user_id,))
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is the lifecycle of how an incident becomes systemic improvement through a postmortem.
 
@@ -112,7 +112,7 @@ Here is the lifecycle of how an incident becomes systemic improvement through a 
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Activity | Recommended Timing |
 |---|---|
@@ -121,7 +121,7 @@ Here is the lifecycle of how an incident becomes systemic improvement through a 
 | Completing P0 Action Items | Within the current sprint |
 | Completing P1 Action Items | Within the next 2 sprints |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -131,16 +131,16 @@ Here is the lifecycle of how an incident becomes systemic improvement through a 
 | What makes a good Action Item? | It must be specific, assigned to a person, trackable in Jira, and focused on systemic prevention. |
 | What is the "5 Whys" method? | Asking "Why?" repeatedly until you arrive at the systemic root cause, rather than stopping at the surface symptom. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **"Human Error" as a Root Cause**: If your postmortem concludes the root cause was "Human Error", you didn't dig deep enough. Human error is the *start* of the investigation, not the end. Why was the human allowed to make the error?
 - **Action Item Backlog Rot**: Creating 20 action items and putting them in the backlog to die. Solution: The IC must assign exactly 2 or 3 high-priority action items and ensure product managers prioritize them immediately.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Google SRE pioneered the formal Blameless Postmortem. At Google, an incident is seen as an unplanned investment. The outage cost the company $100,000 in lost revenue. The postmortem is the ROI (Return on Investment) ensuring they don't lose that $100,000 the same way twice.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -148,11 +148,11 @@ Google SRE pioneered the formal Blameless Postmortem. At Google, an incident is 
 | Focus on the timeline of what was known *at the time*. | Use hindsight bias ("We should have known it was DNS"). |
 | Invite everyone involved to the review meeting. | Write the document in isolation and hide it away. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: A blameless culture must be enforced from the top down. If a VP joins the postmortem review and asks "Who pushed this code?", the IC must immediately redirect the conversation to "What lack of testing allowed this code to reach production?"
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -160,7 +160,7 @@ Google SRE pioneered the formal Blameless Postmortem. At Google, an incident is 
 | Writing the postmortem 3 weeks later. | Write it within 48 hours while Slack logs and memories are fresh. |
 | Punishing the person who caused the outage. | Praise them for helping uncover a hidden systemic flaw. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Incident Response Process
 - Incident Commander Role
 - Severity Levels

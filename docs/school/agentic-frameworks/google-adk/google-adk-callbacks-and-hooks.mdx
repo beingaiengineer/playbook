@@ -151,7 +151,7 @@ It depends on how the ADK handles hook failures. Typically, if a telemetry hook 
 
 ---
 
-## 17. Advanced Hook Patterns
+### Advanced Hook Patterns
 1. **Dynamic Tool Modification**: Advanced hooks can actually mutate the `EventContext`. For example, if the LLM hallucinated a bad parameter for a tool, a `before_tool` hook could detect it, rewrite the parameter to a safe default, and pass the mutated event down the chain without breaking the flow.
 2. **Global Application Hooks**: Instead of attaching hooks to a specific `Agent` instance, enterprise ADK setups use Dependency Injection to register global hooks at the application layer. This ensures every single agent spawned in the server automatically inherits the company's security and auditing hooks, preventing junior devs from accidentally bypassing security.
 
@@ -171,7 +171,7 @@ It depends on how the ADK handles hook failures. Typically, if a telemetry hook 
 | [google/generative-ai-python](https://github.com/google/generative-ai-python) | ⭐ 4k+ | Official Google GenAI SDK | Understanding the raw payloads that hooks intercept. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

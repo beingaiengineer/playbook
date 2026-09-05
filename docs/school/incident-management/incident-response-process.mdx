@@ -40,13 +40,13 @@ Bro, in the ER, if a patient is bleeding, you don't stop to ask *why* they got c
 
 ![Illustration of Bae as an ER doctor treating a bleeding patient first](./assets/incident-response-process.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The incident response process is the sequence of steps a team follows from the moment an alert fires until the system is fully recovered and the postmortem is written.
 
 The most critical rule in incident response is **Mitigate First, Fix Later**. Your goal during an incident is to stop the bleeding—get the system back to a working state for the users. Finding the deep, underlying root cause is done *after* the incident is over.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Phase | Description |
 |---|---|
@@ -56,7 +56,7 @@ The most critical rule in incident response is **Mitigate First, Fix Later**. Yo
 | **4. Resolve** | Confirm metrics have recovered to normal levels. |
 | **5. Review** | Write the blameless postmortem. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A simple incident response checklist for a junior engineer on call:
 
@@ -70,7 +70,7 @@ A simple incident response checklist for a junior engineer on call:
 - [ ] Update status in Slack.
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, automation often assists the mitigation phase. If a canary deployment starts throwing 500 errors, the CI/CD pipeline should automatically roll it back, turning a potential SEV-1 into a minor blip.
 
@@ -84,7 +84,7 @@ acl is_high_load fe_sess_rate gt 5000
 http-request deny if is_high_load
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is the lifecycle of an incident from start to finish.
 
@@ -107,7 +107,7 @@ Here is the lifecycle of an incident from start to finish.
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Phase | Metric | Target |
 |---|---|---|
@@ -116,7 +116,7 @@ Here is the lifecycle of an incident from start to finish.
 | Mitigate | Time to Mitigate (TTM) | Variable, but focus is speed |
 | Resolve | Time to Resolve (TTR) | Dependent on SEV |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -126,16 +126,16 @@ Here is the lifecycle of an incident from start to finish.
 | When should you escalate an incident? | When you are out of ideas, when the impact is growing beyond your control, or when you need cross-team help. |
 | What is a "war room"? | A dedicated communication channel (Zoom/Slack) where all responders coordinate. Keep the noise out. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Zombie Incident**: You mitigate an issue, the metrics go green, and you resolve the incident. Two hours later, it happens again. Solution: If you don't know *why* the mitigation worked, keep the incident open and monitor it closely.
 - **Multiple Simultaneous Incidents**: What if two different services go down at the exact same time? They might be related (a shared network switch died). Have the Incident Commanders communicate before treating them as isolated events.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies use platforms like PagerDuty, Opsgenie, or custom Slack bots (like GitHub's `hubot`) to automate the "Coordinate" phase. Type `/incident declare` in Slack, and the bot creates the war room, pages the right people, and sets up a Zoom link instantly.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -143,11 +143,11 @@ Companies use platforms like PagerDuty, Opsgenie, or custom Slack bots (like Git
 | Over-communicate your status in the war room. | Go dark and debug in silence. |
 | Bring in help early if you are stuck. | Try to be a hero and solve it all yourself. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: The most dangerous action during an incident is running an untested script or database query to "quickly fix" the data. You are stressed and tired. You will make a typo and drop a production table. Use tested runbooks.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -155,7 +155,7 @@ Companies use platforms like PagerDuty, Opsgenie, or custom Slack bots (like Git
 | Having 50 people talking over each other in the war room. | The Incident Commander must enforce discipline and silence non-essential chatter. |
 | Closing the incident before the metrics prove it is fixed. | Wait for the monitoring dashboards to confirm stability. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Incident Commander Role
 - Severity Levels
 - Runbooks

@@ -42,7 +42,7 @@ First, you write a rough draft (**Initial Generation**). Then, you read it over 
 | Rewriting based on your review | Generator Agent applying the critique |
 | Saving the lesson for next time | Reflexion Agent saving episodic memory |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 **Reflection** is a pattern where an LLM is prompted to evaluate its own output (or the output of another agent) to find flaws, errors, or areas for improvement, and then uses that critique to generate a better version. It turns a single-shot prompt into an iterative improvement loop.
 
@@ -50,7 +50,7 @@ First, you write a rough draft (**Initial Generation**). Then, you read it over 
 
 Use Reflection when you have an objective way to measure success (like compiling code or running unit tests) or when the quality of a single-shot generation is simply too low (like complex creative writing). Do not use Reflection for simple, deterministic data retrieval—it wastes tokens.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the common node types in a Reflection graph.
 
@@ -61,7 +61,7 @@ Here are the common node types in a Reflection graph.
 | `condition` | `score`, `iteration_count` | Boolean: route back to `generate` OR `end` |
 | `reflexion_memory` | `critique`, `final_generation` | `learned_rule` (saved to DB) |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a simplified Python loop showing basic Reflection.
 
@@ -84,7 +84,7 @@ def reflection_loop(user_prompt, max_retries=3):
     return current_draft
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at a production Code Generation Agent. If the agent just writes code and returns it, it will often fail to run. A Reflection pattern executes the code, catches the traceback, and asks the LLM to fix it.
 
@@ -131,7 +131,7 @@ def route_next(state: CodeState):
     return "generate_code"
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 In a Reflection architecture, the state is passed back and forth between a Generator and an Evaluator. The Evaluator can be the LLM itself (Self-Reflection), a different, smarter LLM (e.g., using Claude 3 Opus to review Haiku's work), or an external environment (like a Python compiler or a linter).
 
@@ -160,7 +160,7 @@ Here is the flow:
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Characteristic | Why |
 |---|---|---|
@@ -168,7 +168,7 @@ Here is the flow:
 | **Token Cost** | Exponential | Each loop appends the previous draft and the critique to the context. |
 | **Accuracy** | Significantly Higher | Models catch their own logic errors when explicitly asked to look for them. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -178,7 +178,7 @@ Here is the flow:
 | **What is the biggest risk in a Reflection graph?** | Infinite loops. If the Generator cannot fix the flaw the Evaluator is complaining about, they will bounce back and forth forever. |
 | **How do you manage context window bloat in Reflection?** | Instead of keeping every failed draft, only keep the *latest* failed draft and the specific critique for it, dropping older iterations from the state. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if the critique is wrong?
 
@@ -186,25 +186,25 @@ If the Evaluator hallucinates a flaw that doesn't exist, the Generator will ruin
 
 The fix is **Grounding the Evaluator**. You must provide the Evaluator with a strict rubric, passing unit tests, or reference documents. Do not just prompt it with "Is this good?". Prompt it with: "Does this code pass test cases A, B, and C?"
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Devin / GitHub Copilot Workspace**: They heavily use Reflection via environment. They write code, run the unit tests, read the red console output, and rewrite the code automatically.
 - **Automated Content QA**: A drafting agent writes an article, and a separate "Editor" agent (often a cheaper, faster model configured with strict rules) reviews it for brand voice and formatting before human review.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | **DO** set a hard iteration limit (e.g., `max_retries = 3`) to prevent infinite looping and burning cash. | **DON'T** keep the entire history of 5 bad drafts in the prompt context. It dilutes the instructions. |
 | **DO** use an objective environment (compiler, API response) as the Evaluator whenever possible. | **DON'T** use Reflection for tasks that don't have a clear "correct" state, as the loop will thrash. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠️ **Context Drift in Loops**
 > By iteration 4, the LLM has seen so much failure text and critique that it sometimes forgets the original user instructions.
 > **Production Fix**: Always inject the original `user_prompt` at the very bottom of the message array right before the newest generation request, reminding the model of the core goal.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Impact | The Fix (Code) |
 |---|---|---|
@@ -212,12 +212,12 @@ The fix is **Grounding the Evaluator**. You must provide the Evaluator with a st
 | Evaluator is too vague | Generator makes random changes | Give the Evaluator a specific rubric (e.g., "Check for SQL injection only.") |
 | Dropping the error message | Generator makes the exact same mistake again | Pass the `error_trace` back into the Generator's context. |
 
-## 15. Related Topics
+## 16. Related Topics
 - [ReAct Pattern](./react-pattern.mdx)
 - [Plan and Execute](./plan-and-execute.mdx)
 - [Agent Memory Types](#)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

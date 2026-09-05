@@ -39,7 +39,7 @@ Bro, imagine you are a chef in a busy kitchen. A customer orders a complex vegan
 
 Bro, ReAct is exactly how a detective works. You don't just blindly arrest someone based on a footprint. You observe a clue, you *reason* about what it means, you take an *action* to get more info, and then you observe the result. ReAct forces the LLM to be a detective, not just a guesser.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 ReAct (Reasoning and Acting) is a foundational prompt engineering pattern introduced in a 2022 Princeton/Google paper.
 
@@ -54,7 +54,7 @@ ReAct combines them. The system prompt forces the LLM into a strict output forma
 
 By writing out its `Thought` first, the LLM creates a scratchpad for itself. It processes the logic *before* committing to an `Action`, drastically reducing errors and hallucinations.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Phase | Description | Example |
 |---|---|---|
@@ -63,7 +63,7 @@ By writing out its `Thought` first, the LLM creates a scratchpad for itself. It 
 | **Observation** | The result returned by the tool | `Observation: {"ip": "192.168.1.1"}` |
 | **Final Answer**| The end of the ReAct loop | `Final Answer: The user is on a local network.` |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a classic LangChain implementation of the ReAct pattern. Notice how we explicitly use the `create_react_agent` function, which injects the ReAct formatting instructions into the system prompt under the hood.
 
@@ -105,7 +105,7 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 agent_executor.invoke({"input": "What is 20% of the current stock price of Tesla?"})
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in modern production systems (2024+), we often don't use raw text-based ReAct parsing anymore because it's brittle (the LLM might misspell `Action:`). Instead, we use **Tool Calling ReAct**.
 
@@ -146,7 +146,7 @@ for m in messages['messages']:
     m.pretty_print()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 The ReAct loop is a cycle. The system must manage the `agent_scratchpad` (the memory of previous thoughts and observations) so the agent doesn't repeat itself.
 
@@ -174,7 +174,7 @@ The ReAct loop is a cycle. The system must manage the `agent_scratchpad` (the me
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Phase | Time Latency | Token Consumption |
 |---|---|---|
@@ -183,7 +183,7 @@ The ReAct loop is a cycle. The system must manage the `agent_scratchpad` (the me
 | **Observation** | Varies by Tool (API speed) | High (Data is appended to context) |
 | **Total ReAct Loop** | **High** (3-15 seconds) | **High** (Context grows linearly) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -192,7 +192,7 @@ The ReAct loop is a cycle. The system must manage the `agent_scratchpad` (the me
 | How do you prevent a ReAct agent from looping forever? | You must set a `max_iterations` limit in your orchestration code (e.g., limit to 5 loops). If it hits the limit, force it to return a `Final Answer` stating it failed. |
 | Why is text-based ReAct deprecated in favor of Tool-Calling ReAct? | Text-based ReAct relies on regex parsing (e.g., looking for the word "Action:"). If the LLM formats it slightly wrong, the parser crashes. Native Tool Calling guarantees valid JSON. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens when an Observation contradicts the agent's initial Thought?
 Imagine the agent thinks: "I need to get Bob's ID, which is 1."
@@ -201,37 +201,37 @@ Observation: `User Not Found`.
 If the LLM isn't smart enough, it might just retry `get_user(1)` forever.
 **The Fix:** You need a high-quality model (like GPT-4o) that can *reason about failures*. The next Thought should be: "Ah, ID 1 failed. Let me try searching by name instead."
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Customer Support Triage:** Thought: "User is asking about a refund." Action: `check_policy()`. Observation: "Refunds allowed within 30 days." Thought: "I need to check when they bought it." Action: `check_order()`.
 - **Data Engineering:** Thought: "I need to join table A and B." Action: `execute_sql()`. Observation: "Error: Column 'user_id' is ambiguous." Thought: "I need to specify the table alias." Action: `execute_sql_fixed()`.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Use native Tool Calling APIs (like OpenAI's) alongside the ReAct methodology for maximum stability. | Don't rely on raw Regex parsing for `Action: ` unless you are using an older, open-source model that lacks tool support. |
 | Stream the "Thoughts" to the frontend UI so the user knows the bot isn't frozen. | Don't hide the reasoning process from the user if the task takes more than 3 seconds. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Production Warning
 Bro, the ReAct scratchpad grows with every loop. If your agent executes a DB query and the Observation is 10,000 rows of JSON, the scratchpad will blow past the token limit instantly, and the next API call will fail. You MUST implement observation truncation (e.g., only return the first 500 characters of a tool result).
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Why it's bad | The Fix |
 |---|---|---|
 | Forgetting to append the Observation to the memory array | The LLM will think its tool call was ignored, and will just issue the exact same tool call again. | Ensure your orchestration loop properly saves state. |
 | Prompting an agent without explicitly asking for a "Thought" | The LLM will skip reasoning, act impulsively, and make logic errors. | Ensure your system prompt mandates step-by-step thinking before tool usage. |
 
-## 15. Related Topics
+## 16. Related Topics
 - How Agents Think
 - Plan and Execute Pattern
 - Choosing a Framework
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

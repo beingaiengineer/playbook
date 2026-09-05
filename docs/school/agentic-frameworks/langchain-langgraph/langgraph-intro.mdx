@@ -41,7 +41,7 @@ Bro, imagine you are a senior engineer who realizes that a simple linear LangCha
 | The Supervisor's clipboard | The State (TypedDict tracking data) |
 | The lunchbox | The user's goal being passed through the graph |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 LangGraph is an extension of LangChain designed specifically for building robust, stateful, multi-actor applications with LLMs.
 
@@ -49,7 +49,7 @@ If you want to build a simple Q&A bot, use LangChain. If you want to build an au
 
 Standard LangChain DAGs (Directed Acyclic Graphs) cannot loop. LangGraph introduces cycles, persistent state memory, and explicit control flow. It forces you to define exactly what your agent can do (Nodes) and the strict rules for how it decides what to do next (Conditional Edges).
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here are the core primitives of LangGraph you need to memorize.
 
@@ -61,7 +61,7 @@ Here are the core primitives of LangGraph you need to memorize.
 | **Edges** | `builder.add_edge()` | Hardcoded transitions from Node A to Node B. |
 | **Conditional Edges** | `builder.add_conditional_edges()` | Logic that decides where to go next based on the current State. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is the "Hello World" of LangGraph: a simple graph that just modifies state and ends.
 
@@ -92,7 +92,7 @@ result = graph.invoke({"message": "hello bro"})
 print(result) # {'message': 'HELLO BRO'}
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's build a real ReAct Agent. It needs a Reasoning Node (the LLM) and a Tool Execution Node. It will loop between them until the LLM decides it is finished.
 
@@ -155,7 +155,7 @@ builder.add_edge("tools", "agent")
 graph = builder.compile()
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you call `graph.compile()`, LangGraph validates all your nodes and edges to ensure there are no dead ends.
 
@@ -180,7 +180,7 @@ When you call `graph.invoke()`, the execution engine initializes the `State` dic
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Characteristic | Why |
 |---|---|---|
@@ -188,7 +188,7 @@ When you call `graph.invoke()`, the execution engine initializes the `State` dic
 | **Memory Footprint** | Scales with State | If you store 10MB of documents in your `TypedDict`, the memory footprint grows accordingly. |
 | **Resilience** | Very High | By splitting logic into explicit nodes, failures are isolated and easier to retry. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -198,7 +198,7 @@ When you call `graph.invoke()`, the execution engine initializes the `State` dic
 | **How does LangGraph handle infinite loops?** | By default, compiled graphs have a `recursion_limit` (usually 25). If the graph loops between nodes 25 times without hitting `END`, it raises a `GraphRecursionError`. |
 | **Can you stream intermediate steps from a LangGraph execution?** | Yes, using `graph.stream()`. It will yield the State updates emitted by each node as they complete, allowing you to build real-time UIs showing the agent's thought process. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if Node A returns `{"messages": ["Hello"]}` and then Node B returns `{"messages": ["World"]}`? Does "World" overwrite "Hello"?
 
@@ -208,26 +208,26 @@ The edge case is **State Reducers**. If you want a list to append rather than ov
 
 You must define the state like this: `messages: Annotated[list, operator.add]`. Now, when Node B returns "World", LangGraph uses `operator.add` to append it, resulting in `["Hello", "World"]`. If you forget the reducer, your agent will have amnesia.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Software Engineering Agents (Devin Clones)**: Using LangGraph to loop between a Coder node, a Testing node, and a Reviewer node until tests pass.
 - **Customer Support Automation**: A routing node checks the ticket type, sends it to a specific sub-graph (Refunds vs Tech Support), and ensures the state is tracked the whole way.
 - **Human-in-the-Loop Systems**: Pausing a LangGraph execution right before sending an email, letting a human review the draft, and then resuming the graph.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | **DO** keep your Node functions small and focused on one specific task. | **DON'T** write massive 100-line Node functions that contain complex `if/else` logic. Move that logic into Conditional Edges. |
 | **DO** use `Annotated` reducers for lists that need to grow over time (like message history). | **DON'T** let your state dictionary grow infinitely; implement logic to trim old messages to save tokens. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠️ **Debugging Graph State**
 > Debugging a 15-node cyclical graph using print statements is miserable.
 > **Production Fix**: LangGraph integrates natively with LangSmith. Always wrap your LangGraph execution in a LangSmith trace. It gives you a visual UI showing the exact path the graph took and the exact state payload at every node transition.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Impact | The Fix (Code) |
 |---|---|---|
@@ -235,12 +235,12 @@ You must define the state like this: `messages: Annotated[list, operator.add]`. 
 | Returning the wrong state key | The reducer fails or state is ignored | Ensure node return dicts match the `TypedDict` keys exactly. |
 | Routing to a non-existent node | `ValueError: Node 'wrong_name' not present` | Double check the string labels in your `add_conditional_edges` map. |
 
-## 15. Related Topics
+## 16. Related Topics
 - [LangChain Fundamentals](./langchain-fundamentals.mdx)
 - [LangGraph State Machines](./langgraph-state-machines.mdx)
 - [ReAct Pattern](../architecture-patterns/react-pattern.mdx)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

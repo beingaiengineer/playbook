@@ -153,7 +153,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | How does a Counting Bloom Filter solve the deletion problem? | Instead of single bits, it uses small counters. Adding increments the counters, deleting decrements them. This uses more space. |
 | What is a false positive vs a false negative in this context? | A false positive is when the filter says the item is in the set when it isn't. A false negative is when the filter says the item is not in the set when it actually is (impossible in a standard Bloom Filter). |
 
-## 13. Best Practices
+## 11. Best Practices
 
 Bro, a classic gotcha is thinking you can use a cryptographic hash like SHA-256 for your Bloom Filter. Cryptographic hashes are designed to be slow to prevent brute-forcing. You want *fast*, non-cryptographic hashes like MurmurHash or CityHash to keep the O(k) lookup time minimal. Also, be careful with hash collisions; while the filter relies on them, poor hash functions will artificially inflate your false positive rate beyond the mathematical expectation.
 
@@ -161,7 +161,7 @@ Bro, a classic gotcha is thinking you can use a cryptographic hash like SHA-256 
 
 Tech giants use Bloom Filters heavily. Databases like Cassandra and HBase use them to quickly check if a row exists in an SSTable before performing an expensive disk read. Content Delivery Networks (CDNs) like Akamai use them to avoid caching "one-hit wonders" (objects requested only once), saving massive amounts of disk space. Google Chrome uses them for its Safe Browsing feature to quickly check if a URL is on a malicious list before making a network call to Google's servers.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 
 | DO | DON'T |
 |---|---|
@@ -193,7 +193,7 @@ Bro, if your expected capacity `n` grows significantly beyond what you initially
 | [jaybaird/python-bloomfilter](https://github.com/jaybaird/python-bloomfilter) | ⭐ 1k+ | A pure python Bloom Filter implementation. | Good reference for understanding the implementation details. |
 | [tylertreat/BoomFilters](https://github.com/tylertreat/BoomFilters) | ⭐ 2k+ | Probabilistic data structures for processing continuous, unbounded streams in Go. | Shows advanced variants in a production-ready Go library. |
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

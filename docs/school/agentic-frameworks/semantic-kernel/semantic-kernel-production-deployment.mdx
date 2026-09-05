@@ -179,7 +179,7 @@ If the OpenAI API cuts the connection at token 500 out of 1000, your generator w
 
 ---
 
-## 17. Advanced Security (Filters)
+### Advanced Security (Filters)
 1. **Function Filters**: SK provides an `IFunctionInvocationFilter` interface. You can register a global filter that runs *before* any Native Function executes. You can use this to intercept a `DeleteDatabase()` tool call, check the `request.headers` for a valid Admin JWT token, and cancel the execution if the user is unauthorized.
 2. **Prompt Filters**: Similarly, you can register an `IPromptRenderFilter`. This runs right before the string is sent to OpenAI. You can hook this up to a PII (Personally Identifiable Information) scrubber to redact Social Security Numbers before they leave your VPC.
 
@@ -192,14 +192,14 @@ If the OpenAI API cuts the connection at token 500 out of 1000, your generator w
 - Azure Managed Identities
 - OpenTelemetry Tracing
 
-## 17. Top GitHub Repositories
+### Top GitHub Repositories
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|
 | [tiangolo/fastapi](https://github.com/tiangolo/fastapi) | ⭐ 70k+ | FastAPI | The industry standard python backend for SK deployment. |
 | [Azure/azure-sdk-for-python](https://github.com/Azure/azure-sdk-for-python) | ⭐ 4k+ | Azure SDK | Essential for `DefaultAzureCredential` integration. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

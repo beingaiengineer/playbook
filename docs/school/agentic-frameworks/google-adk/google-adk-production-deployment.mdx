@@ -135,7 +135,7 @@ Cloud Run experiences a "Cold Start". It takes a few seconds to spin up the cont
 
 ---
 
-## 17. Advanced GCP Deployments
+### Advanced GCP Deployments
 1. **Multi-Region Redundancy**: If `us-central1` goes down, your agent dies. In production, deploy the Cloud Run service to multiple regions and use a Global HTTP Load Balancer to route users to the closest healthy region.
 2. **Streaming via WebSockets vs SSE**: Server-Sent Events (SSE) is the standard for streaming LLM text over HTTP. Cloud Run natively supports SSE without timeouts, but if you need bi-directional real-time audio/text (like Gemini Multimodal), you must configure Cloud Run to support WebSockets explicitly.
 
@@ -155,7 +155,7 @@ Cloud Run experiences a "Cold Start". It takes a few seconds to spin up the cont
 | [GoogleCloudPlatform/terraform-google-cloud-run](https://github.com/terraform-google-modules/terraform-google-cloud-run) | ⭐ 800+ | Terraform module | The enterprise way to deploy ADK agents consistently. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

@@ -36,13 +36,13 @@ Bro, think of storing your company's code like storing spices in a kitchen.
 ![Illustration of Bae organizing spices in one large rack versus separate boxes](./assets/monorepo-vs-polyrepo.png)
 {/* TODO: [BAE-GIT-A-009] Generate and embed illustration here. Prompt: Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. Bae interacting with storing spices in a kitchen. */}
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A **Polyrepo** (multi-repo) means every project, microservice, or shared library gets its own dedicated Git repository. This is the default way most startups begin. It provides strong isolation, but sharing code requires publishing packages (like to npm or PyPI) and managing complex versioning across 20 different repos.
 
 A **Monorepo** places multiple distinct projects (frontend, backend, shared UI components) into a *single* Git repository. Note: A Monorepo is NOT a Monolith. A Monolith is tightly coupled code that deploys as one unit. A Monorepo is loosely coupled code that lives in one folder but deploys independently.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 *Note: This relies on tooling, not native Git syntax.*
 
@@ -51,7 +51,7 @@ A **Monorepo** places multiple distinct projects (frontend, backend, shared UI c
 | Polyrepo | 1 repo = 1 project. High isolation. | standard `git`, standard CI/CD. |
 | Monorepo | 1 repo = N projects. Shared commits. | Nx, Turborepo, Lerna, Bazel, Rush. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 What does a Monorepo actually look like on your hard drive? It's just folders.
 
@@ -67,7 +67,7 @@ my-company-monorepo/
 └── .git/               # ONE Git history for the whole company
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a Polyrepo, if you fix a bug in the `shared-ui` repo, you must:
 1. Commit to `shared-ui`
@@ -84,7 +84,7 @@ git commit -am "fix(ui): update button styling across all apps"
 # One PR. One CI run. Zero publishing delays.
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Git was originally designed for the Linux Kernel, which is essentially a massive Monorepo. However, Git tracks *content*, not folders. When a monorepo gets to Google or Meta size (terabytes of code), standard `git clone` fails because you can't fit the repo on a laptop.
 
@@ -108,7 +108,7 @@ Modern monorepos use Git features like `sparse-checkout` (only pulling the folde
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Polyrepo | Monorepo |
 |---|---|---|
@@ -116,7 +116,7 @@ Modern monorepos use Git features like `sparse-checkout` (only pulling the folde
 | Code Sharing | Slow (npm publish required) | Instant (local symlinks). |
 | CI/CD Setup | Simple, independent pipelines | Complex, requires dependency graph analysis. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -127,7 +127,7 @@ Modern monorepos use Git features like `sparse-checkout` (only pulling the folde
 | How does code sharing work in a Polyrepo architecture? | In a Polyrepo, if you want to share a UI component across three apps, you must extract it into its own repo, publish it to a package registry (like npm). Then you must install that versioned package in the other repos. |
 
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 **Bro, if we use a Monorepo, does that mean everyone sees everyone else's code?**
 Yes, usually. Monorepos encourage open visibility across the engineering team. If your company requires strict access control (e.g., contractors can only see Project A but not Project B), a Monorepo is a massive security headache. Git does not support folder-level read permissions.
@@ -135,30 +135,30 @@ Yes, usually. Monorepos encourage open visibility across the engineering team. I
 **What if two teams want different versions of React in the Monorepo?**
 In a strict monorepo, they can't. The rule is usually "One Version Rule" (one `package.json` version of React at the root). This forces teams to upgrade together, preventing the company from accumulating legacy tech debt.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Google runs the largest Monorepo in the world (billions of lines of code). To make this work, they invented their own version control system (Piper) and build system (Bazel). Facebook, Twitter, and Uber also use monorepos. However, Netflix uses Polyrepos. The industry trend for frontend/fullstack JS teams is heavily leaning toward Monorepos using tools like **Turborepo** or **Nx** to manage Next.js apps alongside shared React component libraries.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Use a smart build system (Nx, Turborepo) to cache builds and only run tests on changed code. | Don't use a Monorepo without tooling. Running `npm test` on 50 apps simultaneously will crash your CI. |
 | Establish clear boundaries and ownership (using `CODEOWNERS` files) so PRs require the right team's approval. | Don't let apps import internal, private files from other apps directly. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning: Git Clone Limits**
 > If your monorepo contains thousands of high-res images or heavy binaries, `git clone` will eventually time out or run out of memory on developer laptops. You must implement `Git LFS` (Large File Storage) and use `git sparse-checkout` to ensure developers only download the directories they are actively working on.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix |
 |---|---|
 | Creating a "Monolith" by accident | Enforce strict linting rules so App A cannot import code from App B. They must communicate over APIs or use explicitly shared libraries. |
 | Unmanageable CI times | Stop running `npm run build` on everything. Use tools that understand the dependency graph to only build what changed. |
 
-## 15. Related Topics
+## 16. Related Topics
 - branching-strategies
 - pull-requests
 - git-advanced-operations

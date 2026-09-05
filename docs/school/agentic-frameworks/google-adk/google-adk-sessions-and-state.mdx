@@ -149,7 +149,7 @@ You must implement **Memory Summarization**. The ADK allows you to hook into the
 
 ---
 
-## 17. Advanced Session Architecture
+### Advanced Session Architecture
 1. **Branching Sessions**: Sometimes a user wants to explore a "what-if" scenario without ruining the main conversation. Advanced ADK usage allows you to "fork" a session ID, cloning the history into a new Firestore document, letting the user explore a tangent safely.
 2. **System Prompt Injection**: Sessions only track the dynamic conversation. If you need to update the agent's behavior mid-session (e.g. the user upgraded to a premium plan), you must update the core Agent's `system_instruction` independently of the session history.
 
@@ -169,7 +169,7 @@ You must implement **Memory Summarization**. The ADK allows you to hook into the
 | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | ⭐ 10k+ | LangGraph | Shows alternative ways to manage state via highly complex graph architectures. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

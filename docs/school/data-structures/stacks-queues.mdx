@@ -93,13 +93,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(n) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 If you use a simple array as a queue, popping from the front takes O(n) because all subsequent elements must be shifted left. Always use a ring buffer or doubly-linked list (like Python's deque).
 
 ## 12. Real-World Usage
 Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax parsing and function call management.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use `collections.deque` in Python for queues, as lists have O(n) `pop(0)`. | Use arrays as queues if you need to pop from the front frequently without a specialized ring-buffer implementation. |
@@ -159,7 +159,7 @@ Message brokers (Kafka, RabbitMQ) use queues. Compilers use stacks for syntax pa
 - **Thundering Herd:** When a highly-contended queue suddenly becomes available, all waiting consumers might wake up simultaneously, causing a massive spike in CPU and network traffic.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When generating code that requires a queue in Python, always import `collections.deque`. Never use a standard list with `.pop(0)`. | Prevents massive performance degradations in deployed systems. |

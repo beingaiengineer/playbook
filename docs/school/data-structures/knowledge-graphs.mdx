@@ -159,7 +159,7 @@ import LearningFlow from "@site/src/components/LearningFlow";
 | What is an Ontology? | An ontology is the formal schema or "vocabulary" of the knowledge graph. It defines what types of entities exist (e.g., "Person", "Company") and how they are allowed to relate to each other (e.g., a "Person" can "WORK_FOR" a "Company"). |
 | How do you handle changing schemas in a Knowledge Graph? | Knowledge Graphs are typically schema-flexible. You can add new node properties or new relationship types on the fly without running heavy database migrations like `ALTER TABLE` in SQL. |
 
-## 13. Best Practices
+## 11. Best Practices
 
 Bro, a major gotcha is the "supernode" problem. Imagine a knowledge graph of Twitter. The node for "Elon Musk" has hundreds of millions of incoming "FOLLOWS" edges. If you write a query that traverses through that supernode, your graph engine will try to load millions of relationships into memory, causing a massive performance bottleneck or an OOM crash. You must design queries and data models to avoid blindly traversing supernodes.
 
@@ -167,7 +167,7 @@ Bro, a major gotcha is the "supernode" problem. Imagine a knowledge graph of Twi
 
 Google uses the Google Knowledge Graph to enhance its search engine results with semantic-search information (the info box you see on the right side of search results). Palantir uses knowledge graphs extensively in their Foundry platform to help military and corporate clients map complex organizational data, logistics, and intelligence. Fraud detection teams at banks use graphs to detect circular money transfers (A sends to B, B to C, C back to A), a pattern that is nearly impossible to detect quickly with standard SQL.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 
 | DO | DON'T |
 |---|---|
@@ -198,7 +198,7 @@ Bro, extracting entities from unstructured text to build a knowledge graph using
 | [neo4j/neo4j](https://github.com/neo4j/neo4j) | ⭐ 12k+ | Graphs for Everyone. | The industry standard native graph database. |
 | [microsoft/graphrag](https://github.com/microsoft/graphrag) | ⭐ 15k+ | A modular graph-based RAG system. | Demonstrates the cutting-edge use of knowledge graphs in AI workflows. |
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

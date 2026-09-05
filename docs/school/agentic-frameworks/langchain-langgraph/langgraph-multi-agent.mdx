@@ -36,7 +36,7 @@ Bro, a multi-agent system is exactly like a high-end kitchen. If you force one c
 
 Bro, imagine you are a senior engineer trying to make one massive agent do everything, and it's failing miserably. You need to break the problem down and orchestrate a team of specialized agents.
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 LangGraph is perfectly suited for multi-agent architectures because every agent can just be a `Node` or a compiled `Subgraph`.
 
@@ -46,7 +46,7 @@ There are two main ways to build multi-agent systems in LangGraph:
 
 By separating concerns, each agent gets a specific system prompt and a small, focused set of tools. This drastically reduces hallucinations and improves tool-calling accuracy.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Action | Syntax Example | Use Case |
 |---|---|---|
@@ -55,7 +55,7 @@ By separating concerns, each agent gets a specific system prompt and a small, fo
 | Conditional Routing | `builder.add_conditional_edges("supervisor", route_to_worker)` | Supervisor deciding who works next |
 | Subgraphs | `builder.add_node("team_a", compiled_team_a_graph)` | Embedding a full graph inside another graph |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 This is a simple Supervisor pattern where a routing function sends the task to either a Researcher or a Coder.
 
@@ -98,7 +98,7 @@ print(graph.invoke({"task": "Write a python script"}))
 # Output: {'task': 'Write a python script', 'result': 'Wrote code for: Write a python script'}
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, in a real system, you don't use simple nodes for workers. You use full Subgraphs with their own internal state, so the workers don't pollute the supervisor's global state.
 
@@ -147,7 +147,7 @@ result = main_graph.invoke({"user_request": "quantum computing"})
 print(result["final_answer"]) # Output: Data about quantum computing
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 How does a Subgraph execute inside a parent Graph?
 
@@ -172,7 +172,7 @@ How does a Subgraph execute inside a parent Graph?
 
 When the Main Graph hits a node that invokes a Subgraph, it actually pauses its own execution, passes the mapped data into the Subgraph's runner, waits for the Subgraph to hit its own `END`, and then maps the returned data back into the Main Graph's state. It's exactly like a standard function call stack in Python.
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Architecture | Setup Complexity | Token Usage | Best For |
 |---|---|---|---|
@@ -180,7 +180,7 @@ When the Main Graph hits a node that invokes a Subgraph, it actually pauses its 
 | Supervisor Pattern | Medium | High (Supervisor + Worker calls) | Routing across 3-5 distinct skillsets |
 | Subgraphs | High | Very High | Massive enterprise systems with distinct teams |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -190,13 +190,13 @@ When the Main Graph hits a node that invokes a Subgraph, it actually pauses its 
 | Can a LangGraph multi-agent system have a cycle? | Yes. The supervisor can send a task to a worker, the worker sends it to a reviewer, the reviewer sends it back to the worker, etc. |
 | How does a supervisor know when to stop? | The supervisor's LLM tool-calling logic must have a specific "FINISH" tool or output string that the conditional edge router uses to route to the `END` node. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what if your Supervisor LLM decides to route to a worker that doesn't exist?
 
 **Answer:** Your graph will throw a `ValueError` because the conditional edge router will return a node name that wasn't added to the graph. Always implement a fallback or default route in your conditional edge function to handle hallucinated routing destinations.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Enterprise coding assistants use Subgraphs heavily.
 - The Main Graph receives a user ticket ("Fix login bug").
@@ -204,19 +204,19 @@ Enterprise coding assistants use Subgraphs heavily.
 - The `ResearchTeam` returns the context to the Main Graph.
 - The Main Graph routes to the `CodingTeam` subgraph (which has a Coder agent and a Reviewer agent that loop until the tests pass).
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
 | Do give the Supervisor agent a strict schema (like a Pydantic enum) for deciding who to route to. | Don't let the Supervisor just output raw text to decide the route; it will hallucinate. |
 | Do use Subgraphs for complex workers so you can test the worker completely independently of the main graph. | Don't put 20 workers under one supervisor. Build a hierarchy (Supervisor -> Managers -> Workers). |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Production Warning:**
 > Multi-agent systems are incredibly slow and expensive. Every handoff is an LLM call. If your Supervisor calls a worker, and the worker calls a tool, and then goes back to the supervisor... you just made 3 LLM API calls, taking ~5-10 seconds and costing 3x the tokens. Only use multi-agent architectures if the problem cannot be solved by a single focused agent.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Code Example |
 |---|---|---|
@@ -224,12 +224,12 @@ Enterprise coding assistants use Subgraphs heavily.
 | Infinite loops between workers | Add a hard turn limit or human-in-the-loop | `builder.compile(interrupt_before=["worker"])` |
 | Forgetting to route back to the supervisor | Add an edge from worker back to supervisor | `builder.add_edge("coder", "supervisor")` |
 
-## 15. Related Topics
+## 16. Related Topics
 - LangGraph State Machines
 - LangGraph Human in Loop
 - Orchestrator-Worker Pattern (Multi-Agent Patterns)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

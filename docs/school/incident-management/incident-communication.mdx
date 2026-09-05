@@ -40,13 +40,13 @@ Bro, a 10-minute delay with an announcement is mildly annoying. A 10-minute dela
 
 ![Illustration of Bae making an announcement on a loudspeaker](./assets/incident-communication.png)
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Incident communication is the structured process of updating internal stakeholders (executives, customer support, other engineering teams) and external stakeholders (customers, users) about the status of an ongoing incident.
 
 The goal is to provide **predictable, accurate, and concise** updates. You don't need to explain the technical details of a memory leak to the marketing team; you just need to tell them that the checkout page is broken and you expect an update in 15 minutes.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Audience | Medium | Content Focus |
 |---|---|---|
@@ -54,7 +54,7 @@ The goal is to provide **predictable, accurate, and concise** updates. You don't
 | **Execs/Support (Internal)** | Email / Dedicated Slack Channel | Business impact, current status, next update time. |
 | **Customers (External)** | Public Status Page | Apologetic, transparent, non-technical impact summary. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 A typical internal status update template used by the Communications Lead:
 
@@ -66,7 +66,7 @@ A typical internal status update template used by the Communications Lead:
 - **Next Update**: In 15 minutes (or upon resolution).
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Many companies automate the communication process using chatbots to ensure formatting is consistent and sent to the right channels.
 
@@ -81,7 +81,7 @@ Many companies automate the communication process using chatbots to ensure forma
 # and updates the internal Jira ticket automatically.
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Here is how information flows from the technical responders to the outside world during an incident.
 
@@ -99,7 +99,7 @@ Here is how information flows from the technical responders to the outside world
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Action | Target Timeframe |
 |---|---|
@@ -108,7 +108,7 @@ Here is how information flows from the technical responders to the outside world
 | Regular internal updates (SEV-1) | Every 15-30 mins |
 | Resolution announcement | Immediately upon confirmed fix |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -118,16 +118,16 @@ Here is how information flows from the technical responders to the outside world
 | How technical should an executive update be? | Not very. Focus on what is broken for the user, what you are doing to fix it, and when you will update them next. |
 | What happens if you miss your promised update time? | You lose trust. If you said 15 minutes, send an update in 15 minutes even if the update is "We are still looking." |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 - **The Security Breach**: If the incident is a data breach, do you update the public status page immediately? Usually NO. Security incidents require Legal and PR approval before public disclosure. The communication playbook for security is completely different from reliability.
 - **The Empty Update**: You promised an update in 15 minutes, but the team has made zero progress. Do you stay silent until you have news? No, bro. Send the empty update: "Still investigating. No new findings. Next update in 15 mins." Consistency > Content.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Companies like GitHub and Cloudflare are famous for their excellent incident communication. When Cloudflare has an outage, they update their status page within minutes, clearly explaining which regions are affected. This stops thousands of engineers from debugging their own code and instead waiting for Cloudflare to resolve it.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -135,11 +135,11 @@ Companies like GitHub and Cloudflare are famous for their excellent incident com
 | Translate technical jargon into business impact. | Tell the CEO "The Redis OOM killed the pod." (Say: "Cache failure causing slow logins"). |
 | Keep the public status page updated until the issue is fully resolved. | Fix the issue and forget to mark the status page as "Resolved." |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > **Warning**: A flooded support queue is an unmitigated incident. If your support team is receiving 1,000 tickets a minute because the site is down, your first communication priority is putting a banner on the website saying "We know it's broken." This immediately stops the ticket flood.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Correction |
 |---|---|
@@ -147,7 +147,7 @@ Companies like GitHub and Cloudflare are famous for their excellent incident com
 | Over-promising a fix time ("It will be fixed in 5 mins"). | Never promise a fix time. Promise an *update* time. |
 | Using overly technical language externally. | Users don't care about your Kubernetes cluster. They care that they can't pay. |
 
-## 15. Related Topics
+## 16. Related Topics
 - Incident Commander Role
 - Incident Response Process
 - Blameless Postmortems

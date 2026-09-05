@@ -33,7 +33,7 @@ The inner function "remembers" the environment it was created in, even after the
 
 ---
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 A closure happens when:
 1. You have a nested function (a function defined inside another function).
@@ -44,7 +44,7 @@ Bro, normally when a function finishes running, all its local variables are dest
 
 ---
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Operation | Example |
 |---|---|
@@ -53,7 +53,7 @@ Bro, normally when a function finishes running, all its local variables are dest
 
 ---
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at a simple message multiplier.
 
@@ -80,7 +80,7 @@ Bro, `times3` and `times5` are separate functions that remember different enviro
 
 ---
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In production, closures are often used to maintain state without the heavy boilerplate of creating a full Object-Oriented Class. Let's make a simple rate limiter.
 
@@ -107,7 +107,7 @@ print(check_api_limit()) # False (Limit reached!)
 
 ---
 
-## 7. Internal Working
+## 8. Internal Working
 
 <LearningFlow
   diagram={{
@@ -130,7 +130,7 @@ Internally, Python attaches a special attribute called `__closure__` to the retu
 
 ---
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Approach | Memory Impact | Speed |
 |---|---|---|
@@ -140,7 +140,7 @@ Internally, Python attaches a special attribute called `__closure__` to the retu
 
 ---
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -151,7 +151,7 @@ Internally, Python attaches a special attribute called `__closure__` to the retu
 
 ---
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, this is the most famous closure trap in Python history. What does this print?
 
@@ -178,7 +178,7 @@ Why not `0, 1, 2`? Because closures bind to the *variable* `i`, not the *value* 
 
 ---
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 Where do companies actually use closures?
 - **Decorators:** (As we saw, decorators are wrappers around closures).
@@ -187,7 +187,7 @@ Where do companies actually use closures?
 
 ---
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -196,14 +196,14 @@ Where do companies actually use closures?
 
 ---
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠ Production Note:
 Bro, be careful with memory leaks. If your closure captures a massive dataset (like a 500MB pandas DataFrame) in the outer scope, that memory will NEVER be released as long as the closure function exists in your system. Only capture what you need.
 
 ---
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 - **UnboundLocalError:** Trying to do `count += 1` inside the inner function without declaring `nonlocal count`. Python assumes `count` is local and fails.
 - **The Loop Variable Trap:** The tricky late-binding issue we discussed in Section 10.

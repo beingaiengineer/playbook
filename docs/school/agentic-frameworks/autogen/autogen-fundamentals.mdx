@@ -162,7 +162,7 @@ If you let the `UserProxyAgent` execute code natively, your CPU spikes to 100% a
 
 ---
 
-## 17. Advanced AutoGen Patterns
+### Advanced AutoGen Patterns
 1. **Teachable Agents**: AutoGen has a `TeachableAgent` extension that utilizes a vector database (like Chroma) to memorize user preferences across different chats. If you tell the agent "I prefer dark mode charts", it stores that embedding and recalls it next week.
 2. **State Flow**: For enterprise pipelines, unstructured group chats are too chaotic. You can enforce a strict transition graph using `autogen.Graph` to dictate that the `Coder` can only talk to the `Reviewer`, and the `Reviewer` can only talk to the `Manager`.
 
@@ -182,7 +182,7 @@ If you let the `UserProxyAgent` execute code natively, your CPU spikes to 100% a
 | [microsoft/autogen-studio](https://github.com/microsoft/autogen/tree/main/samples/apps/autogen-studio) | ⭐ 5k+ | A no-code UI for AutoGen. | Allows you to drag and drop agents without writing Python. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 *This section provides machine-readable directives for AI coding agents (Jules, Claude, Cursor, etc.) that read this topic as context for code generation or repository tasks.*
 

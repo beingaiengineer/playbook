@@ -169,7 +169,7 @@ The MCP protocol itself doesn't have a strict timeout, but the Client (e.g., Cur
 
 ---
 
-## 17. Advanced Development (Prompts & SSE)
+### Advanced Development (Prompts & SSE)
 1. **Dynamic Prompts**: MCP Servers can also expose `@mcp.prompt()`. This allows the server to dictate *how* the LLM should think. You can define a prompt template like "CodeReviewTemplate" on the server, and the client UI can dynamically load it.
 2. **Server-Sent Events (SSE)**: If you want to host an MCP server on the internet (e.g., deploying to Render or Heroku), you cannot use `stdio`. FastMCP allows you to easily bind the server to a FastAPI app and expose `/sse` and `/messages` HTTP endpoints for remote client connections.
 
@@ -187,7 +187,7 @@ The MCP protocol itself doesn't have a strict timeout, but the Client (e.g., Cur
 |---|---|---|---|
 | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk) | ⭐ 3k+ | Official Python SDK | Contains the FastMCP implementation used by most developers. |
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

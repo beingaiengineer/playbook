@@ -32,7 +32,7 @@ Think of keeping records at a hospital, bro. Unstructured logging is like a doct
 
 Structured logging is like a standardized medical chart. It has specific, isolated fields: `patient_id: 12345`, `symptom: dizziness`, `time: 15:00`, `medication: aspirin`. When the data is structured, you can instantly query the database for "Give me all patients where medication == aspirin AND symptom == dizziness."
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 Bro, for the longest time, developers just treated logs as big strings of text intended for human eyes. You'd write something like `[ERROR] User 99 failed to authenticate from IP 192.168.1.1`.
 
@@ -40,7 +40,7 @@ This is fine when you have one server and you're reading the text file using `ta
 
 If your log is just a string, the system has to use slow, fragile Regex to extract the User ID or the IP address. Structured logging solves this by writing the log as a structured object (almost always JSON) right from the start. A structured log treats the message as just one field, and pulls all the important variables out into their own explicit key-value pairs.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 | Log Format | Example Payload | Machine Parseability |
 |---|---|---|
@@ -48,7 +48,7 @@ If your log is just a string, the system has to use slow, fragile Regex to extra
 | Key-Value Pairs | `time=2023-10-27T10:00:00Z level=error event=payment_failed user_id=99 amount=404` | Good (but nesting is difficult) |
 | JSON (Structured) | `{"time": "2023-10-27...", "level": "error", "event": "payment_failed", "user_id": 99, "amount": 404}` | Excellent (native support in all major log platforms) |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Let's look at the difference in Python.
 
@@ -78,7 +78,7 @@ logging.error(json.dumps(log_data))
 # Output: ERROR:root:{"level": "error", "event": "payment_failed", "user_id": 99, "amount": 404}
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 In a real production environment, bro, you don't manually dump JSON. You use a structured logging library like `structlog` (Python) or `pino` (Node.js). These libraries automatically inject context, timestamps, and structure.
 
@@ -119,7 +119,7 @@ process_checkout(99, 1500)
 # {"user_id": 99, "reason": "High risk transaction denied", "error_type": "ValueError", "event": "checkout_failed", "timestamp": "2023-10-27T10:00:00.050Z"}
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 Bro, the magic of structured logging is how it interacts with log aggregators. When an unstructured log hits Elasticsearch, the system has to run it through a complex "Grok" pattern matcher to guess where the fields are. When a structured JSON log arrives, Elasticsearch simply parses the JSON and instantly indexes the keys as columns.
 
@@ -141,14 +141,14 @@ Bro, the magic of structured logging is how it interacts with log aggregators. W
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Format | App CPU Usage | Log Size | Aggregator Parsing Speed |
 |---|---|---|---|
 | Plain Text | Lowest | Smallest | Very Slow (High CPU overhead for Regex) |
 | JSON (Structured) | Low (Optimized libraries) | Larger (Due to JSON syntax) | Extremely Fast (Native parsing) |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -158,7 +158,7 @@ Bro, the magic of structured logging is how it interacts with log aggregators. W
 | How do you handle exceptions in structured logs? | You don't just dump the traceback into a string. You log the error type, message, and traceback as separate JSON fields so you can query for specific types of crashes. |
 | What happens if a JSON log is malformed? | Log aggregators will usually fall back to treating the entire malformed JSON block as a single unstructured text string, losing queryability but keeping the data. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 A major gotcha with structured logging is **Type Conflicts** in your indexer.
 
@@ -168,11 +168,11 @@ Bro, you must enforce a strict, organization-wide schema for standard fields. If
 
 Another tricky edge case is logging non-serializable objects. If you try to log a custom Python class object or a database connection object directly into a structured logger, the JSON encoder will throw an exception and crash your app. You must ensure you are only passing primitive data types (strings, ints, dicts) to the logger.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 At Stripe, tracking a specific payment failure across thousands of servers is trivial. Every single log entry related to a transaction is structured and includes a `transaction_id`. An engineer simply opens Kibana, types `transaction_id: "tx_98765" AND level: "error"`, and instantly sees the exact microservice and exact reason for the failure, without reading through a single wall of text.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -180,13 +180,13 @@ At Stripe, tracking a specific payment failure across thousands of servers is tr
 | DO ensure critical context like `trace_id` and `environment` are bound to every log. | DON'T manually add standard fields; use middleware or interceptors to inject them. |
 | DO use established libraries (like `structlog`, `pino`, `logrus`). | DON'T try to write your own JSON formatter from scratch. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 :::caution Standardize Your Keys
 If Team A uses `userId`, Team B uses `user_id`, and Team C uses `uid`, your observability platform becomes a nightmare to query. You will have to write queries like `userId:99 OR user_id:99 OR uid:99`. Establish an engineering-wide logging schema early and enforce it via linting or shared libraries.
 :::
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Fix | Example |
 |---|---|---|

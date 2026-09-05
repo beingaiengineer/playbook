@@ -42,7 +42,7 @@ If you give the Chef 50 appliances at once, they might get confused and try to b
 | Picking the blender and adding ice | The LLM emitting a tool call with JSON arguments |
 | The blended smoothie | The Tool Execution Result returned to the LLM |
 
-## 3. Concept Explanation
+## 4. Concept Explanation
 
 The Tool Use pattern (often powered by Function Calling under the hood) is what turns a passive chatbot into an active Agent.
 
@@ -50,7 +50,7 @@ An LLM on its own is just a text-prediction engine trapped in a box. It cannot s
 
 Use this pattern literally anytime your agent needs real-time data or needs to mutate state in the real world. Don't use it if the answer is purely conceptual and already exists in the LLM's pre-training data.
 
-## 4. Syntax Table
+## 5. Syntax Table
 
 Here is how tool schemas are generally structured across modern frameworks (OpenAI, LangChain, Anthropic).
 
@@ -61,7 +61,7 @@ Here is how tool schemas are generally structured across modern frameworks (Open
 | `parameters` | `dict` | JSON Schema defining the expected arguments (e.g., `location: string`). |
 | `required` | `list` | Which arguments the LLM absolutely must provide. |
 
-## 5. Beginner Example
+## 6. Beginner Example
 
 Here is a minimal example using LangChain's `@tool` decorator.
 
@@ -86,7 +86,7 @@ print(response.tool_calls)
 # [{'name': 'get_weather', 'args': {'location': 'Mumbai'}}]
 ```
 
-## 6. Real-World Engineering Example
+## 7. Real-World Engineering Example
 
 Bro, let's look at a production scenario. You are building a Customer Support Agent that needs to look up order statuses and issue refunds via an internal API.
 
@@ -124,7 +124,7 @@ def lookup_order_tool(input_data: OrderLookupInput) -> str:
         return "Error: Database timeout. We will try again later."
 ```
 
-## 7. Internal Working
+## 8. Internal Working
 
 When you provide tools to an LLM, the framework injects the JSON schemas of those tools into the system prompt. The LLM processes the user prompt, realizes it needs outside info, and instead of generating text, it generates a structured `tool_call` object.
 
@@ -151,7 +151,7 @@ The framework intercepts this `tool_call`, pauses the LLM, executes the local Py
   ]}
 />
 
-## 8. Performance Table
+## 9. Performance Table
 
 | Metric | Characteristic | Why |
 |---|---|---|
@@ -159,7 +159,7 @@ The framework intercepts this `tool_call`, pauses the LLM, executes the local Py
 | **Token Usage** | Variable | Passing 50 complex tool schemas into the system prompt consumes thousands of input tokens on *every* request. |
 | **Reliability** | Framework Dependent | Strong models (GPT-4) respect complex schemas. Weaker models might hallucinate arguments or ignore required fields. |
 
-## 9. Top Interview Questions
+## 10. Top Interview Questions
 
 | Question | Answer |
 |---|---|
@@ -169,7 +169,7 @@ The framework intercepts this `tool_call`, pauses the LLM, executes the local Py
 | **How do you handle authentication in tools?** | You do NOT pass API keys through the LLM prompt. The LLM only provides the arguments (e.g., `user_id`). The Python function running locally injects the secure API key into the request header. |
 | **What is a "ToolMessage"?** | It is a specific message type in the LLM conversation history that indicates the content is the result of a previously requested tool call. It must contain the matching `tool_call_id`. |
 
-## 10. Tricky Questions & Edge Cases
+## 11. Tricky Questions & Edge Cases
 
 Bro, what happens if the LLM hallucinates an argument that isn't in your schema? Let's say your schema requires an `integer`, but the LLM passes `"five"`.
 
@@ -177,13 +177,13 @@ If you just pass that straight to your Python code, your app crashes with a `Typ
 
 The edge case is **Validation Failures**. You must use something like Pydantic to strictly validate the LLM's JSON *before* your business logic runs. If validation fails, you catch the `ValidationError` and send a `ToolMessage` back to the LLM saying, "Hey, you gave me a string but I need an integer. Try again." Let the agent fix its own mistake.
 
-## 11. Real-World Usage
+## 12. Real-World Usage
 
 - **Customer Support Dashboards (Intercom/Zendesk)**: Agents use tools to `fetch_ticket_history`, `issue_refund`, and `update_address`.
 - **Data Engineering Agents**: Agents use tools to `query_sql_database`, `generate_matplotlib_chart`, and `save_to_s3`.
 - **RAG Systems**: Retrieval is literally just a tool call. The agent uses a `search_vector_db` tool to find documents before answering.
 
-## 12. Best Practices
+## 13. Best Practices
 
 | DO | DON'T |
 |---|---|
@@ -191,13 +191,13 @@ The edge case is **Validation Failures**. You must use something like Pydantic t
 | **DO** return string-based error messages from your tools so the LLM can understand why it failed. | **DON'T** let your Python function throw unhandled exceptions that crash the orchestrator. |
 | **DO** type-hint your tool arguments heavily (using Pydantic models). | **DON'T** trust the LLM's output blindly. Sanitize inputs before hitting databases. |
 
-## 13. Production Notes
+## 14. Production Notes
 
 > ⚠️ **Context Window Blowouts from Search Tools**
 > The most common production crash is an agent using a `search_web` tool, and the tool returning the entire raw HTML of Wikipedia.
 > **Production Fix**: Your tool implementation MUST truncate, summarize, or parse the data. Never return more than ~1000 tokens of text from a single tool call back to the LLM.
 
-## 14. Common Mistakes
+## 15. Common Mistakes
 
 | Mistake | Impact | The Fix (Code) |
 |---|---|---|
@@ -205,12 +205,12 @@ The edge case is **Validation Failures**. You must use something like Pydantic t
 | Returning raw JSON blobs | Wastes tokens and confuses the LLM | Format the return: `f"User Name: {data['name']}, Status: {data['status']}"` |
 | Forgetting `tool_call_id` | OpenAI API throws an error: "Invalid message sequence" | Ensure your framework properly matches the tool execution result with the LLM's generated ID. |
 
-## 15. Related Topics
+## 16. Related Topics
 - [ReAct Pattern](./react-pattern.mdx)
 - [Function Calling Deep Dive](#)
 - [API Tools](#)
 
-## 16. Top GitHub Repos
+## 17. Top GitHub Repos
 
 | Repository | Stars | Description | Why It Matters |
 |---|---|---|---|

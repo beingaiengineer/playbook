@@ -172,7 +172,7 @@ The Workflow will hang! Because it is strictly event-driven, the system waits fo
 
 ---
 
-## 17. Advanced Routing (SubQuestionQueryEngine)
+### Advanced Routing (SubQuestionQueryEngine)
 1. **Sub-Question Queries**: Before Workflows, LlamaIndex built massive agentic power via the `SubQuestionQueryEngine`. If a user asks, "Compare the revenue of Uber and Lyft in 2021", the engine autonomously splits the prompt into two sub-questions: "Uber 2021 revenue" and "Lyft 2021 revenue", executes them in parallel against different RAG tools, and merges the answers.
 2. **Context Window Management**: LlamaIndex provides advanced memory modules (`ChatMemoryBuffer`) that automatically summarize or truncate chat history before it exceeds the LLM's context window, ensuring agents don't crash on turn 50 of a conversation.
 
@@ -191,7 +191,7 @@ The Workflow will hang! Because it is strictly event-driven, the system waits fo
 | [run-llama/llama_index](https://github.com/run-llama/llama_index) | ⭐ 30k+ | The official LlamaIndex repo. | The premier framework for connecting LLMs to data. |
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 
 | Directive | Instruction | Rationale |
 |---|---|---|

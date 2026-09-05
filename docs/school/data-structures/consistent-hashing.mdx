@@ -95,13 +95,13 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N * V) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
+## 11. Best Practices
 Even with virtual nodes, hot keys (e.g. a viral video ID) can still overwhelm a single physical server because all requests for that key resolve to the same node.
 
 ## 12. Real-World Usage
 Distributed databases (Cassandra, DynamoDB), Content Delivery Networks (CDNs), and distributed caches.
 
-## 11. Tricky Questions & Edge Cases
+## 13. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use virtual nodes to balance the load evenly across servers. | Implement standard modulo hashing for any distributed stateful system. |
@@ -159,7 +159,7 @@ Distributed databases (Cassandra, DynamoDB), Content Delivery Networks (CDNs), a
 - **Topology Awareness:** Basic consistent hashing doesn't know about physical network topology. It might place replicas of data on servers in the same rack, defeating fault-tolerance goals if the rack loses power.
 
 
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When generating sharding or caching logic for distributed systems, enforce consistent hashing over simple modulo hashing to prevent massive cache invalidation upon topology changes. | Prevents massive performance degradations in deployed systems. |
