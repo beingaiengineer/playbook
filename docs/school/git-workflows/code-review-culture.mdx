@@ -112,10 +112,12 @@ The lifecycle of a review is asynchronous. It requires context switching, which 
 
 | Question | Answer |
 |---|---|
-| How do you handle a disagreement during a code review? | Take it offline or to a synchronous call (Zoom/Slack huddle). Text easily escalates. |
-| What do you look for when reviewing code? | Logic flaws, edge cases, security risks, test coverage, and readability. I let the linter handle syntax. |
-| A senior engineer leaves a review you think is wrong. What do you do? | Ask for clarification respectfully: "Could you help me understand why X is better here? I thought Y because..." |
-| Why is self-review important? | You catch 80% of silly mistakes before wasting a reviewer's time. |
+| How do you handle a disagreement during a code review? | It is best to take it offline or to a synchronous call like a Zoom meeting or Slack huddle. Text-based communication easily escalates and loses tone, making it harder to find common ground. |
+| What do you look for when reviewing code? | Reviewers typically look for logic flaws, unhandled edge cases, security risks, adequate test coverage, and overall readability. You should let an automated linter handle syntax formatting so you can focus on the architecture. |
+| A senior engineer leaves a review you think is wrong. What do you do? | You should ask for clarification respectfully instead of getting defensive. Phrase it like: 'Could you help me understand why X is better here? I originally chose Y because...' |
+| Why is self-review important? | Self-reviewing your own PR before adding reviewers helps you catch 80% of silly mistakes, like leaving print statements or commented-out code. It shows respect for the reviewer's time and builds trust in your engineering quality. |
+| What is the ideal size for a Pull Request? | Industry consensus is that PRs should be under 400 lines of code. Anything larger causes reviewer fatigue, meaning the reviewer will likely just skim the code and miss critical bugs. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

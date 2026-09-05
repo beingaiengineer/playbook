@@ -135,10 +135,12 @@ When you execute a Git command, the Git binary explicitly looks for executable f
 
 | Question | Answer |
 |---|---|
-| Can Git hooks be pushed to a remote repository? | No. The `.git/hooks/` directory is strictly local and not tracked. You must use tools like Husky or `pre-commit` framework to share them. |
-| How do you bypass a git hook? | By passing the `--no-verify` (or `-n`) flag. e.g., `git commit -m "fix" --no-verify`. |
-| What is a server-side hook? | Hooks that run on the remote server (e.g., `pre-receive`). They can reject pushes if the code doesn't meet corporate policies. |
-| What is `lint-staged`? | A tool that only runs linters on files currently in the staging area, making pre-commit hooks much faster. |
+| Can Git hooks be pushed to a remote repository? | No. The `.git/hooks/` directory is strictly local and not tracked by Git itself. You must use external tools like Husky (for Node.js) or the `pre-commit` framework to share them across your team. |
+| How do you bypass a git hook? | By passing the `--no-verify` (or `-n`) flag when executing a command. For example, `git commit -m "fix" --no-verify` will skip the pre-commit checks if you need to force something through. |
+| What is a server-side hook? | Hooks that run on the remote Git server, such as `pre-receive`. They can automatically reject pushes if the code doesn't meet corporate policies or formatting rules before the code is even accepted. |
+| What is `lint-staged`? | It is a tool that only runs linters on files currently in the staging area. This makes pre-commit hooks much faster, as they only analyze the specific files you modified rather than the entire repository. |
+| What is the difference between `pre-commit` and `prepare-commit-msg`? | `pre-commit` runs before you even type a message, used for linting and tests. `prepare-commit-msg` runs right after the default message is created, allowing you to dynamically inject data like JIRA ticket numbers into the commit message. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

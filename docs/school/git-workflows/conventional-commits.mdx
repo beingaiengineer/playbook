@@ -121,10 +121,12 @@ Conventional Commits don't change how Git works internally; they change how down
 
 | Question | Answer |
 |---|---|
-| What is the primary purpose of Conventional Commits? | To allow automated tools to determine Semantic Versioning (SemVer) bumps and generate changelogs. |
-| How do you indicate a major breaking change? | By appending `!` after the type/scope (e.g., `feat!: new API`) or adding `BREAKING CHANGE:` in the commit footer. |
-| What if a commit has multiple types, like a feature and a fix? | You should break it into two separate commits. Commits should be atomic. |
-| What scope should I use? | Scopes are optional but should represent the module or domain of the project (e.g., `feat(database)`, `fix(auth)`). |
+| What is the primary purpose of Conventional Commits? | The primary purpose is to provide a standardized format that allows automated tools to parse commit history. This enables automatic Semantic Versioning (SemVer) bumps and changelog generation. |
+| How do you indicate a major breaking change? | You can append an exclamation mark `!` after the type/scope, such as `feat!: new API`. Alternatively, you can add the exact phrase `BREAKING CHANGE:` in the commit message footer. |
+| What if a commit has multiple types, like a feature and a fix? | You should break it down into two separate commits before pushing. Commits should be atomic and represent a single logical change to maintain a clean history. |
+| What scope should I use? | Scopes are optional in the specification, but they should concisely represent the module or domain of the project being changed. Common examples include `feat(database)` or `fix(auth)`. |
+| Is `chore:` a standard Conventional Commit type? | While not strictly defined in the core SemVer mapping (which focuses on `feat` and `fix`), `chore:` is a widely adopted community standard. It is used for maintenance tasks like updating dependencies or build scripts that don't affect production code. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

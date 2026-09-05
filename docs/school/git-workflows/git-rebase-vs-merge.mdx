@@ -127,10 +127,12 @@ Because the parent commit has changed, the SHA-1 hash of every rebased commit ch
 
 | Question | Answer |
 |---|---|
-| When should you NEVER use rebase? | Never rebase a public branch that other people have already cloned or pulled. It will destroy their local history. |
-| What does `git push --force-with-lease` do? | It force-pushes a rebased branch safely, ensuring you don't accidentally overwrite a teammate's commit that you haven't fetched yet. |
-| What is the advantage of Rebase over Merge? | It creates a clean, linear, readable Git history without meaningless "Merge branch main into feature" commits. |
-| What is interactive rebasing? | A tool (`git rebase -i`) used to rewrite local history: squashing, dropping, or rewording commits before sharing them. |
+| When should you NEVER use rebase? | You should never rebase a public branch that other developers have already cloned or pulled. Rewriting public history will destroy their local branches and cause massive conflicts when they try to push. |
+| What does `git push --force-with-lease` do? | It safely force-pushes a rebased branch to the remote repository. It checks if anyone else has pushed new commits since you last fetched, preventing you from accidentally overwriting a teammate's work. |
+| What is the advantage of Rebase over Merge? | Rebasing creates a clean, linear, and readable Git history without cluttering it up with meaningless 'Merge branch main into feature' commits. It makes tracking down bugs much easier. |
+| What is interactive rebasing? | It is a powerful tool invoked with `git rebase -i` used to rewrite your local history. You can squash multiple messy commits together, drop bad commits, or reword commit messages before sharing them with the team. |
+| What happens if you run `git pull` by default? | By default, `git pull` performs a fetch followed by a merge, which creates an extra merge commit if your local branch diverged. You can configure it to rebase instead using `git config pull.rebase true`. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

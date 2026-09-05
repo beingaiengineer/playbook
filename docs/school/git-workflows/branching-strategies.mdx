@@ -131,11 +131,12 @@ This is why branching in Git is practically instantaneous, unlike older systems 
 
 | Question | Answer |
 |---|---|
-| What is GitFlow? | A strict branching model using `master`, `develop`, `feature`, `release`, and `hotfix` branches. Good for boxed software, bad for SaaS. |
-| What is Trunk-Based Development? | A model where developers merge code into `main` (the trunk) at least daily. It relies heavily on automated testing. |
-| How is a branch different from a tag? | A branch pointer moves automatically as you add commits. A tag pointer is frozen on a specific commit forever (like `v1.0.0`). |
-| Why do we use feature branches? | To isolate experimental or incomplete code from the stable production base. |
-| What does `HEAD` mean in Git? | `HEAD` is a special pointer that shows what branch or commit your working directory is currently checked out to. |
+| What is GitFlow? | It is a strict branching model utilizing specific branches like `master`, `develop`, `feature`, `release`, and `hotfix`. While good for traditional boxed software releases, it is generally considered too complex and slow for modern SaaS continuous deployment. |
+| What is Trunk-Based Development? | It is a branching model where developers merge code into `main` (the trunk) frequently, usually at least daily. It relies heavily on feature flags and automated testing to prevent breaking the main build. |
+| How is a branch different from a tag? | A branch is a movable pointer that automatically advances forward as you add new commits to it. A tag is a permanent, frozen pointer attached to a specific commit forever, usually used for marking releases like `v1.0.0`. |
+| Why do we use feature branches? | Feature branches allow developers to isolate experimental or incomplete code from the stable production base. This ensures the main branch always remains deployable while new work happens in parallel. |
+| What does `HEAD` mean in Git? | The `HEAD` is a special pointer that shows exactly which branch or commit your working directory is currently checked out to. Moving HEAD means you are switching what files you are looking at. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

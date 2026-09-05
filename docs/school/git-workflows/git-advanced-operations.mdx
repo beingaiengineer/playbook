@@ -130,10 +130,12 @@ The `reflog` is literally a diary of where your `HEAD` pointer has been.
 
 | Question | Answer |
 |---|---|
-| I accidentally ran `git reset --hard` and lost my commits. How do I get them back? | Use `git reflog` to find the SHA hash of the lost commit, then `git checkout <hash>` or `git reset --hard <hash>` to restore it. |
-| What is cherry-picking? | Applying the changes introduced by a specific commit on one branch onto a completely different branch. |
-| Can you cherry-pick a merge commit? | Yes, but you must specify which parent branch to use as the mainline using the `-m` flag (e.g., `git cherry-pick -m 1 <hash>`). |
-| What happens if you `git stash` but your files are untracked (new files)? | By default, Git ignores untracked files. You must use `git stash -u` (include untracked) to stash new files. |
+| I accidentally ran `git reset --hard` and lost my commits. How do I get them back? | You can use `git reflog` to find the SHA hash of the lost commit, as Git keeps a log of where your HEAD has been. Then you can run `git checkout <hash>` or `git reset --hard <hash>` to restore it. |
+| What is cherry-picking? | Cherry-picking is the process of applying the changes introduced by a specific commit on one branch directly onto a completely different branch. It is useful for pulling a specific bug fix without merging an entire feature branch. |
+| Can you cherry-pick a merge commit? | Yes, but you must specify which parent branch to use as the mainline using the `-m` flag. For example, `git cherry-pick -m 1 <hash>` tells Git which history path to follow. |
+| What happens if you `git stash` but your files are untracked (new files)? | By default, Git ignores untracked files when stashing. You must use the `git stash -u` (include untracked) or `git stash -a` (all) flag to ensure new files are also stashed away. |
+| How do you squash the last 3 commits into one? | You use interactive rebase by running `git rebase -i HEAD~3`. Then, you change the word `pick` to `squash` (or `s`) for the second and third commits in the text editor that opens. |
+
 
 ## 10. Tricky Questions & Edge Cases
 
