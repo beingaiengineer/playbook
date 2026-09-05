@@ -138,10 +138,12 @@ If Branch A changed line 10 from the Base, and Branch B *also* changed line 10 f
 
 | Question | Answer |
 |---|---|
-| What is a merge conflict? | It's when two branches have modified the same lines in a file, and Git cannot determine which version to keep automatically. |
-| How do you abort a merge in progress? | `git merge --abort`. It resets your working tree to the state before you typed `git merge`. |
-| In a conflict marker, what does `HEAD` represent? | `HEAD` represents the current branch you were on when you initiated the merge (your local changes). |
-| Can conflicts happen on binary files (like images)? | Yes. Git cannot inject text markers into an image. You must choose one version using `git checkout --ours image.png` or `--theirs`. |
+| What is a merge conflict? | It is when two branches have modified the exact same lines in a file, or one deleted a file while the other modified it. Git cannot determine which version to keep automatically, so it pauses and asks a human to resolve it. |
+| How do you abort a merge in progress? | You can run `git merge --abort`. This safely resets your working tree back to the state it was in before you originally typed the `git merge` command. |
+| In a conflict marker, what does `HEAD` represent? | The `HEAD` marker represents the current branch you were on when you initiated the merge command. It signifies your local changes before bringing in the other branch. |
+| Can conflicts happen on binary files (like images)? | Yes, but Git cannot inject text-based conflict markers into a binary image file. You must manually choose one entire version over the other using `git checkout --ours image.png` or `--theirs`. |
+| Why do merge conflicts happen in `package-lock.json` and how do you fix them? | They happen when two branches install different NPM packages. You should never resolve lockfile conflicts manually; instead, resolve the `package.json` conflicts, then run `npm install` again to regenerate the lockfile cleanly. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

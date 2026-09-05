@@ -116,10 +116,12 @@ Modern monorepos use Git features like `sparse-checkout` (only pulling the folde
 
 | Question | Answer |
 |---|---|
-| Is a Monorepo the same as a Monolithic architecture? | No. Monorepo is how code is *stored* (version control). Monolith is how code is *deployed* (architecture). You can store 50 independent microservices in a monorepo. |
-| Why do large companies prefer Monorepos? | To avoid "dependency hell". In a monorepo, there is only "One Version of the Truth". You never have microservice A using v1 of a library and microservice B using v2. |
-| What is the biggest downside of a Monorepo? | Tooling complexity. Standard Git and standard CI/CD break down at scale. You must invest in build systems like Bazel or Nx. |
-| How do you handle CI in a Monorepo? | You use a tool to generate a dependency graph. If a PR only touches the frontend app, the CI only runs frontend tests, skipping backend tests. |
+| Is a Monorepo the same as a Monolithic architecture? | No. A Monorepo is simply how source code is stored in version control, while a Monolith is how code is deployed in architecture. You can easily store 50 independent microservices within a single monorepo. |
+| Why do large companies prefer Monorepos? | Monorepos help avoid 'dependency hell' by ensuring there is only 'One Version of the Truth'. You never have microservice A using v1 of an internal library while microservice B is stuck using v2. |
+| What is the biggest downside of a Monorepo? | The biggest downside is tooling complexity and slow performance at scale. Standard Git commands and standard CI/CD pipelines break down when thousands of developers commit to one repo, requiring specialized build systems like Bazel. |
+| How do you handle CI in a Monorepo? | You use advanced build tools to generate a dependency graph and only test affected projects. For example, if a PR only touches a frontend app, the CI automatically skips all backend tests. |
+| How does code sharing work in a Polyrepo architecture? | In a Polyrepo, if you want to share a UI component across three apps, you must extract it into its own repo, publish it to a package registry (like npm). Then you must install that versioned package in the other repos. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

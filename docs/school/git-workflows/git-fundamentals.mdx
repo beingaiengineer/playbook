@@ -136,11 +136,12 @@ If a file didn't change, Git just stores a reference to the previous identical f
 
 | Question | Answer |
 |---|---|
-| What is the difference between Git and GitHub? | Git is the local version control tool. GitHub is a remote hosting service for Git repositories. |
-| What does `git clone` actually do? | It downloads the entire repository, including all branches and full commit history, to your local machine. |
-| Why is Git called "distributed"? | Because every developer has a full, complete copy of the repository history locally, not just the current files. |
-| Explain the staging area (index). | It's a buffer between the working directory and the repo. It lets you selectively choose which changes will be in the next commit. |
-| How do you change the message of the very last commit? | `git commit --amend -m "New message"` (only do this if you haven't pushed!). |
+| What is the difference between Git and GitHub? | Git is the underlying version control software installed locally on your computer. GitHub is a commercial cloud-based hosting service that provides a graphical interface and remote storage for your Git repositories. |
+| What does `git clone` actually do? | It downloads the entire repository from a remote server to your local machine. This includes not just the current files, but all branches and the entire commit history from the beginning of the project. |
+| Why is Git called "distributed"? | Unlike centralized systems, every developer cloning a Git repository gets a full, complete copy of the repository history locally. You can commit and view logs entirely offline without a network connection. |
+| Explain the staging area (index). | The staging area is a buffer between your working directory and the actual repository. It allows you to selectively choose which modified files will be included in the very next commit. |
+| How do you change the message of the very last commit? | You can run `git commit --amend -m "New message"` to rewrite the last commit message. However, you should only do this if you haven't pushed the commit to a remote server yet. |
+
 
 ## 10. Tricky Questions & Edge Cases
 

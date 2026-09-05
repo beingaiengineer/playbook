@@ -129,11 +129,12 @@ When you open a PR, the platform (GitHub) creates an interface showing the `diff
 
 | Question | Answer |
 |---|---|
-| What is the difference between a PR and a Merge Request? | Nothing. GitHub calls it a Pull Request. GitLab calls it a Merge Request. Same concept. |
-| Why did my PR update automatically without me doing anything? | Because you pushed new commits to the branch associated with the PR. The PR auto-updates. |
-| Can a PR be merged if there are conflicts? | No. You must resolve the conflicts locally and push the resolution before the merge button unlocks. |
-| What is a Draft PR? | A PR marked as "WIP" (Work In Progress). It signals to reviewers not to review it yet, but allows CI tests to run. |
-| What does LGTM mean? | "Looks Good To Me". A common approval comment. |
+| What is the difference between a PR and a Merge Request? | There is no difference in concept, only terminology. GitHub and Bitbucket call it a Pull Request (PR). GitLab calls it a Merge Request (MR). Both allow you to propose merging your branch into another. |
+| Why did my PR update automatically without me doing anything? | Because you pushed new commits to the remote branch associated with the Pull Request. The PR automatically tracks the head of your branch and updates the diff accordingly. |
+| Can a PR be merged if there are conflicts? | No, a PR with conflicts cannot be merged automatically. You must resolve the conflicts locally on your machine, commit the resolution, and push the branch before the merge button unlocks. |
+| What is a Draft PR? | A PR marked as 'Draft' or 'WIP' (Work In Progress). It signals to code reviewers not to review it yet, but still allows automated CI tests to run so you can see if your code passes. |
+| What does LGTM mean? | It stands for 'Looks Good To Me'. It is a very common abbreviation used by engineers as an approval comment to signal that the code is ready to be merged. |
+
 
 ## 10. Tricky Questions & Edge Cases
 
