@@ -63,18 +63,20 @@ def process_tasks(tasks):
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Event Loop (Queue) Execution"
-  nodes={[
-    { id: '1', type: 'data', label: 'Network Request Arrives', position: { x: 50, y: 100 } },
-    { id: '2', type: 'tool', label: 'Pushed to Task Queue', position: { x: 300, y: 100 } },
-    { id: '3', type: 'core', label: 'Call Stack Becomes Empty', position: { x: 300, y: 200 } },
-    { id: '4', type: 'process', label: 'Event Loop Pops Task to Stack', position: { x: 550, y: 150 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Event Loop (Queue) Execution",
+    nodes: [
+    { id: '1', kind: 'data', detail: '', title: 'Network Request Arrives', x: 50, y: 100  },
+    { id: '2', kind: 'tool', detail: '', title: 'Pushed to Task Queue', x: 300, y: 100  },
+    { id: '3', kind: 'core', detail: '', title: 'Call Stack Becomes Empty', x: 300, y: 200  },
+    { id: '4', kind: 'process', detail: '', title: 'Event Loop Pops Task to Stack', x: 550, y: 150  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: 'waits until', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

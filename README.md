@@ -1,6 +1,6 @@
-# Python School Playbook
+# BAE School
 
-This repository contains a Docusaurus documentation site for practical Python learning, production engineering notes, and interview preparation.
+This repository contains a Docusaurus documentation site for practical engineering learning, production engineering notes, and interview preparation.
 
 ## Installation
 

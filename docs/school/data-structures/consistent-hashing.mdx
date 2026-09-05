@@ -65,18 +65,20 @@ class ConsistentHash:
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Consistent Hashing Ring Rebalancing"
-  nodes={[
-    { id: '1', type: 'core', label: 'Hash Ring with 3 Servers', position: { x: 50, y: 100 } },
-    { id: '2', type: 'warning', label: 'Server 2 Crashes', position: { x: 300, y: 100 } },
-    { id: '3', type: 'process', label: 'Keys hash forward to Server 3', position: { x: 550, y: 100 } },
-    { id: '4', type: 'data', label: 'Only 1/N keys remapped (Zero downtime)', position: { x: 550, y: 250 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Consistent Hashing Ring Rebalancing",
+    nodes: [
+    { id: '1', kind: 'core', detail: '', title: 'Hash Ring with 3 Servers', x: 50, y: 100  },
+    { id: '2', kind: 'warning', detail: '', title: 'Server 2 Crashes', x: 300, y: 100  },
+    { id: '3', kind: 'process', detail: '', title: 'Keys hash forward to Server 3', x: 550, y: 100  },
+    { id: '4', kind: 'data', detail: '', title: 'Only 1/N keys remapped (Zero downtime)', x: 550, y: 250  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', animated: true, type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

@@ -18,7 +18,7 @@ npm run build
 Every file created or modified must pass these 7 checks:
 
 ### Check 1: Structural Completeness
-Verify that the file contains all **16 mandatory sections** defined in `CONTENT.md`.
+Verify that the file contains all **18 mandatory sections** defined in `CONTENT.md`.
 **FAIL** if any heading is missing.
 
 ### Check 2: Content Depth (Anti-Hallucination)
@@ -63,7 +63,7 @@ When acting as a code reviewer, output this summary table:
 
 | File | Lines | Sections | Diagram | Depth | Hallucination | Verdict |
 |---|---|---|---|---|---|---|
-| `topic-name.mdx` | 235 | 16/16 | 6 nodes | OK | Clean | ✅ PASS |
-| `other.mdx` | 92 | 16/16 | 2 nodes | THIN | Placeholder code | ❌ FAIL |
+| `topic-name.mdx` | 235 | 18/18 | 6 nodes | OK | Clean | ✅ PASS |
+| `other.mdx` | 92 | 18/18 | 2 nodes | THIN | Placeholder code | ❌ FAIL |
 ```
 **On FAIL**: Fix the file immediately and re-run all checks. **Do NOT proceed to merge until all files PASS.**

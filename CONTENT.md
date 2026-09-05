@@ -12,7 +12,7 @@ This is the canonical source for all educational content standards in BAE School
 
 ## 2. Mandatory 18-Section Lesson Template
 
-Every topic page MUST follow this exact 16-section structure, answering these questions in order: 
+Every topic page MUST follow this exact 18-section structure, answering these questions in order: 
 1) Why should I care? 2) What production problem exists? 3) Engineering Story 4) Indian Analogy 5) How does it work? 6) Why is it designed this way? 7) How is it implemented? 8) How is it used in production? 9) What mistakes do engineers make? 10) What do interviewers ask?
 
 ### 1. Quick Summary

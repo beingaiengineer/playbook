@@ -118,18 +118,10 @@ class ProductionBloomFilter:
 import LearningFlow from "@site/src/components/LearningFlow";
 
 <LearningFlow
-  steps={[
-    { id: '1', type: 'core', label: 'Item to Add' },
-    { id: '2', type: 'process', label: 'Hash Function 1' },
-    { id: '3', type: 'process', label: 'Hash Function 2' },
-    { id: '4', type: 'process', label: 'Hash Function k' },
-    { id: '5', type: 'data', label: 'Bit Array (m bits)' },
-    { id: '6', type: 'core', label: 'Item to Check' },
-    { id: '7', type: 'process', label: 'Hash 1...k' },
-    { id: '8', type: 'data', label: 'Check Bits' },
-    { id: '9', type: 'output', label: 'True (Possible) / False (Definite)' }
-  ]}
-  edges={[
+  diagram={{
+    title: undefined,
+    nodes: [],
+    edges: [
     { source: '1', target: '2', label: 'hashes' },
     { source: '1', target: '3', label: 'hashes' },
     { source: '1', target: '4', label: 'hashes' },
@@ -139,7 +131,8 @@ import LearningFlow from "@site/src/components/LearningFlow";
     { source: '6', target: '7', label: 'hashes' },
     { source: '7', target: '8', label: 'reads bits' },
     { source: '8', target: '9', label: 'result' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

@@ -53,18 +53,20 @@ SELECT amount FROM transactions WHERE user_id = 123 ORDER BY created_at DESC LIM
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="B-Tree Database Read"
-  nodes={[
-    { id: '1', type: 'data', label: 'Query WHERE ID = 948', position: { x: 50, y: 100 } },
-    { id: '2', type: 'process', label: 'Read Root Node (RAM)', position: { x: 300, y: 100 } },
-    { id: '3', type: 'warning', label: 'Read Internal Node (Disk Seek)', position: { x: 550, y: 100 } },
-    { id: '4', type: 'output', label: 'Read Leaf Node (Disk Block)', position: { x: 550, y: 200 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "B-Tree Database Read",
+    nodes: [
+    { id: '1', kind: 'data', detail: '', title: 'Query WHERE ID = 948', x: 50, y: 100  },
+    { id: '2', kind: 'process', detail: '', title: 'Read Root Node (RAM)', x: 300, y: 100  },
+    { id: '3', kind: 'warning', detail: '', title: 'Read Internal Node (Disk Seek)', x: 550, y: 100  },
+    { id: '4', kind: 'output', detail: '', title: 'Read Leaf Node (Disk Block)', x: 550, y: 200  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: 'pointer traversal', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, label: 'high latency IO', type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

@@ -117,18 +117,10 @@ class SimpleHyperLogLog:
 import LearningFlow from "@site/src/components/LearningFlow";
 
 <LearningFlow
-  steps={[
-    { id: '1', type: 'core', label: 'Item Data' },
-    { id: '2', type: 'process', label: 'Hash Function (e.g., MurmurHash)' },
-    { id: '3', type: 'data', label: '64-bit Hash Value' },
-    { id: '4', type: 'process', label: 'Split Hash (Index Bits & Value Bits)' },
-    { id: '5', type: 'process', label: 'Calculate Leading Zeros (Rho)' },
-    { id: '6', type: 'data', label: 'Registers (Buckets)' },
-    { id: '7', type: 'warning', label: 'Update Register with Max(Current, Rho)' },
-    { id: '8', type: 'process', label: 'Calculate Harmonic Mean' },
-    { id: '9', type: 'output', label: 'Cardinality Estimate' }
-  ]}
-  edges={[
+  diagram={{
+    title: undefined,
+    nodes: [],
+    edges: [
     { source: '1', target: '2', label: 'input' },
     { source: '2', target: '3', label: 'generates' },
     { source: '3', target: '4', label: 'splits' },
@@ -137,7 +129,8 @@ import LearningFlow from "@site/src/components/LearningFlow";
     { source: '6', target: '7', label: 'updates' },
     { source: '6', target: '8', label: 'reads all' },
     { source: '8', target: '9', label: 'computes estimate' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

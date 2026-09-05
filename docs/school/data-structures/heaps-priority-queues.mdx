@@ -70,18 +70,20 @@ class TaskScheduler:
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Min-Heap Insertion (Heapify Up)"
-  nodes={[
-    { id: '1', type: 'data', label: 'Insert 5 at Bottom-Left', position: { x: 50, y: 150 } },
-    { id: '2', type: 'process', label: 'Compare 5 with Parent (20)', position: { x: 300, y: 100 } },
-    { id: '3', type: 'warning', label: 'Swap (5 < 20)', position: { x: 550, y: 100 } },
-    { id: '4', type: 'core', label: 'Compare with Next Parent', position: { x: 550, y: 200 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Min-Heap Insertion (Heapify Up)",
+    nodes: [
+    { id: '1', kind: 'data', detail: '', title: 'Insert 5 at Bottom-Left', x: 50, y: 150  },
+    { id: '2', kind: 'process', detail: '', title: 'Compare 5 with Parent (20)', x: 300, y: 100  },
+    { id: '3', kind: 'warning', detail: '', title: 'Swap (5 < 20)', x: 550, y: 100  },
+    { id: '4', kind: 'core', detail: '', title: 'Compare with Next Parent', x: 550, y: 200  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: 'violates min-heap', animated: true, type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', label: 'bubble up', type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

@@ -14,7 +14,7 @@ const config: Config = {
   url: 'https://school.beingaiengineer.com',
   baseUrl: '/',
   organizationName: 'being-ai-engineer',
-  projectName: 'playbook',
+  projectName: 'school',
 
   onBrokenLinks: 'throw',
 

@@ -13,13 +13,13 @@ Any autonomous agent (Jules, Paperclip, etc.) operating in this repository must 
 2. **`SOUL.md`** — Teaching philosophy, voice, and Indian analogies.
 3. **`HEARTBEAT.md`** — Execution checklist for every session.
 4. **`TOOLS.md`** — Tool knowledge and stack context.
-5. **`CONTENT.md`** — The 16-section lesson template, diagram rules, and code standards.
+5. **`CONTENT.md`** — The 18-section lesson template, diagram rules, and code standards.
 6. **`DESIGN.md`** — UI tokens, layout, and components.
 7. **`QUALITY.md`** — Validation gates, thresholds, and checklists.
 8. **`<Agent-Specific>.md`** (e.g. `CLAUDE.md`, `JULES.md`) — Rules for the specific AI agent.
 9. **`.claude/agents/<course>-agent.md`** — Course-specific overrides (if applicable).
 10. **`docs/school/<course>/design.md`** — Curriculum map for the specific course.
-11. **`MEMORY.md`** — The agent's current task queue and session state.
+11. **`.claude/agent-memory/*/MEMORY.md`** — The agent's current task queue and session state.
 
 ## Repository Workflow
 For the exact step-by-step execution lifecycle, always refer to **`HEARTBEAT.md`**.

@@ -123,18 +123,10 @@ print(kg.get_context_for_llm("ServiceA"))
 import LearningFlow from "@site/src/components/LearningFlow";
 
 <LearningFlow
-  steps={[
-    { id: '1', type: 'data', label: 'Unstructured Data (PDFs, Logs)' },
-    { id: '2', type: 'data', label: 'Structured Data (SQL, APIs)' },
-    { id: '3', type: 'process', label: 'Entity Extraction (NLP / LLM)' },
-    { id: '4', type: 'process', label: 'Relationship Mapping' },
-    { id: '5', type: 'core', label: 'Node: User 123' },
-    { id: '6', type: 'core', label: 'Node: Product X' },
-    { id: '7', type: 'warning', label: 'Edge: "PURCHASED"' },
-    { id: '8', type: 'process', label: 'Graph DB Engine (e.g., Neo4j)' },
-    { id: '9', type: 'output', label: 'Graph Query Engine' }
-  ]}
-  edges={[
+  diagram={{
+    title: undefined,
+    nodes: [],
+    edges: [
     { source: '1', target: '3', label: 'ingests' },
     { source: '2', target: '3', label: 'ingests' },
     { source: '3', target: '4', label: 'identifies' },
@@ -145,7 +137,8 @@ import LearningFlow from "@site/src/components/LearningFlow";
     { source: '5', target: '8', label: 'stores in' },
     { source: '6', target: '8', label: 'stores in' },
     { source: '8', target: '9', label: 'enables' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

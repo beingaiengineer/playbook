@@ -60,18 +60,20 @@ def search_bst(root, target):
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="BST Search (O(log n))"
-  nodes={[
-    { id: '1', type: 'core', label: 'Start at Root (50)', position: { x: 50, y: 150 } },
-    { id: '2', type: 'process', label: 'Target (30) < 50', position: { x: 300, y: 100 } },
-    { id: '3', type: 'process', label: 'Move to Left Child (25)', position: { x: 550, y: 100 } },
-    { id: '4', type: 'output', label: 'Target (30) > 25 (Move Right)', position: { x: 550, y: 200 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "BST Search (O(log n))",
+    nodes: [
+    { id: '1', kind: 'core', detail: '', title: 'Start at Root (50)', x: 50, y: 150  },
+    { id: '2', kind: 'process', detail: '', title: 'Target (30) < 50', x: 300, y: 100  },
+    { id: '3', kind: 'process', detail: '', title: 'Move to Left Child (25)', x: 550, y: 100  },
+    { id: '4', kind: 'output', detail: '', title: 'Target (30) > 25 (Move Right)', x: 550, y: 200  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

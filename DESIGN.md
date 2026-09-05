@@ -1,6 +1,6 @@
 # BAE School Platform Design Specifications (DESIGN.md)
 
-This document defines the platform-level design guidelines, folder layout requirements, and custom components for courses written for the BAE School playbook.
+This document defines the platform-level design guidelines, folder layout requirements, and custom components for courses written for BAE School.
 
 ## Multi-Topic Architecture
 BAE School is a multi-course engineering platform.

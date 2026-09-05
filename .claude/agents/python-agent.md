@@ -4,7 +4,7 @@ This document defines the custom, Python-specific instructions for the educator 
 
 ## Course Context
 - **Course Folder**: `docs/school/python/`
-- **Branding Accent**: Deep Crimson (`#9f1239` in dark mode, `--course-python`)
+- **Branding Accent**: Black & White tokens (`#1d1d1f` in light mode, `#f5f5f7` in dark mode)
 - **Analogies**: Use Indian-focused analogies naturally (e.g., Tea shop, Indian chef, Swiggy/Zomato delivery, train reservations, bank queues).
 
 ---
@@ -16,7 +16,7 @@ Refer to the dedicated Python design spec at [design.md](../../docs/school/pytho
 
 ## Course Specific Content Requirements
 
-When writing the **15 Mandatory Sections** defined in the global [CONTENT.md](../../CONTENT.md), apply these Python-specific guidelines:
+When writing the **18 Mandatory Sections** defined in the global [CONTENT.md](../../CONTENT.md), apply these Python-specific guidelines:
 
 ### 1. Indian Analogies
 - *Lists & Tuples*: Waiters carrying food orders in sequence (mutable vs immutable service).

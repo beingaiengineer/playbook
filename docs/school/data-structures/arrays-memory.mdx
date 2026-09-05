@@ -54,18 +54,20 @@ def compute_metrics(prices: np.ndarray, volumes: np.ndarray):
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="CPU Cache Line Fetching"
-  nodes={[
-    { id: '1', type: 'core', label: 'Request Array[0]', position: { x: 50, y: 150 } },
-    { id: '2', type: 'process', label: 'Cache Miss (Fetch from RAM)', position: { x: 300, y: 100 } },
-    { id: '3', type: 'data', label: 'RAM Returns Array[0] to Array[15]', position: { x: 550, y: 100 } },
-    { id: '4', type: 'output', label: 'Array[1] to Array[15] are now O(1) Cache Hits', position: { x: 550, y: 250 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "CPU Cache Line Fetching",
+    nodes: [
+    { id: '1', kind: 'core', detail: '', title: 'Request Array[0]', x: 50, y: 150  },
+    { id: '2', kind: 'process', detail: '', title: 'Cache Miss (Fetch from RAM)', x: 300, y: 100  },
+    { id: '3', kind: 'data', detail: '', title: 'RAM Returns Array[0] to Array[15]', x: 550, y: 100  },
+    { id: '4', kind: 'output', detail: '', title: 'Array[1] to Array[15] are now O(1) Cache Hits', x: 550, y: 250  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: '64-byte block fetch', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table
@@ -82,19 +84,54 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(n) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 13. Best Practices
-If you use a dynamic array (like a Python list) and continuously append elements, it eventually has to resize itself. This requires allocating a new, larger block of memory and copying all elements over. A single append operation could theoretically take O(n) time during a resize, though it's O(1) amortized.
+### Advanced Interview Questions
 
-## 12. Real-World Usage
-High-performance computing, game engines (Entity Component Systems), and financial trading systems where memory layout dictates performance.
+| Question | Answer |
+|---|---|
+| How does a dynamic array (like Python's list or Java's ArrayList) resize itself? | When the underlying static array is full, it allocates a new, larger array (often double the size), copies all elements over, and then frees the old array. |
+| What is the concept of Amortized Time Complexity? | While resizing a dynamic array takes O(N) time, it happens infrequently enough that if you average the cost over many insertions, the time per insertion is effectively O(1). |
+| Explain Cache Locality and why Arrays excel at it. | CPUs load data in chunks (cache lines). Because arrays are stored contiguously in RAM, loading one element also loads the next several elements into the ultra-fast L1/L2 cache, making subsequent access incredibly fast. |
+| What is the difference between an Array and a Tuple in languages that support both? | Arrays (or lists) are typically mutable, meaning they can be changed after creation. Tuples are immutable; once created, their elements and size cannot be changed. |
+| How do multi-dimensional arrays map to flat linear memory? | They are usually flattened either in Row-Major order (C, C++, Python) where consecutive elements of a row are contiguous, or Column-Major order (Fortran, MATLAB). |
 
 ## 11. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use arrays when you know the size in advance or when iteration speed is paramount. | Use arrays if you need to frequently insert or delete elements at the beginning or middle, as it requires shifting elements. |
 
+### Tricky Edge Cases
+- **Memory Leaks in Dynamic Arrays:** If a dynamic array grows huge and then most elements are deleted, the underlying buffer might not shrink automatically, holding onto gigabytes of unused RAM.
+- **False Sharing:** In multi-threaded environments, if two threads frequently update different variables that happen to share the same cache line in an array, it causes severe performance degradation.
+
+## 12. Real-World Usage
+High-performance computing, game engines (Entity Component Systems), and financial trading systems where memory layout dictates performance.
+
+### Real-World Applications (Extended)
+
+- **Image Processing:** A digital image is fundamentally a 2D or 3D array of pixels. Operations like blurring, edge detection, and color inversion are just mathematical operations on array elements.
+- **Mathematical Matrices:** Linear algebra operations heavily rely on arrays. Machine learning frameworks (like TensorFlow or PyTorch) are built entirely around highly optimized multi-dimensional arrays (tensors).
+- **Lookup Tables:** Pre-calculating complex functions and storing the results in an array allows for instant O(1) retrieval instead of expensive runtime computation.
+- **String Implementation:** In almost all lower-level languages (like C), strings are simply arrays of characters terminated by a null byte.
+- **Database Record Storage:** Fixed-length database records are often stored contiguously in file pages, mirroring array structures for fast sequential scans.
+- **Cryptography:** Many cryptographic algorithms involve complex permutations and substitutions that are implemented efficiently using fixed-size arrays.
+- **Game Boards:** Chess, Tic-Tac-Toe, and almost all grid-based games represent the game state internally as a 1D or 2D array.
+
+## 13. Best Practices
+If you use a dynamic array (like a Python list) and continuously append elements, it eventually has to resize itself. This requires allocating a new, larger block of memory and copying all elements over. A single append operation could theoretically take O(n) time during a resize, though it's O(1) amortized.
+
 ## 14. Production Notes
 > **Warning**: Dynamically resizing arrays (like Python lists or C++ std::vector) involves allocating a larger block and copying all elements, which can cause latency spikes if not pre-allocated correctly.
+
+### Common Production Issues
+
+- **Array Out Of Bounds:** This is one of the most common and dangerous errors in software engineering. In languages like C/C++, it leads to reading or writing arbitrary memory locations, causing crashes, silent data corruption, or severe security vulnerabilities (Buffer Overflows).
+- **Resizing Pauses:** Dynamic arrays must occasionally reallocate and copy all their data when they grow. This O(N) operation can cause unacceptable latency spikes in real-time systems (like trading platforms or games).
+- **Memory Fragmentation:** Allocating very large contiguous arrays can fail if the heap is fragmented, even if there is enough total free memory available. The OS simply cannot find a single contiguous block large enough.
+- **False Sharing:** In multi-threaded applications, if thread A writes to `array[0]` and thread B writes to `array[1]`, and both elements sit on the same CPU cache line, the cache line will bounce continuously between cores, destroying performance.
+- **Initialization Overhead:** Creating a massive array requires the OS to allocate the memory and often zero it out for security reasons. This initialization can take a noticeable amount of time.
+- **Memory Leaks:** While the array itself might be garbage collected, if it's an array of objects, keeping the array alive prevents all objects inside it from being collected, even if they are no longer needed.
+- **Pointer Arithmetic:** In C/C++, pointer math on arrays is a common source of complex bugs.
+- **Type Safety:** In weakly typed languages, mixing types in an array can break hardware-level optimizations.
 
 ## 15. Common Mistakes
 | Mistake | Correction |
@@ -111,49 +148,7 @@ High-performance computing, game engines (Entity Component Systems), and financi
 |---|---|---|---|
 | [numpy/numpy](https://github.com/numpy/numpy) | ⭐ 25k+ | Fundamental package for scientific computing with Python. | Provides a high-performance multidimensional array object. |
 
-
-
-### Advanced Interview Questions
-
-| Question | Answer |
-|---|---|
-| How does a dynamic array (like Python's list or Java's ArrayList) resize itself? | When the underlying static array is full, it allocates a new, larger array (often double the size), copies all elements over, and then frees the old array. |
-| What is the concept of Amortized Time Complexity? | While resizing a dynamic array takes O(N) time, it happens infrequently enough that if you average the cost over many insertions, the time per insertion is effectively O(1). |
-| Explain Cache Locality and why Arrays excel at it. | CPUs load data in chunks (cache lines). Because arrays are stored contiguously in RAM, loading one element also loads the next several elements into the ultra-fast L1/L2 cache, making subsequent access incredibly fast. |
-| What is the difference between an Array and a Tuple in languages that support both? | Arrays (or lists) are typically mutable, meaning they can be changed after creation. Tuples are immutable; once created, their elements and size cannot be changed. |
-| How do multi-dimensional arrays map to flat linear memory? | They are usually flattened either in Row-Major order (C, C++, Python) where consecutive elements of a row are contiguous, or Column-Major order (Fortran, MATLAB). |
-
-### Tricky Edge Cases
-- **Memory Leaks in Dynamic Arrays:** If a dynamic array grows huge and then most elements are deleted, the underlying buffer might not shrink automatically, holding onto gigabytes of unused RAM.
-- **False Sharing:** In multi-threaded environments, if two threads frequently update different variables that happen to share the same cache line in an array, it causes severe performance degradation.
-
-
-### Real-World Applications (Extended)
-
-- **Image Processing:** A digital image is fundamentally a 2D or 3D array of pixels. Operations like blurring, edge detection, and color inversion are just mathematical operations on array elements.
-- **Mathematical Matrices:** Linear algebra operations heavily rely on arrays. Machine learning frameworks (like TensorFlow or PyTorch) are built entirely around highly optimized multi-dimensional arrays (tensors).
-- **Lookup Tables:** Pre-calculating complex functions and storing the results in an array allows for instant O(1) retrieval instead of expensive runtime computation.
-- **String Implementation:** In almost all lower-level languages (like C), strings are simply arrays of characters terminated by a null byte.
-- **Database Record Storage:** Fixed-length database records are often stored contiguously in file pages, mirroring array structures for fast sequential scans.
-- **Cryptography:** Many cryptographic algorithms involve complex permutations and substitutions that are implemented efficiently using fixed-size arrays.
-- **Game Boards:** Chess, Tic-Tac-Toe, and almost all grid-based games represent the game state internally as a 1D or 2D array.
-
-
-### Common Production Issues
-
-- **Array Out Of Bounds:** This is one of the most common and dangerous errors in software engineering. In languages like C/C++, it leads to reading or writing arbitrary memory locations, causing crashes, silent data corruption, or severe security vulnerabilities (Buffer Overflows).
-- **Resizing Pauses:** Dynamic arrays must occasionally reallocate and copy all their data when they grow. This O(N) operation can cause unacceptable latency spikes in real-time systems (like trading platforms or games).
-- **Memory Fragmentation:** Allocating very large contiguous arrays can fail if the heap is fragmented, even if there is enough total free memory available. The OS simply cannot find a single contiguous block large enough.
-- **False Sharing:** In multi-threaded applications, if thread A writes to `array[0]` and thread B writes to `array[1]`, and both elements sit on the same CPU cache line, the cache line will bounce continuously between cores, destroying performance.
-- **Initialization Overhead:** Creating a massive array requires the OS to allocate the memory and often zero it out for security reasons. This initialization can take a noticeable amount of time.
-- **Memory Leaks:** While the array itself might be garbage collected, if it's an array of objects, keeping the array alive prevents all objects inside it from being collected, even if they are no longer needed.
-
-- **Pointer Arithmetic:** In C/C++, pointer math on arrays is a common source of complex bugs.
-
-- **Type Safety:** In weakly typed languages, mixing types in an array can break hardware-level optimizations.
-
-
-## 17. AI Agent Instructions
+## 18. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When generating code that iterates over large collections of primitive data types, prioritize array-based structures like NumPy arrays over list of objects to improve cache locality. | Prevents massive performance degradations in deployed systems. |

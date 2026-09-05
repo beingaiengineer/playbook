@@ -130,20 +130,10 @@ def detect_corruption(tree1, tree2, current_node1, current_node2):
 import LearningFlow from "@site/src/components/LearningFlow";
 
 <LearningFlow
-  steps={[
-    { id: '1', type: 'data', label: 'Data Block A' },
-    { id: '2', type: 'data', label: 'Data Block B' },
-    { id: '3', type: 'data', label: 'Data Block C' },
-    { id: '4', type: 'data', label: 'Data Block D' },
-    { id: '5', type: 'core', label: 'Hash A (Leaf)' },
-    { id: '6', type: 'core', label: 'Hash B (Leaf)' },
-    { id: '7', type: 'core', label: 'Hash C (Leaf)' },
-    { id: '8', type: 'core', label: 'Hash D (Leaf)' },
-    { id: '9', type: 'process', label: 'Hash AB (Node)' },
-    { id: '10', type: 'process', label: 'Hash CD (Node)' },
-    { id: '11', type: 'output', label: 'Root Hash ABCD' }
-  ]}
-  edges={[
+  diagram={{
+    title: undefined,
+    nodes: [],
+    edges: [
     { source: '1', target: '5', label: 'hashes' },
     { source: '2', target: '6', label: 'hashes' },
     { source: '3', target: '7', label: 'hashes' },
@@ -154,7 +144,8 @@ import LearningFlow from "@site/src/components/LearningFlow";
     { source: '8', target: '10', label: 'combines' },
     { source: '9', target: '11', label: 'combines' },
     { source: '10', target: '11', label: 'combines' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

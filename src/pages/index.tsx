@@ -28,7 +28,7 @@ const courses: Course[] = [
     title: 'Backend Engineering with Python',
     description:
       'Master practical backend engineering. Build scalable APIs, handle background processing, manage databases, and deploy production-ready systems using FastAPI and Django.',
-    topicCount: '144 lessons',
+    topicCount: '143 lessons',
     href: '/docs/school/python/intro/what-is-python',
     accent: 'var(--course-python)',
     available: true,
@@ -40,7 +40,7 @@ const courses: Course[] = [
     title: 'Agentic Frameworks',
     description:
       'Master AI agents, LangChain, LangGraph, CrewAI, and multi-agent systems.',
-    topicCount: '97 lessons',
+    topicCount: '96 lessons',
     href: '/docs/school/agentic-frameworks/intro/what-are-ai-agents',
     accent: 'var(--course-python)',
     available: true,
@@ -51,7 +51,7 @@ const courses: Course[] = [
     title: 'Data Structures',
     description:
       'Master arrays, trees, graphs, heaps, hash tables, and algorithm complexities.',
-    topicCount: '15 lessons',
+    topicCount: '14 lessons',
     href: '/docs/school/data-structures/arrays-memory',
     accent: 'var(--course-python)',
     available: true,
@@ -62,7 +62,7 @@ const courses: Course[] = [
     title: 'App Security',
     description:
       'Secure applications against OWASP top 10, handle auth, and protect data.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/app-security/security-mindset',
     accent: 'var(--course-python)',
     available: true,
@@ -73,7 +73,7 @@ const courses: Course[] = [
     title: 'CI/CD Pipelines',
     description:
       'Automate testing, builds, and deployments with GitHub Actions and Docker.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/cicd-pipelines/what-is-cicd',
     accent: 'var(--course-python)',
     available: true,
@@ -83,7 +83,7 @@ const courses: Course[] = [
     title: 'FastAPI Concepts',
     description:
       'Deep dive into building high-performance REST APIs with FastAPI.',
-    topicCount: '13 lessons',
+    topicCount: '12 lessons',
     href: '/docs/school/fastapi-concepts/what-is-an-api',
     accent: 'var(--course-python)',
     available: true,
@@ -93,7 +93,7 @@ const courses: Course[] = [
     title: 'Git Workflows',
     description:
       'Master advanced Git, rebase, merge strategies, and team collaboration.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/git-workflows/git-fundamentals',
     accent: 'var(--course-python)',
     available: true,
@@ -103,7 +103,7 @@ const courses: Course[] = [
     title: 'Incident Management',
     description:
       'Handle production outages, runbooks, and post-mortems like a pro.',
-    topicCount: '10 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/incident-management/what-is-an-incident',
     accent: 'var(--course-python)',
     available: true,
@@ -113,7 +113,7 @@ const courses: Course[] = [
     title: 'Observability',
     description:
       'Implement logging, metrics, and tracing for production systems.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/observability/what-is-observability',
     accent: 'var(--course-python)',
     available: true,
@@ -123,7 +123,7 @@ const courses: Course[] = [
     title: 'OOP & Patterns',
     description:
       'Object-oriented programming and essential software design patterns.',
-    topicCount: '10 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/oop-patterns/oop-in-production',
     accent: 'var(--course-python)',
     available: true,
@@ -133,7 +133,7 @@ const courses: Course[] = [
     title: 'Release & Deployment',
     description:
       'Strategies for safely rolling out code to millions of users.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/release-deployment/deployment-fundamentals',
     accent: 'var(--course-python)',
     available: true,
@@ -143,7 +143,7 @@ const courses: Course[] = [
     title: 'Requirements & Estimation',
     description:
       'Learn how to break down complex projects and estimate work.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/requirements-estimation/requirement-gathering',
     accent: 'var(--course-python)',
     available: true,
@@ -153,7 +153,7 @@ const courses: Course[] = [
     title: 'SDLC & Agile',
     description:
       'The software development lifecycle, Scrum, Kanban, and sprints.',
-    topicCount: '11 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/sdlc-agile/what-is-sdlc',
     accent: 'var(--course-python)',
     available: true,
@@ -163,7 +163,7 @@ const courses: Course[] = [
     title: 'SLIs & SLOs',
     description:
       'Define, measure, and manage service level reliability objectives.',
-    topicCount: '10 lessons',
+    topicCount: '9 lessons',
     href: '/docs/school/sli-slo/sli-slo-sla-explained',
     accent: 'var(--course-python)',
     available: true,
@@ -173,7 +173,7 @@ const courses: Course[] = [
     title: 'Software Testing',
     description:
       'Unit, integration, and E2E testing strategies for bulletproof code.',
-    topicCount: '11 lessons',
+    topicCount: '10 lessons',
     href: '/docs/school/software-testing/testing-pyramid',
     accent: 'var(--course-python)',
     available: true,
@@ -232,10 +232,7 @@ function HeroBanner() {
       <div className={styles.heroGlow} />
       <div className={styles.heroPattern} />
       <div className="container relative z-10">
-        <div className={styles.cohortBadge}>
-          <span className={styles.badgePulse}></span>
-          <span>Winter 2024 Cohort Open</span>
-        </div>
+        
         <Heading as="h1" className={styles.heroTitle}>
           <span className={styles.titleSub}>BAE School</span>
           <span className={styles.textGradient}>Practical Engineering.</span>
@@ -259,20 +256,12 @@ function HeroBanner() {
         {/* Stats Grid */}
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
-            <span className={styles.statValue}>120+</span>
+            <span className={styles.statValue}>381</span>
             <span className={styles.statLabel}>Lessons</span>
           </div>
           <div className={styles.statCard}>
-            <span className={styles.statValue}>20</span>
-            <span className={styles.statLabel}>Sections</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue}>10k+</span>
-            <span className={styles.statLabel}>Students</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue}>98%</span>
-            <span className={styles.statLabel}>Placement</span>
+            <span className={styles.statValue}>16</span>
+            <span className={styles.statLabel}>Courses</span>
           </div>
         </div>
       </div>

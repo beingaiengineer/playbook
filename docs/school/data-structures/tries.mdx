@@ -76,18 +76,20 @@ class Trie:
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Trie Auto-Complete Search"
-  nodes={[
-    { id: '1', type: 'core', label: 'Root Node (Empty)', position: { x: 50, y: 150 } },
-    { id: '2', type: 'process', label: "Traverse 'c' -> 'a' -> 't'", position: { x: 300, y: 100 } },
-    { id: '3', type: 'data', label: 'Reach End of Prefix', position: { x: 550, y: 100 } },
-    { id: '4', type: 'output', label: "DFS to find 'catch', 'cater'", position: { x: 550, y: 250 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Trie Auto-Complete Search",
+    nodes: [
+    { id: '1', kind: 'core', detail: '', title: 'Root Node (Empty)', x: 50, y: 150  },
+    { id: '2', kind: 'process', detail: '', title: "Traverse 'c' -> 'a' -> 't'", x: 300, y: 100  },
+    { id: '3', kind: 'data', detail: '', title: 'Reach End of Prefix', x: 550, y: 100  },
+    { id: '4', kind: 'output', detail: '', title: "DFS to find 'catch', 'cater'", x: 550, y: 250  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: 'O(L) time', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, label: 'gather words', type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

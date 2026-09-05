@@ -58,18 +58,20 @@ cache[generate_cache_key({'id': 1})] = response
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Hash Map Insertion & Collision"
-  nodes={[
-    { id: '1', type: 'data', label: 'Key: "user_123"', position: { x: 50, y: 100 } },
-    { id: '2', type: 'tool', label: 'Hash Function -> 842', position: { x: 300, y: 100 } },
-    { id: '3', type: 'process', label: 'Index = 842 % 16 = 10', position: { x: 550, y: 100 } },
-    { id: '4', type: 'warning', label: 'Index 10 Occupied -> Chaining (LinkedList)', position: { x: 550, y: 200 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Hash Map Insertion & Collision",
+    nodes: [
+    { id: '1', kind: 'data', detail: '', title: 'Key: "user_123"', x: 50, y: 100  },
+    { id: '2', kind: 'tool', detail: '', title: 'Hash Function -> 842', x: 300, y: 100  },
+    { id: '3', kind: 'process', detail: '', title: 'Index = 842 % 16 = 10', x: 550, y: 100  },
+    { id: '4', kind: 'warning', detail: '', title: 'Index 10 Occupied -> Chaining (LinkedList)', x: 550, y: 200  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, label: 'collision detected', type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

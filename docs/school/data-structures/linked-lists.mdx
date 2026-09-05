@@ -59,18 +59,20 @@ class LRUCache:
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Linked List Insertion (O(1))"
-  nodes={[
-    { id: '1', type: 'data', label: 'Create New Node (X)', position: { x: 50, y: 100 } },
-    { id: '2', type: 'process', label: 'Find Prev Node (A)', position: { x: 300, y: 100 } },
-    { id: '3', type: 'core', label: 'Set X.next = A.next', position: { x: 550, y: 100 } },
-    { id: '4', type: 'core', label: 'Set A.next = X', position: { x: 550, y: 200 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Linked List Insertion (O(1))",
+    nodes: [
+    { id: '1', kind: 'data', detail: '', title: 'Create New Node (X)', x: 50, y: 100  },
+    { id: '2', kind: 'process', detail: '', title: 'Find Prev Node (A)', x: 300, y: 100  },
+    { id: '3', kind: 'core', detail: '', title: 'Set X.next = A.next', x: 550, y: 100  },
+    { id: '4', kind: 'core', detail: '', title: 'Set A.next = X', x: 550, y: 200  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: 'preserve tail', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', animated: true, label: 'link front', type: 'step' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table

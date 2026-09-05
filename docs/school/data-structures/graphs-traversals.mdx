@@ -74,18 +74,20 @@ def shortest_path(graph, start, end):
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
-  title="Dijkstra's Shortest Path"
-  nodes={[
-    { id: '1', type: 'core', label: 'Start Node A (Dist: 0)', position: { x: 50, y: 150 } },
-    { id: '2', type: 'process', label: 'Visit Neighbors (B, C)', position: { x: 300, y: 100 } },
-    { id: '3', type: 'data', label: 'Update Priority Queue', position: { x: 550, y: 100 } },
-    { id: '4', type: 'output', label: 'Mark Node A as Visited', position: { x: 300, y: 250 } }
-  ]}
-  edges={[
+  diagram={{
+    title: "Dijkstra's Shortest Path",
+    nodes: [
+    { id: '1', kind: 'core', detail: '', title: 'Start Node A (Dist: 0)', x: 50, y: 150  },
+    { id: '2', kind: 'process', detail: '', title: 'Visit Neighbors (B, C)', x: 300, y: 100  },
+    { id: '3', kind: 'data', detail: '', title: 'Update Priority Queue', x: 550, y: 100  },
+    { id: '4', kind: 'output', detail: '', title: 'Mark Node A as Visited', x: 300, y: 250  }
+  ],
+    edges: [
     { id: 'e1-2', source: '1', target: '2', type: 'step' },
     { id: 'e2-3', source: '2', target: '3', label: 'push new distances', type: 'smoothstep' },
     { id: 'e3-4', source: '3', target: '4', label: 'pop min distance', animated: true, type: 'smoothstep' }
-  ]}
+  ]
+  }}
 />
 
 ## 9. Performance Table
