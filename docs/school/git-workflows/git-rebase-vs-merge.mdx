@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Rebasing a public branch that other developers are using. |
 | Performance | Merge is O(1) metadata creation. Rebase rewrites history (O(N) commits). |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine two teams working on a monolithic repository. Team A uses `git merge` exclusively. Their history looks like a tangled ball of yarn; every time someone updates their branch, a massive, noisy "Merge branch main" commit is added, making it impossible to read the git log to find when a bug was introduced. Team B uses `git rebase`. Before they merge their feature into main, they rebase it, placing their commits cleanly on top of the latest changes. Their history is a straight, chronological line, making debugging a breeze via `git bisect`. However, one day a junior on Team B force-pushes a rebase to a shared branch, completely destroying his teammates' local histories and causing a chaotic afternoon. Rebase creates beautiful history, but merge is idiot-proof. Knowing when to use which is the mark of a senior engineer.
+
+## 3. Real-World Analogy
 **FDE Scenario:** A client's repository history looks like a plate of spaghetti because 100 engineers use `git merge` constantly. You need to teach the team to use `git rebase` for local feature branches to keep the history linear.
 
 

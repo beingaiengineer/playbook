@@ -21,7 +21,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 **FDE Scenario:** Directly exposing raw client databases to an agent is a massive security risk. FDEs implement strict Tool Use boundaries to mediate all interactions, guaranteeing that the agent only executes pre-approved, safe actions with strict schema validation.
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine an LLM is a brilliant software engineer trapped in a windowless room with no computer. If you ask it, "Is the database currently down?", it has absolutely no way to know because its knowledge cut off a year ago. It might confidently hallucinate and say "Yes," completely misleading you. This is why the Tool Use pattern is the foundation of agentic systems. By giving the LLM a defined set of tools—like a `query_database` tool, a `web_search` tool, or a `run_python` tool—you punch a hole in that windowless room. The LLM can now reason: "I don't know the answer, but I can write a SQL query, execute the `query_database` tool, read the results, and then answer the user." Tools bridge the gap between static intelligence and dynamic action.
+
+## 3. Real-World Analogy
 
 Bro, imagine a Master Chef in a kitchen. The Chef (the LLM) has the intelligence and the recipes, but they can't actually chop an onion with their bare hands.
 

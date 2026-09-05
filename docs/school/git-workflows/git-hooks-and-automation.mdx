@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Bypassing hooks with `--no-verify` because tests take too long. |
 | Performance | Depends entirely on the scripts you run. |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine a developer on your team constantly pushes code that fails the linter. They use tabs instead of spaces, forget to run the formatter, and leave `console.log()` statements everywhere. Every single Pull Request results in a massive argument about style, wasting the senior engineers' time. You could keep yelling at them, or you could use Git Hooks. You set up a `pre-commit` hook in the repository. Now, the moment the developer types `git commit -m "update"`, a local script intercepts the command, runs the linter, formats the code, and rejects the commit entirely if it fails. The developer is physically prevented from pushing bad code. Git hooks automate discipline, removing the human element from tedious quality-control checks and shifting the enforcement from angry PR comments to silent, instantaneous local scripts.
+
+## 3. Real-World Analogy
 **FDE Scenario:** Your client's `main` branch breaks daily because engineers keep pushing code that fails tests or contains syntax errors. You must implement pre-commit hooks to block bad code from leaving their local machines.
 
 

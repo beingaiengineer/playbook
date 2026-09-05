@@ -14,10 +14,10 @@ sidebar_label: "Graphs & Traversals"
 | Common Mistake | Using DFS to find the shortest path in an unweighted graph. |
 | Performance | O(V + E) for traversal time |
 
-## 2. The Engineering Story
+## 2. Engineering Story
 A client had a spaghetti architecture of 150 microservices. Deployments constantly failed because Service A depended on Service B, which depended on Service C, which secretly depended back on Service A. We modeled their architecture as a Directed Graph and ran a Depth-First Search cycle detection algorithm. We found 12 circular dependencies. We broke the cycles, and deployments became stable. Graphs reveal the hidden chaos, bro.
 
-## 3. The Real-World Analogy
+## 3. Real-World Analogy
 {/* TODO: [BAE-DS-009] | docs/school/data-structures/graphs-traversals.mdx | bae-ds-009.png | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. A visual representation of Graphs & Traversals in a real-world scenario like Bae navigating a complex subway system map, finding the shortest path between different connected stations, showing Bae helping out. */}
 
 | Real World | Technical Concept |
@@ -25,16 +25,16 @@ A client had a spaghetti architecture of 150 microservices. Deployments constant
 | Organizing items | Graphs & Traversals |
 | Finding items | Search operations |
 
-## 4. How It Works
+## 4. Concept Explanation
 A Graph consists of vertices (nodes) connected by edges. They can be directed or undirected, weighted or unweighted. Traversing them requires algorithms like Depth-First Search (DFS) for deep exploration (like cycle detection) or Breadth-First Search (BFS) for finding the shortest path in unweighted networks.
 
-## 5. Core Components
+## 5. Syntax Table
 | Feature | Syntax/Usage |
 |---|---|
 | Creation | `graph = {'A': ['B', 'C']}` |
 | Access | `dfs(graph, start_node)` |
 
-## 6. Types of Operations
+## 6. Beginner Example
 ```python
 graph = {
     'A': ['B', 'C'],
@@ -50,7 +50,7 @@ def dfs(graph, node, visited):
             dfs(graph, neighbor, visited)
 ```
 
-## 7. Implementation Examples
+## 7. Real-World Engineering Example
 ```python
 from collections import deque
 
@@ -70,25 +70,30 @@ def shortest_path(graph, start, end):
     return None
 ```
 
-## 8. The LearningFlow Diagram
+## 8. Internal Working
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
+  title="Dijkstra's Shortest Path"
   nodes={[
-    { id: '1', type: 'core', position: { x: 250, y: 0 }, data: { label: 'Data Input' } },
-    { id: '2', type: 'process', position: { x: 250, y: 100 }, data: { label: 'Process with Graphs & Traversals' } }
+    { id: '1', type: 'core', label: 'Start Node A (Dist: 0)', position: { x: 50, y: 150 } },
+    { id: '2', type: 'process', label: 'Visit Neighbors (B, C)', position: { x: 300, y: 100 } },
+    { id: '3', type: 'data', label: 'Update Priority Queue', position: { x: 550, y: 100 } },
+    { id: '4', type: 'output', label: 'Mark Node A as Visited', position: { x: 300, y: 250 } }
   ]}
   edges={[
-    { id: 'e1-2', source: '1', target: '2', animated: true }
+    { id: 'e1-2', source: '1', target: '2', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', label: 'push new distances', type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'pop min distance', animated: true, type: 'smoothstep' }
   ]}
 />
 
-## 9. Time and Space Complexity
+## 9. Performance Table
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
 | Access/Search | O(V + E) for traversal | O(V) |
 
-## 10. Senior Engineering Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | How do you detect a cycle in a directed graph? | Use DFS and keep track of the recursion stack. If you visit a node that is currently in the recursion stack, a cycle exists. |
@@ -97,18 +102,18 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(V) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 11. Production Best Practices
+## 13. Best Practices
 A node can be visited multiple times in DFS if it's reachable via different paths, unless you maintain a global `visited` set.
 
-## 12. Real-World Applications
+## 12. Real-World Usage
 Social networks, routing algorithms (Google Maps), recommendation engines, and dependency resolvers (npm, pip).
 
-## 13. Comparison with Alternatives
+## 11. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Always keep a `visited` set during traversal to prevent infinite loops. | Represent dense graphs (many edges) as adjacency lists; use an adjacency matrix instead for O(1) edge lookups. |
 
-## 14. Recommended Tools or Libraries
+## 14. Production Notes
 > **Warning**: Recursive DFS can hit recursion depth limits on massive graphs. Use an iterative approach with a stack for production systems.
 
 ## 15. Common Mistakes
@@ -162,7 +167,7 @@ Social networks, routing algorithms (Google Maps), recommendation engines, and d
 - **Throttling:** When crawling the web (a massive graph), failing to implement rate limiting per domain will result in your crawler being blocked or taking down target servers.
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | Always include cycle detection (e.g., maintaining a visited set) when writing any graph traversal algorithm to prevent infinite loops in production environments. | Prevents massive performance degradations in deployed systems. |

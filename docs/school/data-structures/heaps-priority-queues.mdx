@@ -14,10 +14,10 @@ sidebar_label: "Heaps & Priority Queues"
 | Common Mistake | Failing to add a tie-breaking secondary value to the heap tuple when the primary priority might collide. |
 | Performance | O(log N) (push/pop) time |
 
-## 2. The Engineering Story
+## 2. Engineering Story
 Our client's background worker system processed video encoding tasks FIFO. When the marketing team uploaded a 4K ad, it stalled the queue for hours, while thousands of small user avatars waited. We replaced the standard queue with a Min-Heap Priority Queue, scoring tasks by size and SLA. Suddenly, avatars processed instantly while massive videos chewed through background cycles. Priority queues keep the system fluid, bro.
 
-## 3. The Real-World Analogy
+## 3. Real-World Analogy
 {/* TODO: [BAE-DS-008] | docs/school/data-structures/heaps-priority-queues.mdx | bae-ds-008.png | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. A visual representation of Heaps & Priority Queues in a real-world scenario like an emergency room triage where Bae ensures the most critical patients (highest priority) are always treated first, regardless of arrival time, showing Bae helping out. */}
 
 | Real World | Technical Concept |
@@ -25,16 +25,16 @@ Our client's background worker system processed video encoding tasks FIFO. When 
 | Organizing items | Heaps & Priority Queues |
 | Finding items | Search operations |
 
-## 4. How It Works
+## 4. Concept Explanation
 A Heap is a specialized tree-based structure that satisfies the heap property: in a Min-Heap, the parent is always smaller than its children. This makes finding the minimum element O(1). It's the standard way to implement a Priority Queue, where elements are dequeued based on priority rather than insertion order.
 
-## 5. Core Components
+## 5. Syntax Table
 | Feature | Syntax/Usage |
 |---|---|
 | Creation | `import heapq; heap = []` |
 | Access | `heapq.heappop(heap)` |
 
-## 6. Types of Operations
+## 6. Beginner Example
 ```python
 import heapq
 
@@ -46,7 +46,7 @@ heapq.heappush(heap, (1, 'high priority task'))
 next_task = heapq.heappop(heap)
 ```
 
-## 7. Implementation Examples
+## 7. Real-World Engineering Example
 ```python
 import heapq
 import time
@@ -66,25 +66,30 @@ class TaskScheduler:
             execute_task(task_id)
 ```
 
-## 8. The LearningFlow Diagram
+## 8. Internal Working
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
+  title="Min-Heap Insertion (Heapify Up)"
   nodes={[
-    { id: '1', type: 'core', position: { x: 250, y: 0 }, data: { label: 'Data Input' } },
-    { id: '2', type: 'process', position: { x: 250, y: 100 }, data: { label: 'Process with Heaps & Priority Queues' } }
+    { id: '1', type: 'data', label: 'Insert 5 at Bottom-Left', position: { x: 50, y: 150 } },
+    { id: '2', type: 'process', label: 'Compare 5 with Parent (20)', position: { x: 300, y: 100 } },
+    { id: '3', type: 'warning', label: 'Swap (5 < 20)', position: { x: 550, y: 100 } },
+    { id: '4', type: 'core', label: 'Compare with Next Parent', position: { x: 550, y: 200 } }
   ]}
   edges={[
-    { id: 'e1-2', source: '1', target: '2', animated: true }
+    { id: 'e1-2', source: '1', target: '2', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', label: 'violates min-heap', animated: true, type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'bubble up', type: 'step' }
   ]}
 />
 
-## 9. Time and Space Complexity
+## 9. Performance Table
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
 | Access/Search | O(log N) (push/pop) | O(N) |
 
-## 10. Senior Engineering Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | How is a heap typically stored in memory? | As a flat array. The children of the node at index i are located at 2i+1 and 2i+2. This makes it extremely cache-friendly. |
@@ -93,18 +98,18 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 11. Production Best Practices
+## 13. Best Practices
 If two items have the same priority in Python's heapq, it attempts to compare the objects themselves, which can crash if they lack a `__lt__` method. Always include a tiebreaker.
 
-## 12. Real-World Applications
+## 12. Real-World Usage
 Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-driven simulation systems.
 
-## 13. Comparison with Alternatives
+## 11. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use Python's `heapq` module for fast, C-optimized heap operations. | Use a sorted list as a priority queue; inserting into a sorted list takes O(N), while a heap takes O(log N). |
 
-## 14. Recommended Tools or Libraries
+## 14. Production Notes
 > **Warning**: Heaps are not entirely sorted. They only guarantee that the root is the min/max. Searching for an arbitrary element in a heap takes O(N).
 
 ## 15. Common Mistakes
@@ -157,7 +162,7 @@ Task scheduling in OS kernels, Dijkstra's shortest path algorithm, and event-dri
 - **Lack of Stability:** If two tasks have the exact same priority, heaps do not guarantee which one will be popped first. If FIFO order among equals is required, a secondary timestamp metric must be added.
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When using `heapq` in Python with complex objects, always insert a monotonic counter as a tie-breaker in the tuple to avoid unorderable type exceptions. | Prevents massive performance degradations in deployed systems. |

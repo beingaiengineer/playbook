@@ -21,7 +21,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 **FDE Scenario:** When an agent fails to extract data from a client's undocumented system, simply retrying the same prompt fails repeatedly. FDEs use Reflexion to ensure the agent evaluates its own failures and modifies its strategy on the next attempt.
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine building an AI coding assistant. You prompt it to write a complex Python script to parse a custom binary format. It spits out 200 lines of code. You copy-paste the code, run it, and immediately get a `SyntaxError`. The agent failed because it generated the code in a single, blind pass, exactly like a junior developer typing without ever running the code. But what if you give the agent a terminal? It writes the code, executes it, sees the `SyntaxError`, reads the traceback, says "Ah, I missed a colon," rewrites the code, and tests it again. This self-correction loop is called Reflection. When you build autonomous AI systems, giving the LLM the ability to critique its own output and retry drastically improves the reliability of the final result, turning a blind guessing machine into a robust engineering system.
+
+## 3. Real-World Analogy
 
 Bro, think about writing an important email to the CEO. You don't just type it out and instantly hit send.
 

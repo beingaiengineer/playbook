@@ -21,7 +21,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 
 **FDE Scenario:** FDEs dealing with diverse client requests—ranging from support tickets to code execution—must ensure the correct specialized sub-agent handles the query. A robust semantic routing layer prevents a generic agent from attempting (and failing) tasks it isn't equipped for.
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine building an AI customer service bot for an airline. A user types: "My flight was canceled and my baggage is lost, I demand a refund!" If you just send this massive, complex prompt to a single generic LLM, it gets overwhelmed. It might issue the refund but forget to locate the baggage, or apologize profusely but take no action. The Routing Pattern solves this. Instead of one monolithic agent, you have a 'Router' agent. Its only job is to read the prompt and classify it. It says, "Ah, this involves baggage and refunds." It then routes the request to a specialized `Baggage_Agent` and a `Finance_Agent`. The Router acts like a highly efficient dispatcher in a 911 call center, ensuring complex inputs are handled by the right specialized tools without overwhelming a single model.
+
+## 3. Real-World Analogy
 
 Bro, think about calling a massive telecom company's customer support line.
 

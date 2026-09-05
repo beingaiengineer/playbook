@@ -14,10 +14,10 @@ sidebar_label: "Tries (Prefix Trees)"
 | Common Mistake | Implementing autocomplete using standard SQL `LIKE` queries on large text columns. |
 | Performance | O(L) where L is string length time |
 
-## 2. The Engineering Story
+## 2. Engineering Story
 A major e-commerce client had a slow typeahead search. For every keystroke, they were running a `LIKE 'prefix%'` SQL query against 5 million product names. The database was screaming. We loaded the product names into an in-memory Trie (Prefix Tree). When a user typed 'App', we traversed to the 'p' node and instantly returned its subtree. Latency dropped from 400ms to 2ms, bro.
 
-## 3. The Real-World Analogy
+## 3. Real-World Analogy
 {/* TODO: [BAE-DS-010] | docs/school/data-structures/tries.mdx | bae-ds-010.png | Detailed modern black and white illustration, clean ink vector style. Pure white background. Strictly grayscale, no colors. Minimal text. Main character is Bae, a cute baby elephant drawn in black and white, wearing a backward baseball cap and oversized thick-rimmed glasses. A visual representation of Tries (Prefix Trees) in a real-world scenario like Bae using a physical autocomplete dictionary, where each page turn follows the next letter of a word down a branching path, showing Bae helping out. */}
 
 | Real World | Technical Concept |
@@ -25,16 +25,16 @@ A major e-commerce client had a slow typeahead search. For every keystroke, they
 | Organizing items | Tries (Prefix Trees) |
 | Finding items | Search operations |
 
-## 4. How It Works
+## 4. Concept Explanation
 A Trie is a tree structure where each node represents a character of a string. All descendants of a node share a common prefix. It is incredibly efficient for prefix-matching, autocomplete, and dictionary implementations because lookup time depends only on the length of the search string, not the number of items stored.
 
-## 5. Core Components
+## 5. Syntax Table
 | Feature | Syntax/Usage |
 |---|---|
 | Creation | `root = TrieNode()` |
 | Access | `trie.search('apple')` |
 
-## 6. Types of Operations
+## 6. Beginner Example
 ```python
 class TrieNode:
     def __init__(self):
@@ -49,7 +49,7 @@ root.children['c'].children['a'].children['t'] = TrieNode()
 root.children['c'].children['a'].children['t'].is_end = True
 ```
 
-## 7. Implementation Examples
+## 7. Real-World Engineering Example
 ```python
 class Trie:
     def __init__(self):
@@ -72,25 +72,30 @@ class Trie:
         return True
 ```
 
-## 8. The LearningFlow Diagram
+## 8. Internal Working
 import LearningFlow from '@site/src/components/LearningFlow';
 
 <LearningFlow
+  title="Trie Auto-Complete Search"
   nodes={[
-    { id: '1', type: 'core', position: { x: 250, y: 0 }, data: { label: 'Data Input' } },
-    { id: '2', type: 'process', position: { x: 250, y: 100 }, data: { label: 'Process with Tries (Prefix Trees)' } }
+    { id: '1', type: 'core', label: 'Root Node (Empty)', position: { x: 50, y: 150 } },
+    { id: '2', type: 'process', label: "Traverse 'c' -> 'a' -> 't'", position: { x: 300, y: 100 } },
+    { id: '3', type: 'data', label: 'Reach End of Prefix', position: { x: 550, y: 100 } },
+    { id: '4', type: 'output', label: "DFS to find 'catch', 'cater'", position: { x: 550, y: 250 } }
   ]}
   edges={[
-    { id: 'e1-2', source: '1', target: '2', animated: true }
+    { id: 'e1-2', source: '1', target: '2', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', label: 'O(L) time', type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', animated: true, label: 'gather words', type: 'step' }
   ]}
 />
 
-## 9. Time and Space Complexity
+## 9. Performance Table
 | Operation | Time Complexity | Space Complexity |
 |---|---|---|
 | Access/Search | O(L) where L is string length | O(N * L) |
 
-## 10. Senior Engineering Interview Questions
+## 10. Top Interview Questions
 | Question | Answer |
 |---|---|
 | Why use a Trie instead of a Hash Map for search? | A Hash Map can only find exact matches. A Trie easily finds all words starting with a specific prefix. |
@@ -99,18 +104,18 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | What is the space complexity? | O(N * L) |
 | How does it compare to its main alternative? | Depends strongly on cache locality and the exact access pattern. |
 
-## 11. Production Best Practices
+## 13. Best Practices
 A standard Trie uses a lot of memory because every single character is a separate object with its own dictionary of children.
 
-## 12. Real-World Applications
+## 12. Real-World Usage
 Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 
-## 13. Comparison with Alternatives
+## 11. Tricky Questions & Edge Cases
 | DO | DON'T |
 |---|---|
 | Use arrays instead of hash maps for child pointers if the alphabet is small and fixed (e.g., DNA sequences A, C, G, T) to save memory overhead. | Store massive amounts of related strings without path compression (Radix Trie), as standard Tries can consume a lot of memory. |
 
-## 14. Recommended Tools or Libraries
+## 14. Production Notes
 > **Warning**: Memory usage in a standard Trie can explode if the dataset contains many long strings with few shared prefixes.
 
 ## 15. Common Mistakes
@@ -164,7 +169,7 @@ Search engine autocomplete, spell checkers, and IP routing tables (Radix Trees).
 - **Unicode Support:** Implementing a Trie for the full UTF-8 space is significantly more complex than ASCII, often requiring multi-level character encoding or switching to a completely different structure.
 
 
-## 18. AI Agent Instructions
+## 17. AI Agent Instructions
 | Directive | Instruction | Rationale |
 |---|---|---|
 | Optimization | When implementing typeahead or prefix matching features, mandate the use of Tries or Radix trees over naive database string matching to prevent query timeouts. | Prevents massive performance degradations in deployed systems. |

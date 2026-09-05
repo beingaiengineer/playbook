@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Trying to build HITL without a persistent checkpointer |
 | Performance | Graph execution freezes and yields to the event loop, so minimal server overhead while waiting |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine deploying an autonomous LangGraph agent that has access to your production database. Its job is to read customer support emails and issue refunds. A malicious user sends an email explicitly tricking the agent into issuing a $10,000 refund to a random account. The agent confidently parses the email, determines a refund is necessary, and executes the database transaction instantly. You just lost ten grand. Autonomous AI agents are incredible, but they are prone to hallucinations, prompt injections, and catastrophic logic failures. For high-stakes actions like financial transactions, sending emails, or deleting data, you cannot trust the agent to act entirely on its own. You must implement a "Human-in-the-Loop" architecture. The agent does 99% of the work—investigating the issue and drafting the refund—but execution pauses, requiring a human engineer to click "Approve" before the final, irreversible tool is called.
+
+## 3. Real-World Analogy
 
 | Office Task | LangGraph HITL Equivalent |
 |---|---|

@@ -108,10 +108,17 @@ def test_upload_retries_on_timeout(mocker):
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="Mocking Execution Flow"
+  nodes={[
+    { id: '1', type: 'core', label: 'Test Function', position: { x: 50, y: 100 } },
+    { id: '2', type: 'tool', label: 'unittest.mock (Patch)', position: { x: 300, y: 100 } },
+    { id: '3', type: 'warning', label: 'Intercepted External Call (e.g. Stripe API)', position: { x: 550, y: 100 } },
+    { id: '4', type: 'output', label: 'Simulated Static Response', position: { x: 550, y: 200 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', label: 'calls mock', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', label: 'intercepts network', animated: true, type: 'smoothstep' },
+    { id: 'e3-4', source: '3', target: '4', label: 'returns immediately', type: 'smoothstep' }
   ]}
 />
 

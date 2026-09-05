@@ -19,7 +19,11 @@ Bro, when the systems are down, you can't have everyone running around screaming
 | Common Mistake | Trying to fix the root cause before mitigating the user impact |
 | Performance | Decreases Time to Mitigate (TTM) |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, a severity-1 alert just fired: the main checkout API is returning 500s. Three engineers jump onto a Slack call. Engineer A thinks it's a database lock and starts frantically killing queries. Engineer B thinks it's a bad deployment and starts reverting the last PR. Engineer C thinks it's a DDoS attack and starts blocking IPs. Within 10 minutes, they've completely corrupted the database and taken down the entire site, turning a minor issue into a catastrophic outage. This happens when there is no structured incident response process. A proper process forces discipline: first you *Triage* (acknowledge the alert), then you *Coordinate* (appoint an Incident Commander to stop everyone from stepping on each other), then you *Mitigate* (stop the bleeding, don't worry about the root cause yet), and finally you *Resolve*. Process beats panic every time.
+
+## 3. Real-World Analogy
 
 {/* TODO: [BAE-ILLUSTRATION] Generate and embed illustration here. Prompt: A grayscale line-art illustration of Bae, a software engineer, interacting with a emergency room (er) scenario: paramedic brings patient in */}
 

@@ -17,7 +17,11 @@ import LearningFlow from '@site/src/components/LearningFlow';
 | Common Mistake | Dropping the Trace ID between service calls |
 | Performance | High overhead. Usually requires "sampling" (only recording 1% or 5% of traces) to save network and storage costs |
 
-## 2. Real-World Analogy
+## 2. Engineering Story
+
+Bro, imagine a user clicks "Buy" on your e-commerce site, and the request times out after 10 seconds. You investigate. The frontend says it was waiting on the API Gateway. The API Gateway says it was waiting on the Checkout Service. The Checkout Service says it was waiting on the Inventory Service. The Inventory Service says it was waiting on the Database. Everyone is pointing fingers, and you have to manually correlate timestamps across five different log aggregators just to find the slow query. Distributed Tracing solves this nightmare by injecting a unique `trace_id` into the very first HTTP request at the frontend, and passing that exact ID down through every single microservice and database call. When the request fails, you simply search for that one `trace_id` and get a beautiful waterfall graph showing exactly which service took 9.5 seconds.
+
+## 3. Real-World Analogy
 
 **FDE Scenario:** As an FDE, debugging latency issues in a client's convoluted, multi-hop architecture is impossible without distributed tracing. It allows you to visualize exactly where a request stalled in the client's system, saving you days of random guessing.
 

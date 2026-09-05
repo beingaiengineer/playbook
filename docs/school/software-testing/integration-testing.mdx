@@ -115,10 +115,17 @@ def test_create_order_integration(postgres_db):
 ## 8. Internal Working
 
 <LearningFlow
-  steps={[
-    { title: 'Step 1', detail: 'Setup' },
-    { title: 'Step 2', detail: 'Execute' },
-    { title: 'Step 3', detail: 'Verify' }
+  title="Integration Testing System"
+  nodes={[
+    { id: '1', type: 'core', label: 'App Module A', position: { x: 50, y: 100 } },
+    { id: '2', type: 'process', label: 'Network/Interface Boundary', position: { x: 300, y: 100 } },
+    { id: '3', type: 'core', label: 'App Module B (e.g. DB)', position: { x: 550, y: 100 } },
+    { id: '4', type: 'warning', label: 'Failure Point (Timeout)', position: { x: 300, y: 200 } }
+  ]}
+  edges={[
+    { id: 'e1-2', source: '1', target: '2', label: 'calls', type: 'step' },
+    { id: 'e2-3', source: '2', target: '3', animated: true, type: 'smoothstep' },
+    { id: 'e2-4', source: '2', target: '4', label: 'integration fails', type: 'step' }
   ]}
 />
 
